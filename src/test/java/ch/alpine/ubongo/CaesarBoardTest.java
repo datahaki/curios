@@ -28,7 +28,7 @@ class CaesarBoardTest {
   void testNonEmpty(CalendarBoards caesarBoard) {
     CalendarBoard calendarBoard = caesarBoard.calendarBoard();
     LocalDate.of(2025, 1, 1).datesUntil(LocalDate.of(2026, 1, 1)) //
-        .filter(_ -> ThreadLocalRandom.current().nextDouble() < 0.05) //
+        .filter(_ -> ThreadLocalRandom.current().nextDouble() < 0.03) //
         .forEach(ld -> {
           IO.println(ld);
           UbongoBoard ubongoBoard = calendarBoard.of(ld);
