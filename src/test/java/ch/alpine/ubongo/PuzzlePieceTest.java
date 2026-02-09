@@ -7,9 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.ext.Timing;
+import ch.alpine.tensor.qty.Timing;
 
 class PuzzlePieceTest {
   @Test
@@ -19,7 +18,7 @@ class PuzzlePieceTest {
     List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
     Timing started = Timing.started();
     List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 100);
-    Scalar val = RealScalar.of(started.seconds());
+    Scalar val = started.seconds();
     IO.println(val);
     IO.println(ubongoSolutions.size());
   }

@@ -10,12 +10,11 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
-import ch.alpine.tensor.ext.Timing;
 import ch.alpine.tensor.mat.Tolerance;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
-import ch.alpine.tensor.qty.Quantity;
+import ch.alpine.tensor.qty.Timing;
 
 /* package */ enum DotMatVecDemo {
   ;
@@ -58,8 +57,8 @@ import ch.alpine.tensor.qty.Quantity;
       }
       // timing.append(Tensors.vector(s_ser.nanoSeconds() / trials, s_par.nanoSeconds() / trials));
       Scalar n = RealScalar.of(dim);
-      t_ser.append(Tensors.of(n, Quantity.of(s_ser.nanoSeconds() / trials, "ns")));
-      t_par.append(Tensors.of(n, Quantity.of(s_par.nanoSeconds() / trials, "ns")));
+      t_ser.append(Tensors.of(n, s_ser.nanoSeconds().divide(RealScalar.of(trials))));
+      t_par.append(Tensors.of(n, s_par.nanoSeconds().divide(RealScalar.of(trials))));
     }
     // Put.of(HomeDirectory.file("timing_matvec.txt"), Transpose.of(timing));
     timeSingle();

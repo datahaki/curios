@@ -8,13 +8,12 @@ import ch.alpine.tensor.Parallelize;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.ext.Timing;
 import ch.alpine.tensor.mat.re.Inverse;
 import ch.alpine.tensor.mat.re.LinearSolve;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
-import ch.alpine.tensor.qty.Quantity;
+import ch.alpine.tensor.qty.Timing;
 
 class LinearSolveMatMatDemo implements ShowProvider {
   @Override
@@ -41,7 +40,7 @@ class LinearSolveMatMatDemo implements ShowProvider {
         LinearSolve.of(a, b);
         timing.stop();
       }
-      timings.append(Tensors.of(RealScalar.of(dim), Quantity.of(timing.nanoSeconds() / trials, "ns")));
+      timings.append(Tensors.of(RealScalar.of(dim), timing.nanoSeconds().divide(RealScalar.of(trials))));
     }
     Show show = new Show();
     show.setPlotLabel("LinearSolve Mat Mat");

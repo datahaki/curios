@@ -5,9 +5,11 @@ import java.time.Duration;
 
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.ext.Timing;
+import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
+import ch.alpine.tensor.qty.Quantity;
+import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.tmp.ResamplingMethod;
 import ch.alpine.tensor.tmp.TimeSeries;
 
@@ -21,7 +23,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
  * iterations=3611 */
 /* package */ enum SynchronizationDemo {
   ;
-  private static final double SEC = 5;
+  private static final Scalar SEC = Quantity.of(5, "s");
 
   private static Scalar spawn() {
     return RandomVariate.of(NormalDistribution.standard());
@@ -31,7 +33,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
     TimeSeries timeSeries = TimeSeries.empty(ResamplingMethod.HOLD_VALUE_FROM_LEFT);
     Timing timing = Timing.started();
     launchThread(timing, timeSeries);
-    while (timing.seconds() < SEC) {
+    while (Scalars.lessThan(timing.seconds(), SEC)) {
       // removing the following line: "synchronized (timeSeries)"
       // ... causes the demo to immediately throw a ConcurrentModificationException
       synchronized (timeSeries) // comment out line in order for demo to crash immediately
@@ -47,7 +49,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
   public static void launchThread(Timing timing, TimeSeries timeSeries) {
     new Thread(() -> {
       int iterations = 0;
-      while (timing.seconds() < SEC) {
+      while (Scalars.lessThan(timing.seconds(), SEC)) {
         // removing the following line: "synchronized (timeSeries)"
         // ... causes the demo to immediately throw a ConcurrentModificationException
         synchronized (timeSeries) // comment out line in order for demo to crash immediately

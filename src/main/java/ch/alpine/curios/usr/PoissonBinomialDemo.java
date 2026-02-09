@@ -1,13 +1,14 @@
 // code by jph
 package ch.alpine.curios.usr;
 
+import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.ext.Timing;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.HistogramDistribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.pdf.d.PoissonBinomialDistribution;
+import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.red.Mean;
 import ch.alpine.tensor.red.Variance;
 
@@ -20,7 +21,7 @@ import ch.alpine.tensor.red.Variance;
     {
       Timing timing = Timing.started();
       samples = RandomVariate.of(distribution, 1000);
-      double seconds = timing.seconds();
+      Scalar seconds = timing.seconds();
       System.out.println("sec  pbin = " + seconds);
     }
     Distribution histogram = HistogramDistribution.of(samples);
@@ -31,7 +32,7 @@ import ch.alpine.tensor.red.Variance;
     {
       Timing timing = Timing.started();
       RandomVariate.of(histogram, 1000);
-      double seconds = timing.seconds();
+      Scalar seconds = timing.seconds();
       System.out.println("sec  hist = " + seconds);
     }
   }

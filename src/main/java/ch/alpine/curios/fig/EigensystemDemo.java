@@ -5,15 +5,16 @@ import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Parallelize;
+import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.ext.Timing;
 import ch.alpine.tensor.lie.Symmetrize;
 import ch.alpine.tensor.mat.ev.Eigensystem;
 import ch.alpine.tensor.mat.re.Inverse;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
+import ch.alpine.tensor.qty.Timing;
 
 /* package */ class EigensystemDemo implements ShowProvider {
   @Override
@@ -42,7 +43,9 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
         Eigensystem.ofSymmetric(a);
         timing.stop();
       }
-      timings.append(Tensors.vector(dim, timing.nanoSeconds() / trials));
+      timings.append(Tensors.of( //
+          RealScalar.of(dim), //
+          timing.nanoSeconds().divide(RealScalar.of(trials))));
     }
     Show show = new Show();
     show.setPlotLabel("Eigensystem");
