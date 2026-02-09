@@ -6,8 +6,9 @@ import java.util.List;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.swing.LookAndFeels;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.ply.Chebyshev;
@@ -15,6 +16,7 @@ import ch.alpine.tensor.sca.ply.Chebyshev;
 enum ChebyshevUTDemo {
   ;
   static void main() {
+    LookAndFeels.LIGHT.updateComponentTreeUI();
     List<Show> list = new LinkedList<>();
     for (Chebyshev chebyshev : Chebyshev.values()) {
       Show show = new Show();
@@ -26,6 +28,6 @@ enum ChebyshevUTDemo {
       }
       list.add(show);
     }
-    ShowDialog.of(list);
+    ShowWindow.of(list);
   }
 }

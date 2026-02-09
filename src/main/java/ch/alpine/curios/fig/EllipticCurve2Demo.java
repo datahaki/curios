@@ -22,7 +22,7 @@ class EllipticCurve2Demo implements ShowProvider {
     }
     // show.add(ReImPlot.of(s -> ellipticCurve.apply(s).negate(), clip));
     show.setCbb(CoordinateBoundingBox.of(clip, Clips.absolute(8)));
-    show.setAspectRatio(RealScalar.ONE);
+    show.setAspectRatioOne();
     return show;
   }
 

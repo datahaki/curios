@@ -21,14 +21,13 @@ import ch.alpine.tensor.sca.Clips;
 record ErlangDistributionDemo(int k) implements ShowProvider {
   @Override
   public Show getShow() {
-    Scalar lambda = RealScalar.of(2.3);
+    Scalar lambda = RealScalar.of(3.3);
     Distribution d1 = ErlangDistribution.of(k, lambda);
     Distribution d2 = HistogramDistribution.of(RandomVariate.of(d1, 3000));
     Distribution d3 = GammaDistribution.of(RealScalar.of((double) k), lambda.reciprocal());
     Throw.unless(d3 instanceof GammaDistribution);
     Show show = new Show();
-    // TODO gamma distrib doesnt like x==0
-    Clip clip = Clips.interval(0.0001, 10);
+    Clip clip = Clips.positive(5);
     show.add(Plot.of(PDF.of(d1)::at, clip)).setLabel("erlang");
     show.add(Plot.of(PDF.of(d2)::at, clip)).setLabel("hist");
     show.add(Plot.of(PDF.of(d3)::at, clip)).setLabel("gamma");

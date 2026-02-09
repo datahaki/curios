@@ -11,7 +11,7 @@ import java.util.List;
 
 import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Rescale;
 import ch.alpine.tensor.ext.HomeDirectory;
@@ -65,6 +65,6 @@ public enum JpegStuff {
       show.add(ImagePlot.of(filter));
       list.add(show);
     }
-    ShowDialog.of(list);
+    ShowWindow.of(list);
   }
 }

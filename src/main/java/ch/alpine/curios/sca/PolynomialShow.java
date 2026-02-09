@@ -8,7 +8,7 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
@@ -39,6 +39,6 @@ import ch.alpine.tensor.sca.ply.Polynomial;
       show.add(ListLinePlot.of(samples_y.map(y_to_x), samples_y));
       list.add(show);
     }
-    ShowDialog.of(list);
+    ShowWindow.of(list);
   }
 }

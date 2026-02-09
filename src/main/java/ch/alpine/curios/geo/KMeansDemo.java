@@ -5,13 +5,12 @@ import java.awt.Color;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.sophis.dv.Biinvariant;
 import ch.alpine.sophis.dv.Biinvariants;
 import ch.alpine.sophis.fit.KMeans;
 import ch.alpine.sophus.lie.rn.RGroup;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
@@ -35,7 +34,7 @@ enum KMeansDemo {
     ListPlot listPlot = (ListPlot) showable;
     listPlot.setPointsize(4);
     listPlot.setColor(Color.GREEN);
-    show.setAspectRatio(RealScalar.ONE);
-    ShowDialog.of(show);
+    show.setAspectRatioOne();
+    ShowWindow.of(show);
   }
 }

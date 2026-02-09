@@ -6,7 +6,7 @@ import java.util.random.RandomGenerator;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -50,6 +50,6 @@ public enum Kacz1Demo {
       points.set(Log10.FUNCTION, Tensor.ALL, 1);
       show.add(ListPlot.of(points)).setLabel("random");
     }
-    ShowDialog.of(show);
+    ShowWindow.of(show);
   }
 }

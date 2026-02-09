@@ -4,7 +4,6 @@ package ch.alpine.curios.biv;
 import ch.alpine.bridge.fig.ArrayPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
@@ -26,7 +25,7 @@ interface BivariateEvaluation extends ScalarBinaryOperator, ShowProvider {
         StaticHelper.image(this), //
         CoordinateBoundingBox.of(clipX(), clipY()), //
         colorDataGradient()));
-    show.setAspectRatio(RealScalar.ONE);
+    show.setAspectRatioOne();
     return show;
   }
 }

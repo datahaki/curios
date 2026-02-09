@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.img.ColorDataLists;
@@ -35,7 +35,7 @@ class CaesarPiecesTest {
       Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
       Show show = new Show();
       show.add(ImagePlot.of(ImageFormat.of(matrix.map(ColorDataLists._097.strict()))));
-      ShowDialog.of(show);
+      ShowWindow.of(show);
     }
   }
 }

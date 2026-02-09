@@ -3,7 +3,7 @@ package ch.alpine.curios.pdf;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.pdf.InverseCDF;
 import ch.alpine.tensor.pdf.RandomVariate;
@@ -34,6 +34,6 @@ public enum HistogramDistributionDemo {
       show2.add(Plot.of(InverseCDF.of(distribution)::quantile, clip));
       show2.add(Plot.of(InverseCDF.of(dist)::quantile, clip));
     }
-    ShowDialog.of(show1, show2);
+    ShowWindow.of(show1, show2);
   }
 }

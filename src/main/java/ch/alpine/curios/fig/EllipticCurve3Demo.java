@@ -4,7 +4,6 @@ package ch.alpine.curios.fig;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Flatten;
@@ -30,7 +29,7 @@ class EllipticCurve3Demo implements ShowProvider {
         .of(Flatten.of(matrix, 1).stream().distinct().map(xy -> Tensors.vector(((GaussScalar) xy.Get(0)).number(), ((GaussScalar) xy.Get(1)).number())));
     Show show = new Show();
     show.add(ListPlot.of(list));
-    show.setAspectRatio(RealScalar.ONE);
+    show.setAspectRatioOne();
     return show;
   }
 

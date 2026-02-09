@@ -4,7 +4,7 @@ package ch.alpine.curios.pdf;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.pdf.Distribution;
@@ -31,6 +31,6 @@ public enum EqualizingDistributionDemo {
     Clip clip = Clips.unit();
     show2.add(Plot.of(InverseCDF.of(dist1)::quantile, clip));
     show2.add(Plot.of(InverseCDF.of(dist2)::quantile, clip));
-    ShowDialog.of(show1, show2);
+    ShowWindow.of(show1, show2);
   }
 }

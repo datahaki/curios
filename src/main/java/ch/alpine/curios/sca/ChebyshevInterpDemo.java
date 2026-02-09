@@ -5,7 +5,7 @@ import java.awt.BasicStroke;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
@@ -41,6 +41,6 @@ public enum ChebyshevInterpDemo {
     Show show2 = new Show();
     show2.setPlotLabel("Error");
     show2.add(Plot.of(s -> suo1.apply(s).subtract(suo2.apply(s)), clip));
-    ShowDialog.of(show1, show2);
+    ShowWindow.of(show1, show2);
   }
 }

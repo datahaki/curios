@@ -38,7 +38,7 @@ class EllipticCurveDemo implements ShowProvider {
     show.add(ReImPlot.of(s -> ellipticCurve.apply(s).negate(), clip));
     show.add(ListPlot.of(all));
     show.setCbb(CoordinateBoundingBox.of(clip, Clips.absolute(8)));
-    show.setAspectRatio(RealScalar.ONE);
+    show.setAspectRatioOne();
     show.add(ListLinePlot.of(all));
     return show;
   }

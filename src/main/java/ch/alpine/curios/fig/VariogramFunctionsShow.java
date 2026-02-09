@@ -1,0 +1,35 @@
+// code by jph
+package ch.alpine.curios.fig;
+
+import ch.alpine.bridge.fig.Plot;
+import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.sca.Clips;
+import ch.alpine.tensor.sca.var.VariogramFunctions;
+
+class VariogramFunctionsShow implements ShowProvider {
+  @Override
+  public Show getShow() {
+    Scalar[] params = { RealScalar.ZERO, RealScalar.of(0.1), RationalScalar.HALF, RealScalar.ONE, RealScalar.TWO };
+    Show show = new Show();
+    // TODO the loops cause overcrowding
+    show.setAspectRatioOne();
+    for (VariogramFunctions variograms : VariogramFunctions.values()) {
+      show.setPlotLabel(variograms.toString());
+      for (Scalar param : params)
+        try {
+          show.add(Plot.of(variograms.of(param), Clips.interval(0.5, 2)));
+        } catch (Exception exception) {
+          System.out.println(variograms);
+        }
+    }
+    return show;
+  }
+
+  static void main() {
+    new VariogramFunctionsShow().run();
+  }
+}

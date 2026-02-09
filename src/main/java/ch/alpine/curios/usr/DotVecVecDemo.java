@@ -3,7 +3,7 @@ package ch.alpine.curios.usr;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowDialog;
+import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.tensor.Parallelize;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -55,6 +55,6 @@ import ch.alpine.tensor.qty.Quantity;
     show.setPlotLabel("Vec . Vec");
     show.add(ListPlot.of(t_ser)).setLabel("serial");
     show.add(ListPlot.of(t_par)).setLabel("parallel");
-    ShowDialog.of(show);
+    ShowWindow.of(show);
   }
 }
