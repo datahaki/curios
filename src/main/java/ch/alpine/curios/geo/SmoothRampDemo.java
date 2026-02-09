@@ -23,6 +23,6 @@ enum SmoothRampDemo {
   }
 
   static void main() {
-    ShowWindow.of(various());
+    ShowWindow.asDialog(various());
   }
 }

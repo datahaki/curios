@@ -65,6 +65,6 @@ public enum JpegStuff {
       show.add(ImagePlot.of(filter));
       list.add(show);
     }
-    ShowWindow.of(list);
+    ShowWindow.asDialog(list);
   }
 }

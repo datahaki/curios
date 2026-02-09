@@ -34,6 +34,6 @@ public enum HistogramDistributionDemo {
       show2.add(Plot.of(InverseCDF.of(distribution)::quantile, clip));
       show2.add(Plot.of(InverseCDF.of(dist)::quantile, clip));
     }
-    ShowWindow.of(show1, show2);
+    ShowWindow.asDialog(show1, show2);
   }
 }

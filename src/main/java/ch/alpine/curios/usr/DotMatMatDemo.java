@@ -55,7 +55,7 @@ import ch.alpine.tensor.qty.Quantity;
     show.setPlotLabel("Mat . Mat");
     show.add(ListPlot.of(t_ser)).setLabel("serial");
     show.add(ListPlot.of(t_par)).setLabel("parallel");
-    ShowWindow.of(show);
+    ShowWindow.asDialog(show);
     // System.out.println(Pretty.of(t_ser));
     // Put.of(HomeDirectory.file("timing_matmat.txt"), timing);
   }

@@ -49,6 +49,6 @@ public enum InfluenceMatrixDemo {
     show.add(ListLinePlot.of(t1)).setLabel("Mahalanobis");
     show.add(ListLinePlot.of(t2)).setLabel("InfluenceMatrix");
     show.export(HomeDirectory.Pictures.resolve("matrix_rect2.png"), new Dimension(500, 300));
-    ShowWindow.of(show);
+    ShowWindow.asDialog(show);
   }
 }

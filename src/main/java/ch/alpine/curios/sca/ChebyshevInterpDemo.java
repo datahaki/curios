@@ -41,6 +41,6 @@ public enum ChebyshevInterpDemo {
     Show show2 = new Show();
     show2.setPlotLabel("Error");
     show2.add(Plot.of(s -> suo1.apply(s).subtract(suo2.apply(s)), clip));
-    ShowWindow.of(show1, show2);
+    ShowWindow.asDialog(show1, show2);
   }
 }

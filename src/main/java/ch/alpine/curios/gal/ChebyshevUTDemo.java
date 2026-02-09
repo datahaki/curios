@@ -28,6 +28,6 @@ enum ChebyshevUTDemo {
       }
       list.add(show);
     }
-    ShowWindow.of(list);
+    ShowWindow.asDialog(list);
   }
 }

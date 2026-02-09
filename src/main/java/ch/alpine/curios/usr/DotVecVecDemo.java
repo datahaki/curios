@@ -55,6 +55,6 @@ import ch.alpine.tensor.qty.Quantity;
     show.setPlotLabel("Vec . Vec");
     show.add(ListPlot.of(t_ser)).setLabel("serial");
     show.add(ListPlot.of(t_par)).setLabel("parallel");
-    ShowWindow.of(show);
+    ShowWindow.asDialog(show);
   }
 }

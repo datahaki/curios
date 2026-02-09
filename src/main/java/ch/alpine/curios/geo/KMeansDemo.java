@@ -35,6 +35,6 @@ enum KMeansDemo {
     listPlot.setPointsize(4);
     listPlot.setColor(Color.GREEN);
     show.setAspectRatioOne();
-    ShowWindow.of(show);
+    ShowWindow.asDialog(show);
   }
 }

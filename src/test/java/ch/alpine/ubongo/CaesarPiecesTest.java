@@ -35,7 +35,7 @@ class CaesarPiecesTest {
       Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
       Show show = new Show();
       show.add(ImagePlot.of(ImageFormat.of(matrix.map(ColorDataLists._097.strict()))));
-      ShowWindow.of(show);
+      ShowWindow.asDialog(show);
     }
   }
 }

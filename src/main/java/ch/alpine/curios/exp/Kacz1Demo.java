@@ -50,6 +50,6 @@ public enum Kacz1Demo {
       points.set(Log10.FUNCTION, Tensor.ALL, 1);
       show.add(ListPlot.of(points)).setLabel("random");
     }
-    ShowWindow.of(show);
+    ShowWindow.asDialog(show);
   }
 }

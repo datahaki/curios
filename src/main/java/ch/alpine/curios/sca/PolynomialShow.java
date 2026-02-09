@@ -39,6 +39,6 @@ import ch.alpine.tensor.sca.ply.Polynomial;
       show.add(ListLinePlot.of(samples_y.map(y_to_x), samples_y));
       list.add(show);
     }
-    ShowWindow.of(list);
+    ShowWindow.asDialog(list);
   }
 }

@@ -31,6 +31,6 @@ public enum EqualizingDistributionDemo {
     Clip clip = Clips.unit();
     show2.add(Plot.of(InverseCDF.of(dist1)::quantile, clip));
     show2.add(Plot.of(InverseCDF.of(dist2)::quantile, clip));
-    ShowWindow.of(show1, show2);
+    ShowWindow.asDialog(show1, show2);
   }
 }

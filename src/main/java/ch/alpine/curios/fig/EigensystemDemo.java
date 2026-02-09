@@ -20,7 +20,6 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
   public Show getShow() {
     Distribution distribution;
     distribution = NormalDistribution.of(1, 4);
-    // distribution = PoissonDistribution.of(RealScalar.ONE);
     {
       int n = 100;
       Tensor a = RandomVariate.of(distribution, n, n);

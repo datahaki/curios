@@ -25,6 +25,6 @@ public enum NoiseDemo {
     show2.add(DensityPlot.of( //
         (x, y) -> DoubleScalar.of(SimplexContinuousNoise.FUNCTION.at(x.number().doubleValue(), y.number().doubleValue(), 0.0)), //
         cbb));
-    ShowWindow.of(show1, show2);
+    ShowWindow.asDialog(show1, show2);
   }
 }
