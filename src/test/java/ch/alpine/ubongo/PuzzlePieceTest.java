@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.ubongo;
 
 import java.time.DayOfWeek;
