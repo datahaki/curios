@@ -14,7 +14,7 @@ class HueColorBlocksDemo implements ShowProvider {
   @Override
   public Show getShow() {
     ColorDataIndexed colorDataIndexed = HueColorBlocks.of(10, 5);
-    Tensor tensor = Tensors.of(Range.of(0, colorDataIndexed.length())).map(colorDataIndexed);
+    Tensor tensor = Tensors.of(Range.of(0, colorDataIndexed.length())).maps(colorDataIndexed);
     Show show = new Show();
     show.add(ImagePlot.of(ImageFormat.of(tensor)));
     return show;

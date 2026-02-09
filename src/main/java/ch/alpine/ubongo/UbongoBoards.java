@@ -318,6 +318,6 @@ public enum UbongoBoards {
   }
 
   public List<UbongoSolution> solve() {
-    return ubongoBoard.filter0(use, 2);
+    return ubongoBoard.filter0(use);
   }
 }

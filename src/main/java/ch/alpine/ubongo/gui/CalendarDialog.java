@@ -20,25 +20,24 @@ import ch.alpine.ubongo.UbongoBoard;
 import ch.alpine.ubongo.UbongoEntry;
 import ch.alpine.ubongo.UbongoSolution;
 
-public record CalendarDialog(CalendarBoard calendarBoard) implements ShowProvider {
+record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implements ShowProvider {
   @Override
   public Show getShow() {
-    LocalDate localDate = LocalDate.now();
     UbongoBoard ubongoBoard = calendarBoard.of(localDate);
     List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
-    List<UbongoSolution> ubongoSolutions = ubongoBoard.filter0(puzzlePieces.size(), 1);
+    List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
     UbongoSolution ubongoSolution = ubongoSolutions.getFirst();
     List<UbongoEntry> solution = ubongoSolution.list();
     Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
     Show show = new Show();
-    show.setPlotLabel(localDate.toString());
+    show.setPlotLabel(localDate.toString() + " " + localDate.getDayOfWeek());
     show.setGridLines(false);
-    show.add(ImagePlot.of(ImageFormat.of(matrix.map(ColorDataLists._097.strict()))));
+    show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict()))));
     show.add(TextsPlot.of(calendarBoard.mapping()));
     return show;
   }
 
   static void main() {
-    new CalendarDialog(CalendarBoards.CAESAR.calendarBoard()).run();
+    new CalendarDialog(CalendarBoards.KAISER.calendarBoard(), LocalDate.now()).run();
   }
 }

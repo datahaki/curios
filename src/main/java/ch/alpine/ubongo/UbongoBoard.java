@@ -24,6 +24,8 @@ import ch.alpine.tensor.mat.MatrixQ;
 public class UbongoBoard {
   public static final Scalar FREE = RealScalar.ONE.negate();
   public static final int free = -1;
+  public static final int ANY = -1;
+  public static final int EXACTLY_ONE = 1;
 
   public static UbongoBoard of(String... strings) {
     // System.out.println("---");
@@ -42,6 +44,7 @@ public class UbongoBoard {
   private final List<Integer> board_size;
   private final int count;
   /** all the possible locations of the oriented piece */
+  // TODO this is bad!
   private final Map<OrientedPiece, List<Pnt>> map = new HashMap<>();
   public String message = "";
   private final List<PuzzlePiece> pieces;
@@ -81,6 +84,10 @@ public class UbongoBoard {
       }
   }
 
+  public List<Integer> board_size() {
+    return board_size;
+  }
+
   public Tensor mask() {
     return mask;
   }
@@ -89,7 +96,7 @@ public class UbongoBoard {
 
   /** @param use how many pieces to use
    * @return */
-  public List<UbongoSolution> filter0(int use, int max_solutions) {
+  public List<UbongoSolution> filter0(int use) {
     List<List<PuzzlePiece>> values = Candidates.of(use, count(), pieces);
     message = "candidates.size = " + values.size();
     List<UbongoSolution> solutions = new LinkedList<>();
@@ -97,7 +104,7 @@ public class UbongoBoard {
       List<PuzzlePiece> _list = new ArrayList<>(list);
       // fit "large" pieces first to reduce the search space as quickly as possible
       _list.sort((u1, u2) -> Integer.compare(u2.count(), u1.count()));
-      Solve solve = new Solve(_list, max_solutions);
+      Solve solve = new Solve(_list, 2);
       int size = solve.solutions.size();
       switch (size) {
       case 0: {
@@ -113,6 +120,23 @@ public class UbongoBoard {
       default:
         message = _list + " TOO MANY solutions";
       }
+      if (!isRunning)
+        break;
+    }
+    return solutions;
+  }
+
+  public List<UbongoSolution> perCombo(int use, int max_solutions) {
+    List<List<PuzzlePiece>> values = Candidates.of(use, count(), pieces);
+    message = "candidates.size = " + values.size();
+    List<UbongoSolution> solutions = new LinkedList<>();
+    for (List<PuzzlePiece> list : values) {
+      List<PuzzlePiece> _list = new ArrayList<>(list);
+      // fit "large" pieces first to reduce the search space as quickly as possible
+      _list.sort((u1, u2) -> Integer.compare(u2.count(), u1.count()));
+      Solve solve = new Solve(_list, max_solutions);
+      for (List<UbongoEntry> solution : solve.solutions)
+        solutions.add(new UbongoSolution(solution, solve.search));
       if (!isRunning)
         break;
     }
@@ -144,8 +168,8 @@ public class UbongoBoard {
       }
       final PuzzlePiece puzzlePiece = list.getFirst(); // piece
       for (OrientedPiece orientedPiece : puzzlePiece.stamps()) {
-        List<Pnt> points = map.get(orientedPiece);
         Tensor stamp = orientedPiece.stamp();
+        List<Pnt> points = map.get(orientedPiece); // TODO hideous !!
         for (Pnt point : points) {
           int bi = point.i();
           int bj = point.j();

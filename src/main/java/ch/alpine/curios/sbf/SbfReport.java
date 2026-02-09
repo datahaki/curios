@@ -18,7 +18,7 @@ public class SbfReport {
   public SbfReport(SbfType sbfType) throws IOException {
     sbfItems = SbfParser.get(sbfType);
     sbfTrack = new SbfTrack(sbfType, sbfItems.size());
-    Tensor tensor = sbfTrack.tensor.map(s -> Boole.of(Scalars.isZero(s)));
+    Tensor tensor = sbfTrack.tensor.maps(s -> Boole.of(Scalars.isZero(s)));
     Tensor totals = TensorMap.of(Total::ofVector, tensor, 1);
     int[] indices = Ordering.DECREASING.of(totals);
     for (int c = 0; c < 10; ++c) {

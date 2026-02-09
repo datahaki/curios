@@ -119,7 +119,7 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
       @Override
       public void mousePressed(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == 1) {
-          Tensor xya = timerFrame.geometricComponent.getMouseSe2CState().map(Floor.FUNCTION);
+          Tensor xya = timerFrame.geometricComponent.getMouseSe2CState().maps(Floor.FUNCTION);
           int row = xya.Get(0).number().intValue();
           int col = xya.Get(1).number().intValue();
           if (0 <= row && row < row_max)

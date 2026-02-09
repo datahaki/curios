@@ -8,25 +8,23 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import ch.alpine.tensor.RealScalar;
-import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Throw;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.ext.Timing;
 import ch.alpine.tensor.io.Put;
+import ch.alpine.ubongo.gui.UbongoRender;
 
 public class KaiserRun {
   public record Pair(Month month, int day) {
     public static Stream<Pair> all() {
       return Stream.of(Month.values()) //
-          .flatMap(month -> IntStream.range(1, 32).boxed().map(day -> new Pair(month, day)));
+          .flatMap(month -> IntStream.rangeClosed(1, 31).boxed().map(day -> new Pair(month, day)));
     }
 
     @Override
     public final String toString() {
-      return month + " " + day;
+      return month.toString().substring(0, 3) + " " + String.format("%02d", day);
     }
   }
 
@@ -39,20 +37,26 @@ public class KaiserRun {
     Pair.all().parallel().forEach(pair -> {
       Month month = pair.month;
       int day = pair.day;
-      IO.println(pair);
       for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+        // DayOfWeek dayOfWeek = DayOfWeek.WEDNESDAY;
         UbongoBoard ubongoBoard = calendarBoard.of(month, day, dayOfWeek);
         List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
-        Timing started = Timing.started();
-        List<UbongoSolution> ubongoSolutions = ubongoBoard.filter0(puzzlePieces.size(), 1);
-        Scalar val = RealScalar.of(started.nanoSeconds());
+        List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
         if (ubongoSolutions.isEmpty())
           System.err.println("NO SOLUTION: " + month + " " + day + " " + dayOfWeek);
-        array.set(val, month.ordinal(), day - 1, dayOfWeek.ordinal());
+        else {
+          UbongoSolution ubongoSolution = ubongoSolutions.getFirst();
+          String string = UbongoRender.string(ubongoBoard.board_size(), ubongoSolution.list());
+          IO.println(pair + " " + dayOfWeek.toString().substring(0, 3) + " " + string);
+          Tensor insert = UbongoRender.matrix(ubongoBoard.board_size(), ubongoSolution.list());
+          array.set(insert, month.ordinal(), day - 1, dayOfWeek.ordinal());
+        }
       }
     });
     try {
-      Put.of(HomeDirectory.path("some.mathematica"), array);
+      IO.println("storing");
+      Put.of(HomeDirectory.path("kaiser.mathematica"), array);
+      IO.println("stored");
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -60,6 +64,6 @@ public class KaiserRun {
   }
 
   static void main() {
-    check(CalendarBoards.TOWERS.calendarBoard());
+    check(CalendarBoards.KAISER.calendarBoard());
   }
 }

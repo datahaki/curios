@@ -21,7 +21,7 @@ import ch.alpine.tensor.sca.Round;
       Distribution distribution = NormalDistribution.of(RealScalar.of(-2), RealScalar.of(3));
       System.out.println(distribution.getClass().getSimpleName());
       Tensor array = RandomVariate.of(distribution, 2, 3);
-      System.out.println(Pretty.of(array.map(Round._4)));
+      System.out.println(Pretty.of(array.maps(Round._4)));
     }
     { // probability
       Distribution distribution = BinomialDistribution.of(20, RationalScalar.of(1, 3));

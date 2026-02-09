@@ -26,7 +26,7 @@ public enum JpegStuff {
   ;
   static void main() throws IOException {
     List<Show> list = new ArrayList<>();
-    Tensor image = Rescale.of(FourierDCT._1.matrix(64)).map(ColorDataGradients.HUE).map(Floor.FUNCTION);
+    Tensor image = Rescale.of(FourierDCT._1.matrix(64)).maps(ColorDataGradients.HUE).maps(Floor.FUNCTION);
     // Tensor image = RandomVariate.of(UniformDistribution.unit(30), 10, 20).map(ColorDataGradients.HUE).map(Floor.FUNCTION);
     final BufferedImage bufferedImage = ImageFormat.of(image);
     Path file = HomeDirectory.Pictures.resolve("jpegStuff.jpg");

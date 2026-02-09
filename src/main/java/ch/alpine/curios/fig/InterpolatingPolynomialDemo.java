@@ -27,10 +27,10 @@ class InterpolatingPolynomialDemo implements ShowProvider {
     showable.setStroke(new BasicStroke(10));
     for (int d = 1; d < 10; ++d) {
       Tensor init = ChebyshevNodes._1.of(d);
-      Tensor knots = init.map(Clips.absoluteOne()::rescale);
-      knots = knots.map(LinearInterpolation.of(clip));
+      Tensor knots = init.maps(Clips.absoluteOne()::rescale);
+      knots = knots.maps(LinearInterpolation.of(clip));
       InterpolatingPolynomial interpolatingPolynomial = InterpolatingPolynomial.of(knots);
-      ScalarUnaryOperator suo = interpolatingPolynomial.scalarUnaryOperator(knots.map(f));
+      ScalarUnaryOperator suo = interpolatingPolynomial.scalarUnaryOperator(knots.maps(f));
       Showable showable2 = show.add(Plot.of(suo, clip));
       showable2.setLabel("deg " + d);
     }

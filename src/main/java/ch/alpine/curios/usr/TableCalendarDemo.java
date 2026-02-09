@@ -39,7 +39,7 @@ public enum TableCalendarDemo {
     }
     if (row.length() != 0)
       table.append(row);
-    System.out.println(Pretty.of(table.map(s -> RealScalar.of(((DateTime) s).dayOfMonth()))));
+    System.out.println(Pretty.of(table.maps(s -> RealScalar.of(((DateTime) s).dayOfMonth()))));
     Export.of(HomeDirectory.path("cal.csv"), table);
   }
 }

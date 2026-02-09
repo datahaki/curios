@@ -30,13 +30,13 @@ import ch.alpine.tensor.sca.ply.Polynomial;
       Clip domain_x = Clips.interval(Quantity.of(100, "K"), Quantity.of(150, "K"));
       Tensor samples_x = Subdivide.of(Quantity.of(100, "K"), Quantity.of(150, "K"), 50);
       Tensor samples_y = Subdivide.of(Quantity.of(10, "bar"), Quantity.of(26, "bar"), 50);
-      samples_x.map(x_to_y);
-      samples_y.map(y_to_x);
+      samples_x.maps(x_to_y);
+      samples_y.maps(y_to_x);
       Show show = new Show();
       show.setPlotLabel("Degree " + degree);
       show.add(ListPlot.of(x, y));
       show.add(Plot.of(x_to_y, domain_x));
-      show.add(ListLinePlot.of(samples_y.map(y_to_x), samples_y));
+      show.add(ListLinePlot.of(samples_y.maps(y_to_x), samples_y));
       list.add(show);
     }
     ShowWindow.asDialog(list);

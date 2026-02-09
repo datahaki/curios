@@ -49,7 +49,7 @@ import ch.alpine.tensor.sca.pow.Sqrt;
 
   static void demoSVD() {
     Tensor matrix = Tensors.matrixInt(new int[][] { { 2, -3, 2 }, { 4, 9, -3 }, { -1, 3, 2 } });
-    System.out.println(Pretty.of(SingularValueDecomposition.of(matrix).getU().map(Round._4)));
+    System.out.println(Pretty.of(SingularValueDecomposition.of(matrix).getU().maps(Round._4)));
   }
 
   static void demoLP() {

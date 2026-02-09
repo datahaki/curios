@@ -33,7 +33,7 @@ class CaesarBoardTest {
           IO.println(ld);
           UbongoBoard ubongoBoard = calendarBoard.of(ld);
           List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
-          List<UbongoSolution> ubongoSolutions = ubongoBoard.filter0(puzzlePieces.size(), 1);
+          List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
           assertFalse(ubongoSolutions.isEmpty());
         });
   }

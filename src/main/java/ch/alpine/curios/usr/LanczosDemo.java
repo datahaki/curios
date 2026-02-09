@@ -36,7 +36,7 @@ import ch.alpine.tensor.sca.Clips;
     Tensor sy = Subdivide.of(0, list.get(1) - 1, ny - 1);
     Tensor result = Tensor.of(sx.stream().map(vx -> interpolation.get(Tensors.of(vx))));
     result = Tensor.of(result.stream().map(row -> interp(row, sy)));
-    result = result.map(Clips.interval(0, 255));
+    result = result.maps(Clips.interval(0, 255));
     Export.of(HomeDirectory.path(String.format("castle%02d.png", Math.round(factor * 10))), result);
   }
 }

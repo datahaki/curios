@@ -20,7 +20,7 @@ public enum Kacz2Demo {
   ;
   static void main() {
     Tensor matrix = Tensors.fromString("{{3,2,1,0},{2,4,2,3}}");
-    Tensor b = Tensors.vector(4, 7).map(N.DOUBLE);
+    Tensor b = Tensors.vector(4, 7).maps(N.DOUBLE);
     Show show = new Show();
     int n = 30;
     {

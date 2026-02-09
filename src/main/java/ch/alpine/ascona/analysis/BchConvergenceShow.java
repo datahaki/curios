@@ -31,12 +31,12 @@ class BchConvergenceShow implements ShowProvider {
 
   void add(String name, MatrixAlgebra matrixAlgebra) {
     Tensor tensor = err(matrixAlgebra);
-    Showable showable = show.add(ListLinePlot.of(Range.of(0, tensor.length()), tensor.map(Log10.FUNCTION)));
+    Showable showable = show.add(ListLinePlot.of(Range.of(0, tensor.length()), tensor.maps(Log10.FUNCTION)));
     showable.setLabel(name);
   }
 
   private Tensor err(MatrixAlgebra matrixAlgebra) {
-    Tensor ad = matrixAlgebra.ad().map(N.DOUBLE);
+    Tensor ad = matrixAlgebra.ad().maps(N.DOUBLE);
     BakerCampbellHausdorff bakerCampbellHausdorff = //
         (BakerCampbellHausdorff) BakerCampbellHausdorff.of(ad, depth);
     Tensor x = Tensors.vector(+0.10, +0.12, +0.07);

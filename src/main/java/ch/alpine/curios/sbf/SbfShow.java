@@ -54,7 +54,7 @@ import ch.alpine.tensor.sca.pow.Power;
 
 class SbfShow {
   public static final int MAX = 3;
-  public static final ColorDataIndexed COLOR_DATA_INDEXED = StrictColorDataIndexed.of(Subdivide.of(0, 1, MAX).map(ColorDataGradients.AVOCADO));
+  public static final ColorDataIndexed COLOR_DATA_INDEXED = StrictColorDataIndexed.of(Subdivide.of(0, 1, MAX).maps(ColorDataGradients.AVOCADO));
   private final List<SbfItem> sbfItems;
   private final SbfTrack sbfTrack;
   public SbfItem sbfItemCurrent;
@@ -126,7 +126,7 @@ class SbfShow {
     jButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        Tensor tensor = sbfTrack.tensor.map(s -> Boole.of(Scalars.isZero(s)));
+        Tensor tensor = sbfTrack.tensor.maps(s -> Boole.of(Scalars.isZero(s)));
         Tensor totals = TensorMap.of(Total::ofVector, tensor, 1);
         System.out.println(Tally.of(totals));
         for (int c = 0; c < totals.length(); ++c)
@@ -149,7 +149,7 @@ class SbfShow {
 
   private BufferedImage progressImage() {
     Tensor unscaledPDF = Tensors.of(TensorMap.of(this::todo, sbfTrack.tensor, 1));
-    Tensor res = unscaledPDF.map(COLOR_DATA_INDEXED);
+    Tensor res = unscaledPDF.maps(COLOR_DATA_INDEXED);
     res = ImageResize.nearest(res, 20, 3);
     return ImageFormat.of(res);
   }

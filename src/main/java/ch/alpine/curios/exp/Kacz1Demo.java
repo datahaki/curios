@@ -23,7 +23,7 @@ public enum Kacz1Demo {
     Tensor matrix = Tensors.fromString("{{3,2},{2,4}}");
     Tensor b = Tensors.vector(4, 7);
     Tensor sol = LinearSolve.of(matrix, b);
-    System.out.println(sol.map(N.DOUBLE));
+    System.out.println(sol.maps(N.DOUBLE));
     Show show = new Show();
     int n = 30;
     {

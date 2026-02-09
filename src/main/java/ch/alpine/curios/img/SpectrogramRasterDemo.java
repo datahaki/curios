@@ -22,7 +22,7 @@ import ch.alpine.tensor.sca.tri.Cos;
 /* package */ enum SpectrogramRasterDemo {
   ;
   static void main() throws IOException {
-    Tensor tensor = Subdivide.of(0, 100, 2000).map(Polynomial.of(Tensors.vector(0, 5, 1))).map(Cos.FUNCTION);
+    Tensor tensor = Subdivide.of(0, 100, 2000).maps(Polynomial.of(Tensors.vector(0, 5, 1))).maps(Cos.FUNCTION);
     Tensor spectrogram = SpectrogramArray.SPECTROGRAM.half_abs(tensor);
     Path folder = HomeDirectory.Pictures.resolve(SpectrogramRasterDemo.class.getSimpleName());
     Files.createDirectories(folder);

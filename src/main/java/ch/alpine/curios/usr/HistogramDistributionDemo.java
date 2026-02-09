@@ -26,10 +26,10 @@ import ch.alpine.tensor.sca.Round;
     Tensor samples = RandomVariate.of(gndtruth, 10000);
     for (BinningMethods binningMethod : BinningMethods.values()) {
       Scalar width = binningMethod.apply(samples);
-      System.out.println("width = " + width.map(Round._4));
+      System.out.println("width = " + width.maps(Round._4));
       Distribution distribution = HistogramDistribution.of(samples, width);
-      System.out.println("mean = " + Expectation.mean(distribution).map(Round._4));
-      System.out.println("variance = " + Expectation.variance(distribution).map(Round._4));
+      System.out.println("mean = " + Expectation.mean(distribution).maps(Round._4));
+      System.out.println("variance = " + Expectation.variance(distribution).maps(Round._4));
       InverseCDF inverseCDF = InverseCDF.of(distribution);
       Scalar q50 = inverseCDF.quantile(RationalScalar.of(1, 2));
       System.out.println("q50 = " + q50);

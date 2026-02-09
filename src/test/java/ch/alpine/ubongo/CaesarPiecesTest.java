@@ -25,7 +25,7 @@ class CaesarPiecesTest {
     List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
     int sum = puzzlePieces.stream().mapToInt(p -> p.count()).sum();
     assertEquals(ubongoBoard.count(), sum);
-    List<UbongoSolution> ubongoSolutions = ubongoBoard.filter0(puzzlePieces.size(), 1);
+    List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
     IO.println(ubongoBoard.message);
     IO.println(ubongoSolutions.size());
     ubongoSolutions.forEach(IO::println);
@@ -34,7 +34,7 @@ class CaesarPiecesTest {
       List<UbongoEntry> solution = ubongoSolution.list();
       Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
       Show show = new Show();
-      show.add(ImagePlot.of(ImageFormat.of(matrix.map(ColorDataLists._097.strict()))));
+      show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict()))));
       ShowWindow.asDialog(show);
     }
   }

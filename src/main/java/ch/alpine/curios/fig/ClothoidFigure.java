@@ -28,7 +28,7 @@ record ClothoidFigure(Scalar angle) implements ShowProvider {
 
   private Scalar function(int y, int x) {
     Tensor q = Tensors.of(RE.Get(x), IM.Get(y), angle);
-    LagrangeQuadraticD headTailInterface = CLOTHOID_BUILDER.curve(q.map(Scalar::zero), q).curvature();
+    LagrangeQuadraticD headTailInterface = CLOTHOID_BUILDER.curve(q.maps(Scalar::zero), q).curvature();
     return headTailInterface.maxAbs().reciprocal();
   }
 

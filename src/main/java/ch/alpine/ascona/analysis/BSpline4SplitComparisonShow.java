@@ -93,8 +93,8 @@ import ch.alpine.tensor.sca.Round;
     }
     System.out.println("---");
     System.out.println("wins             =" + Tensors.vectorInt(wint));
-    System.out.println("translation error=" + ert.map(Round._3));
+    System.out.println("translation error=" + ert.maps(Round._3));
     System.out.println("wins             =" + Tensors.vectorInt(winm));
-    System.out.println("mean defect error=" + erm.map(Round._3));
+    System.out.println("mean defect error=" + erm.maps(Round._3));
   }
 }

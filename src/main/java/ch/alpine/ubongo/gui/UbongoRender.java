@@ -2,6 +2,7 @@
 package ch.alpine.ubongo.gui;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
@@ -11,10 +12,13 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Dimensions;
+import ch.alpine.tensor.chq.DeterminateScalarQ;
 import ch.alpine.tensor.img.ColorDataIndexed;
 import ch.alpine.tensor.img.CyclicColorDataIndexed;
 import ch.alpine.tensor.img.ImageRotate;
 import ch.alpine.tensor.img.StrictColorDataIndexed;
+import ch.alpine.tensor.sca.Clip;
+import ch.alpine.tensor.sca.Clips;
 import ch.alpine.ubongo.PuzzlePiece;
 import ch.alpine.ubongo.UbongoEntry;
 import ch.alpine.ubongo.UbongoPieces;
@@ -41,30 +45,50 @@ public enum UbongoRender {
     return image;
   }
 
+  public static String string(List<Integer> list, List<UbongoEntry> solution) {
+    return stringMatrix(matrix(list, solution));
+  }
+
+  public static String stringMatrix(Tensor matrix) {
+    return matrix.stream().map(UbongoRender::string).collect(Collectors.joining("|", "|", "|"));
+  }
+
   /** @param list
    * @param solution
    * @return */
   public static Tensor of(List<Integer> list, List<UbongoEntry> solution) {
-    return matrix(list, solution).map(INSTANCE);
+    return matrix(list, solution).maps(INSTANCE);
+  }
+
+  private static final String HEX = "0123456789ABCDEF";
+
+  private static String string(Tensor vector) {
+    Clip clip = Clips.positive(15);
+    return vector.stream() //
+        .map(Scalar.class::cast) //
+        .map(s -> DeterminateScalarQ.of(s) //
+            ? "" + HEX.charAt(Scalars.intValueExact(clip.requireInside(s)))
+            : ".") //
+        .collect(Collectors.joining());
   }
 
   /** @param list
    * @param solution
    * @return */
   public static Tensor gray(List<Integer> list, List<UbongoEntry> solution) {
-    return matrix(list, solution).map(MONOCHROME);
+    return matrix(list, solution).maps(MONOCHROME);
   }
 
   // ---
   public static Tensor matrix(PuzzlePiece ubongoPiece) {
     Scalar ord = RealScalar.of(ubongoPiece.ordinal());
     return ImageRotate.cw(ubongoPiece.mask()) //
-        .map(s -> Scalars.isZero(s) //
+        .maps(s -> Scalars.isZero(s) //
             ? DoubleScalar.INDETERMINATE
             : ord);
   }
 
   public static Tensor of(PuzzlePiece ubongoPiece) {
-    return matrix(ubongoPiece).map(INSTANCE);
+    return matrix(ubongoPiece).maps(INSTANCE);
   }
 }

@@ -29,7 +29,7 @@ public enum ChebyshevInterpDemo {
     ScalarUnaryOperator suo2 = ChebyshevInterpolation.of(suo0, chebyshevNodes, n);
     Tensor knots = chebyshevNodes.of(n);
     InterpolatingPolynomial ip = InterpolatingPolynomial.of(knots);
-    ScalarUnaryOperator suo3 = ip.scalarUnaryOperator(knots.map(suo0));
+    ScalarUnaryOperator suo3 = ip.scalarUnaryOperator(knots.maps(suo0));
     Show show1 = new Show(ColorDataLists._097.cyclic().deriveWithAlpha(128));
     show1.setPlotLabel("Functions");
     show1.add(Plot.of(suo0, clip)).setLabel("f");

@@ -11,7 +11,7 @@ class SolveThread extends Thread {
 
   public SolveThread(UbongoBoard ubongoBoard, int use) {
     super(() -> {
-      List<UbongoSolution> list = ubongoBoard.filter0(use, 2);
+      List<UbongoSolution> list = ubongoBoard.filter0(use);
       if (list.isEmpty()) {
         System.err.println("no solutions");
       } else {

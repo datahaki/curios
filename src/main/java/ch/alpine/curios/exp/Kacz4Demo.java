@@ -25,7 +25,7 @@ public enum Kacz4Demo {
     Tensor matrix = RandomVariate.of(distribution, n, n + 100);
     Tensor b = RandomVariate.of(distribution, n);
     Tensor sol = LeastSquares.of(matrix, b);
-    System.out.println(sol.map(N.DOUBLE));
+    System.out.println(sol.maps(N.DOUBLE));
     Show show = new Show();
     {
       KaczmarzIteration kaczmarzIteration = new KaczmarzIteration(matrix, b);

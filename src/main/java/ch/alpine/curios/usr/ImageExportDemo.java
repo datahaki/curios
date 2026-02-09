@@ -35,8 +35,8 @@ import ch.alpine.tensor.num.GaussScalar;
     Tensor matrix = Tensors.matrix((i, j) -> //
     GaussScalar.of(i + 14 * j + i * i + i * j * 3, n), n, n);
     UnaryOperator<Scalar> asd = s -> RealScalar.of(s.number());
-    matrix.map(asd);
-    Tensor image = Raster.of(matrix.map(asd), ColorDataGradients.AURORA);
+    matrix.maps(asd);
+    Tensor image = Raster.of(matrix.maps(asd), ColorDataGradients.AURORA);
     Export.of(HomeDirectory.Pictures.resolve("image3.png"), image);
   }
 
