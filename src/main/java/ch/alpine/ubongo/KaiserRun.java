@@ -38,7 +38,6 @@ public class KaiserRun {
       Month month = pair.month;
       int day = pair.day;
       for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
-        // DayOfWeek dayOfWeek = DayOfWeek.WEDNESDAY;
         UbongoBoard ubongoBoard = calendarBoard.of(month, day, dayOfWeek);
         List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
         List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);

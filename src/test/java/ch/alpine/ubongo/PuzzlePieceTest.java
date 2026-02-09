@@ -19,7 +19,7 @@ class PuzzlePieceTest {
     Timing started = Timing.started();
     List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 100);
     Scalar val = started.seconds();
-    IO.println(val);
-    IO.println(ubongoSolutions.size());
+    // IO.println(val);
+    // IO.println(ubongoSolutions.size());
   }
 }

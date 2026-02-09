@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -15,9 +16,9 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 
 class WindowProviderTest {
-  static Collection<Class<?>> allWindowSuppliers() {
+  static Collection<Class<?>> allWindowProviders() {
     List<Class<?>> list = new LinkedList<>();
-    try (ScanResult scan = new ClassGraph().enableAllInfo().acceptPackages("showcase") //
+    try (ScanResult scan = new ClassGraph().enableAllInfo().acceptPackages("ch") //
         .scan()) {
       scan.getClassesImplementing(WindowProvider.class.getName()) //
           .loadClasses() //
@@ -26,8 +27,9 @@ class WindowProviderTest {
     return list;
   }
 
+  @Disabled // TODO will there be window providers at some point?
   @ParameterizedTest
-  @MethodSource("allWindowSuppliers")
+  @MethodSource("allWindowProviders")
   void testWindow(Class<?> cls) throws Exception {
     Constructor<?> constructor = cls.getDeclaredConstructor();
     constructor.setAccessible(true);

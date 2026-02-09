@@ -6,7 +6,6 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.alg.Transpose;
@@ -23,7 +22,7 @@ import ch.alpine.tensor.sca.Clips;
     for (ColorDataGradients colorDataGradients : ColorDataGradients.values())
       result.append(ImageResize.nearest(Transpose.of(domain.maps(colorDataGradients)), 8, 1));
     Tensor image = Flatten.of(result, 1);
-    IO.println(Dimensions.of(image));
+    // IO.println(Dimensions.of(image));
     Show show = new Show();
     show.add(ImagePlot.of(ImageFormat.of(image)));
     return show;

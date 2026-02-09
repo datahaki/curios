@@ -2,6 +2,7 @@
 package ch.alpine.ubongo;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,7 +16,7 @@ import ch.alpine.tensor.alg.Reverse;
 import ch.alpine.tensor.img.ColorFormat;
 import ch.alpine.tensor.img.ImageRotate;
 
-public record PuzzlePiece(int ordinal, Color color, Tensor mask, int count, Set<OrientedPiece> stamps) {
+public record PuzzlePiece(int ordinal, Color color, Tensor mask, int count, Set<OrientedPiece> stamps) implements Serializable {
   public static PuzzlePiece of(int ordinal, Color color, String... strings) {
     final int n = Stream.of(strings).mapToInt(String::length).max().orElseThrow();
     Tensor mask = Tensor.of(Stream.of(strings).map(string -> {

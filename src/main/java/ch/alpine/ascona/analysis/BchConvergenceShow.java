@@ -20,19 +20,12 @@ import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.exp.Log10;
 
-class BchConvergenceShow implements ShowProvider {
-  private final int depth;
-  private final Show show = new Show();
-
-  public BchConvergenceShow(int depth) {
-    this.depth = depth;
-    show.setPlotLabel("bch convergence");
-  }
-
-  void add(String name, MatrixAlgebra matrixAlgebra) {
+record BchConvergenceShow(int depth) implements ShowProvider {
+  Showable add(String name, MatrixAlgebra matrixAlgebra) {
     Tensor tensor = err(matrixAlgebra);
-    Showable showable = show.add(ListLinePlot.of(Range.of(0, tensor.length()), tensor.maps(Log10.FUNCTION)));
+    Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor.maps(Log10.FUNCTION));
     showable.setLabel(name);
+    return showable;
   }
 
   private Tensor err(MatrixAlgebra matrixAlgebra) {
@@ -51,9 +44,11 @@ class BchConvergenceShow implements ShowProvider {
 
   @Override
   public Show getShow() {
-    add("se2", new SeNGroup(2).matrixAlgebra());
-    add("so3", new SoNGroup(3).matrixAlgebra());
-    add("sl2", new SlNGroup(2).matrixAlgebra());
+    Show show = new Show();
+    show.setPlotLabel("bch convergence");
+    show.add(add("se2", new SeNGroup(2).matrixAlgebra()));
+    show.add(add("so3", new SoNGroup(3).matrixAlgebra()));
+    show.add(add("sl2", new SlNGroup(2).matrixAlgebra()));
     return show;
   }
 

@@ -26,8 +26,8 @@ class CaesarPiecesTest {
     int sum = puzzlePieces.stream().mapToInt(p -> p.count()).sum();
     assertEquals(ubongoBoard.count(), sum);
     List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
-    IO.println(ubongoBoard.message);
-    IO.println(ubongoSolutions.size());
+    // IO.println(ubongoBoard.message);
+    // IO.println(ubongoSolutions.size());
     ubongoSolutions.forEach(IO::println);
     if (!ubongoSolutions.isEmpty()) {
       UbongoSolution ubongoSolution = ubongoSolutions.getFirst();

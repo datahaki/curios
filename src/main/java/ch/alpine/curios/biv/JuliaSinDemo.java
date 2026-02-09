@@ -16,15 +16,9 @@ import ch.alpine.tensor.sca.Im;
 import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by document by Paul Bourke */
-/* package */ class JuliaSinDemo implements BivariateEvaluation {
+/* package */ record JuliaSinDemo(Scalar c) implements BivariateEvaluation {
   private static final Scalar MAX = RealScalar.of(50);
   private static final int MAX_ITERATIONS = 10;
-  // ---
-  private final Scalar c;
-
-  public JuliaSinDemo(Scalar c) {
-    this.c = c;
-  }
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {

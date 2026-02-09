@@ -30,7 +30,7 @@ class CaesarBoardTest {
     LocalDate.of(2025, 1, 1).datesUntil(LocalDate.of(2026, 1, 1)) //
         .filter(_ -> ThreadLocalRandom.current().nextDouble() < 0.03) //
         .forEach(ld -> {
-          IO.println(ld);
+          // IO.println(ld);
           UbongoBoard ubongoBoard = calendarBoard.of(ld);
           List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
           List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);

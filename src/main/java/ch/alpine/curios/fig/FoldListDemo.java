@@ -12,28 +12,28 @@ import ch.alpine.tensor.alg.Accumulate;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
-import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 
 class FoldListDemo implements ShowProvider {
+  private static final int NUMEL = 1_000_000;
+
   @Override
   public Show getShow() {
     Distribution distribution = UniformDistribution.unit();
     Tensor t_ser = Tensors.empty();
     Tensor t_par = Tensors.empty();
     for (int count = 0; count < 10; ++count) {
-      System.out.println(count);
       Scalar index = RealScalar.of(count);
-      Tensor tensor = RandomVariate.of(distribution, 10000000);
+      Tensor tensor = RandomVariate.of(distribution, NUMEL);
       {
         Timing timing = Timing.started();
         FoldListTry.of(Tensor::add, tensor);
-        t_ser.append(Tensors.of(index, Quantity.of(timing.nanoSeconds(), "ns")));
+        t_ser.append(Tensors.of(index, timing.nanoSeconds()));
       }
       {
         Timing timing = Timing.started();
         Accumulate.of(tensor);
-        t_par.append(Tensors.of(index, Quantity.of(timing.nanoSeconds(), "ns")));
+        t_par.append(Tensors.of(index, timing.nanoSeconds()));
       }
     }
     Show show = new Show();
