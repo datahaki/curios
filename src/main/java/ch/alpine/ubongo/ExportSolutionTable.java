@@ -24,7 +24,7 @@ enum ExportSolutionTable {
     String prefix = "cheese";
     Tensor tensor = Get.of(HomeDirectory.path(prefix + ".mathematica"));
     ArrayQ.require(tensor);
-IO.println(Dimensions.of(tensor));
+    IO.println(Dimensions.of(tensor));
     Path path = HomeDirectory.Documents.resolve(prefix + "5x10.txt");
     try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(path), StandardCharsets.UTF_8))) {
       for (Month month : Month.values())

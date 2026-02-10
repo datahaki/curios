@@ -33,7 +33,7 @@ public class CalendarBoard {
     Tensor mask = MatrixQ.require(prep).unmodifiable();
     boolean singleFree = StaticHelper.isSingleFree(mask);
     if (!singleFree)
-      System.err.println(month+" "+day+" "+dayOfWeek);
+      System.err.println(month + " " + day + " " + dayOfWeek);
     Throw.unless(singleFree);
     return singleFree;
   }

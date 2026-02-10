@@ -19,9 +19,7 @@ public enum CalendarBoards {
       oowwwwwwwo
       oooooooooo
       """),
-  /**
-   * fine
-   */
+  /** fine */
   KEISER("""
       oommmmmmoo
       oommmmmmoo
