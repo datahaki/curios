@@ -54,7 +54,7 @@ import ch.alpine.ubongo.UbongoSolution;
         }
         UbongoSolution ubongoSolution = solutions.get(index);
         for (UbongoEntry ubongoEntry : ubongoSolution.list()) {
-          Tensor mask = ImageRotate.cw(ubongoEntry.ubongoPiece().mask());
+          Tensor mask = ImageRotate.CW.apply(ubongoEntry.ubongoPiece().mask());
           List<Integer> size = Dimensions.of(mask);
           int piw = size.get(1) * ZCALE;
           int scale = ZCALE;

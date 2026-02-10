@@ -194,7 +194,7 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
     }
     if (param.rotCw) {
       param.rotCw = false;
-      template = ImageRotate.cw(template);
+      template = ImageRotate.CW.apply(template);
     }
     if (param.solve) {
       param.solve = false;

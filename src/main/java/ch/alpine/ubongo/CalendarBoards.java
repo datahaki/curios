@@ -19,6 +19,30 @@ public enum CalendarBoards {
       oowwwwwwwo
       oooooooooo
       """),
+  /**
+   * fine
+   */
+  KEISER("""
+      oommmmmmoo
+      oommmmmmoo
+      oooooooooo
+      oowwwwwwwo
+      oooooooooo
+      """),
+  CHEESE("""
+      momomomomo
+      omomomomom
+      mooooomooo
+      oowwwwwwwo
+      oooooooooo
+      """),
+  CHEESY("""
+      momomomomo
+      omomomomom
+      mooooomooo
+      oowowowowo
+      ooowowowoo
+      """),
   TOWERS("""
       mmooooooo
       mmooooooo

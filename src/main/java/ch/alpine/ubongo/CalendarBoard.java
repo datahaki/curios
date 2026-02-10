@@ -32,6 +32,8 @@ public class CalendarBoard {
     Tensor prep = caesarIndex.occupy(month, day, dayOfWeek);
     Tensor mask = MatrixQ.require(prep).unmodifiable();
     boolean singleFree = StaticHelper.isSingleFree(mask);
+    if (!singleFree)
+      System.err.println(month+" "+day+" "+dayOfWeek);
     Throw.unless(singleFree);
     return singleFree;
   }

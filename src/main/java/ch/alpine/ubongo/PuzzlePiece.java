@@ -28,7 +28,7 @@ public record PuzzlePiece(int ordinal, Color color, Tensor mask, int count, Set<
     })).unmodifiable();
     int count = (int) Flatten.stream(mask, -1).filter(RealScalar.ONE::equals).count();
     // ---
-    Tensor rotated = NestList.of(ImageRotate::of, mask, 4);
+    Tensor rotated = NestList.of(ImageRotate.CCW, mask, 4);
     Set<OrientedPiece> set = Stream.concat( //
         rotated.stream(), //
         rotated.stream().map(Reverse::of)) //

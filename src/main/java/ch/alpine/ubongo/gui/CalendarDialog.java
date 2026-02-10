@@ -12,6 +12,7 @@ import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.img.ColorDataLists;
+import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 import ch.alpine.ubongo.CaesarPieces;
 import ch.alpine.ubongo.CalendarBoard;
@@ -33,13 +34,15 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     Show show = new Show();
     show.setPlotLabel(localDate.toString() + " " + localDate.getDayOfWeek());
     show.setGridLines(false);
-    show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict()))));
+    ImagePlot imagePlot = ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())));
+    imagePlot.setImageResize(ImageResize.DEGREE_0);
+    show.add(imagePlot);
     List<StringItem> list = calendarBoard.mapping().entrySet().stream().map(e -> StringItem.of(e.getKey(), e.getValue())).toList();
     show.add(StringPlot.of(list));
     return show;
   }
 
   static void main() {
-    new CalendarDialog(CalendarBoards.KAISER.calendarBoard(), LocalDate.now()).run();
+    new CalendarDialog(CalendarBoards.CHEESY.calendarBoard(), LocalDate.now()).run();
   }
 }

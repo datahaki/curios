@@ -13,6 +13,8 @@ import ch.alpine.tensor.Throw;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Put;
+import ch.alpine.tensor.qty.Timing;
+import ch.alpine.tensor.sca.Round;
 import ch.alpine.ubongo.gui.UbongoRender;
 
 public class KaiserRun {
@@ -34,6 +36,7 @@ public class KaiserRun {
         Throw.unless(calendarBoard.isSinglesFree(pair.month, pair.day, dayOfWeek));
     });
     Tensor array = Array.zeros(12, 31, 7);
+    Timing timing = Timing.started();
     Pair.all().parallel().forEach(pair -> {
       Month month = pair.month;
       int day = pair.day;
@@ -42,7 +45,7 @@ public class KaiserRun {
         List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
         List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
         if (ubongoSolutions.isEmpty())
-          System.err.println("NO SOLUTION: " + month + " " + day + " " + dayOfWeek);
+          throw new RuntimeException("NO SOLUTION: " + month + " " + day + " " + dayOfWeek);
         else {
           UbongoSolution ubongoSolution = ubongoSolutions.getFirst();
           String string = UbongoRender.string(ubongoBoard.board_size(), ubongoSolution.list());
@@ -52,9 +55,10 @@ public class KaiserRun {
         }
       }
     });
+    IO.println(timing.seconds().maps(Round._1));
     try {
       IO.println("storing");
-      Put.of(HomeDirectory.path("kaiser.mathematica"), array);
+      Put.of(HomeDirectory.path("cheese.mathematica"), array);
       IO.println("stored");
     } catch (IOException e) {
       e.printStackTrace();
@@ -63,6 +67,6 @@ public class KaiserRun {
   }
 
   static void main() {
-    check(CalendarBoards.KAISER.calendarBoard());
+    check(CalendarBoards.CHEESY.calendarBoard());
   }
 }

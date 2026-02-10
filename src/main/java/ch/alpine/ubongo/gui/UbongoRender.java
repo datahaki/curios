@@ -82,7 +82,7 @@ public enum UbongoRender {
   // ---
   public static Tensor matrix(PuzzlePiece ubongoPiece) {
     Scalar ord = RealScalar.of(ubongoPiece.ordinal());
-    return ImageRotate.cw(ubongoPiece.mask()) //
+    return ImageRotate.CW.apply(ubongoPiece.mask()) //
         .maps(s -> Scalars.isZero(s) //
             ? DoubleScalar.INDETERMINATE
             : ord);

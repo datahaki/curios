@@ -12,6 +12,8 @@ import java.time.Month;
 
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.alg.ArrayQ;
+import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Get;
 import ch.alpine.ubongo.gui.UbongoRender;
@@ -19,8 +21,11 @@ import ch.alpine.ubongo.gui.UbongoRender;
 enum ExportSolutionTable {
   ;
   static void main() throws IOException {
-    Tensor tensor = Get.of(HomeDirectory.path("kaiser.mathematica"));
-    Path path = HomeDirectory.Documents.resolve("kaiser5x10.txt");
+    String prefix = "cheese";
+    Tensor tensor = Get.of(HomeDirectory.path(prefix + ".mathematica"));
+    ArrayQ.require(tensor);
+IO.println(Dimensions.of(tensor));
+    Path path = HomeDirectory.Documents.resolve(prefix + "5x10.txt");
     try (PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(path), StandardCharsets.UTF_8))) {
       for (Month month : Month.values())
         for (int day = 1; day <= 31; day++)
