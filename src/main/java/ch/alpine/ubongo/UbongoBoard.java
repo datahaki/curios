@@ -3,7 +3,7 @@ package ch.alpine.ubongo;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -44,8 +44,7 @@ public class UbongoBoard {
   private final List<Integer> board_size;
   private final int count;
   /** all the possible locations of the oriented piece */
-  // TODO this is bad!
-  private final Map<OrientedPiece, List<Pnt>> map = new HashMap<>();
+  private final Map<OrientedPiece, List<Pnt>> map = new IdentityHashMap<>();
   public String message = "";
   private final List<PuzzlePiece> pieces;
 
@@ -169,7 +168,7 @@ public class UbongoBoard {
       final PuzzlePiece puzzlePiece = list.getFirst(); // piece
       for (OrientedPiece orientedPiece : puzzlePiece.stamps()) {
         Tensor stamp = orientedPiece.stamp();
-        List<Pnt> points = map.get(orientedPiece); // TODO hideous !!
+        List<Pnt> points = map.get(orientedPiece); // hash by identity
         for (Pnt point : points) {
           int bi = point.i();
           int bj = point.j();
