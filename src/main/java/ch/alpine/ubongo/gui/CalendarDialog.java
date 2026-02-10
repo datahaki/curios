@@ -6,7 +6,8 @@ import java.util.List;
 
 import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.TextsPlot;
+import ch.alpine.bridge.fig.StringPlot;
+import ch.alpine.bridge.fig.StringPlot.StringItem;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
@@ -33,7 +34,8 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     show.setPlotLabel(localDate.toString() + " " + localDate.getDayOfWeek());
     show.setGridLines(false);
     show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict()))));
-    show.add(TextsPlot.of(calendarBoard.mapping()));
+    List<StringItem> list = calendarBoard.mapping().entrySet().stream().map(e -> StringItem.of(e.getKey(), e.getValue())).toList();
+    show.add(StringPlot.of(list));
     return show;
   }
 
