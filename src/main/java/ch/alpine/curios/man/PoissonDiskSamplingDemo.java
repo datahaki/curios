@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.pdf;
+package ch.alpine.curios.man;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
-public class BlueParam implements ManipulateProvider {
+public class PoissonDiskSamplingDemo implements ManipulateProvider {
   public Scalar wx = RealScalar.of(10);
   public Scalar wy = RealScalar.of(10);
   public Scalar r = RealScalar.of(0.1);
@@ -39,6 +39,6 @@ public class BlueParam implements ManipulateProvider {
   }
 
   static void main() {
-    new BlueParam().run();
+    new PoissonDiskSamplingDemo().run();
   }
 }
