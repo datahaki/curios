@@ -7,7 +7,7 @@ import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.num.GaussScalar;
 import ch.alpine.tensor.num.Prime;
-import ch.alpine.tensor.sca.Clip;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
 /* package */ record GaussScalarDemo(int prime) implements BivariateEvaluation {
@@ -19,13 +19,8 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.interval(1, prime - 1);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.interval(1, prime - 1);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.interval(1, prime - 1), Clips.interval(1, prime - 1));
   }
 
   @Override

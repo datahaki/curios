@@ -8,7 +8,7 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
-import ch.alpine.tensor.sca.Clip;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Im;
 import ch.alpine.tensor.sca.pow.Power;
@@ -31,13 +31,8 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.absolute(2.0);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.absolute(2.0);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.absolute(2.0), Clips.absolute(2.0));
   }
 
   @Override
@@ -46,7 +41,6 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
   }
 
   static void main() {
-    BivariateEvaluation bivariateEvaluation = new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION);
-    bivariateEvaluation.getShow();
+    new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION).run();
   }
 }

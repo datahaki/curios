@@ -5,7 +5,7 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
-import ch.alpine.tensor.sca.Clip;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.pow.Power;
 import ch.alpine.tensor.sca.tri.Cos;
@@ -21,13 +21,8 @@ import ch.alpine.tensor.sca.tri.Cos;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.interval(0.25, 1.0);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.interval(0.25, 1.0);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.interval(0.25, 1.0), Clips.interval(0.25, 1.0));
   }
 
   @Override

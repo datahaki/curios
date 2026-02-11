@@ -8,9 +8,9 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.red.Nest;
 import ch.alpine.tensor.sca.Arg;
-import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 /** inspired by Mathematica's documentation of Gamma */
@@ -28,13 +28,8 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.absolute(2.0);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.absolute(2.0);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.absolute(2.0), Clips.absolute(2.0));
   }
 
   @Override
@@ -43,8 +38,7 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    BivariateEvaluation bivariateEvaluation = new NewtonDemo(Tensors.vector(1, 5, 0, 1));
-    bivariateEvaluation.getShow();
+    new NewtonDemo(Tensors.vector(1, 5, 0, 1)).run();
   }
 }
 // depth3

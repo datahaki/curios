@@ -8,9 +8,9 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
-import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Im;
 import ch.alpine.tensor.sca.tri.Sin;
@@ -32,13 +32,8 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.interval(-2.3, +2.3);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.interval(-2.3, +2.3);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.interval(-2.3, +2.3), Clips.interval(-2.3, +2.3));
   }
 
   @Override
@@ -47,7 +42,6 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   static void main() {
-    BivariateEvaluation bivariateEvaluation = new JuliaSinDemo(ComplexScalar.of(1.1, 0.5));
-    bivariateEvaluation.getShow();
+    new JuliaSinDemo(ComplexScalar.of(1.1, 0.5)).run();
   }
 }

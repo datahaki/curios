@@ -6,9 +6,9 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.red.Nest;
 import ch.alpine.tensor.sca.Arg;
-import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.gam.Gamma;
 
@@ -20,19 +20,15 @@ import ch.alpine.tensor.sca.gam.Gamma;
     try {
       return Arg.FUNCTION.apply(Nest.of(Gamma.FUNCTION, seed, depth));
     } catch (Exception exception) {
-      System.out.println("fail=" + seed);
+      // exception.printStackTrace();
+      System.out.println("GammaDemo fail=" + seed);
     }
     return DoubleScalar.INDETERMINATE;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.interval(-1.25, -0.6);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.interval(-0.25, +0.25);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.interval(-1.25, -0.6), Clips.interval(-0.25, +0.25));
   }
 
   @Override

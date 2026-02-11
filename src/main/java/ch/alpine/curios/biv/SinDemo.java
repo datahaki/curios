@@ -7,8 +7,8 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.num.Pi;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.red.Nest;
-import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Re;
 import ch.alpine.tensor.sca.tri.ArcTan;
@@ -23,13 +23,8 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.absolute(Pi.VALUE);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.absolute(Pi.VALUE);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.absolute(Pi.VALUE), Clips.absolute(Pi.VALUE));
   }
 
   @Override

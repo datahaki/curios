@@ -8,9 +8,9 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
-import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 /* package */ record MandelbrotDemo(int depth) implements BivariateEvaluation {
@@ -32,13 +32,8 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   @Override
-  public Clip clipX() {
-    return Clips.interval(-1.4, -1.0);
-  }
-
-  @Override
-  public Clip clipY() {
-    return Clips.interval(+0.0, +0.4);
+  public CoordinateBoundingBox cbb() {
+    return CoordinateBoundingBox.of(Clips.interval(-1.4, -1.0), Clips.interval(+0.0, +0.4));
   }
 
   @Override
@@ -47,6 +42,6 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    new MandelbrotDemo(30).run();
+    new MandelbrotDemo(50).run();
   }
 }
