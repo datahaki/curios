@@ -85,7 +85,7 @@ class ManipulateProviderTest {
     }
     BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     Graphics2D graphics = bufferedImage.createGraphics();
-    jComponent.paint(graphics);
+    jComponent.printAll(graphics);
     graphics.dispose();
     if (false)
       try {
