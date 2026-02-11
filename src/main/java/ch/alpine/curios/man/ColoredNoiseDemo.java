@@ -36,12 +36,12 @@ public class ColoredNoiseDemo implements ManipulateProvider {
 
   @Override
   public JComponent getJComponent() {
-    Distribution coloredNoise = ColoredNoise.of(alpha.number().doubleValue());
-    Tensor values = RandomVariate.of(coloredNoise, length);
+    Distribution distribution = ColoredNoise.of(alpha);
+    Tensor values = RandomVariate.of(distribution, length);
     Tensor domain = Range.of(0, values.length());
     Show show1 = new Show();
     {
-      show1.setPlotLabel(coloredNoise.toString());
+      show1.setPlotLabel(distribution.toString());
       show1.add(ListLinePlot.of(domain, values));
     }
     Show show2 = new Show();

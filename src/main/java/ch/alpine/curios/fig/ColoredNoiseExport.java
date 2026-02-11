@@ -18,7 +18,7 @@ class ColoredNoiseExport implements ShowProvider {
   public Show getShow() {
     Show show = new Show();
     for (Tensor _x : Subdivide.of(0, 2, 10)) {
-      Distribution coloredNoise =  ColoredNoise.of(((Scalar) _x).number().doubleValue());
+      Distribution coloredNoise = ColoredNoise.of((Scalar) _x);
       Tensor tensor = RandomVariate.of(coloredNoise, 1000);
       Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor);
       showable.setLabel("" + _x);
