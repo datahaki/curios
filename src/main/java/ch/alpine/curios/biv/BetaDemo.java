@@ -13,7 +13,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.gam.Beta;
 
 /** inspired by Mathematica's documentation of Beta */
-/* package */ record BetaDemo(int depth) implements BivariateEvaluation {
+/* package */ record BetaDemo(int depth) implements DensityPlotProvider {
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = ComplexScalar.of(re, im);

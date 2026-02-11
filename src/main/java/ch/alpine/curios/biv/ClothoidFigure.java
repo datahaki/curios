@@ -13,7 +13,7 @@ import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-record ClothoidFigure(Scalar angle) implements BivariateEvaluation {
+record ClothoidFigure(Scalar angle) implements DensityPlotProvider {
   private static final ClothoidBuilder CLOTHOID_BUILDER = ClothoidBuilders.SE2_ANALYTIC.clothoidBuilder();
 
   @Override

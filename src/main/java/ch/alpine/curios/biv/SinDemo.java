@@ -15,7 +15,7 @@ import ch.alpine.tensor.sca.tri.ArcTan;
 import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by mathematica's documentation of Gamma */
-/* package */ record SinDemo(int depth) implements BivariateEvaluation {
+/* package */ record SinDemo(int depth) implements DensityPlotProvider {
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = ComplexScalar.of(re, im);

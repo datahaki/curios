@@ -20,12 +20,13 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Range;
+import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 
 @ReflectionMarker
 public class ColoredNoiseDemo implements ManipulateProvider {
   @FieldSlider
-  @FieldClip(min = "0", max = "2")
+  @FieldClip(min = "-2", max = "2")
   @FieldPreferredWidth(250)
   public Scalar alpha = RealScalar.of(2);
   @FieldPreferredWidth(150)
@@ -35,12 +36,12 @@ public class ColoredNoiseDemo implements ManipulateProvider {
 
   @Override
   public JComponent getJComponent() {
-    ColoredNoise coloredNoise = new ColoredNoise(alpha.number().doubleValue());
+    Distribution coloredNoise = ColoredNoise.of(alpha.number().doubleValue());
     Tensor values = RandomVariate.of(coloredNoise, length);
     Tensor domain = Range.of(0, values.length());
     Show show1 = new Show();
     {
-      show1.setPlotLabel("Signal");
+      show1.setPlotLabel(coloredNoise.toString());
       show1.add(ListLinePlot.of(domain, values));
     }
     Show show2 = new Show();

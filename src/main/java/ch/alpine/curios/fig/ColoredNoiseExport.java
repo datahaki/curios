@@ -10,6 +10,7 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.alg.Subdivide;
+import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 
 class ColoredNoiseExport implements ShowProvider {
@@ -17,7 +18,7 @@ class ColoredNoiseExport implements ShowProvider {
   public Show getShow() {
     Show show = new Show();
     for (Tensor _x : Subdivide.of(0, 2, 10)) {
-      ColoredNoise coloredNoise = new ColoredNoise(((Scalar) _x).number().doubleValue());
+      Distribution coloredNoise =  ColoredNoise.of(((Scalar) _x).number().doubleValue());
       Tensor tensor = RandomVariate.of(coloredNoise, 1000);
       Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor);
       showable.setLabel("" + _x);

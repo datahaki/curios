@@ -22,7 +22,7 @@ class BivariateEvaluationTest {
   @TempDir
   Path tempDir;
 
-  static List<BivariateEvaluation> bivariateEvaluations() {
+  static List<DensityPlotProvider> bivariateEvaluations() {
     return Arrays.asList( //
         new BetaDemo(2), //
         new GammaDemo(2), //
@@ -37,7 +37,7 @@ class BivariateEvaluationTest {
 
   @ParameterizedTest
   @MethodSource("bivariateEvaluations")
-  void testSimple(BivariateEvaluation bivariateEvaluation) throws IOException {
+  void testSimple(DensityPlotProvider bivariateEvaluation) throws IOException {
     String string = bivariateEvaluation.getClass().getSimpleName();
     Show show = bivariateEvaluation.getShow();
     show.export(tempDir.resolve(string + ".png"), new Dimension(300, 300));

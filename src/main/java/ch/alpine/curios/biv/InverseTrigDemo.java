@@ -17,7 +17,7 @@ import ch.alpine.tensor.sca.tri.ArcSinh;
 import ch.alpine.tensor.sca.tri.ArcTanh;
 
 /** inspired by Mathematica's documentation of DensityPlot */
-/* package */ record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements BivariateEvaluation {
+/* package */ record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements DensityPlotProvider {
   private static final int EXPONENT = 3;
 
   @Override

@@ -14,7 +14,7 @@ import ch.alpine.tensor.sca.Arg;
 import ch.alpine.tensor.sca.Clips;
 
 /** inspired by Mathematica's documentation of Gamma */
-/* package */ class NewtonDemo implements BivariateEvaluation {
+/* package */ class NewtonDemo implements DensityPlotProvider {
   private static final int DEPTH = 2;
   private final ScalarUnaryOperator scalarUnaryOperator;
 

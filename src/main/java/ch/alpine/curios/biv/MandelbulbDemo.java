@@ -14,7 +14,7 @@ import ch.alpine.tensor.nrm.Vector2NormSquared;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-record MandelbulbDemo(int exponent, int depth, Scalar z) implements BivariateEvaluation {
+record MandelbulbDemo(int exponent, int depth, Scalar z) implements DensityPlotProvider {
   private static final Scalar THRESHOLD = RealScalar.of(5.0);
 
   @Override

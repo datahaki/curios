@@ -8,7 +8,7 @@ import ch.alpine.tensor.api.ScalarBinaryOperator;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 
-interface BivariateEvaluation extends ScalarBinaryOperator, ShowProvider {
+interface DensityPlotProvider extends ScalarBinaryOperator, ShowProvider {
   CoordinateBoundingBox cbb();
 
   ColorDataGradient colorDataGradient();

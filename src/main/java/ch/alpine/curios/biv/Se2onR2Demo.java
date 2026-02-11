@@ -17,7 +17,7 @@ import ch.alpine.tensor.red.Min;
 import ch.alpine.tensor.sca.Clips;
 
 /** used as logo of edelweis */
-public class Se2onR2Demo implements BivariateEvaluation {
+public class Se2onR2Demo implements DensityPlotProvider {
   private final Tensor actions = Tensors.of( //
       Tensors.vector(+0.1, +0.2, +0.3), //
       Tensors.vector(-0.3, +0.2, -0.5), //

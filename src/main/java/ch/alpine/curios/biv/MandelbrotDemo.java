@@ -13,7 +13,7 @@ import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
 import ch.alpine.tensor.sca.Clips;
 
-/* package */ record MandelbrotDemo(int depth) implements BivariateEvaluation {
+/* package */ record MandelbrotDemo(int depth) implements DensityPlotProvider {
   private static final Scalar TWO = RealScalar.of(2.0);
 
   @Override

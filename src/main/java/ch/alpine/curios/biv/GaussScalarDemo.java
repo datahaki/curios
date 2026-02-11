@@ -10,7 +10,7 @@ import ch.alpine.tensor.num.Prime;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-/* package */ record GaussScalarDemo(int prime) implements BivariateEvaluation {
+/* package */ record GaussScalarDemo(int prime) implements DensityPlotProvider {
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     GaussScalar x = GaussScalar.of(re.number().intValue(), prime);
