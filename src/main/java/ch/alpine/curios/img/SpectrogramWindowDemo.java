@@ -27,7 +27,7 @@ import ch.alpine.tensor.sca.win.WindowFunctions;
 /* package */ enum SpectrogramWindowDemo {
   ;
   public static Tensor vector(Tensor vector, ScalarUnaryOperator window, Function<Scalar, ? extends Tensor> function) {
-    return Raster.of(new SpectrogramArray(Fourier.FORWARD::transform, null, null, window).half_abs(vector), function);
+    return Raster.of(SpectrogramArray.of(Fourier.FORWARD::transform, null, null, window).half_abs(vector), function);
   }
 
   static void main() throws IOException {
