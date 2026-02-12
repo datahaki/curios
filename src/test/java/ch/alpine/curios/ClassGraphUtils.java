@@ -2,10 +2,11 @@
 package ch.alpine.curios;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
@@ -16,9 +17,7 @@ public record ClassGraphUtils<T>(Class<T> cls) {
     List<T> collection = new LinkedList<>();
     for (Class<?> implementation : getImplementations("ch")) {
       List<T> list = getInstances(implementation);
-      for (T sp : list) {
-        collection.add(sp);
-      }
+      collection.addAll(list);
     }
     return collection;
   }
@@ -33,9 +32,25 @@ public record ClassGraphUtils<T>(Class<T> cls) {
   }
 
   @SuppressWarnings("unchecked")
-  private static <T> List<T> getInstances(Class<?> implementation) {
+  private <T> List<T> getInstances(Class<?> implementation) {
+    List<T> list = new LinkedList<>();
+    for (Field field : implementation.getDeclaredFields())
+      if (Modifier.isStatic(field.getModifiers()))
+        try {
+          field.setAccessible(true); // mandatory
+          Object object = field.get(null);
+          if (cls.isInstance(object)) {
+            // IO.println("---");
+            // IO.println(implementation);
+            // IO.println(field);
+            list.add((T) object);
+          }
+        } catch (Exception e) {
+          System.err.println("error " + e.getMessage());
+        }
+    // ---
     if (implementation.isEnum()) {
-      return Stream.of(implementation.getEnumConstants()).map(t -> (T) t).toList();
+      // enum constants are handled as fields above
     } else //
     if (implementation.isInterface()) {
       // ---
@@ -62,9 +77,9 @@ public record ClassGraphUtils<T>(Class<T> cls) {
           // ---
         }
         if (Objects.nonNull(object))
-          return List.of((T) object);
+          list.add((T) object);
       }
     }
-    return List.of();
+    return list;
   }
 }

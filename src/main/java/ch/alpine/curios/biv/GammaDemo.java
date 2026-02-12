@@ -14,6 +14,8 @@ import ch.alpine.tensor.sca.gam.Gamma;
 
 /** inspired by Mathematica's documentation of Gamma */
 /* package */ record GammaDemo(int depth) implements DensityPlotProvider {
+  public static final DensityPlotProvider INSTANCE = new GammaDemo(2);
+
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = ComplexScalar.of(re, im);
@@ -37,6 +39,6 @@ import ch.alpine.tensor.sca.gam.Gamma;
   }
 
   static void main() {
-    new GammaDemo(2).run();
+    INSTANCE.run();
   }
 }

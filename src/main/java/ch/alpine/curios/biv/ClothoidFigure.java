@@ -15,6 +15,7 @@ import ch.alpine.tensor.sca.Clips;
 
 record ClothoidFigure(Scalar angle) implements DensityPlotProvider {
   private static final ClothoidBuilder CLOTHOID_BUILDER = ClothoidBuilders.SE2_ANALYTIC.clothoidBuilder();
+  public static final DensityPlotProvider INSTANCE = new ClothoidFigure(RealScalar.of(2.6));
 
   @Override
   public Scalar apply(Scalar x, Scalar y) {
@@ -34,6 +35,6 @@ record ClothoidFigure(Scalar angle) implements DensityPlotProvider {
   }
 
   static void main() {
-    new ClothoidFigure(RealScalar.of(2.6)).run();
+    INSTANCE.run();
   }
 }

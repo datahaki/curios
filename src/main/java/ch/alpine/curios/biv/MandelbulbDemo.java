@@ -16,6 +16,7 @@ import ch.alpine.tensor.sca.Clips;
 
 record MandelbulbDemo(int exponent, int depth, Scalar z) implements DensityPlotProvider {
   private static final Scalar THRESHOLD = RealScalar.of(5.0);
+  public static final DensityPlotProvider INSTANCE = new MandelbulbDemo(8, 40, RealScalar.of(0.505));
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -43,6 +44,6 @@ record MandelbulbDemo(int exponent, int depth, Scalar z) implements DensityPlotP
   }
 
   static void main() {
-    new MandelbulbDemo(8, 40, RealScalar.of(0.505)).run();
+    INSTANCE.run();
   }
 }

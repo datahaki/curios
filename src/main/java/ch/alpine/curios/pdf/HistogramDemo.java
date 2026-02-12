@@ -10,7 +10,7 @@ import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.HistogramDistribution;
 import ch.alpine.tensor.sca.Clip;
 
-record HistrogramDemo(Distribution distribution, Clip clipX) implements ShowProvider {
+record HistogramDemo(Distribution distribution, Clip clipX) implements ShowProvider {
   @Override
   public Show getShow() {
     Distribution histogram = HistogramDistribution.of(RandomVariate.of(distribution, 10000));

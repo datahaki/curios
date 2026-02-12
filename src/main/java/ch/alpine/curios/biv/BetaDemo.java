@@ -14,6 +14,8 @@ import ch.alpine.tensor.sca.gam.Beta;
 
 /** inspired by Mathematica's documentation of Beta */
 /* package */ record BetaDemo(int depth) implements DensityPlotProvider {
+  public static final DensityPlotProvider INSTANCE = new BetaDemo(2);
+
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = ComplexScalar.of(re, im);
@@ -36,6 +38,6 @@ import ch.alpine.tensor.sca.gam.Beta;
   }
 
   static void main() {
-    new BetaDemo(2).run();
+    INSTANCE.run();
   }
 }

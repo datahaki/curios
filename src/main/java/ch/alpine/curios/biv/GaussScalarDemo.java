@@ -11,6 +11,8 @@ import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
 /* package */ record GaussScalarDemo(int prime) implements DensityPlotProvider {
+  public static final DensityPlotProvider INSTANCE = new GaussScalarDemo(Prime.of(100).number().intValue());
+
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     GaussScalar x = GaussScalar.of(re.number().intValue(), prime);
@@ -29,6 +31,6 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    new GaussScalarDemo(Prime.of(100).number().intValue()).run();
+    INSTANCE.run();
   }
 }

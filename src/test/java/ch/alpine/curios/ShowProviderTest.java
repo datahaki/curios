@@ -31,8 +31,8 @@ class ShowProviderTest implements Consumer<ShowProvider> {
 
   @Override
   public void accept(ShowProvider showProvider) {
-    IO.println(tempDir);
-    IO.println(showProvider);
+    // IO.println(tempDir);
+    // IO.println(showProvider);
     Show show = showProvider.getShow();
     Path file = tempDir.resolve(System.nanoTime() + ".png");
     try {

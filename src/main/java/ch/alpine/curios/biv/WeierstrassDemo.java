@@ -11,6 +11,8 @@ import ch.alpine.tensor.sca.pow.Power;
 import ch.alpine.tensor.sca.tri.Cos;
 
 /* package */ record WeierstrassDemo(int depth) implements DensityPlotProvider {
+  public static final DensityPlotProvider INSTANCE = new WeierstrassDemo(20);
+
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar s = DoubleScalar.of(0.0);
@@ -31,6 +33,6 @@ import ch.alpine.tensor.sca.tri.Cos;
   }
 
   static void main() {
-    new WeierstrassDemo(20).run();
+    INSTANCE.run();
   }
 }

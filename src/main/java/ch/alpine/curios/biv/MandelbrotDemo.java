@@ -15,6 +15,7 @@ import ch.alpine.tensor.sca.Clips;
 
 /* package */ record MandelbrotDemo(int depth) implements DensityPlotProvider {
   private static final Scalar TWO = RealScalar.of(2.0);
+  public static final DensityPlotProvider INSTANCE = new MandelbrotDemo(50);
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -42,6 +43,6 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    new MandelbrotDemo(50).run();
+    INSTANCE.run();
   }
 }

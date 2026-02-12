@@ -16,6 +16,8 @@ import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by mathematica's documentation of Gamma */
 /* package */ record SinDemo(int depth) implements DensityPlotProvider {
+  public static final DensityPlotProvider INSTANCE = new SinDemo(3);
+
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = ComplexScalar.of(re, im);
@@ -33,6 +35,6 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   static void main() {
-    new SinDemo(3).run();
+    INSTANCE.run();
   }
 }

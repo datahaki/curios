@@ -19,6 +19,7 @@ import ch.alpine.tensor.sca.tri.Sin;
 /* package */ record JuliaSinDemo(Scalar c) implements DensityPlotProvider {
   private static final Scalar MAX = RealScalar.of(50);
   private static final int MAX_ITERATIONS = 10;
+  public static final DensityPlotProvider INSTANCE = new JuliaSinDemo(ComplexScalar.of(1.1, 0.5));
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -42,6 +43,6 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   static void main() {
-    new JuliaSinDemo(ComplexScalar.of(1.1, 0.5)).run();
+    INSTANCE.run();
   }
 }

@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.biv;
+package ch.alpine.curios.man;
 
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;

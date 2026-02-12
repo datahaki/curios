@@ -19,6 +19,7 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
 /** inspired by Mathematica's documentation of DensityPlot */
 /* package */ record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements DensityPlotProvider {
   private static final int EXPONENT = 3;
+  public static final DensityPlotProvider INSTANCE = new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION);
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -41,6 +42,6 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
   }
 
   static void main() {
-    new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION).run();
+    INSTANCE.run();
   }
 }
