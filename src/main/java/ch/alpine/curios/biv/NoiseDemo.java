@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.curios.biv;
 
 import ch.alpine.sophus.math.noise.PerlinContinuousNoise;

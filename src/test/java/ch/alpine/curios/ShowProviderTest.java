@@ -1,81 +1,44 @@
 // code by jph
 package ch.alpine.curios;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.awt.Dimension;
-import java.lang.reflect.Constructor;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import java.util.function.Consumer;
 
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.io.TempDir;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ScanResult;
 
-class ShowProviderTest {
+class ShowProviderTest implements Consumer<ShowProvider> {
   @TempDir
   Path tempDir;
 
-  static Collection<Class<?>> allWindowSuppliers() {
-    List<Class<?>> list = new LinkedList<>();
-    try (ScanResult scanResult = new ClassGraph().enableAllInfo().acceptPackages("ch") //
-        .scan()) {
-      scanResult.getClassesImplementing(ShowProvider.class.getName()) //
-          .loadClasses() //
-          .forEach(list::add);
-    }
-    return list;
+  @TestFactory
+  Collection<DynamicTest> dynamicTests() {
+    List<ShowProvider> list = new ClassGraphUtils<>(ShowProvider.class).getInstances("ch");
+    assertFalse(list.isEmpty());
+    return list.stream() //
+        .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
+        .toList();
   }
 
-  @ParameterizedTest
-  @MethodSource("allWindowSuppliers")
-  void testWindow(Class<?> cls) {
-    // TODO need to catch Them All
-    if (cls.isEnum()) {
-      for (Object object : cls.getEnumConstants()) {
-        Enum<?> enm = (Enum<?>) object;
-        _check((ShowProvider) object, tempDir, cls.getSimpleName() + "_" + enm.name());
-      }
-    } else //
-    if (cls.isInterface()) {
-    } else //
-    if (cls.isRecord()) {
-    } else //
-    if (cls.isAnonymousClass()) {
-    } else //
-    {
-      Constructor<?> constructor = null;
-      try {
-        constructor = cls.getDeclaredConstructor();
-      } catch (Exception e) {
-      }
-      if (Objects.nonNull(constructor)) {
-        constructor.setAccessible(true);
-        Object object = null;
-        try {
-          object = constructor.newInstance();
-        } catch (Exception e) {
-        }
-        if (Objects.nonNull(object))
-          _check((ShowProvider) object, tempDir, cls.getSimpleName());
-      }
-    }
-  }
-
-  public static void _check(ShowProvider showProvider, Path tempDir, String string) {
-    // IO.println(showProvider);
+  @Override
+  public void accept(ShowProvider showProvider) {
+    IO.println(tempDir);
+    IO.println(showProvider);
     Show show = showProvider.getShow();
-    Path file = tempDir.resolve(string + ".png");
+    Path file = tempDir.resolve(System.nanoTime() + ".png");
     try {
-      show.export(file, new Dimension(400, 300));
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      show.export(file, new Dimension(800, 800));
+    } catch (Exception exception) {
+      throw new RuntimeException(exception);
     }
   }
 }
