@@ -6,11 +6,11 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ScanResult;
 
+/** VERSION 1 */
 public record ClassGraphUtils<T>(Class<T> cls) {
   @SuppressWarnings("hiding")
   public <T> List<T> getInstances(String... packageNames) {
@@ -61,25 +61,14 @@ public record ClassGraphUtils<T>(Class<T> cls) {
     if (implementation.isAnonymousClass()) {
       // ---
     } else //
-    {
-      Constructor<?> constructor = null;
       try {
-        constructor = implementation.getDeclaredConstructor();
+        Constructor<?> constructor = implementation.getDeclaredConstructor();
+        constructor.setAccessible(true);
+        Object object = constructor.newInstance();
+        list.add((T) object);
       } catch (Exception exception) {
         // ---
       }
-      if (Objects.nonNull(constructor)) {
-        constructor.setAccessible(true);
-        Object object = null;
-        try {
-          object = constructor.newInstance();
-        } catch (Exception exception) {
-          // ---
-        }
-        if (Objects.nonNull(object))
-          list.add((T) object);
-      }
-    }
     return list;
   }
 }

@@ -22,7 +22,7 @@ enum KMeansDemo {
     Biinvariant biinvariant = Biinvariants.METRIC.ofSafe(RGroup.INSTANCE);
     Tensor sequence = RandomVariate.of(NormalDistribution.standard(), 500, 2);
     KMeans kMeans = new KMeans( //
-        biinvariant.distances(sequence), //
+        biinvariant.relative_distances(sequence), //
         Mean::of, //
         sequence);
     kMeans.setSeeds(5);

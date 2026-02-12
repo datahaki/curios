@@ -21,6 +21,8 @@ import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.exp.Log10;
 
 record BchConvergenceShow(int depth) implements ShowProvider {
+  public static final ShowProvider INSTANCE = new BchConvergenceShow(9);
+
   Showable add(String name, MatrixAlgebra matrixAlgebra) {
     Tensor tensor = err(matrixAlgebra);
     Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor.maps(Log10.FUNCTION));
@@ -53,6 +55,6 @@ record BchConvergenceShow(int depth) implements ShowProvider {
   }
 
   static void main() {
-    new BchConvergenceShow(9).run();
+    INSTANCE.run();
   }
 }

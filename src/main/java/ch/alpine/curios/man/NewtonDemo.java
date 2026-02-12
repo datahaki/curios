@@ -44,6 +44,3 @@ public class NewtonDemo implements ManipulateProvider {
     new NewtonDemo().run();
   }
 }
-// depth3
-// Polynomial.of(Tensors.vector(1, 5, 0, 1)), //
-// Polynomial.of(Tensors.vector(2, 1, 1))).iteration;
