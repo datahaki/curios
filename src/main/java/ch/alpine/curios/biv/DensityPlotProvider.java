@@ -19,7 +19,6 @@ interface DensityPlotProvider extends ScalarBinaryOperator, ShowProvider {
     show.setPlotLabel(getClass().getSimpleName());
     show.add(DensityPlot.of( //
         this, cbb(), colorDataGradient()));
-    show.setAspectRatioOne();
     return show;
   }
 }

@@ -43,7 +43,6 @@ class RigidMotionFitShow implements ShowProvider {
         array[x][y] = angle;
       }
     Show show = new Show();
-    show.setAspectRatioOne();
     show.add(ArrayPlot.of(Tensors.matrix(array), ColorDataGradients.HUE));
     return show;
   }

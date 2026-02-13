@@ -57,7 +57,6 @@ public class MandelbulbDemo implements ManipulateProvider {
     };
     Show show = new Show();
     show.add(DensityPlot.of(sbo, CBB, cdg));
-    show.setAspectRatioOne();
     return ShowGridComponent.of(List.of(show));
   }
 

@@ -1,25 +1,40 @@
 // code by jph
 package ch.alpine.subare.book.ch04.gambler;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
+import javax.swing.JComponent;
+
+import ch.alpine.bridge.fig.ArrayPlot;
+import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.subare.util.DiscreteQsa;
 import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.subare.util.gfx.StateActionRasters;
-import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.Export;
+import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.io.Put;
 
 /** action value iteration for gambler's dilemma
  * 
  * visualizes the exact optimal policy */
-/* package */ enum AVI_Gambler {
-  ;
-  static void main() throws Exception {
-    Path path = HomeDirectory.Ephemeral.createDirectories(AVI_Gambler.class.getSimpleName());
-    GamblerModel gamblerModel = new GamblerModel(100, RealScalar.of(0.35));
+@ReflectionMarker
+public class AVI_Gambler implements ManipulateProvider {
+  Path path = HomeDirectory.Ephemeral.createDirectories(AVI_Gambler.class.getSimpleName());
+  public Integer max = 100;
+  public Scalar P_win = RationalScalar.THIRD;
+  public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
+
+  @Override
+  public JComponent getJComponent() {
+    GamblerModel gamblerModel = new GamblerModel(max, P_win);
     GamblerRaster gamblerRaster = new GamblerRaster(gamblerModel) {
       @Override
       public int magnify() {
@@ -27,12 +42,22 @@ import ch.alpine.tensor.io.Put;
       }
     };
     DiscreteQsa ref = GamblerHelper.getOptimalQsa(gamblerModel);
-    Export.of(path.resolve("gambler_qsa.png"), //
-        StateActionRasters.qsa(gamblerRaster, ref));
-    Export.of(path.resolve("gambler_qsa_avi.png"), //
-        StateActionRasters.qsaPolicy(gamblerRaster, ref));
+    Tensor qsa = StateActionRasters._render1(gamblerRaster, ref);
+    Show show1 = new Show();
+    show1.add(ArrayPlot.of(qsa, cdg));
+    Tensor qsaPolicy = StateActionRasters._render2(gamblerRaster, ref);
+    Show show2 = new Show();
+    show2.add(ArrayPlot.of(qsaPolicy, cdg));
     DiscreteVs vs = DiscreteUtils.createVs(gamblerModel, ref);
-    Put.of(path.resolve("ex403_vs_values"), vs.values());
-    System.out.println("done.");
+    try {
+      Put.of(path.resolve("ex403_vs_values"), vs.values());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return ShowGridComponent.of(show1, show2);
+  }
+
+  static void main() {
+    new AVI_Gambler().run();
   }
 }
