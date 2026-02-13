@@ -10,21 +10,21 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Throw;
 import ch.alpine.tensor.mat.MatrixQ;
 
-public class CalendarBoard {
+public final class CalendarBoard {
   private final CaesarIndex caesarIndex;
 
   public CalendarBoard(String string) {
     caesarIndex = new CaesarIndex(string.lines().toArray(String[]::new));
   }
 
-  public final UbongoBoard of(LocalDate localDate) {
+  public UbongoBoard of(LocalDate localDate) {
     Month month = localDate.getMonth();
     int day = localDate.getDayOfMonth();
     DayOfWeek dayOfWeek = localDate.getDayOfWeek();
     return of(month, day, dayOfWeek);
   }
 
-  public final UbongoBoard of(Month month, int day, DayOfWeek dayOfWeek) {
+  public UbongoBoard of(Month month, int day, DayOfWeek dayOfWeek) {
     return new UbongoBoard(caesarIndex.occupy(month, day, dayOfWeek), CaesarPieces.list());
   }
 

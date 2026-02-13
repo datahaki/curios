@@ -13,7 +13,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.ubongo.CalendarBoards;
 
 @ReflectionMarker
-public class CaesarManipulate implements ManipulateProvider {
+public class CalendarManipulate implements ManipulateProvider {
   public CalendarBoards calendarBoards = CalendarBoards.CAESAR;
   public LocalDate localDate = LocalDate.now();
 
@@ -25,6 +25,6 @@ public class CaesarManipulate implements ManipulateProvider {
   }
 
   static void main() {
-    new CaesarManipulate().run();
+    new CalendarManipulate().run();
   }
 }
