@@ -30,7 +30,7 @@ import ch.alpine.tensor.io.TableBuilder;
 
 public class KlotskiDemo extends AbstractDemo {
   public static final ThreadLocal<Boolean> debugPrint = ThreadLocal.withInitial(() -> false);
-  public static final Path FOLDER_SOLUTIONS = HomeDirectory.Documents.resolve("klotski");
+  public static final Path FOLDER_SOLUTIONS = HomeDirectory.Documents.createDirectories("klotski");
   private final KlotskiProblem klotskiProblem;
   private static final int RES = 128;
   // ---

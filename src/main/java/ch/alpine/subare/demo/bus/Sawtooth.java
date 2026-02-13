@@ -7,6 +7,7 @@ import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Mod;
 
+// TODO compare with SawtoothWave
 /* package */ class Sawtooth implements ScalarUnaryOperator {
   private final Mod mod;
 
