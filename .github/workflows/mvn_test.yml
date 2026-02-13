@@ -30,6 +30,15 @@ jobs:
         run: mvn -B --no-transfer-progress install -DskipTests
         working-directory: ./tensor
 
+      - name: checkout subare
+        uses: actions/checkout@v4
+        with:
+          repository: datahaki/subare
+          path: subare
+      - name: build and install subare
+        run: mvn -B --no-transfer-progress install -DskipTests
+        working-directory: ./subare
+
       - name: checkout sophus
         uses: actions/checkout@v4
         with:

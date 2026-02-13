@@ -18,14 +18,14 @@ import ch.alpine.tensor.io.Import;
     String name = "bbc737a0";
     int depth = 10;
     // ---
-    Path file = HomeDirectory.path(name + ".jpg");
+    Path file = HomeDirectory.Ephemeral.resolve(name + ".jpg");
     Tensor image = Import.of(file);
     IntStream.range(0, 3).parallel().forEach(index -> //
     image.set(MeanFilter.of(image.get(Tensor.ALL, Tensor.ALL, index), depth), //
         Tensor.ALL, Tensor.ALL, index));
     // ---
     Export.of( //
-        HomeDirectory.path(String.format("%s_mean_%02d.png", name, depth)), //
+        HomeDirectory.Ephemeral.resolve(String.format("%s_mean_%02d.png", name, depth)), //
         Join.of(1, Import.of(file), image));
   }
 }

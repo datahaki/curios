@@ -41,10 +41,10 @@ import ch.alpine.tensor.num.GaussScalar;
   }
 
   public static void jpg2gif() throws IOException {
-    Path file = HomeDirectory.path("display.jpg");
+    Path file = HomeDirectory.Pictures.resolve("display.jpg");
     if (Files.isRegularFile(file)) {
       Tensor tensor = Import.of(file);
-      Export.of(HomeDirectory.path("display.jpg.gif"), tensor);
+      Export.of(HomeDirectory.Pictures.resolve("display.jpg.gif"), tensor);
     }
   }
 

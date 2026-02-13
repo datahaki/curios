@@ -26,7 +26,7 @@ import ch.alpine.tensor.sca.Clips;
 
   static void main() throws IOException {
     // TODO BRIDGE what does this do!?
-    Tensor images = Import.of(HomeDirectory.path("summary.png"));
+    Tensor images = Import.of(HomeDirectory.Ephemeral.resolve("summary.png"));
     List<Integer> list = Dimensions.of(images);
     Interpolation interpolation = LanczosInterpolation.of(images, SEMI);
     float factor = 1.7f;
@@ -37,6 +37,6 @@ import ch.alpine.tensor.sca.Clips;
     Tensor result = Tensor.of(sx.stream().map(vx -> interpolation.get(Tensors.of(vx))));
     result = Tensor.of(result.stream().map(row -> interp(row, sy)));
     result = result.maps(Clips.interval(0, 255));
-    Export.of(HomeDirectory.path(String.format("castle%02d.png", Math.round(factor * 10))), result);
+    Export.of(HomeDirectory.Ephemeral.resolve(String.format("castle%02d.png", Math.round(factor * 10))), result);
   }
 }

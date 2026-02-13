@@ -58,7 +58,7 @@ public class KaiserRun {
     IO.println(timing.seconds().maps(Round._1));
     try {
       IO.println("storing");
-      Put.of(HomeDirectory.path("cheese.mathematica"), array);
+      Put.of(HomeDirectory.Ephemeral.resolve("cheese.mathematica"), array);
       IO.println("stored");
     } catch (IOException e) {
       e.printStackTrace();

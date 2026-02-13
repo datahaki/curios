@@ -2,6 +2,7 @@
 package ch.alpine.curios.usr;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import ch.alpine.tensor.RationalScalar;
 import ch.alpine.tensor.Tensor;
@@ -17,9 +18,11 @@ import ch.alpine.tensor.io.StringScalar;
 
 /* package */ enum MatlabExportDemo {
   ;
+  static final Path PATH = HomeDirectory.Ephemeral.createDirectories(MatlabExportDemo.class.getSimpleName());
+
   static void vector1() throws IOException {
     Tensor tensor = Tensors.vectorDouble(3.2, -3, 0.234, 3, 3e-20, 0);
-    Export.of(HomeDirectory.path("me_vector1.m"), tensor);
+    Export.of(PATH.resolve("me_vector1.m"), tensor);
   }
 
   static void vector2() throws IOException {
@@ -28,25 +31,25 @@ import ch.alpine.tensor.io.StringScalar;
     boolean status = tensor.stream().anyMatch(s -> s instanceof StringScalar);
     if (status)
       throw new Throw(tensor);
-    Export.of(HomeDirectory.path("me_vector2.m"), tensor);
+    Export.of(PATH.resolve("me_vector2.m"), tensor);
   }
 
   static void matrix1() throws IOException {
     Tensor tensor = Tensors.matrix((i, j) -> RationalScalar.of(i * 5 + j, 1), 6, 5);
     System.out.println(Pretty.of(tensor));
-    Export.of(HomeDirectory.path("me_matrix1.m"), tensor);
+    Export.of(PATH.resolve("me_matrix1.m"), tensor);
   }
 
   static void matrix2() throws IOException {
     Tensor tensor = Tensors.fromString("{{1/2, 0, 1.3}, {-0.12, 2+3*I, 0}}");
-    Export.of(HomeDirectory.path("me_matrix2.m"), tensor);
+    Export.of(PATH.resolve("me_matrix2.m"), tensor);
   }
 
   static void form1() throws IOException {
     Tensor tensor = ArrayReshape.of(Range.of(0, 2 * 3 * 5), 2, 3, 5);
     System.out.println(Dimensions.of(tensor));
     Pretty.of(tensor);
-    Export.of(HomeDirectory.path("me_form1.m"), tensor);
+    Export.of(PATH.resolve("me_form1.m"), tensor);
     // in matlab this is imported as 2x3x5 array
     // with
     // reshape(a(1,:,:),[3 5])

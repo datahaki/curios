@@ -22,42 +22,42 @@ import ch.alpine.tensor.red.ScalarSummaryStatistics;
 class SeaImport {
   static void main() throws IOException {
     Path folder = HomeDirectory.Downloads.resolve("ELC_INSPIRE/xyz_data_utm32N_Northsea");
-    Path fout = HomeDirectory.path(folder.getFileName() + ".csv");
-    BufferedWriter bufferedWriter = Files.newBufferedWriter(fout);
+    Path fout = HomeDirectory.Ephemeral.resolve(folder.getFileName() + ".csv");
     ScalarSummaryStatistics sx = new ScalarSummaryStatistics();
     ScalarSummaryStatistics sy = new ScalarSummaryStatistics();
     ScalarSummaryStatistics sz = new ScalarSummaryStatistics();
-    for (Path file : Files.list(folder).toList()) {
-      boolean ext = PathName.of(file).hasExtension("xyz");
-      if (ext) {
-        System.out.println(file.getFileName());
-        List<String> lines = new ArrayList<>();
-        try (InputStream inputStream = Files.newInputStream(file)) {
-          lines = ReadLine.of(inputStream).toList();
-        }
-        for (String line : lines) {
-          String[] splits = line.split(";");
-          try {
-            Scalar x = Scalars.fromString(splits[0]);
-            Scalar y = Scalars.fromString(splits[1]);
-            Scalar z = Scalars.fromString(splits[2]);
-            Tensor row = Tensors.of(x, y, z);
-            if (StringScalarQ.any(row)) {
+    try (BufferedWriter bufferedWriter = Files.newBufferedWriter(fout)) {
+      for (Path file : Files.list(folder).toList()) {
+        boolean ext = PathName.of(file).hasExtension("xyz");
+        if (ext) {
+          System.out.println(file.getFileName());
+          List<String> lines = new ArrayList<>();
+          try (InputStream inputStream = Files.newInputStream(file)) {
+            lines = ReadLine.of(inputStream).toList();
+          }
+          for (String line : lines) {
+            String[] splits = line.split(";");
+            try {
+              Scalar x = Scalars.fromString(splits[0]);
+              Scalar y = Scalars.fromString(splits[1]);
+              Scalar z = Scalars.fromString(splits[2]);
+              Tensor row = Tensors.of(x, y, z);
+              if (StringScalarQ.any(row)) {
+                System.err.println(line);
+              } else {
+                sx.accept(x);
+                sy.accept(y);
+                sz.accept(z);
+                bufferedWriter.append(x + "," + y + "," + z);
+                bufferedWriter.newLine();
+              }
+            } catch (Exception e) {
               System.err.println(line);
-            } else {
-              sx.accept(x);
-              sy.accept(y);
-              sz.accept(z);
-              bufferedWriter.append(x + "," + y + "," + z);
-              bufferedWriter.newLine();
             }
-          } catch (Exception e) {
-            System.err.println(line);
           }
         }
       }
     }
-    bufferedWriter.close();
     System.out.println(sx);
     System.out.println(sy);
     System.out.println(sz);

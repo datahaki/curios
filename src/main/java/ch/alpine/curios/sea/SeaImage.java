@@ -22,9 +22,8 @@ import ch.alpine.tensor.sca.Ramp;
 
 class SeaImage {
   static void main() throws IOException {
-    Path file = HomeDirectory.path("xyz_data_utm32N_Northsea.csv");
-    BufferedReader bufferedReader = Files.newBufferedReader(file);
-    {
+    Path file = HomeDirectory.Public.resolve("xyz_data_utm32N_Northsea.csv");
+    try (BufferedReader bufferedReader = Files.newBufferedReader(file)) {
       CoordinateBoundingBox cbb = CoordinateBounds.of( //
           Tensors.vector(147075.0, 5901725.0, -68.79), //
           Tensors.vector(521975.0, 6210375.0, 13.96));
@@ -46,7 +45,6 @@ class SeaImage {
         int y = Floor.intValueExact(row.Get(1).subtract(min_y).multiply(factor));
         zeros.set(Ramp.FUNCTION.apply(row.Get(2).negate()).multiply(zbuf), x, y);
       }
-      bufferedReader.close();
       Export.of(HomeDirectory.Pictures.resolve("northsea.png"), zeros);
     }
   }

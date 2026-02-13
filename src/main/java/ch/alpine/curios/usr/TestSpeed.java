@@ -19,7 +19,7 @@ import ch.alpine.tensor.ext.ReadLine;
 enum TestSpeed {
   ;
   static void main() throws FileNotFoundException, IOException {
-    Path file = HomeDirectory.path("Projects", "log.txt");
+    Path file = HomeDirectory.Ephemeral.resolve("Projects", "log.txt");
     Map<String, Scalar> map = new HashMap<>();
     try (InputStream inputStream = Files.newInputStream(file)) {
       List<String> list = ReadLine.of(inputStream).filter(s -> s.startsWith("[INFO] Tests run: ")).toList();

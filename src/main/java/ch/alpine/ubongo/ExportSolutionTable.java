@@ -22,7 +22,7 @@ enum ExportSolutionTable {
   ;
   static void main() throws IOException {
     String prefix = "cheese";
-    Tensor tensor = Get.of(HomeDirectory.path(prefix + ".mathematica"));
+    Tensor tensor = Get.of(HomeDirectory.Ephemeral.resolve(prefix + ".mathematica"));
     ArrayQ.require(tensor);
     IO.println(Dimensions.of(tensor));
     Path path = HomeDirectory.Documents.resolve(prefix + "5x10.txt");
