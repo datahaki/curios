@@ -1,8 +1,6 @@
 // code by jph
 package ch.alpine.subare.book.ch05.racetrack;
 
-import java.io.IOException;
-
 import ch.alpine.subare.alg.IterativePolicyEvaluation;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.util.DiscreteUtils;
@@ -13,7 +11,7 @@ import ch.alpine.tensor.sca.Round;
 
 enum IPE_RaceTrack {
   ;
-  static void main() throws IOException {
+  static void main() {
     String path = "".getClass().getResource("/ch05/track0.png").getPath();
     Racetrack racetrack = new Racetrack(Import.of(path), 3);
     Policy policy = EquiprobablePolicy.create(racetrack);

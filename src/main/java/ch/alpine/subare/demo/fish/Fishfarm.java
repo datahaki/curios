@@ -15,6 +15,7 @@ import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Round;
+import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
 
 class Fishfarm extends DeterministicStandardModel implements MonteCarloInterface {
   public final Scalar TERMINAL_LIMIT;
