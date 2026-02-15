@@ -1,8 +1,9 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.run;
 
-import java.time.Duration;
+import java.lang.Thread.UncaughtExceptionHandler;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -21,15 +22,40 @@ import ch.alpine.tensor.tmp.TimeSeries;
  * 
  * element count=3632
  * iterations=3611 */
-/* package */ enum SynchronizationDemo {
-  ;
-  private static final Scalar SEC = Quantity.of(5, "s");
+/* package */ enum SynchronizationDemo implements RunProvider {
+  INSTANCE;
+
+  private static final Scalar SEC = Quantity.of(1, "s");
 
   private static Scalar spawn() {
     return RandomVariate.of(NormalDistribution.standard());
   }
 
-  static void main() throws InterruptedException {
+  public static void launchThread(Timing timing, TimeSeries timeSeries) {
+    UncaughtExceptionHandler uncaughtExceptionHandler = (_, e) -> {
+      throw new RuntimeException(e);
+    };
+    Thread thread = new Thread(() -> {
+      int iterations = 0;
+      while (Scalars.lessThan(timing.seconds(), SEC))
+        // removing the following line: "synchronized (timeSeries)"
+        // ... causes the demo to immediately throw a ConcurrentModificationException
+        synchronized (timeSeries) // comment out line in order for demo to crash immediately
+        //
+        {
+          Scalar sum = RealScalar.ZERO;
+          for (Scalar scalar : timeSeries.keySet(timeSeries.domain(), true))
+            sum = sum.add(scalar);
+          ++iterations;
+        }
+      System.out.println("iterations=" + iterations);
+    });
+    thread.setUncaughtExceptionHandler(uncaughtExceptionHandler);
+    thread.start();
+  }
+
+  @Override
+  public void run() {
     TimeSeries timeSeries = TimeSeries.empty(ResamplingMethod.HOLD_VALUE_FROM_LEFT);
     Timing timing = Timing.started();
     launchThread(timing, timeSeries);
@@ -41,35 +67,11 @@ import ch.alpine.tensor.tmp.TimeSeries;
       {
         timeSeries.insert(spawn(), spawn());
       }
-      Thread.sleep(Duration.ofMillis(1));
     }
     System.out.println("element count=" + timeSeries.size());
   }
 
-  public static void launchThread(Timing timing, TimeSeries timeSeries) {
-    new Thread(() -> {
-      int iterations = 0;
-      while (Scalars.lessThan(timing.seconds(), SEC)) {
-        // removing the following line: "synchronized (timeSeries)"
-        // ... causes the demo to immediately throw a ConcurrentModificationException
-        synchronized (timeSeries) // comment out line in order for demo to crash immediately
-        //
-        {
-          if (!timeSeries.isEmpty()) {
-            Scalar sum = RealScalar.ZERO;
-            for (Scalar scalar : timeSeries.keySet(timeSeries.domain(), true)) {
-              sum = sum.add(scalar);
-            }
-            ++iterations;
-          }
-        }
-        try {
-          Thread.sleep(Duration.ofMillis(1));
-        } catch (Exception exception) {
-          exception.printStackTrace();
-        }
-      }
-      System.out.println("iterations=" + iterations);
-    }).start();
+  static void main() {
+    INSTANCE.run();
   }
 }
