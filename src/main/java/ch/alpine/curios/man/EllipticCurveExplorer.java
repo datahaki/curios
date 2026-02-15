@@ -36,7 +36,7 @@ public class EllipticCurveExplorer implements ManipulateProvider {
   public Integer depth = 3;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show = new Show();
     EllipticCurve ellipticCurve = EllipticCurve.of(a_b.Get(0), a_b.Get(1));
     Tensor candidates = Subdivide.of(RealScalar.of(-8), RealScalar.of(8), 16 * 100);

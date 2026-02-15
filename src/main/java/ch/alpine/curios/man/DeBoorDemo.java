@@ -34,7 +34,7 @@ public class DeBoorDemo implements ManipulateProvider {
   public Color color = new Color(0, 0, 0);
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     List<Show> list = new LinkedList<>();
     int deg = degree.number().intValue();
     for (int length = 2; length <= 6; ++length) {

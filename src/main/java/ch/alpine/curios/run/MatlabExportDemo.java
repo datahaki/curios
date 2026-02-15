@@ -1,9 +1,10 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.run;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.tensor.RationalScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
@@ -16,8 +17,9 @@ import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.io.StringScalar;
 
-/* package */ enum MatlabExportDemo {
-  ;
+/* package */ enum MatlabExportDemo implements RunProvider {
+  INSTANCE;
+
   static final Path PATH = HomeDirectory.Ephemeral.createDirectories(MatlabExportDemo.class.getSimpleName());
 
   static void vector1() throws IOException {
@@ -59,11 +61,20 @@ import ch.alpine.tensor.io.StringScalar;
     // 10 11 12 13 14
   }
 
-  static void main() throws IOException {
-    vector1();
-    vector2();
-    matrix1();
-    matrix2();
-    form1();
+  static void main() {
+    INSTANCE.run();
+  }
+
+  @Override
+  public void run() {
+    try {
+      vector1();
+      vector2();
+      matrix1();
+      matrix2();
+      form1();
+    } catch (Exception exception) {
+      throw new RuntimeException(exception);
+    }
   }
 }

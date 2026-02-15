@@ -27,7 +27,7 @@ public class ImageFiltersDemo implements ManipulateProvider {
   public Integer width = 2;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Tensor image = IMAGE.copy();
     IntStream.range(0, 3).parallel().forEach(index -> //
     image.set(imageFilters.filter(image.get(Tensor.ALL, Tensor.ALL, index), width), //

@@ -35,7 +35,7 @@ public class ColoredNoiseDemo implements ManipulateProvider {
   public transient Boolean generate = true;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Distribution distribution = ColoredNoise.of(alpha);
     Tensor values = RandomVariate.of(distribution, length);
     Tensor domain = Range.of(0, values.length());

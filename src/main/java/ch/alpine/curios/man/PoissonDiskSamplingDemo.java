@@ -26,7 +26,7 @@ public class PoissonDiskSamplingDemo implements ManipulateProvider {
   public Scalar k = RealScalar.of(30);
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show = new Show();
     Clip clipx = Clips.positive(wx);
     Clip clipy = Clips.positive(wy);

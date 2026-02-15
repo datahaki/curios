@@ -26,7 +26,7 @@ public class EllipticCurveFinite implements ManipulateProvider {
   public Integer b = 1;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     EllipticCurve ellipticCurve = EllipticCurve.of(GaussScalar.of(a, prime), GaussScalar.of(b, prime));
     Scalar discriminant = ellipticCurve.discriminant();
     Show show = new Show();

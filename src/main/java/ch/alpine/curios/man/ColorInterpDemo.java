@@ -31,7 +31,7 @@ public class ColorInterpDemo implements ManipulateProvider {
   public Tensor weights = Tensors.vector(1, 1, 1);
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     float[] rgba1 = new float[4];
     c1.getComponents(rgba1);
     float[] rgba2 = new float[4];

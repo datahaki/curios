@@ -29,7 +29,7 @@ public class BSplineBasisDemo implements ManipulateProvider {
   public ColorDataLists cdl = ColorDataLists._097;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     List<Show> list = new LinkedList<>();
     int _degree = degree;
     ColorDataIndexed colorDataIndexed = cdl.cyclic().deriveWithAlpha(192);

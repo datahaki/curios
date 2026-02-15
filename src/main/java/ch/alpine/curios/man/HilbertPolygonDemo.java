@@ -26,7 +26,7 @@ public class HilbertPolygonDemo implements ManipulateProvider {
   public Integer n = 2;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show = new Show();
     show.setCbb(CBB);
     show.add(ListLinePlot.of(HilbertPolygon.of(n).multiply(Power.of(2.0, -n))));

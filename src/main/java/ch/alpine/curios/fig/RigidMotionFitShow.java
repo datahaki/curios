@@ -33,7 +33,7 @@ public class RigidMotionFitShow implements ManipulateProvider {
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     return ShowGridComponent.of(getShow());
   }
 

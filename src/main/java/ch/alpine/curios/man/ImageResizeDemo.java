@@ -32,7 +32,7 @@ public class ImageResizeDemo implements ManipulateProvider {
   }
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     return new JComponent() {
       @Override
       protected void paintComponent(Graphics graphics) {

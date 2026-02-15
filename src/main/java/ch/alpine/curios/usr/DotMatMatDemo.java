@@ -1,9 +1,14 @@
 // code by jph
 package ch.alpine.curios.usr;
 
+import java.awt.Container;
+
+import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Parallelize;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -16,9 +21,14 @@ import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.qty.Timing;
 
-/* package */ enum DotMatMatDemo {
-  ;
-  static void main() {
+@ReflectionMarker
+public class DotMatMatDemo implements ManipulateProvider {
+  public Integer dims = 40;
+  public Integer trials = 10;
+  public Boolean connect = false;
+
+  @Override
+  public Container getContainer() {
     Distribution distribution = NormalDistribution.of(1, 4);
     {
       int n = 100;
@@ -29,11 +39,11 @@ import ch.alpine.tensor.qty.Timing;
     }
     Tensor t_ser = Tensors.empty();
     Tensor t_par = Tensors.empty();
-    for (int dim = 0; dim < 40; ++dim) {
-      System.out.println(dim);
+    for (int dim = 0; dim < dims; ++dim) {
+      if (dim % 5 == 0)
+        System.out.println(dim);
       Timing s_ser = Timing.stopped();
       Timing s_par = Timing.stopped();
-      int trials = 50;
       for (int count = 0; count < trials; ++count) {
         Tensor a = RandomVariate.of(distribution, dim, dim);
         Tensor b = RandomVariate.of(distribution, dim, dim);
@@ -47,15 +57,22 @@ import ch.alpine.tensor.qty.Timing;
           throw new Throw(cs);
       }
       Scalar n = RealScalar.of(dim);
-      t_ser.append(Tensors.of(n, s_ser.nanoSeconds().divide(RealScalar.of(trials))));
-      t_par.append(Tensors.of(n, s_par.nanoSeconds().divide(RealScalar.of(trials))));
+      t_ser.append(Tensors.of(n, s_ser.seconds().divide(RealScalar.of(trials))));
+      t_par.append(Tensors.of(n, s_par.seconds().divide(RealScalar.of(trials))));
     }
     Show show = new Show();
     show.setPlotLabel("Mat . Mat");
-    show.add(ListPlot.of(t_ser)).setLabel("serial");
-    show.add(ListPlot.of(t_par)).setLabel("parallel");
-    ShowWindow.asDialog(show);
-    // System.out.println(Pretty.of(t_ser));
-    // Put.of(HomeDirectory.file("timing_matmat.txt"), timing);
+    if (connect) {
+      show.add(ListLinePlot.of(t_ser)).setLabel("serial");
+      show.add(ListLinePlot.of(t_par)).setLabel("parallel");
+    } else {
+      show.add(ListPlot.of(t_ser)).setLabel("serial");
+      show.add(ListPlot.of(t_par)).setLabel("parallel");
+    }
+    return ShowGridComponent.of(show);
+  }
+
+  static void main() {
+    new DotMatMatDemo().run();
   }
 }

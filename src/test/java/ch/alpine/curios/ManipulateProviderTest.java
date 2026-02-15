@@ -3,6 +3,7 @@ package ch.alpine.curios;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -37,7 +37,7 @@ class ManipulateProviderTest implements Consumer<ManipulateProvider> {
 
   @Override
   public void accept(ManipulateProvider manipulateProvider) {
-    JComponent jComponent = manipulateProvider.getJComponent();
+    Container jComponent = manipulateProvider.getContainer();
     jComponent.setSize(800, 800);
     jComponent.doLayout(); // mandatory
     int width = jComponent.getWidth();

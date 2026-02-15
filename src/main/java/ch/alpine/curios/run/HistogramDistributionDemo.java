@@ -1,6 +1,7 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.run;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.tensor.RationalScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -17,9 +18,11 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.Round;
 
-/* package */ enum HistogramDistributionDemo {
-  ;
-  static void main() {
+/* package */ enum HistogramDistributionDemo implements RunProvider {
+  INSTANCE;
+
+  @Override
+  public void run() {
     Distribution gndtruth = NormalDistribution.standard();
     // gndtruth = UniformDistribution.unit();
     // gndtruth = PoissonDistribution.of(RealScalar.of(3));
@@ -41,5 +44,9 @@ import ch.alpine.tensor.sca.Round;
       System.out.println("P[0<=X<w] = " + p0 + " = " + N.DOUBLE.apply(p0));
       System.out.println("---");
     }
+  }
+
+  static void main() {
+    INSTANCE.run();
   }
 }

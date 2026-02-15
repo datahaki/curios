@@ -33,7 +33,7 @@ public class AVI_Gambler implements ManipulateProvider {
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     GamblerModel gamblerModel = new GamblerModel(max, P_win);
     GamblerRaster gamblerRaster = new GamblerRaster(gamblerModel) {
       @Override

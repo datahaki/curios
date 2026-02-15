@@ -34,7 +34,7 @@ public class ImageTransitionDemo implements ManipulateProvider {
   public Scalar c1 = RealScalar.of(0.3);
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     return new JComponent() {
       @Override
       protected void paintComponent(Graphics g) {

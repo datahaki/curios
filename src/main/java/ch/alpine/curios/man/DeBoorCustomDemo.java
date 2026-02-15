@@ -33,7 +33,7 @@ public class DeBoorCustomDemo implements ManipulateProvider {
   public ColorDataLists cdl = ColorDataLists._097;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show = new Show(cdl.cyclic().deriveWithAlpha(192));
     try {
       Tensor domain = Subdivide.of(0, 1, 100);

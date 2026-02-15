@@ -31,7 +31,7 @@ public class NewtonDemo implements ManipulateProvider {
   public ColorDataGradients cdg = ColorDataGradients.PARULA;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show = new Show();
     ScalarUnaryOperator scalarUnaryOperator = NewtonScalarMethod.polynomial(coeffs).iteration;
     ScalarBinaryOperator sbo = (re, im) -> Arg.FUNCTION.apply(Nest.of(scalarUnaryOperator, ComplexScalar.of(re, im), depth));

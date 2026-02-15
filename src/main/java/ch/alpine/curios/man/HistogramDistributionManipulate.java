@@ -31,7 +31,7 @@ public class HistogramDistributionManipulate implements ManipulateProvider {
   public BinningMethods bm = BinningMethods.IQR;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Distribution d1 = ErlangDistribution.of(p1.number().intValue(), p2);
     Distribution d2 = HistogramDistribution.of(RandomVariate.of(d1, p3), bm);
     Show show = new Show();

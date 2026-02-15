@@ -18,7 +18,7 @@ public class CalendarManipulate implements ManipulateProvider {
   public LocalDate localDate = LocalDate.now();
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     CalendarDialog calendarDialog = new CalendarDialog(calendarBoards.calendarBoard(), localDate);
     Show show = calendarDialog.getShow();
     return ShowGridComponent.of(List.of(show));

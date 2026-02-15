@@ -29,7 +29,7 @@ public class CircleQualityDemo implements ManipulateProvider {
   public Scalar quality = RealScalar.of(10);
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Show show1 = new Show();
     Show show2 = new Show();
     for (Tensor _x : Subdivide.of(0.1, 2, 20)) {

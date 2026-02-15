@@ -1,6 +1,7 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.run;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RationalScalar;
 import ch.alpine.tensor.RealScalar;
@@ -16,9 +17,11 @@ import ch.alpine.tensor.qty.Timing;
 /** demonstration that the function call
  * {@link Interpolation#at(Scalar)} is 2-3 times faster than
  * {@link Interpolation#get(Tensor)} */
-/* package */ enum FastInterpolationDemo {
-  ;
-  static void main() {
+/* package */ enum FastInterpolationDemo implements RunProvider {
+  INSTANCE;
+
+  @Override
+  public void run() {
     Tensor tensor = RandomVariate.of(UniformDistribution.unit(), 30, 3);
     LinearInterpolation linearInterpolation = //
         (LinearInterpolation) LinearInterpolation.of(tensor);
@@ -74,5 +77,9 @@ import ch.alpine.tensor.qty.Timing;
         IO.println("get " + timing.nanoSeconds());
       }
     }
+  }
+
+  static void main() {
+    INSTANCE.run();
   }
 }

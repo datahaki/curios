@@ -43,7 +43,7 @@ public class MandelbulbDemo implements ManipulateProvider {
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override
-  public JComponent getJComponent() {
+  public JComponent getContainer() {
     Scalar exp = snapToInt ? Round.FUNCTION.apply(exponent) : exponent;
     ScalarBinaryOperator sbo = (re, im) -> {
       Tensor c = Tensors.of(re, im, z);
