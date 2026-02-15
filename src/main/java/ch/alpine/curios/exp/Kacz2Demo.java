@@ -40,7 +40,7 @@ public enum Kacz2Demo {
       Tensor points = Tensors.empty();
       RandomGenerator randomGenerator = ThreadLocalRandom.current();
       for (int i = 0; i < n; ++i) {
-        Tensor x1 = kaczmarzIteration.refine(randomGenerator);
+        kaczmarzIteration.refine(randomGenerator);
         Tensor x2 = kaczmarzIteration.refine(randomGenerator);
         Scalar err = Vector2Norm.of(matrix.dot(x2).subtract(b));
         points.append(Tensors.of(RealScalar.of(i), err));

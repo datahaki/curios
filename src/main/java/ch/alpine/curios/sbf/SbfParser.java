@@ -15,13 +15,11 @@ class SbfParser {
   public static final Path ROOT = HomeDirectory.Documents.resolve("sailmath", "resources");
 
   public static List<SbfItem> get(SbfType sbfType) throws IOException {
-    switch (sbfType.ext) {
-    case "html":
-      return html(sbfType);
-    case "txt":
-      return text(sbfType);
-    }
-    throw new RuntimeException();
+    return switch (sbfType.ext) {
+    case "html" -> html(sbfType);
+    case "txt" -> text(sbfType);
+    default -> throw new RuntimeException();
+    };
   }
 
   private static List<SbfItem> text(SbfType sbfType) throws IOException {

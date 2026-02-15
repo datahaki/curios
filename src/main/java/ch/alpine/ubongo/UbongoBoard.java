@@ -150,7 +150,6 @@ public class UbongoBoard {
     private final int max_solutions;
     private final List<List<UbongoEntry>> solutions = new LinkedList<>();
     private int search = 0;
-    private int discard = 0;
     private boolean continueSearch = true;
 
     public Solve(List<PuzzlePiece> list, int max_solutions) {
@@ -162,7 +161,6 @@ public class UbongoBoard {
       Throw.unless(!list.isEmpty());
       ++search;
       if (!StaticHelper.isSingleFree(Partition.of(Tensors.vectorInt(board), dim1))) {
-        ++discard;
         return;
       }
       final PuzzlePiece puzzlePiece = list.getFirst(); // piece

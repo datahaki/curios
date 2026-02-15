@@ -24,7 +24,7 @@ import ch.alpine.ubongo.UbongoPublish;
   }
 
   @Override
-  public int print(Graphics _g, PageFormat pageFormat, int pageIndex) throws PrinterException {
+  public int print(Graphics _g, PageFormat pageFormat, int pageIndex) {
     Graphics2D graphics = (Graphics2D) _g.create();
     graphics.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
     graphics.scale(factor, factor);

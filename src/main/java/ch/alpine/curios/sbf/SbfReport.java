@@ -29,7 +29,8 @@ public class SbfReport {
     }
   }
 
+  @SuppressWarnings("unused")
   static void main() throws IOException {
-    SbfReport sbfReport = new SbfReport(SbfType.binnen);
+    new SbfReport(SbfType.binnen);
   }
 }

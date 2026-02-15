@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import ch.alpine.tensor.ext.Integers;
 
-// TODO SUBARE this class looks obsolete!
 /* package */ class Statistics {
   final double[] data;
   final int size;

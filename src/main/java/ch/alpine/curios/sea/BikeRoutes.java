@@ -23,7 +23,8 @@ public class BikeRoutes {
       for (String line : list) {
         String[] splits = line.split(";");
         int x = Integer.parseInt(splits[1].substring(1));
-        int y = Integer.parseInt(splits[2].substring(1));
+        // int y =
+        Integer.parseInt(splits[2].substring(1));
         if (x == 1) {
           if (bikeEntry.isComplete()) {
             bufferedWriter.append("<tr>");
