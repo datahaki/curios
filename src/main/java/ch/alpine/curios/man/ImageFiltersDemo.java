@@ -13,20 +13,24 @@ import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.img.MeanFilter;
+import ch.alpine.tensor.ext.ResourceData;
 import ch.alpine.tensor.io.ImageFormat;
 
 @ReflectionMarker
-public class MeanFilterDemo implements ManipulateProvider {
+public class ImageFiltersDemo implements ManipulateProvider {
+  public static final Tensor IMAGE = ImageFormat.from( //
+      ResourceData.bufferedImage("/ch/alpine/curios/man/ca54d607.png")).unmodifiable();
+  // ---
+  public ImageFilters imageFilters = ImageFilters.MEDIAN;
   @FieldSlider
   @FieldClip(min = "0", max = "10")
   public Integer width = 2;
 
   @Override
   public JComponent getJComponent() {
-    Tensor image = StaticHelper.IMAGE.copy();
+    Tensor image = IMAGE.copy();
     IntStream.range(0, 3).parallel().forEach(index -> //
-    image.set(MeanFilter.of(image.get(Tensor.ALL, Tensor.ALL, index), width), //
+    image.set(imageFilters.filter(image.get(Tensor.ALL, Tensor.ALL, index), width), //
         Tensor.ALL, Tensor.ALL, index));
     Show show = new Show();
     show.add(ImagePlot.of(ImageFormat.of(image)));
@@ -34,6 +38,6 @@ public class MeanFilterDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new MeanFilterDemo().run();
+    new ImageFiltersDemo().run();
   }
 }
