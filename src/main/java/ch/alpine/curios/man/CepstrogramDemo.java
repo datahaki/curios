@@ -3,7 +3,6 @@ package ch.alpine.curios.man;
 
 import java.awt.Container;
 
-import ch.alpine.bridge.fig.Cepstrogram;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Spectrogram;
 import ch.alpine.bridge.pro.ManipulateProvider;
@@ -17,7 +16,6 @@ import ch.alpine.tensor.fft.ChirpFunctions;
 
 @ReflectionMarker
 public class CepstrogramDemo implements ManipulateProvider {
-  public CepstrogramArray cepstrogramArray = CepstrogramArray.REAL1;
   public ChirpFunctions chirpFunctions = ChirpFunctions.LINEAR;
   public Scalar f0 = RealScalar.of(1);
   public Scalar p1 = RealScalar.of(10000);
@@ -27,7 +25,7 @@ public class CepstrogramDemo implements ManipulateProvider {
     Tensor signal = Subdivide.of(0, 1, 10000).maps(chirpFunctions.of(f0, p1));
     return ShowGridComponent.of( //
         Spectrogram.of(signal, RealScalar.ONE).asShow(), //
-        Cepstrogram.of(cepstrogramArray, signal, RealScalar.ONE).asShow() //
+        Spectrogram.of(CepstrogramArray.REAL1, signal, RealScalar.ONE).asShow() //
     );
   }
 
