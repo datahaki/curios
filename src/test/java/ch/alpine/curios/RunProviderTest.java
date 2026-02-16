@@ -1,30 +1,25 @@
 // code by jph
 package ch.alpine.curios;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.io.TempDir;
 
 import ch.alpine.bridge.pro.RunProvider;
-import ch.alpine.tensor.ext.ref.ImplementationDiscovery;
+import ch.alpine.tensor.ext.ref.InstanceDiscovery;
 
 class RunProviderTest implements Consumer<RunProvider> {
-  @TempDir
-  Path tempDir;
+  private static final AtomicInteger COUNT = new AtomicInteger();
 
   @TestFactory
   Collection<DynamicTest> dynamicTests() {
-    ImplementationDiscovery<RunProvider> classDiscUtils = new ImplementationDiscovery<>(RunProvider.class);
-    List<RunProvider> list = classDiscUtils.getInstances("ch.alpine");
-    assertFalse(list.isEmpty());
-    return list.stream() //
+    return InstanceDiscovery.of("ch.alpine", RunProvider.class).stream() //
         .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
         .toList();
   }
@@ -32,5 +27,11 @@ class RunProviderTest implements Consumer<RunProvider> {
   @Override
   public void accept(RunProvider manipulateProvider) {
     manipulateProvider.run();
+    COUNT.getAndIncrement();
+  }
+
+  @AfterAll
+  static void here() {
+    assertTrue(5 <= COUNT.get());
   }
 }

@@ -1,32 +1,24 @@
 // code by jph
 package ch.alpine.curios;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import java.awt.Dimension;
-import java.nio.file.Path;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Collection;
-import java.util.List;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.io.TempDir;
 
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.tensor.ext.ref.ImplementationDiscovery;
+import ch.alpine.tensor.ext.ref.InstanceDiscovery;
 
 class ShowProviderTest implements Consumer<ShowProvider> {
-  @TempDir
-  Path tempDir;
-
   @TestFactory
   Collection<DynamicTest> dynamicTests() {
-    ImplementationDiscovery<ShowProvider> classDiscUtils = new ImplementationDiscovery<>(ShowProvider.class);
-    List<ShowProvider> list = classDiscUtils.getInstances("ch.alpine");
-    assertFalse(list.isEmpty());
-    return list.stream() //
+    return InstanceDiscovery.of("ch.alpine", ShowProvider.class).stream() //
         .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
         .toList();
   }
@@ -34,11 +26,10 @@ class ShowProviderTest implements Consumer<ShowProvider> {
   @Override
   public void accept(ShowProvider showProvider) {
     Show show = showProvider.getShow();
-    Path file = tempDir.resolve(System.nanoTime() + ".png");
-    try {
-      show.export(file, new Dimension(800, 800));
-    } catch (Exception exception) {
-      throw new RuntimeException(exception);
-    }
+    Dimension dimension = new Dimension(800, 800);
+    BufferedImage bufferedImage = new BufferedImage(dimension.width, dimension.height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D graphics = bufferedImage.createGraphics();
+    show.render_autoIndent(graphics, new Rectangle(dimension));
+    graphics.dispose();
   }
 }

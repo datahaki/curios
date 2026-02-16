@@ -1,38 +1,33 @@
 // code by jph
 package ch.alpine.curios;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.io.TempDir;
 
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.ext.ref.ImplementationDiscovery;
+import ch.alpine.tensor.ext.ref.InstanceDiscovery;
 
 class ManipulateProviderTest implements Consumer<ManipulateProvider> {
-  @TempDir
-  Path tempDir;
+  private static final AtomicInteger COUNT = new AtomicInteger();
 
   @TestFactory
   Collection<DynamicTest> dynamicTests() {
-    ImplementationDiscovery<ManipulateProvider> classDiscUtils = new ImplementationDiscovery<>(ManipulateProvider.class);
-    List<ManipulateProvider> list = classDiscUtils.getInstances("ch.alpine");
-    assertFalse(list.isEmpty());
-    return list.stream() //
+    return InstanceDiscovery.of("ch.alpine", ManipulateProvider.class).stream() //
         .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
         .toList();
   }
@@ -57,5 +52,11 @@ class ManipulateProviderTest implements Consumer<ManipulateProvider> {
       } catch (IOException e) {
         throw new UncheckedIOException(e);
       }
+    COUNT.getAndIncrement();
+  }
+
+  @AfterAll
+  static void here() {
+    assertTrue(22 <= COUNT.get());
   }
 }
