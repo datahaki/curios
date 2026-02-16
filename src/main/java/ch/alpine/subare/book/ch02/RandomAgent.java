@@ -1,10 +1,9 @@
 // code by jph
 package ch.alpine.subare.book.ch02;
 
-import ch.alpine.tensor.Rational;
+import ch.alpine.sophus.math.AveragingWeights;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.alg.ConstantArray;
 
 /** the random agent picks any action equally likely
  * the policy is a constant vector of pi(a)=1/n */
@@ -28,7 +27,7 @@ public class RandomAgent extends Agent {
 
   @Override
   protected Tensor protected_QValues() {
-    return ConstantArray.of(Rational.of(1, n), n);
+    return AveragingWeights.of(n);
   }
 
   @Override

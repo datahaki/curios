@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.klotzki;
 
-import ch.alpine.sophus.math.api.Region;
+import ch.alpine.sophis.math.Region;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 
