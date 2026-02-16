@@ -22,7 +22,7 @@ import ch.alpine.subare.util.DiscreteStateActionCounter;
 import ch.alpine.subare.util.ExactFeatureMapper;
 import ch.alpine.subare.util.FeatureWeight;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -56,8 +56,8 @@ class GamblerModelTest {
 
   @Test
   void testFail() {
-    LearningRate learningRate = ConstantLearningRate.of(RationalScalar.HALF);
-    MonteCarloInterface monteCarloInterface = new GamblerModel(10, RationalScalar.HALF);
+    LearningRate learningRate = ConstantLearningRate.of(Rational.HALF);
+    MonteCarloInterface monteCarloInterface = new GamblerModel(10, Rational.HALF);
     FeatureMapper featureMapper = ExactFeatureMapper.of(monteCarloInterface);
     FeatureWeight w = new FeatureWeight(featureMapper);
     assertThrows(Exception.class, () -> SarsaType.ORIGINAL.trueOnline(null, RealScalar.of(0.9), featureMapper, //

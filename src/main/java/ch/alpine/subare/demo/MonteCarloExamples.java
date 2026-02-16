@@ -16,12 +16,12 @@ import ch.alpine.subare.book.ch06.windy.Windygrid;
 import ch.alpine.subare.book.ch08.maze.DynamazeHelper;
 import ch.alpine.subare.demo.airport.Airport;
 import ch.alpine.subare.demo.virtualstations.VirtualStations;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 
 public enum MonteCarloExamples implements Supplier<MonteCarloInterface> {
   AIRPORT(() -> Airport.INSTANCE), //
   VIRTUALSTATIONS(() -> VirtualStations.INSTANCE), //
-  GAMBLER_20(() -> new GamblerModel(20, RationalScalar.of(4, 10))), //
+  GAMBLER_20(() -> new GamblerModel(20, Rational.of(4, 10))), //
   GAMBLER_100(GamblerModel::createDefault), //
   MAZE2(() -> DynamazeHelper.original("maze2")), //
   MAZE5(() -> DynamazeHelper.create5(3)), //

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -28,7 +28,7 @@ class SeaImage {
           Tensors.vector(147075.0, 5901725.0, -68.79), //
           Tensors.vector(521975.0, 6210375.0, 13.96));
       System.out.println(cbb);
-      Scalar factor = RationalScalar.of(1, 50);
+      Scalar factor = Rational.of(1, 50);
       Scalar min_x = cbb.clip(0).min();
       Scalar min_y = cbb.clip(1).min();
       int wx = Ceiling.intValueExact(cbb.clip(0).width().multiply(factor));

@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 import ch.alpine.subare.book.ch02.Agent;
 import ch.alpine.subare.book.ch02.UCBAgent;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
@@ -33,15 +33,15 @@ import ch.alpine.tensor.io.Put;
   }
 
   public static void showOne() {
-    Supplier<Agent> sup1 = () -> new UCBAgent(2, RationalScalar.of(10, 10));
-    Supplier<Agent> sup2 = () -> new UCBAgent(2, RationalScalar.of(8, 10));
+    Supplier<Agent> sup1 = () -> new UCBAgent(2, Rational.of(10, 10));
+    Supplier<Agent> sup2 = () -> new UCBAgent(2, Rational.of(8, 10));
     UCBsExact exact = new UCBsExact(sup1, sup2);
     System.out.println(exact.getExpectedRewards());
   }
 
   static void main() throws IOException {
     Path path = HomeDirectory.Ephemeral.createDirectories(UCBsExact.class.getSimpleName());
-    Tensor init = Subdivide.of(RationalScalar.of(3, 5), RationalScalar.of(3, 2), 240);
+    Tensor init = Subdivide.of(Rational.of(3, 5), Rational.of(3, 2), 240);
     Tensor expectedRewards = Array.zeros(init.length(), init.length());
     int px = 0;
     Tensor res = Tensors.empty();

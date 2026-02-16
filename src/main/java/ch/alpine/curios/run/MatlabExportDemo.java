@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import ch.alpine.bridge.pro.RunProvider;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
@@ -37,7 +37,7 @@ import ch.alpine.tensor.io.StringScalar;
   }
 
   static void matrix1() throws IOException {
-    Tensor tensor = Tensors.matrix((i, j) -> RationalScalar.of(i * 5 + j, 1), 6, 5);
+    Tensor tensor = Tensors.matrix((i, j) -> Rational.of(i * 5 + j, 1), 6, 5);
     System.out.println(Pretty.of(tensor));
     Export.of(PATH.resolve("me_matrix1.m"), tensor);
   }

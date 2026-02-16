@@ -5,7 +5,7 @@ import ch.alpine.subare.alg.IterativePolicyEvaluation;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StandardModel;
 import ch.alpine.subare.util.DiscreteUtils;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.sca.Round;
 
@@ -14,7 +14,7 @@ enum IPE_InfiniteVariance {
   ;
   static void main() {
     StandardModel standardModel = new InfiniteVariance();
-    Policy policy = new ConstantPolicy(RationalScalar.of(9, 10));
+    Policy policy = new ConstantPolicy(Rational.of(9, 10));
     IterativePolicyEvaluation a = new IterativePolicyEvaluation( //
         standardModel, policy);
     a.until(RealScalar.of(.0001));

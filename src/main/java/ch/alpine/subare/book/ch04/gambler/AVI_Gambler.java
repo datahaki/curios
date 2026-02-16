@@ -15,7 +15,7 @@ import ch.alpine.subare.util.DiscreteQsa;
 import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.subare.util.gfx.StateActionRasters;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
@@ -29,7 +29,7 @@ import ch.alpine.tensor.io.Put;
 public class AVI_Gambler implements ManipulateProvider {
   Path path = HomeDirectory.Ephemeral.createDirectories(AVI_Gambler.class.getSimpleName());
   public Integer max = 100;
-  public Scalar P_win = RationalScalar.THIRD;
+  public Scalar P_win = Rational.THIRD;
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override

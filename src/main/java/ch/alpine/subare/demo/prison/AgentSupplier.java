@@ -11,7 +11,7 @@ import ch.alpine.subare.book.ch02.GradientAgent;
 import ch.alpine.subare.book.ch02.OptimistAgent;
 import ch.alpine.subare.book.ch02.RandomAgent;
 import ch.alpine.subare.book.ch02.UCBAgent;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 
@@ -22,8 +22,8 @@ import ch.alpine.tensor.Scalar;
       // () -> new ConstantAgent(2, 1), //
       TitForTatAgent::new, //
       () -> new RandomAgent(2), //
-      () -> new EGreedyAgent(2, _ -> RationalScalar.of(1, 5), "1/5"), //
-      () -> new EGreedyAgent(2, i -> RationalScalar.of(1, i.number().intValue() + 1), "1/i"), //
+      () -> new EGreedyAgent(2, _ -> Rational.of(1, 5), "1/5"), //
+      () -> new EGreedyAgent(2, i -> Rational.of(1, i.number().intValue() + 1), "1/i"), //
       () -> new GradientAgent(2, RealScalar.of(.1)), //
       () -> new OptimistAgent(2, RealScalar.of(6), RealScalar.of(.1)), //
       () -> new UCBAgent(2, RealScalar.of(1))) //

@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.usr;
 
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.io.Pretty;
@@ -24,13 +24,13 @@ import ch.alpine.tensor.sca.Round;
       System.out.println(Pretty.of(array.maps(Round._4)));
     }
     { // probability
-      Distribution distribution = BinomialDistribution.of(20, RationalScalar.of(1, 3));
+      Distribution distribution = BinomialDistribution.of(20, Rational.of(1, 3));
       System.out.println(distribution.getClass().getSimpleName());
       PDF pdf = PDF.of(distribution);
       System.out.println("P(X=14) = " + pdf.at(RealScalar.of(14)));
     }
     { // cumulative density
-      Distribution distribution = GeometricDistribution.of(RationalScalar.of(1, 8));
+      Distribution distribution = GeometricDistribution.of(Rational.of(1, 8));
       System.out.println(distribution.getClass().getSimpleName());
       CDF cdf = CDF.of(distribution);
       System.out.println("P(X<14) = " + cdf.p_lessThan(RealScalar.of(14)));

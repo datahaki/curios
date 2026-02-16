@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.tensor.DoubleScalar;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
@@ -37,7 +37,7 @@ import ch.alpine.tensor.sca.Ceiling;
       image.append(vector.maps(cdi.cyclic()));
     }
     image = PadLeft.with(RealScalar.of(255), image.length(), 16 + 2, 4).apply(image);
-    int ceil = Ceiling.FUNCTION.apply(RationalScalar.of(image.length(), 3)).multiply(RealScalar.of(3)).number().intValue();
+    int ceil = Ceiling.FUNCTION.apply(Rational.of(image.length(), 3)).multiply(RealScalar.of(3)).number().intValue();
     image = PadRight.with(RealScalar.of(0), ceil, 19, 4).apply(image);
     int spa = 0;
     int size = 12 + spa;

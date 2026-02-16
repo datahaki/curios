@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 import ch.alpine.subare.book.ch02.Agent;
 import ch.alpine.subare.book.ch02.OptimistAgent;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -56,7 +56,7 @@ import ch.alpine.tensor.sca.N;
   }
 
   static void main() throws IOException {
-    Tensor init = Subdivide.of(RationalScalar.of(+21, 10), RationalScalar.of(-11, 10), 280 - 1); //
+    Tensor init = Subdivide.of(Rational.of(+21, 10), Rational.of(-11, 10), 280 - 1); //
     Tensor separator = ConstantArray.of(RealScalar.ZERO, init.length(), 5);
     Scalar alpha = RealScalar.of(0.22);
     OptimistsArray optimistsArray = new OptimistsArray(init.maps(N.DOUBLE), alpha);
@@ -71,7 +71,7 @@ import ch.alpine.tensor.sca.N;
       // .map(Scalar.class::cast) //
       // .collect(ScalarSummaryStatistics.collector());
       // System.out.println(scalarSummaryStatistics.toString());
-      Tensor imageL = tensor.maps(RealScalar.ONE::add).multiply(RationalScalar.HALF); //
+      Tensor imageL = tensor.maps(RealScalar.ONE::add).multiply(Rational.HALF); //
       Tensor image = Join.of(1, imageL, separator, action).maps(ColorDataGradients.CLASSIC);
       Path file = folder.resolve(String.format("%04d.png", frame));
       Export.of(file, image);

@@ -15,7 +15,7 @@ import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -43,14 +43,14 @@ public class EllipticCurveExplorer implements ManipulateProvider {
     Tensor valid_roots = Tensors.empty();
     ellipticCurve.polynomial().roots().stream() //
         .map(Scalar.class::cast) //
-        .filter(s -> s instanceof RationalScalar) //
+        .filter(s -> s instanceof Rational) //
         .peek(valid_roots::append) //
         .forEach(candidates::append);
     Set<Tensor> set = new HashSet<>();
     for (Tensor _x : candidates) {
       Scalar x = (Scalar) _x;
       Scalar y = ellipticCurve.apply(x);
-      if (y instanceof RationalScalar) {
+      if (y instanceof Rational) {
         Tensor point = Tensors.of(x, y);
         ellipticCurve.require(point);
         set.add(point);

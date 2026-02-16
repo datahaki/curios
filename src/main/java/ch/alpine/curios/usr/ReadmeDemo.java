@@ -4,7 +4,7 @@ package ch.alpine.curios.usr;
 import java.math.BigDecimal;
 
 import ch.alpine.tensor.DecimalScalar;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -61,7 +61,7 @@ import ch.alpine.tensor.sca.pow.Sqrt;
   }
 
   static void demoSqrt() {
-    Scalar fraction = RationalScalar.of(-9, 16);
+    Scalar fraction = Rational.of(-9, 16);
     System.out.println(Sqrt.FUNCTION.apply(fraction));
   }
 

@@ -3,7 +3,7 @@ package ch.alpine.curios.run;
 
 import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.tensor.DoubleScalar;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -63,7 +63,7 @@ import ch.alpine.tensor.qty.Timing;
     System.out.println("=== EXACT");
     for (int count = 0; count < 10; ++count) {
       {
-        Scalar a = RationalScalar.of(20, 7);
+        Scalar a = Rational.of(20, 7);
         Timing timing = Timing.started();
         for (int index = 0; index < 50000; ++index)
           linearInterpolation.at(a);

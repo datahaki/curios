@@ -12,7 +12,7 @@ import ch.alpine.subare.util.DiscreteValueFunctions;
 import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.TabularSteps;
 import ch.alpine.subare.util.gfx.StateActionRasters;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.AnimationWriter;
 import ch.alpine.tensor.io.GifAnimationWriter;
@@ -21,7 +21,7 @@ import ch.alpine.tensor.io.GifAnimationWriter;
 /* package */ enum RSTQP_Gambler {
   ;
   static void main() throws Exception {
-    GamblerModel gamblerModel = new GamblerModel(20, RationalScalar.of(4, 10));
+    GamblerModel gamblerModel = new GamblerModel(20, Rational.of(4, 10));
     GamblerRaster gamblerRaster = new GamblerRaster(gamblerModel);
     final DiscreteQsa ref = GamblerHelper.getOptimalQsa(gamblerModel);
     DiscreteQsa qsa = DiscreteQsa.build(gamblerModel);

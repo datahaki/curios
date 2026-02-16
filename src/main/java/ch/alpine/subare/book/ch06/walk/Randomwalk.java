@@ -3,7 +3,7 @@ package ch.alpine.subare.book.ch06.walk;
 
 import ch.alpine.subare.api.MonteCarloInterface;
 import ch.alpine.subare.math.Coinflip;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -14,7 +14,7 @@ import ch.alpine.tensor.num.Boole;
 
 /** Example 6.2: Random Walk, p.133 */
 class Randomwalk implements MonteCarloInterface {
-  private static final Coinflip COINFLIP = Coinflip.of(RationalScalar.HALF);
+  private static final Coinflip COINFLIP = Coinflip.of(Rational.HALF);
   // ---
   private static final Tensor TERMINATE1 = RealScalar.ZERO; // A
   // ---

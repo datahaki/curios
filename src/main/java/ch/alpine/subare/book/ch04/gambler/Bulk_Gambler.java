@@ -14,7 +14,7 @@ import ch.alpine.subare.util.LearningCompetition;
 import ch.alpine.subare.util.LearningContender;
 import ch.alpine.subare.util.LinearExplorationRate;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -24,7 +24,7 @@ import ch.alpine.tensor.alg.Subdivide;
 /* package */ enum Bulk_Gambler {
   ;
   static void handle(SarsaType sarsaType, int nstep) throws Exception {
-    GamblerModel gamblerModel = new GamblerModel(20, RationalScalar.of(4, 10)); // 20, 4/10
+    GamblerModel gamblerModel = new GamblerModel(20, Rational.of(4, 10)); // 20, 4/10
     final DiscreteQsa ref = GamblerHelper.getOptimalQsa(gamblerModel); // true q-function, for error measurement
     // ---
     final Scalar errorcap = RealScalar.of(20); // 15

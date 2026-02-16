@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.fig;
 
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -23,7 +23,7 @@ import ch.alpine.tensor.sca.Mod;
 
   public static ColorDataIndexed of(int max, int sep) {
     Tensor tensor = Tensors.reserve(max * sep);
-    Scalar offset = RationalScalar.of(2, 3);
+    Scalar offset = Rational.of(2, 3);
     Tensor sats = Subdivide.of(1.0, 0.2, sep - 1);
     for (int index = 0; index < max; ++index) {
       for (Tensor sat : sats)

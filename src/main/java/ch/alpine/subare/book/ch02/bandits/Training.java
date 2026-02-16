@@ -6,7 +6,7 @@ import ch.alpine.subare.book.ch02.GradientAgent;
 import ch.alpine.subare.book.ch02.OptimistAgent;
 import ch.alpine.subare.book.ch02.RandomAgent;
 import ch.alpine.subare.book.ch02.UCBAgent;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -17,12 +17,12 @@ import ch.alpine.tensor.Scalars;
   ;
   static Judger train(int epochs) {
     final int n = 3;
-    Scalar econst = RationalScalar.of(1, 12);
+    Scalar econst = Rational.of(1, 12);
     Judger judger = new Judger(new Bandits(n), //
         new RandomAgent(n), //
         new GradientAgent(n, RealScalar.of(.1)), //
         new EGreedyAgent(n, _ -> econst, econst.toString()), //
-        new EGreedyAgent(n, i -> RationalScalar.of(1, Scalars.intValueExact(i) + 1), "1/i"), new UCBAgent(n, RealScalar.of(1)), //
+        new EGreedyAgent(n, i -> Rational.of(1, Scalars.intValueExact(i) + 1), "1/i"), new UCBAgent(n, RealScalar.of(1)), //
         new UCBAgent(n, RealScalar.of(1.2)), //
         new UCBAgent(n, RealScalar.of(0.8)), //
         // new GradientAgent(n, 0.25), //

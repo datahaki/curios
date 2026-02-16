@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import ch.alpine.subare.api.LearningRate;
 import ch.alpine.subare.td.SarsaType;
 import ch.alpine.subare.util.DefaultLearningRate;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 
 class Sarsa_GamblerTest {
@@ -20,7 +20,7 @@ class Sarsa_GamblerTest {
   @Test
   void testSimple() throws Exception {
     for (SarsaType sarsaType : SarsaType.values()) {
-      GamblerModel gamblerModel = new GamblerModel(20, RationalScalar.of(4, 10));
+      GamblerModel gamblerModel = new GamblerModel(20, Rational.of(4, 10));
       Sarsa_Gambler sarsa_Gambler = new Sarsa_Gambler(gamblerModel);
       LearningRate learningRate = DefaultLearningRate.of(RealScalar.of(3), RealScalar.of(0.81));
       sarsa_Gambler.train(sarsaType, 10, learningRate);

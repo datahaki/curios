@@ -6,7 +6,7 @@ import java.util.List;
 import ch.alpine.subare.alg.OnPolicyStateDistribution;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.util.DiscreteVs;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -19,7 +19,7 @@ import ch.alpine.tensor.sca.Sign;
 /* package */ enum EtaGambler {
   ;
   static void main() {
-    GamblerModel gamblerModel = new GamblerModel(10, RationalScalar.of(4, 10));
+    GamblerModel gamblerModel = new GamblerModel(10, Rational.of(4, 10));
     // Policy policy = EquiprobablePolicy.create(gambler);
     Policy policy = GamblerHelper.getOptimalPolicy(gamblerModel);
     OnPolicyStateDistribution opsd = new OnPolicyStateDistribution(gamblerModel, gamblerModel, policy);

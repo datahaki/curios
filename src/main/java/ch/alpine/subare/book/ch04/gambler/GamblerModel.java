@@ -5,7 +5,7 @@ package ch.alpine.subare.book.ch04.gambler;
 import ch.alpine.subare.api.MonteCarloInterface;
 import ch.alpine.subare.api.StandardModel;
 import ch.alpine.subare.math.Coinflip;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -30,7 +30,7 @@ public class GamblerModel implements StandardModel, MonteCarloInterface {
   private final Coinflip coinflip;
 
   public static GamblerModel createDefault() {
-    return new GamblerModel(100, RationalScalar.of(4, 10));
+    return new GamblerModel(100, Rational.of(4, 10));
   }
 
   /** @param max stake

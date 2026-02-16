@@ -2,7 +2,7 @@
 package ch.alpine.curios.run;
 
 import ch.alpine.bridge.pro.RunProvider;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -34,7 +34,7 @@ import ch.alpine.tensor.sca.Round;
       System.out.println("mean = " + Expectation.mean(distribution).maps(Round._4));
       System.out.println("variance = " + Expectation.variance(distribution).maps(Round._4));
       InverseCDF inverseCDF = InverseCDF.of(distribution);
-      Scalar q50 = inverseCDF.quantile(RationalScalar.of(1, 2));
+      Scalar q50 = inverseCDF.quantile(Rational.of(1, 2));
       System.out.println("q50 = " + q50);
       CDF cdf = CDF.of(distribution);
       Scalar p = cdf.p_lessThan(RealScalar.of(0));

@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.subare.book.ch02;
 
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.ConstantArray;
@@ -28,7 +28,7 @@ public class RandomAgent extends Agent {
 
   @Override
   protected Tensor protected_QValues() {
-    return ConstantArray.of(RationalScalar.of(1, n), n);
+    return ConstantArray.of(Rational.of(1, n), n);
   }
 
   @Override

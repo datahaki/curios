@@ -18,7 +18,7 @@ import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.LinearExplorationRate;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
-import ch.alpine.tensor.RationalScalar;
+import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.AnimationWriter;
@@ -69,7 +69,7 @@ import ch.alpine.tensor.io.GifAnimationWriter;
   }
 
   static void main() throws Exception {
-    GamblerModel gambler = new GamblerModel(20, RationalScalar.of(4, 10));
+    GamblerModel gambler = new GamblerModel(20, Rational.of(4, 10));
     Sarsa_Gambler sarsa_Gambler = new Sarsa_Gambler(gambler);
     LearningRate learningRate = DefaultLearningRate.of(RealScalar.of(3), RealScalar.of(0.81));
     DiscreteQsa qsa = sarsa_Gambler.train(SarsaType.QLEARNING, 20, learningRate);
