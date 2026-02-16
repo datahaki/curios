@@ -1,14 +1,14 @@
 // code by jph
 package ch.alpine.klotzki;
 
-import ch.alpine.sophis.math.Region;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.chq.MemberQ;
 
-/* package */ record KlotskiObstacleRegion(int sx, int sy) implements Region<Tensor> {
+/* package */ record KlotskiObstacleRegion(int sx, int sy) implements MemberQ {
   /** @param size
    * @return */
-  public static Region<Tensor> fromSize(Tensor size) {
+  public static MemberQ fromSize(Tensor size) {
     return new KlotskiObstacleRegion( //
         Scalars.intValueExact(size.Get(0)), //
         Scalars.intValueExact(size.Get(1)));

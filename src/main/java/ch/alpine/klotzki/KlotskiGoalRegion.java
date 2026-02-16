@@ -1,11 +1,11 @@
 // code by jph
 package ch.alpine.klotzki;
 
-import ch.alpine.sophis.math.Region;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.VectorQ;
+import ch.alpine.tensor.chq.MemberQ;
 
-/* package */ record KlotskiGoalRegion(Tensor stone) implements Region<Tensor> {
+/* package */ record KlotskiGoalRegion(Tensor stone) implements MemberQ {
   /** Example: for Huarong Tensors.vector(0, 4, 2)
    * 
    * @param stone vector of length 3 */
