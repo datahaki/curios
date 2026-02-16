@@ -15,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.tensor.ext.ref.ImplementationDiscovery;
 
 class ShowProviderTest implements Consumer<ShowProvider> {
   @TempDir
@@ -22,7 +23,8 @@ class ShowProviderTest implements Consumer<ShowProvider> {
 
   @TestFactory
   Collection<DynamicTest> dynamicTests() {
-    List<ShowProvider> list = new ClassGraphUtils<>(ShowProvider.class).getInstances("ch");
+    ImplementationDiscovery<ShowProvider> classDiscUtils = new ImplementationDiscovery<>(ShowProvider.class);
+    List<ShowProvider> list = classDiscUtils.getInstances("ch.alpine");
     assertFalse(list.isEmpty());
     return list.stream() //
         .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //

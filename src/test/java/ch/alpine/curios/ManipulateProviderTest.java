@@ -21,6 +21,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
+import ch.alpine.tensor.ext.ref.ImplementationDiscovery;
 
 class ManipulateProviderTest implements Consumer<ManipulateProvider> {
   @TempDir
@@ -28,7 +29,8 @@ class ManipulateProviderTest implements Consumer<ManipulateProvider> {
 
   @TestFactory
   Collection<DynamicTest> dynamicTests() {
-    List<ManipulateProvider> list = new ClassGraphUtils<>(ManipulateProvider.class).getInstances("ch");
+    ImplementationDiscovery<ManipulateProvider> classDiscUtils = new ImplementationDiscovery<>(ManipulateProvider.class);
+    List<ManipulateProvider> list = classDiscUtils.getInstances("ch.alpine");
     assertFalse(list.isEmpty());
     return list.stream() //
         .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
