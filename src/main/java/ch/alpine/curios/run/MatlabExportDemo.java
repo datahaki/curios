@@ -20,7 +20,7 @@ import ch.alpine.tensor.io.StringScalar;
 /* package */ enum MatlabExportDemo implements RunProvider {
   INSTANCE;
 
-  static final Path PATH = HomeDirectory.Ephemeral.createDirectories(MatlabExportDemo.class.getSimpleName());
+  static final Path PATH = HomeDirectory.Ephemeral.mk_dirs(MatlabExportDemo.class.getSimpleName());
 
   static void vector1() throws IOException {
     Tensor tensor = Tensors.vectorDouble(3.2, -3, 0.234, 3, 3e-20, 0);

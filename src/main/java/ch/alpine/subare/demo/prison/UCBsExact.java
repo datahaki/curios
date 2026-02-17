@@ -40,7 +40,7 @@ import ch.alpine.tensor.io.Put;
   }
 
   static void main() throws IOException {
-    Path path = HomeDirectory.Ephemeral.createDirectories(UCBsExact.class.getSimpleName());
+    Path path = HomeDirectory.Ephemeral.mk_dirs(UCBsExact.class.getSimpleName());
     Tensor init = Subdivide.of(Rational.of(3, 5), Rational.of(3, 2), 240);
     Tensor expectedRewards = Array.zeros(init.length(), init.length());
     int px = 0;

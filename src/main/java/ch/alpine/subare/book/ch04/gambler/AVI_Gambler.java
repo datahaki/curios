@@ -27,7 +27,7 @@ import ch.alpine.tensor.io.Put;
  * visualizes the exact optimal policy */
 @ReflectionMarker
 public class AVI_Gambler implements ManipulateProvider {
-  Path path = HomeDirectory.Ephemeral.createDirectories(AVI_Gambler.class.getSimpleName());
+  Path path = HomeDirectory.Ephemeral.mk_dirs(AVI_Gambler.class.getSimpleName());
   public Integer max = 100;
   public Scalar P_win = Rational.THIRD;
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;

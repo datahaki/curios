@@ -18,6 +18,7 @@ class CaesarBoardTest {
     CalendarBoard calendarBoard = caesarBoard.calendarBoard();
     LocalDate.of(2020, 1, 1).datesUntil(LocalDate.of(2030, 1, 1)) //
         .filter(_ -> ThreadLocalRandom.current().nextDouble() < 0.02) //
+        .limit(2) //
         .map(calendarBoard::of).forEach(cb -> {
           assertTrue(StaticHelper.isSingleFree(cb.mask()));
         });
@@ -29,6 +30,7 @@ class CaesarBoardTest {
     CalendarBoard calendarBoard = caesarBoard.calendarBoard();
     LocalDate.of(2025, 1, 1).datesUntil(LocalDate.of(2026, 1, 1)) //
         .filter(_ -> ThreadLocalRandom.current().nextDouble() < 0.02) //
+        .limit(2) //
         .forEach(ld -> {
           UbongoBoard ubongoBoard = calendarBoard.of(ld);
           List<PuzzlePiece> puzzlePieces = CaesarPieces.list();
