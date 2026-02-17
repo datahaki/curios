@@ -15,7 +15,7 @@ import ch.alpine.tensor.io.Import;
 public enum UbongoLoader {
   INSTANCE;
 
-  private final ResourceLocator resourceLocator = new ResourceLocator(HomeDirectory.Documents.resolve("ubongo"));
+  private final ResourceLocator resourceLocator = new ResourceLocator(HomeDirectory.Ephemeral.resolve("ubongo"));
   private final Function<UbongoBoards, List<UbongoSolution>> cache = Cache.of(this::of, 200);
 
   public List<UbongoSolution> load(UbongoBoards ubongoBoards) {

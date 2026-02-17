@@ -3,7 +3,6 @@ package ch.alpine.klotzki;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Map;
@@ -30,7 +29,7 @@ import ch.alpine.tensor.io.TableBuilder;
 
 public class KlotskiDemo extends AbstractDemo {
   public static final ThreadLocal<Boolean> debugPrint = ThreadLocal.withInitial(() -> false);
-  public static final Path FOLDER_SOLUTIONS = HomeDirectory.Documents.mk_dirs("klotski");
+  public static final Path FOLDER_SOLUTIONS = HomeDirectory.Ephemeral.mk_dirs("klotski");
   private final KlotskiProblem klotskiProblem;
   private static final int RES = 128;
   // ---
@@ -101,11 +100,6 @@ public class KlotskiDemo extends AbstractDemo {
   }
 
   public static Path solutionFile(KlotskiProblem klotskiProblem) {
-    try {
-      Files.createDirectories(FOLDER_SOLUTIONS);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     return FOLDER_SOLUTIONS.resolve(klotskiProblem.name() + ".object");
   }
 
