@@ -24,7 +24,7 @@ enum DialogFieldsEditorBlockDemo {
   }
 
   static void main() {
-    LookAndFeels.DARK.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     DoneNest doneNest = new DoneNest();
     Optional<DoneNest> optional = DialogFieldsEditor.block(null, doneNest, "here");
     System.out.println("HERE");

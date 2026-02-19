@@ -12,7 +12,7 @@ import ch.alpine.bridge.swing.LookAndFeels;
 enum LocalDateTimeDialogDemo {
   ;
   static void main() {
-    LookAndFeels.LIGHT.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     LocalDateTimeDialog localDateTimeDialog = new LocalDateTimeDialog(LocalDateTime.now()) {
       @Override
       public void selection(LocalDateTime current) {

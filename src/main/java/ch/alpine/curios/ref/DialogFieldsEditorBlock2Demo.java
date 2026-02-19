@@ -18,7 +18,7 @@ enum DialogFieldsEditorBlock2Demo {
   }
 
   static void main() {
-    LookAndFeels.LIGHT.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     JLabel jLabel = new JLabel();
     DoneCheck doneNest = new DoneCheck();
     Optional<DoneCheck> optional = DialogFieldsEditor.block(jLabel, doneNest, "here");

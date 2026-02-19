@@ -196,7 +196,7 @@ class SbfShow {
   }
 
   static void main() throws IOException {
-    LookAndFeels.LIGHT.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     SbfShow sbfShow = new SbfShow(SbfType.binnen);
     sbfShow.jFrame.setVisible(true);
   }

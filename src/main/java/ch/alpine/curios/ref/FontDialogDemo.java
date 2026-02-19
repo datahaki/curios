@@ -12,7 +12,7 @@ import ch.alpine.bridge.swing.LookAndFeels;
 enum FontDialogDemo {
   ;
   static void main() {
-    LookAndFeels.LIGHT.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     FontDialog fontDialog = new FontDialog(new Font(Font.DIALOG_INPUT, Font.BOLD, 34)) {
       @Override
       public void selection(Font current) {

@@ -16,7 +16,7 @@ import ch.alpine.tensor.sca.ply.Chebyshev;
 enum ChebyshevUTDemo {
   ;
   static void main() {
-    LookAndFeels.LIGHT.updateComponentTreeUI();
+    LookAndFeels.autoDetect();
     List<Show> list = new LinkedList<>();
     for (Chebyshev chebyshev : Chebyshev.values()) {
       Show show = new Show();
