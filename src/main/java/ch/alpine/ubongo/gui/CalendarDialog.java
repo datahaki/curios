@@ -11,6 +11,7 @@ import ch.alpine.bridge.fig.StringPlot.StringItem;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
+import ch.alpine.tensor.ext.RomanNumeral;
 import ch.alpine.tensor.img.ColorDataLists;
 import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
@@ -23,6 +24,10 @@ import ch.alpine.ubongo.UbongoEntry;
 import ch.alpine.ubongo.UbongoSolution;
 
 record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implements ShowProvider {
+  static String pretty(LocalDate localDate) {
+    return RomanNumeral.of(localDate.getYear()) + " " + localDate.getMonth() + " " + localDate.getDayOfMonth() + " " + localDate.getDayOfWeek();
+  }
+
   @Override
   public Show getShow() {
     UbongoBoard ubongoBoard = calendarBoard.of(localDate);
@@ -32,7 +37,7 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     List<UbongoEntry> solution = ubongoSolution.list();
     Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
     Show show = new Show();
-    show.setPlotLabel(localDate.toString() + " " + localDate.getDayOfWeek());
+    show.setPlotLabel(pretty(localDate));
     show.setGridLines(false);
     ImagePlot imagePlot = ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())));
     imagePlot.setImageResize(ImageResize.DEGREE_0);
