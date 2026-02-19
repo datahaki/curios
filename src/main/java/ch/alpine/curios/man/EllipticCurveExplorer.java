@@ -59,10 +59,12 @@ public class EllipticCurveExplorer implements ManipulateProvider {
     show.setPlotLabel(ellipticCurve.discriminant().toString() + "   roots=" + valid_roots);
     Clip clip = Clips.absolute(10);
     for (int i = 0; i < depth; ++i) {
+      // TODO make discovery more efficient by avoiding repeating combos
       Tensor points = Tensor.of(set.stream());
       Tensor matrix = UpperEvaluation.of(points, points, ellipticCurve::combine, s -> s);
       set = Flatten.of(matrix, 1).stream() //
           .distinct().filter(Tensors::nonEmpty).collect(Collectors.toSet());
+      // TODO points should be added as well!
     }
     show.add(ReImPlot.of(ellipticCurve, clip));
     show.add(ReImPlot.of(s -> ellipticCurve.apply(s).negate(), clip));

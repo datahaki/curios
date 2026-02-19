@@ -3,6 +3,7 @@ package ch.alpine.curios.fig;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
+import ch.alpine.bridge.fig.Plot.Option;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowProvider;
@@ -32,12 +33,12 @@ class BSplineInterpDemo implements ShowProvider {
     Clip domain = Clips.positive(n - 1);
     for (int degree = 0; degree < 3; ++degree) {
       Interpolation interpolation = BSplineInterpolation.of(degree, tensor);
-      Showable showable = show.add(Plot.of(interpolation::At, domain));
+      Showable showable = show.add(Plot.of(interpolation::At, domain, Option.STRICT));
       showable.setLabel("degree " + degree);
     }
     {
       Interpolation interpolation = LanczosInterpolation.of(tensor);
-      Showable showable = show.add(Plot.of(interpolation::At, domain));
+      Showable showable = show.add(Plot.of(interpolation::At, domain, Option.STRICT));
       showable.setLabel("Lanczos");
     }
     return show;

@@ -3,7 +3,7 @@ package ch.alpine.subare.demo;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.subare.alg.ActionValueIterations;
 import ch.alpine.subare.analysis.DiscreteModelErrorAnalysis;
 import ch.alpine.subare.api.FeatureMapper;

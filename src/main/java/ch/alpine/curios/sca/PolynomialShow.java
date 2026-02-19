@@ -8,7 +8,7 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;

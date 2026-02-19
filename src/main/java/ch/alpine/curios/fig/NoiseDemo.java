@@ -3,7 +3,7 @@ package ch.alpine.curios.fig;
 
 import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.sophus.math.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;

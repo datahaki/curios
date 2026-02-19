@@ -5,8 +5,8 @@ import java.awt.BasicStroke;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.img.ColorDataLists;

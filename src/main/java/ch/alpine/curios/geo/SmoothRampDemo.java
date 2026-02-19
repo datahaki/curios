@@ -3,7 +3,7 @@ package ch.alpine.curios.geo;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.sophis.gbc.amp.SmoothRamp;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.sca.Clip;

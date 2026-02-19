@@ -3,7 +3,7 @@ package ch.alpine.curios.exp;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;

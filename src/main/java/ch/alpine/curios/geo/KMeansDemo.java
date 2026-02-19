@@ -5,8 +5,8 @@ import java.awt.Color;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowWindow;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.sophis.dv.Biinvariant;
 import ch.alpine.sophis.dv.Biinvariants;
 import ch.alpine.sophis.fit.KMeans;
