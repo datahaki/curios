@@ -55,6 +55,6 @@ record BchConvergenceShow(int depth) implements ShowProvider {
   }
 
   static void main() {
-    INSTANCE.run();
+    new BchConvergenceShow(11).run();
   }
 }

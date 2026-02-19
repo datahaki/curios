@@ -13,8 +13,11 @@ import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
 public enum MissingHeaders {
-  ;
-  public static void visit(Path base) throws IOException {
+  INSTANCE;
+
+  int checked = 0;
+
+  public void visit(Path base) throws IOException {
     for (File file : base.toFile().listFiles()) {
       Path path = file.toPath();
       if (Files.isDirectory(path)) {
@@ -25,6 +28,7 @@ public enum MissingHeaders {
           try (var lines = Files.lines(path)) {
             Optional<String> optional = lines.findFirst();
             if (optional.isPresent()) {
+              ++checked;
               String header = optional.orElseThrow();
               if (!header.startsWith("/")) {
                 prepend(path);
@@ -38,7 +42,7 @@ public enum MissingHeaders {
     }
   }
 
-  private static void prepend(Path path) throws IOException {
+  private void prepend(Path path) throws IOException {
     List<String> list = new LinkedList<>();
     list.add("// code by jph");
     try (var lines = Files.lines(path)) {
@@ -50,6 +54,7 @@ public enum MissingHeaders {
 
   static void main() throws IOException {
     Path path = HomeDirectory.Projects.resolve();
-    visit(path);
+    INSTANCE.visit(path);
+    IO.println("checked: " + INSTANCE.checked);
   }
 }
