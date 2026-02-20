@@ -84,6 +84,7 @@ public class UbongoDesigner extends AbstractDemo {
   private final GridRender gridRender;
   private Tensor template = Array.zeros(EXT, EXT);
   private SolveThread solveThread = null;
+  private final Path FILE;
 
   public UbongoDesigner() {
     this(new Param(), new Paran());
@@ -92,19 +93,17 @@ public class UbongoDesigner extends AbstractDemo {
   public UbongoDesigner(Param param, Paran paran) {
     super(param, paran);
     this.param = param;
+    FILE = resourceLocator.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
     fieldsEditor(0).addUniversalListener(this::run2);
     fieldsEditor(1).addUniversalListener(() -> {
       center(paran.ubongoBoards.board().mask());
       param.num = paran.ubongoBoards.use();
       fieldsEditor(0).updateJComponents();
     });
-    {
-      Path FILE = RESOURCE_LOCATOR.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
-      try {
-        template = Import.of(FILE);
-      } catch (Exception e) {
-        System.err.println("does not exist: " + FILE);
-      }
+    try {
+      template = Import.of(FILE);
+    } catch (Exception e) {
+      System.err.println("does not exist: " + FILE);
     }
     center(template);
     // ---
@@ -198,7 +197,6 @@ public class UbongoDesigner extends AbstractDemo {
     if (param.solve) {
       param.solve = false;
       if (Objects.isNull(solveThread)) {
-        Path FILE = RESOURCE_LOCATOR.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
         Unprotect.Export(FILE, template);
         Tensor result = ImageCrop.eq(RealScalar.ZERO).apply(template);
         solveThread = new SolveThread(UbongoBoard.of(result), param.num);

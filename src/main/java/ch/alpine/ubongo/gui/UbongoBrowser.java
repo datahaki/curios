@@ -71,7 +71,7 @@ public class UbongoBrowser extends AbstractDemo {
       System.err.println("no solutions");
     } else {
       UbongoBrowser ubongoBrowser = new UbongoBrowser(ubongoBoards.board(), list);
-      ubongoBrowser.setVisible(800, 600);
+      ubongoBrowser.runStandalone();
     }
   }
 }

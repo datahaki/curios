@@ -16,7 +16,7 @@ class SolveThread extends Thread {
         System.err.println("no solutions");
       } else {
         UbongoBrowser ubongoBrowser = new UbongoBrowser(ubongoBoard, list);
-        ubongoBrowser.setVisible(800, 600);
+        ubongoBrowser.runStandalone();
       }
     });
     this.ubongoBoard = ubongoBoard;

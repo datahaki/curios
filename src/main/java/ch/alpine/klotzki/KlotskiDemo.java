@@ -106,7 +106,7 @@ public class KlotskiDemo extends AbstractDemo {
   static void main() throws IOException {
     KlotskiProblem klotskiProblem = Huarong.AMBUSH.create();
     KlotskiDemo klotskiDemo = new KlotskiDemo(klotskiProblem);
-    klotskiDemo.setVisible(700, 700);
+    klotskiDemo.runStandalone();
     KlotskiSolution klotskiSolution = klotskiDemo.compute();
     Export.object(solutionFile(klotskiProblem), klotskiSolution);
     klotskiDemo.close();
