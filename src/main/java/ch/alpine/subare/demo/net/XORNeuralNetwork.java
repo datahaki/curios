@@ -3,7 +3,6 @@ package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -21,11 +20,13 @@ import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.ext.MergeIllegal;
 import ch.alpine.tensor.io.TableBuilder;
+import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Clips;
+import ch.alpine.tensor.sca.Round;
 
 /** Quote from chatgpt:
  * 
@@ -47,8 +48,7 @@ import ch.alpine.tensor.sca.Clips;
 @ReflectionMarker
 public class XORNeuralNetwork implements ManipulateProvider {
   static final Distribution DISTRIBUTION = UniformDistribution.of(Clips.absolute(0.5));
-  private final Tensor inputs = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
-  private final Tensor targets = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
+  public static final Tensor xor = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
   // ---
   @FieldSelectionArray({ "4", "5", "6", "7" })
   public Integer hiddenSize = 4;
@@ -56,11 +56,11 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
 
-  public class XORNet {
-    final TableBuilder tableBuilder = new TableBuilder();
+  public class BinOpLogicNet {
     private final List<Layer> layers;
+    private final TableBuilder tableBuilder = new TableBuilder();
 
-    public XORNet() {
+    public BinOpLogicNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
       layers = List.of( //
@@ -69,25 +69,20 @@ public class XORNeuralNetwork implements ManipulateProvider {
           new BinaryLayer());
     }
 
-    void train(Tensor X, Tensor y) {
+    void train(Tensor y) {
+      Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
       int epoch = 0;
       Timing timing = Timing.started();
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
         for (int sample = 0; sample < X.length(); ++sample) {
           Tensor x = X.get(sample);
           // Forward pass
-          layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
-          // l3.forward(l2.forward(l1.forward(x)));
+          layers.stream().reduce(x, Layer.forward(), MergeIllegal.operator());
           // Backpropagation
-          // ---
           Tensor d = layers.getLast().error(y.get(sample)).multiply(learningRate);
-          IntStream.range(0, layers.size()).mapToObj(i -> layers.get(layers.size() - 1 - i)) //
-              .reduce(d, (r, l) -> l.back(r), MergeIllegal.operator());
+          layers.reversed().stream().reduce(d, Layer.back(), MergeIllegal.operator());
           // ---
           layers.forEach(Layer::update);
-          // l3.update();
-          // l2.update();
-          // l1.update();
         }
         if (epoch % 10 == 0)
           tableBuilder.appendRow(Tensor.of(layers.stream().map(Layer::parameters)));
@@ -95,19 +90,27 @@ public class XORNeuralNetwork implements ManipulateProvider {
       }
     }
 
-    void evaluate(Tensor inputs) {
+    Scalar evaluate(Tensor Y) {
+      Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
       System.out.println("Evaluation after training:");
-      for (Tensor x : inputs) {
-        Tensor res = layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
-        System.out.printf("Input: %s -> Output: %s\n", x, res);
+      Tensor errors = Tensors.empty();
+      for (int sample = 0; sample < X.length(); ++sample) {
+        Tensor x = X.get(sample);
+        Tensor y = layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
+        Tensor t = Y.get(sample);
+        Tensor e = t.subtract(y);
+        errors.append(e);
+        System.out.printf("Input: %s -> Output: %s\n", x, e.maps(Round._3));
       }
+      return FrobeniusNorm.of(errors);
     }
   }
 
   public Show getShow() {
-    XORNet xorNet = new XORNet();
-    xorNet.train(inputs, targets);
-    xorNet.evaluate(inputs);
+    BinOpLogicNet xorNet = new BinOpLogicNet();
+    xorNet.train(xor);
+    Scalar error = xorNet.evaluate(xor);
+    IO.println(error);
     Tensor table = xorNet.tableBuilder.getTable();
     IO.println(Dimensions.of(table));
     int n = Unprotect.dimension1Hint(table);
