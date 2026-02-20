@@ -2,6 +2,8 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -17,6 +19,7 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
+import ch.alpine.tensor.ext.MergeIllegal;
 import ch.alpine.tensor.io.TableBuilder;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
@@ -54,17 +57,16 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Scalar timeout = Quantity.of(1, "s");
 
   public class XORNet {
-    final LinearLayer l1;
-    final LinearLayer l2;
-    final Layer l3;
     final TableBuilder tableBuilder = new TableBuilder();
+    private final List<Layer> layers;
 
     public XORNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      l1 = LinearLayer.logSig(DISTRIBUTION, INPUT_SIZE, hiddenSize);
-      l2 = LinearLayer.logSig(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
-      l3 = new IdentLayer();
+      layers = List.of( //
+          LinearLayer.logSig(DISTRIBUTION, INPUT_SIZE, hiddenSize), //
+          LinearLayer.logSig(DISTRIBUTION, hiddenSize, OUTPUT_SIZE), //
+          new BinaryLayer());
     }
 
     void train(Tensor X, Tensor y) {
@@ -72,32 +74,32 @@ public class XORNeuralNetwork implements ManipulateProvider {
       Timing timing = Timing.started();
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
         for (int sample = 0; sample < X.length(); ++sample) {
-          Tensor x0 = X.get(sample);
+          Tensor x = X.get(sample);
           // Forward pass
-          Tensor x1 = l1.forward(x0);
-          Tensor x2 = l2.forward(x1);
-          l3.forward(x2);
+          layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
+          // l3.forward(l2.forward(l1.forward(x)));
           // Backpropagation
           // ---
-          Tensor e2 = l3.error(y.get(sample)).multiply(learningRate);
-          Tensor d2 = l3.back(e2);
-          Tensor d1 = l2.back(d2);
+          Tensor d = layers.getLast().error(y.get(sample)).multiply(learningRate);
+          IntStream.range(0, layers.size()).mapToObj(i -> layers.get(layers.size() - 1 - i)) //
+              .reduce(d, (r, l) -> l.back(r), MergeIllegal.operator());
           // ---
-          l2.update(d2);
-          l1.update(d1);
+          layers.forEach(Layer::update);
+          // l3.update();
+          // l2.update();
+          // l1.update();
         }
         if (epoch % 10 == 0)
-          tableBuilder.appendRow(l1.W, l1.b, l2.W, l2.b);
+          tableBuilder.appendRow(Tensor.of(layers.stream().map(Layer::parameters)));
         ++epoch;
       }
     }
 
     void evaluate(Tensor inputs) {
       System.out.println("Evaluation after training:");
-      for (Tensor x0 : inputs) {
-        Tensor x1 = l1.forward(x0);
-        Tensor x2 = l2.forward(x1);
-        System.out.printf("Input: %s -> Output: %s\n", x0, x2);
+      for (Tensor x : inputs) {
+        Tensor res = layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
+        System.out.printf("Input: %s -> Output: %s\n", x, res);
       }
     }
   }

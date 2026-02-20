@@ -61,14 +61,15 @@ public class SoftmaxMLP implements ManipulateProvider {
           Tensor x0 = X.get(n);
           Tensor x1 = l1.forward(x0);
           Tensor x2 = l2.forward(x1);
-          l3.forward(x2);
+          Tensor x3 = l3.forward(x2);
           // Backpropagation
-          Tensor e2 = l3.error(y.Get(n)).multiply(learningRate);
-          Tensor d2 = l3.back(e2); // Cross-Entropy + Softmax simplifies gradient
-          Tensor d1 = l2.back(d2);
+          Tensor d3 = l3.error(y.Get(n)).multiply(learningRate);
+          // Cross-Entropy + Softmax simplifies gradient
+          l1.back(l2.back(l3.back(d3)));
           // ---
-          l2.update(d2);
-          l1.update(d1);
+          l3.update();
+          l2.update();
+          l1.update();
         }
         if (epoch % 10 == 0)
           tableBuilder.appendRow(l1.W, l1.b, l2.W, l2.b);

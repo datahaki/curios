@@ -2,6 +2,7 @@ package ch.alpine.subare.demo.net;
 
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
+import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.lie.TensorProduct;
 import ch.alpine.tensor.pdf.Distribution;
@@ -54,12 +55,13 @@ public class LinearLayer implements Layer {
   }
 
   @Override
-  public Tensor back(Tensor d2) {
-    return d = Entrywise.mul().apply(W.dot(d2), x.maps(df));
+  public Tensor back(Tensor d) {
+    this.d = d;
+    return Entrywise.mul().apply(W.dot(d), x.maps(df));
   }
 
   @Override
-  public void update(Tensor d) {
+  public void update() {
     W = W.add(TensorProduct.of(x, d));
     b = b.add(d);
   }
@@ -67,5 +69,10 @@ public class LinearLayer implements Layer {
   @Override
   public Tensor error(Tensor y) {
     throw new RuntimeException();
+  }
+
+  @Override
+  public Tensor parameters() {
+    return Flatten.of(W, b);
   }
 }
