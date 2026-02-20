@@ -1,5 +1,5 @@
 // code adapted from chatgpt
-package ch.alpine.subare.demo;
+package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
 
@@ -55,21 +55,20 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Scalar learningRate = Rational.HALF;
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(0.4, "s");
-  public Boolean advance = false;
 
   public class XORNet {
-    Tensor w1;
+    Tensor W1;
     Tensor b1;
-    Tensor w2;
+    Tensor W2;
     Tensor b2;
     TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      w1 = RandomVariate.of(DISTRIBUTION, hiddenSize, INPUT_SIZE);
+      W1 = RandomVariate.of(DISTRIBUTION, INPUT_SIZE, hiddenSize);
       b1 = RandomVariate.of(DISTRIBUTION, hiddenSize);
-      w2 = RandomVariate.of(DISTRIBUTION, OUTPUT_SIZE, hiddenSize);
+      W2 = RandomVariate.of(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
       b2 = RandomVariate.of(DISTRIBUTION, OUTPUT_SIZE);
     }
 
@@ -81,20 +80,18 @@ public class XORNeuralNetwork implements ManipulateProvider {
           Tensor x0 = inputs.get(sample);
           Tensor y2 = target.get(sample);
           // Forward pass ---
-          Tensor x1 = w1.dot(x0).add(b1).maps(LogisticSigmoid.FUNCTION);
-          Tensor x2 = w2.dot(x1).add(b2).maps(LogisticSigmoid.FUNCTION);
+          Tensor x1 = x0.dot(W1).add(b1).maps(LogisticSigmoid.FUNCTION);
+          Tensor x2 = x1.dot(W2).add(b2).maps(LogisticSigmoid.FUNCTION);
           // Backpropagation ---
-          Tensor e2 = y2.subtract(x2);
-          Tensor d2 = Entrywise.mul().apply(e2, x2.maps(DLogisticSigmoid.NESTED));
-          Tensor e1 = d2.dot(w2);
-          Tensor d1 = Entrywise.mul().apply(e1, x1.maps(DLogisticSigmoid.NESTED));
-          w2 = w2.add(TensorProduct.of(d2, x1).multiply(learningRate));
-          b2 = b2.add(d2.multiply(learningRate));
-          w1 = w1.add(TensorProduct.of(d1, x0).multiply(learningRate));
-          b1 = b1.add(d1.multiply(learningRate));
+          Tensor d2 = Entrywise.mul().apply(y2.subtract(x2).multiply(learningRate), x2.maps(DLogisticSigmoid.NESTED));
+          W2 = W2.add(TensorProduct.of(x1, d2));
+          b2 = b2.add(d2);
+          Tensor d1 = Entrywise.mul().apply(W2.dot(d2), x1.maps(DLogisticSigmoid.NESTED));
+          W1 = W1.add(TensorProduct.of(x0, d1));
+          b1 = b1.add(d1);
         }
         if (epoch % 10 == 0) {
-          tableBuilder.appendRow(w1, b1, w2, b2);
+          tableBuilder.appendRow(W1, b1, W2, b2);
         }
         ++epoch;
       }
@@ -103,8 +100,8 @@ public class XORNeuralNetwork implements ManipulateProvider {
     void evaluate(Tensor inputs) {
       System.out.println("Evaluation after training:");
       for (Tensor x0 : inputs) {
-        Tensor x1 = w1.dot(x0).add(b1).maps(LogisticSigmoid.FUNCTION);
-        Tensor x2 = w2.dot(x1).add(b2).maps(LogisticSigmoid.FUNCTION);
+        Tensor x1 = x0.dot(W1).add(b1).maps(LogisticSigmoid.FUNCTION);
+        Tensor x2 = x1.dot(W2).add(b2).maps(LogisticSigmoid.FUNCTION);
         System.out.printf("Input: %s -> Output: %s\n", x0, x2);
       }
     }
@@ -129,7 +126,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
     return ShowGridComponent.of(getShow());
   }
 
-  public static void main(String[] args) {
-    new XORNeuralNetwork().runStandalone();
+  static void main() {
+      new XORNeuralNetwork().runStandalone();
   }
 }
