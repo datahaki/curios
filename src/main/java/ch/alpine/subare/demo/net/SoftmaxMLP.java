@@ -14,6 +14,7 @@ import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
+import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.alg.UnitVector;
@@ -56,12 +57,12 @@ public class SoftmaxMLP implements ManipulateProvider {
 
     public XORNet() {
       W1 = RandomVariate.of(DISTRIBUTION, INPUT_SIZE, HIDDEN_SIZE);
-      b1 = RandomVariate.of(DISTRIBUTION, HIDDEN_SIZE).maps(Scalar::zero);
+      b1 = Array.zeros(HIDDEN_SIZE);
       W2 = RandomVariate.of(DISTRIBUTION, HIDDEN_SIZE, OUTPUT_SIZE);
-      b2 = RandomVariate.of(DISTRIBUTION, OUTPUT_SIZE).maps(Scalar::zero);
+      b2 = Array.zeros(OUTPUT_SIZE);
     }
 
-    void train(Tensor X, Tensor y, int epochs) {
+    void train(Tensor X, Tensor y) {
       int epoch = 0;
       Timing timing = Timing.started();
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
@@ -69,23 +70,21 @@ public class SoftmaxMLP implements ManipulateProvider {
           // Forward pass
           Tensor x0 = X.get(n);
           Tensor x1 = x0.dot(W1).add(b1).maps(Ramp.FUNCTION);
-          Tensor x2 = x1.dot(W2).add(b2);
-          Tensor probs = SoftmaxLayer.of(x2);
-          // One-hot target
-          Tensor target = UnitVector.of(OUTPUT_SIZE, Scalars.intValueExact(y.Get(n)));
-          // Backpropagation (Cross-Entropy + Softmax simplifies gradient)
-          Tensor dOutput = probs.subtract(target);
-          Tensor dHidden = Entrywise.mul().apply(W2.dot(dOutput), x1.maps(UnitStep.FUNCTION));
-          // Update W2 and b2
-          W2 = W2.subtract(TensorProduct.of(x1, dOutput.multiply(learningRate)));
-          b2 = b2.subtract(dOutput.multiply(learningRate));
-          // Update W1 and b1
-          W1 = W1.subtract(TensorProduct.of(x0, dHidden.multiply(learningRate)));
-          b1 = b1.subtract(dHidden.multiply(learningRate));
+          Tensor x2 = SoftmaxLayer.of(x1.dot(W2).add(b2));
+          // Backpropagation
+          int k = Scalars.intValueExact(y.Get(n));
+          Tensor y2 = UnitVector.of(OUTPUT_SIZE, k); // One-hot target
+          Tensor e2 = y2.subtract(x2).multiply(learningRate);
+          Tensor d2 = e2; // Cross-Entropy + Softmax simplifies gradient
+          Tensor d1 = Entrywise.mul().apply(W2.dot(d2), x1.maps(UnitStep.FUNCTION)); // use old W2
+          // ---
+          W2 = W2.add(TensorProduct.of(x1, d2));
+          b2 = b2.add(d2);
+          W1 = W1.add(TensorProduct.of(x0, d1));
+          b1 = b1.add(d1);
         }
-        if (epoch % 10 == 0) {
+        if (epoch % 10 == 0)
           tableBuilder.appendRow(W1, b1, W2, b2);
-        }
         ++epoch;
       }
     }
@@ -105,7 +104,7 @@ public class SoftmaxMLP implements ManipulateProvider {
 
   public Show getShow() {
     XORNet xorNet = new XORNet();
-    xorNet.train(X, y, 5000);
+    xorNet.train(X, y);
     xorNet.evaluate(X, y);
     Tensor table = xorNet.tableBuilder.getTable();
     IO.println(Dimensions.of(table));

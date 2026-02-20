@@ -17,16 +17,13 @@ import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.io.TableBuilder;
-import ch.alpine.tensor.lie.TensorProduct;
 import ch.alpine.tensor.pdf.Distribution;
-import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.red.Entrywise;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
-import ch.alpine.tensor.sca.exp.LogisticSigmoid;
 
 /** Quote from chatgpt:
  * 
@@ -57,42 +54,37 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Scalar timeout = Quantity.of(0.4, "s");
 
   public class XORNet {
-    Tensor W1;
-    Tensor b1;
-    Tensor W2;
-    Tensor b2;
+    LinearLayer l1;
+    LinearLayer l2;
     TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      W1 = RandomVariate.of(DISTRIBUTION, INPUT_SIZE, hiddenSize);
-      b1 = RandomVariate.of(DISTRIBUTION, hiddenSize);
-      W2 = RandomVariate.of(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
-      b2 = RandomVariate.of(DISTRIBUTION, OUTPUT_SIZE);
+      l1 = LinearLayer.logSig(DISTRIBUTION, INPUT_SIZE, hiddenSize);
+      l2 = LinearLayer.logSig(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
     }
 
-    void train(Tensor inputs, Tensor target) {
+    void train(Tensor X, Tensor y) {
       int epoch = 0;
       Timing timing = Timing.started();
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
-        for (int sample = 0; sample < inputs.length(); ++sample) {
-          Tensor x0 = inputs.get(sample);
-          Tensor y2 = target.get(sample);
-          // Forward pass ---
-          Tensor x1 = x0.dot(W1).add(b1).maps(LogisticSigmoid.FUNCTION);
-          Tensor x2 = x1.dot(W2).add(b2).maps(LogisticSigmoid.FUNCTION);
-          // Backpropagation ---
-          Tensor d2 = Entrywise.mul().apply(y2.subtract(x2).multiply(learningRate), x2.maps(DLogisticSigmoid.NESTED));
-          W2 = W2.add(TensorProduct.of(x1, d2));
-          b2 = b2.add(d2);
-          Tensor d1 = Entrywise.mul().apply(W2.dot(d2), x1.maps(DLogisticSigmoid.NESTED));
-          W1 = W1.add(TensorProduct.of(x0, d1));
-          b1 = b1.add(d1);
+        for (int sample = 0; sample < X.length(); ++sample) {
+          Tensor x0 = X.get(sample);
+          // Forward pass
+          Tensor x1 = l1.forward(x0);
+          Tensor x2 = l2.forward(x1);
+          // Backpropagation
+          Tensor y2 = y.get(sample);
+          Tensor e2 = y2.subtract(x2).multiply(learningRate);
+          Tensor d2 = Entrywise.mul().apply(e2, x2.maps(DLogisticSigmoid.NESTED));
+          Tensor d1 = l2.back(d2);
+          // ---
+          l2.update(d2);
+          l1.update(d1);
         }
-        if (epoch % 10 == 0) {
-          tableBuilder.appendRow(W1, b1, W2, b2);
-        }
+        if (epoch % 10 == 0)
+          tableBuilder.appendRow(l1.W, l1.b, l2.W, l2.b);
         ++epoch;
       }
     }
@@ -100,8 +92,8 @@ public class XORNeuralNetwork implements ManipulateProvider {
     void evaluate(Tensor inputs) {
       System.out.println("Evaluation after training:");
       for (Tensor x0 : inputs) {
-        Tensor x1 = x0.dot(W1).add(b1).maps(LogisticSigmoid.FUNCTION);
-        Tensor x2 = x1.dot(W2).add(b2).maps(LogisticSigmoid.FUNCTION);
+        Tensor x1 = l1.forward(x0);
+        Tensor x2 = l2.forward(x1);
         System.out.printf("Input: %s -> Output: %s\n", x0, x2);
       }
     }
@@ -127,6 +119,6 @@ public class XORNeuralNetwork implements ManipulateProvider {
   }
 
   static void main() {
-      new XORNeuralNetwork().runStandalone();
+    new XORNeuralNetwork().runStandalone();
   }
 }
