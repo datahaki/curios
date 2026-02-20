@@ -61,6 +61,6 @@ public class RigidMotionFitShow implements ManipulateProvider {
   }
 
   static void main() {
-    new RigidMotionFitShow().run();
+    new RigidMotionFitShow().runStandalone();
   }
 }

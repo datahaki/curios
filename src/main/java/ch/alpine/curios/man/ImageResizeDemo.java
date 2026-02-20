@@ -47,6 +47,6 @@ public class ImageResizeDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new ImageResizeDemo().run();
+    new ImageResizeDemo().runStandalone();
   }
 }

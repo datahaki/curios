@@ -39,6 +39,6 @@ class R2NoisePlot implements ShowProvider {
   }
 
   static void main() {
-    new R2NoisePlot().run();
+    new R2NoisePlot().runStandalone();
   }
 }

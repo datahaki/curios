@@ -26,7 +26,7 @@ class RunProviderTest implements Consumer<RunProvider> {
 
   @Override
   public void accept(RunProvider manipulateProvider) {
-    manipulateProvider.run();
+    manipulateProvider.runStandalone();
     COUNT.getAndIncrement();
   }
 

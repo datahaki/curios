@@ -46,6 +46,6 @@ public class CircleQualityDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new CircleQualityDemo().run();
+    new CircleQualityDemo().runStandalone();
   }
 }

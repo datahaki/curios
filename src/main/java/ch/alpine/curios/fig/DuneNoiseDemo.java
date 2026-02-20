@@ -48,6 +48,6 @@ class DuneNoiseDemo implements ShowProvider {
   }
 
   static void main() {
-    new DuneNoiseDemo().run();
+    new DuneNoiseDemo().runStandalone();
   }
 }

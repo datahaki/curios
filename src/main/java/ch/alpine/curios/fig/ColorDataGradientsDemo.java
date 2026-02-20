@@ -81,6 +81,6 @@ class ColorDataGradientsDemo implements ShowProvider {
   }
 
   static void main() {
-    new ColorDataGradientsDemo().run();
+    new ColorDataGradientsDemo().runStandalone();
   }
 }

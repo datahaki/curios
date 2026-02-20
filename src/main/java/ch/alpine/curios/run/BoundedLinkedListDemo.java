@@ -16,7 +16,7 @@ import ch.alpine.tensor.qty.Timing;
   INSTANCE;
 
   @Override
-  public void run() {
+  public void runStandalone() {
     UncaughtExceptionHandler uncaughtExceptionHandler = (_, e) -> {
       throw new RuntimeException(e);
     };
@@ -63,6 +63,6 @@ import ch.alpine.tensor.qty.Timing;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

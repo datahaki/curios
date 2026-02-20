@@ -33,6 +33,6 @@ import ch.alpine.tensor.sca.tri.Cos;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

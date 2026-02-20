@@ -43,7 +43,7 @@ enum CandidatesShow implements ShowProvider {
   }
 
   static void main() {
-    UBONGO.run();
-    CAESAR.run();
+    UBONGO.runStandalone();
+    CAESAR.runStandalone();
   }
 }

@@ -61,6 +61,6 @@ public class MandelbulbDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new MandelbulbDemo().run();
+    new MandelbulbDemo().runStandalone();
   }
 }

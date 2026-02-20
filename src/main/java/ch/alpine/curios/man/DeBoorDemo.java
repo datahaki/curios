@@ -56,6 +56,6 @@ public class DeBoorDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new DeBoorDemo().run();
+    new DeBoorDemo().runStandalone();
   }
 }

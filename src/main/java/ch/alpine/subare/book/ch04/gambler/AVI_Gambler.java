@@ -58,6 +58,6 @@ public class AVI_Gambler implements ManipulateProvider {
   }
 
   static void main() {
-    new AVI_Gambler().run();
+    new AVI_Gambler().runStandalone();
   }
 }

@@ -25,6 +25,6 @@ class FisherZDistributionDemo implements ShowProvider {
   }
 
   static void main() {
-    new FisherZDistributionDemo().run();
+    new FisherZDistributionDemo().runStandalone();
   }
 }

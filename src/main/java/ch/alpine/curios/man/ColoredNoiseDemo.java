@@ -52,6 +52,6 @@ public class ColoredNoiseDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new ColoredNoiseDemo().run();
+    new ColoredNoiseDemo().runStandalone();
   }
 }

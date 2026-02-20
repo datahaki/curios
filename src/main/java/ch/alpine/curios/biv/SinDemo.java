@@ -35,6 +35,6 @@ import ch.alpine.tensor.sca.tri.Sin;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

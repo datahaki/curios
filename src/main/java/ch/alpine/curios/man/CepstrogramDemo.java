@@ -30,6 +30,6 @@ public class CepstrogramDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new CepstrogramDemo().run();
+    new CepstrogramDemo().runStandalone();
   }
 }

@@ -33,6 +33,6 @@ class GammaDistributionDemo implements ShowProvider {
   }
 
   static void main() {
-    new GammaDistributionDemo().run();
+    new GammaDistributionDemo().runStandalone();
   }
 }

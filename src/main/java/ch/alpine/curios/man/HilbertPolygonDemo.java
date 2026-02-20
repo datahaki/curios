@@ -34,6 +34,6 @@ public class HilbertPolygonDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new HilbertPolygonDemo().run();
+    new HilbertPolygonDemo().runStandalone();
   }
 }

@@ -16,7 +16,7 @@ import ch.alpine.ubongo.UbongoBoards;
 import ch.alpine.ubongo.UbongoLoader;
 import ch.alpine.ubongo.UbongoSolution;
 
-public class UbongoTree extends AbstractDemo implements Runnable {
+public class UbongoTree extends AbstractDemo {
   @ReflectionMarker
   public static class Param {
     public UbongoBoards ubongoBoards = UbongoBoards.AIRPLAN1;
@@ -49,7 +49,7 @@ public class UbongoTree extends AbstractDemo implements Runnable {
     super(param);
     this.param = param;
     param.update();
-    fieldsEditor(0).addUniversalListener(this);
+    fieldsEditor(0).addUniversalListener(param::update);
   }
 
   @Override
@@ -61,12 +61,7 @@ public class UbongoTree extends AbstractDemo implements Runnable {
     StaticHelper.drawBoard(graphics, param.ubongoBoards.board(), param.getSolution().list());
   }
 
-  @Override
-  public void run() {
-    param.update();
-  }
-
   static void main() {
-    launch();
+    new UbongoTree().runStandalone();
   }
 }

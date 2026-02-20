@@ -25,6 +25,6 @@ public class CalendarManipulate implements ManipulateProvider {
   }
 
   static void main() {
-    new CalendarManipulate().run();
+    new CalendarManipulate().runStandalone();
   }
 }

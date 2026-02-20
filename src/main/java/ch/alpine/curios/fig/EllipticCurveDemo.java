@@ -59,6 +59,6 @@ class EllipticCurveDemo implements ShowProvider {
   }
 
   static void main() {
-    new EllipticCurveDemo().run();
+    new EllipticCurveDemo().runStandalone();
   }
 }

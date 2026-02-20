@@ -22,6 +22,6 @@ record RingRandomSampleDemo(Number r1, Number r2) implements ShowProvider {
   }
 
   static void main() {
-    new RingRandomSampleDemo(2, 3).run();
+    new RingRandomSampleDemo(2, 3).runStandalone();
   }
 }

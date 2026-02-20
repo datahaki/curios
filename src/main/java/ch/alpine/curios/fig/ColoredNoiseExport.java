@@ -28,6 +28,6 @@ class ColoredNoiseExport implements ShowProvider {
   }
 
   static void main() {
-    new ColoredNoiseExport().run();
+    new ColoredNoiseExport().runStandalone();
   }
 }

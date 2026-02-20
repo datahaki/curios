@@ -30,6 +30,6 @@ class ChebyshevInterpolationDemo implements ShowProvider {
   }
 
   static void main() {
-    new ChebyshevInterpolationDemo().run();
+    new ChebyshevInterpolationDemo().runStandalone();
   }
 }

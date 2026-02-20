@@ -51,6 +51,6 @@ public enum Se2onR2Demo implements DensityPlotProvider {
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

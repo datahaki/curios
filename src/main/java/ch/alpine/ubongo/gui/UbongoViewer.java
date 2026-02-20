@@ -38,6 +38,6 @@ public class UbongoViewer extends AbstractDemo {
   }
 
   static void main() {
-    launch();
+    new UbongoViewer().runStandalone();
   }
 }

@@ -76,6 +76,6 @@ public class EllipticCurveExplorer implements ManipulateProvider {
   }
 
   static void main() {
-    new EllipticCurveExplorer().run();
+    new EllipticCurveExplorer().runStandalone();
   }
 }

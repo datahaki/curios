@@ -36,6 +36,6 @@ public enum NoiseDemo implements DensityPlotProvider {
   }
 
   static void main() {
-    NoiseDemo.SIMPLEX.run();
+    NoiseDemo.SIMPLEX.runStandalone();
   }
 }

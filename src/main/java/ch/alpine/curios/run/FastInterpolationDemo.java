@@ -21,7 +21,7 @@ import ch.alpine.tensor.qty.Timing;
   INSTANCE;
 
   @Override
-  public void run() {
+  public void runStandalone() {
     Tensor tensor = RandomVariate.of(UniformDistribution.unit(), 30, 3);
     LinearInterpolation linearInterpolation = //
         (LinearInterpolation) LinearInterpolation.of(tensor);
@@ -80,6 +80,6 @@ import ch.alpine.tensor.qty.Timing;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

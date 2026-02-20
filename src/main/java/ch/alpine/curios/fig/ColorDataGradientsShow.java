@@ -25,6 +25,6 @@ record ColorDataGradientsShow(ColorDataGradients colorDataGradients) implements 
   }
 
   static void main() {
-    new ColorDataGradientsShow(ColorDataGradients.CLASSIC).run();
+    new ColorDataGradientsShow(ColorDataGradients.CLASSIC).runStandalone();
   }
 }

@@ -23,6 +23,6 @@ class BSplineBasisDemo implements ShowProvider {
   }
 
   static void main() {
-    new BSplineBasisDemo().run();
+    new BSplineBasisDemo().runStandalone();
   }
 }

@@ -49,6 +49,6 @@ class PeriodogramDemo implements ShowProvider {
   }
 
   static void main() {
-    new PeriodogramDemo().run();
+    new PeriodogramDemo().runStandalone();
   }
 }

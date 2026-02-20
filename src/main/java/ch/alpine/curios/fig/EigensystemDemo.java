@@ -53,6 +53,6 @@ import ch.alpine.tensor.qty.Timing;
   }
 
   static void main() {
-    new EigensystemDemo().run();
+    new EigensystemDemo().runStandalone();
   }
 }

@@ -26,6 +26,6 @@ class BSplineBlendDemo implements ShowProvider {
   }
 
   static void main() {
-    new BSplineBlendDemo().run();
+    new BSplineBlendDemo().runStandalone();
   }
 }

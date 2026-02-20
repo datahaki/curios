@@ -30,6 +30,6 @@ public class SpectrogramDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new SpectrogramDemo().run();
+    new SpectrogramDemo().runStandalone();
   }
 }

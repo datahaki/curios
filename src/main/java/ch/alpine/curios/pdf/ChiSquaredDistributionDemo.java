@@ -25,6 +25,6 @@ class ChiSquaredDistributionDemo implements ShowProvider {
   }
 
   static void main() {
-    new ChiSquaredDistributionDemo().run();
+    new ChiSquaredDistributionDemo().runStandalone();
   }
 }

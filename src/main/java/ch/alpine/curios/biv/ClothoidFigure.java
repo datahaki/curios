@@ -35,6 +35,6 @@ record ClothoidFigure(Scalar angle) implements DensityPlotProvider {
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

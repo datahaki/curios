@@ -45,6 +45,6 @@ class BSplineInterpDemo implements ShowProvider {
   }
 
   static void main() {
-    new BSplineInterpDemo().run();
+    new BSplineInterpDemo().runStandalone();
   }
 }

@@ -39,6 +39,6 @@ public class PoissonDiskSamplingDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new PoissonDiskSamplingDemo().run();
+    new PoissonDiskSamplingDemo().runStandalone();
   }
 }

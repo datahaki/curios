@@ -47,6 +47,6 @@ public class UnicodeViewer extends AbstractDemo {
   }
 
   static void main() {
-    launch();
+    new UnicodeViewer().runStandalone();
   }
 }

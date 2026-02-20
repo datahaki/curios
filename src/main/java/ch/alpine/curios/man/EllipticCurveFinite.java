@@ -54,6 +54,6 @@ public class EllipticCurveFinite implements ManipulateProvider {
   }
 
   static void main() {
-    new EllipticCurveFinite().run();
+    new EllipticCurveFinite().runStandalone();
   }
 }

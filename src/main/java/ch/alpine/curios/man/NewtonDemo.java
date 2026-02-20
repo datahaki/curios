@@ -41,6 +41,6 @@ public class NewtonDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new NewtonDemo().run();
+    new NewtonDemo().runStandalone();
   }
 }

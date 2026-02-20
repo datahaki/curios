@@ -42,6 +42,6 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

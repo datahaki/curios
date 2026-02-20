@@ -38,6 +38,6 @@ public class ImageFiltersDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new ImageFiltersDemo().run();
+    new ImageFiltersDemo().runStandalone();
   }
 }

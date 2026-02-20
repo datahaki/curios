@@ -29,6 +29,6 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    new ColorDataGradientDemo().run();
+    new ColorDataGradientDemo().runStandalone();
   }
 }

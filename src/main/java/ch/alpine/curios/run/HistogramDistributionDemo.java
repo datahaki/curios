@@ -22,7 +22,7 @@ import ch.alpine.tensor.sca.Round;
   INSTANCE;
 
   @Override
-  public void run() {
+  public void runStandalone() {
     Distribution gndtruth = NormalDistribution.standard();
     // gndtruth = UniformDistribution.unit();
     // gndtruth = PoissonDistribution.of(RealScalar.of(3));
@@ -47,6 +47,6 @@ import ch.alpine.tensor.sca.Round;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

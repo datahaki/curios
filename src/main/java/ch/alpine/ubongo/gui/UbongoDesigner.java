@@ -48,8 +48,7 @@ import ch.alpine.ubongo.UbongoBoard;
 import ch.alpine.ubongo.UbongoBoards;
 import ch.alpine.ubongo.UbongoPieces;
 
-public class UbongoDesigner extends AbstractDemo implements Runnable {
-  private static final Path FILE = RESOURCE_LOCATOR.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
+public class UbongoDesigner extends AbstractDemo {
   private static final int EXT = 11;
   public static final Scalar FREE = UbongoBoard.FREE;
   static final Collector<CharSequence, ?, String> EMBRACE = //
@@ -93,13 +92,14 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
   public UbongoDesigner(Param param, Paran paran) {
     super(param, paran);
     this.param = param;
-    fieldsEditor(0).addUniversalListener(this);
+    fieldsEditor(0).addUniversalListener(this::run2);
     fieldsEditor(1).addUniversalListener(() -> {
       center(paran.ubongoBoards.board().mask());
       param.num = paran.ubongoBoards.use();
       fieldsEditor(0).updateJComponents();
     });
     {
+      Path FILE = RESOURCE_LOCATOR.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
       try {
         template = Import.of(FILE);
       } catch (Exception e) {
@@ -186,8 +186,7 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
     }
   }
 
-  @Override
-  public void run() {
+  public void run2() {
     if (param.reset) {
       param.reset = false;
       template.set(Scalar::zero, Tensor.ALL, Tensor.ALL);
@@ -199,6 +198,7 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
     if (param.solve) {
       param.solve = false;
       if (Objects.isNull(solveThread)) {
+        Path FILE = RESOURCE_LOCATOR.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
         Unprotect.Export(FILE, template);
         Tensor result = ImageCrop.eq(RealScalar.ZERO).apply(template);
         solveThread = new SolveThread(UbongoBoard.of(result), param.num);
@@ -229,6 +229,6 @@ public class UbongoDesigner extends AbstractDemo implements Runnable {
   }
 
   static void main() {
-    launch();
+    new UbongoDesigner().runStandalone();
   }
 }

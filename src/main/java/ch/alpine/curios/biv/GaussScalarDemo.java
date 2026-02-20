@@ -31,6 +31,6 @@ import ch.alpine.tensor.sca.Clips;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

@@ -18,6 +18,6 @@ class GaussianMatrixDemo implements ShowProvider {
   }
 
   static void main() {
-    new GaussianMatrixDemo().run();
+    new GaussianMatrixDemo().runStandalone();
   }
 }

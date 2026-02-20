@@ -20,6 +20,6 @@ class LogisticSigmoidDemo implements ShowProvider {
   }
 
   static void main() {
-    new LogisticSigmoidDemo().run();
+    new LogisticSigmoidDemo().runStandalone();
   }
 }

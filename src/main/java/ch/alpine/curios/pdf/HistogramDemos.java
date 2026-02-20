@@ -31,6 +31,6 @@ enum HistogramDemos implements ShowProvider {
   }
 
   static void main() {
-    NAKAGAMI.run();
+    NAKAGAMI.runStandalone();
   }
 }

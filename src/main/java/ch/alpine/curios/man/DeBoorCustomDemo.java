@@ -66,6 +66,6 @@ public class DeBoorCustomDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new DeBoorCustomDemo().run();
+    new DeBoorCustomDemo().runStandalone();
   }
 }

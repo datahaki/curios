@@ -30,6 +30,6 @@ class VariogramFunctionsShow implements ShowProvider {
   }
 
   static void main() {
-    new VariogramFunctionsShow().run();
+    new VariogramFunctionsShow().runStandalone();
   }
 }

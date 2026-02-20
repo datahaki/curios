@@ -51,6 +51,6 @@ public class ComputeContestsHost implements ManipulateProvider {
   }
 
   static void main() {
-    new ComputeContestsHost().run();
+    new ComputeContestsHost().runStandalone();
   }
 }

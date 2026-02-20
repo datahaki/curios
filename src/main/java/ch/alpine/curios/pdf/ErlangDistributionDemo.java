@@ -39,6 +39,6 @@ record ErlangDistributionDemo(int k) implements ShowProvider {
   }
 
   static void main() {
-    new ErlangDistributionDemo(3).run();
+    new ErlangDistributionDemo(3).runStandalone();
   }
 }

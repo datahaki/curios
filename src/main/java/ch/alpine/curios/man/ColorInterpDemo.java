@@ -92,6 +92,6 @@ public class ColorInterpDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new ColorInterpDemo().run();
+    new ColorInterpDemo().runStandalone();
   }
 }

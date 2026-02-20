@@ -44,6 +44,6 @@ class FoldListDemo implements ShowProvider {
   }
 
   static void main() {
-    new FoldListDemo().run();
+    new FoldListDemo().runStandalone();
   }
 }

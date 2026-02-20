@@ -44,6 +44,6 @@ public class HistogramDistributionManipulate implements ManipulateProvider {
   }
 
   static void main() {
-    new HistogramDistributionManipulate().run();
+    new HistogramDistributionManipulate().runStandalone();
   }
 }

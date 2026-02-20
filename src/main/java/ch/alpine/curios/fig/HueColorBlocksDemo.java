@@ -21,6 +21,6 @@ class HueColorBlocksDemo implements ShowProvider {
   }
 
   static void main() {
-    new HueColorBlocksDemo().run();
+    new HueColorBlocksDemo().runStandalone();
   }
 }

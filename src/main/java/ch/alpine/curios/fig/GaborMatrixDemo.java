@@ -19,6 +19,6 @@ class GaborMatrixDemo implements ShowProvider {
   }
 
   static void main() {
-    new GaborMatrixDemo().run();
+    new GaborMatrixDemo().runStandalone();
   }
 }

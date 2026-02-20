@@ -49,6 +49,6 @@ public class BSplineBasisDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new BSplineBasisDemo().run();
+    new BSplineBasisDemo().runStandalone();
   }
 }

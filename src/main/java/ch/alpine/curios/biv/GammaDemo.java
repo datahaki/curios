@@ -39,6 +39,6 @@ import ch.alpine.tensor.sca.gam.Gamma;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

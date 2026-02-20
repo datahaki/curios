@@ -62,6 +62,6 @@ public class ImageTransitionDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new ImageTransitionDemo().run();
+    new ImageTransitionDemo().runStandalone();
   }
 }

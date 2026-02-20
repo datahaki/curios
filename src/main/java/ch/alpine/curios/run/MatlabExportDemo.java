@@ -62,11 +62,11 @@ import ch.alpine.tensor.io.StringScalar;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 
   @Override
-  public void run() {
+  public void runStandalone() {
     try {
       vector1();
       vector2();

@@ -20,6 +20,6 @@ class TrigDemo implements ShowProvider {
   }
 
   static void main() {
-    new TrigDemo().run();
+    new TrigDemo().runStandalone();
   }
 }

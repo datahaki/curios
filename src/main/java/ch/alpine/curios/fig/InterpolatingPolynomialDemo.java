@@ -38,6 +38,6 @@ class InterpolatingPolynomialDemo implements ShowProvider {
   }
 
   static void main() {
-    new InterpolatingPolynomialDemo().run();
+    new InterpolatingPolynomialDemo().runStandalone();
   }
 }

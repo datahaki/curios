@@ -38,6 +38,6 @@ import ch.alpine.tensor.sca.gam.Beta;
   }
 
   static void main() {
-    INSTANCE.run();
+    INSTANCE.runStandalone();
   }
 }

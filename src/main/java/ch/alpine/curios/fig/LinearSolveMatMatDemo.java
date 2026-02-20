@@ -49,6 +49,6 @@ class LinearSolveMatMatDemo implements ShowProvider {
   }
 
   static void main() {
-    new LinearSolveMatMatDemo().run();
+    new LinearSolveMatMatDemo().runStandalone();
   }
 }

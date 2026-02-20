@@ -27,7 +27,7 @@ enum ShowDiscovery {
     {
       for (ShowProvider showProvider : list) {
         JButton jButton = new JButton(showProvider.getClass().getSimpleName());
-        jButton.addActionListener(_ -> showProvider.run());
+        jButton.addActionListener(_ -> showProvider.runStandalone());
         jPanel.add(jButton);
       }
     }

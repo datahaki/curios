@@ -48,6 +48,6 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
   }
 
   static void main() {
-    new CalendarDialog(CalendarBoards.CHEESY.calendarBoard(), LocalDate.now()).run();
+    new CalendarDialog(CalendarBoards.CHEESY.calendarBoard(), LocalDate.now()).runStandalone();
   }
 }

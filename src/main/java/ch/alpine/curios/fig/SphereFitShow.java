@@ -31,6 +31,6 @@ record SphereFitShow(int n) implements ShowProvider {
   }
 
   static void main() {
-    new SphereFitShow(7).run();
+    new SphereFitShow(7).runStandalone();
   }
 }
