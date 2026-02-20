@@ -16,7 +16,7 @@ import ch.alpine.tensor.pdf.d.DiscreteUniformDistribution;
 
 /* package */ enum AnimationWriterDemo {
   ;
-  public static void main(String[] args2) throws Exception {
+  static void main() throws Exception {
     try (AnimationWriter animationWriter = //
         new GifAnimationWriter(HomeDirectory.Pictures.resolve("grayscale.gif"), 100, TimeUnit.MILLISECONDS)) {
       for (int count = 1; count <= 16; ++count) {
