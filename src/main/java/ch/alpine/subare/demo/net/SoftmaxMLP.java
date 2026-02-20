@@ -7,6 +7,7 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -14,23 +15,13 @@ import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
-import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.alg.UnitVector;
-import ch.alpine.tensor.ext.ArgMax;
 import ch.alpine.tensor.io.TableBuilder;
-import ch.alpine.tensor.lie.TensorProduct;
-import ch.alpine.tensor.num.SoftmaxLayer;
 import ch.alpine.tensor.pdf.Distribution;
-import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
-import ch.alpine.tensor.red.Entrywise;
-import ch.alpine.tensor.sca.Ramp;
-import ch.alpine.tensor.sca.Round;
-import ch.alpine.tensor.sca.UnitStep;
 
 @ReflectionMarker
 public class SoftmaxMLP implements ManipulateProvider {
@@ -41,25 +32,24 @@ public class SoftmaxMLP implements ManipulateProvider {
       { 8, 1 }, { 9, 2 }, { 8, 2 } // Class 2
   }).unmodifiable();
   static final Tensor y = Tensors.vectorInt(new int[] { 0, 0, 0, 1, 1, 1, 2, 2, 2 }).unmodifiable();
-  public Integer HIDDEN_SIZE = 8;
+  @FieldSelectionArray({ "6", "7", "8", "10" })
+  public Integer hiddenSize = 8;
   public Scalar learningRate = RealScalar.of(0.05);
   public Integer maxEpoch = 8000;
-  public Scalar timeout = Quantity.of(0.4, "s");
+  public Scalar timeout = Quantity.of(1, "s");
 
   public class XORNet {
     final int INPUT_SIZE = 2;
     final int OUTPUT_SIZE = 3;
-    Tensor W1;
-    Tensor b1;
-    Tensor W2;
-    Tensor b2;
-    TableBuilder tableBuilder = new TableBuilder();
+    final LinearLayer l1;
+    final LinearLayer l2;
+    final Layer l3;
+    final TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
-      W1 = RandomVariate.of(DISTRIBUTION, INPUT_SIZE, HIDDEN_SIZE);
-      b1 = Array.zeros(HIDDEN_SIZE);
-      W2 = RandomVariate.of(DISTRIBUTION, HIDDEN_SIZE, OUTPUT_SIZE);
-      b2 = Array.zeros(OUTPUT_SIZE);
+      l1 = LinearLayer.reLu(DISTRIBUTION, INPUT_SIZE, hiddenSize);
+      l2 = LinearLayer.maxE(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
+      l3 = new SoftArgMax();
     }
 
     void train(Tensor X, Tensor y) {
@@ -69,22 +59,19 @@ public class SoftmaxMLP implements ManipulateProvider {
         for (int n = 0; n < X.length(); n++) {
           // Forward pass
           Tensor x0 = X.get(n);
-          Tensor x1 = x0.dot(W1).add(b1).maps(Ramp.FUNCTION);
-          Tensor x2 = SoftmaxLayer.of(x1.dot(W2).add(b2));
+          Tensor x1 = l1.forward(x0);
+          Tensor x2 = l2.forward(x1);
+          l3.forward(x2);
           // Backpropagation
-          int k = Scalars.intValueExact(y.Get(n));
-          Tensor y2 = UnitVector.of(OUTPUT_SIZE, k); // One-hot target
-          Tensor e2 = y2.subtract(x2).multiply(learningRate);
-          Tensor d2 = e2; // Cross-Entropy + Softmax simplifies gradient
-          Tensor d1 = Entrywise.mul().apply(W2.dot(d2), x1.maps(UnitStep.FUNCTION)); // use old W2
+          Tensor e2 = l3.error(y.Get(n)).multiply(learningRate);
+          Tensor d2 = l3.back(e2); // Cross-Entropy + Softmax simplifies gradient
+          Tensor d1 = l2.back(d2);
           // ---
-          W2 = W2.add(TensorProduct.of(x1, d2));
-          b2 = b2.add(d2);
-          W1 = W1.add(TensorProduct.of(x0, d1));
-          b1 = b1.add(d1);
+          l2.update(d2);
+          l1.update(d1);
         }
         if (epoch % 10 == 0)
-          tableBuilder.appendRow(W1, b1, W2, b2);
+          tableBuilder.appendRow(l1.W, l1.b, l2.W, l2.b);
         ++epoch;
       }
     }
@@ -93,11 +80,10 @@ public class SoftmaxMLP implements ManipulateProvider {
       System.out.println("Evaluation:");
       for (int n = 0; n < X.length(); n++) {
         Tensor x0 = X.get(n);
-        Tensor x1 = x0.dot(W1).add(b1).maps(Ramp.FUNCTION);
-        Tensor x2 = x1.dot(W2).add(b2);
-        Tensor probs = SoftmaxLayer.of(x2);
-        int prediction = ArgMax.of(probs);
-        System.out.println("I: " + x0 + " | " + prediction + "=" + y.get(n) + " | p= " + probs.maps(Round._2));
+        Tensor x1 = l1.forward(x0);
+        Tensor x2 = l2.forward(x1);
+        Tensor x3 = l3.forward(x2);
+        System.out.println("I: " + x0 + " | " + x3 + "=" + y.get(n)); // + probs.maps(Round._2)
       }
     }
   }

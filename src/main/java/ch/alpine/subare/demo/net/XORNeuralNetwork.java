@@ -7,6 +7,7 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
@@ -21,9 +22,7 @@ import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
-import ch.alpine.tensor.red.Entrywise;
 import ch.alpine.tensor.sca.Clips;
-import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
 
 /** Quote from chatgpt:
  * 
@@ -48,21 +47,24 @@ public class XORNeuralNetwork implements ManipulateProvider {
   private final Tensor inputs = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
   private final Tensor targets = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
   // ---
+  @FieldSelectionArray({ "4", "5", "6", "7" })
   public Integer hiddenSize = 4;
   public Scalar learningRate = Rational.HALF;
   public Integer maxEpoch = 8000;
-  public Scalar timeout = Quantity.of(0.4, "s");
+  public Scalar timeout = Quantity.of(1, "s");
 
   public class XORNet {
-    LinearLayer l1;
-    LinearLayer l2;
-    TableBuilder tableBuilder = new TableBuilder();
+    final LinearLayer l1;
+    final LinearLayer l2;
+    final Layer l3;
+    final TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
       l1 = LinearLayer.logSig(DISTRIBUTION, INPUT_SIZE, hiddenSize);
       l2 = LinearLayer.logSig(DISTRIBUTION, hiddenSize, OUTPUT_SIZE);
+      l3 = new IdentLayer();
     }
 
     void train(Tensor X, Tensor y) {
@@ -74,10 +76,11 @@ public class XORNeuralNetwork implements ManipulateProvider {
           // Forward pass
           Tensor x1 = l1.forward(x0);
           Tensor x2 = l2.forward(x1);
+          l3.forward(x2);
           // Backpropagation
-          Tensor y2 = y.get(sample);
-          Tensor e2 = y2.subtract(x2).multiply(learningRate);
-          Tensor d2 = Entrywise.mul().apply(e2, x2.maps(DLogisticSigmoid.NESTED));
+          // ---
+          Tensor e2 = l3.error(y.get(sample)).multiply(learningRate);
+          Tensor d2 = l3.back(e2);
           Tensor d1 = l2.back(d2);
           // ---
           l2.update(d2);
