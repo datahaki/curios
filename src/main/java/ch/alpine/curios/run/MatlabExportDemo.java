@@ -66,7 +66,7 @@ import ch.alpine.tensor.io.StringScalar;
   }
 
   @Override
-  public void runStandalone() {
+  public Void runStandalone() {
     try {
       vector1();
       vector2();
@@ -76,5 +76,6 @@ import ch.alpine.tensor.io.StringScalar;
     } catch (Exception exception) {
       throw new RuntimeException(exception);
     }
+    return null;
   }
 }

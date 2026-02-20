@@ -5,8 +5,9 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Collection;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -17,10 +18,10 @@ import ch.alpine.tensor.ext.ref.InstanceDiscovery;
 
 class ShowProviderTest implements Consumer<ShowProvider> {
   @TestFactory
-  Collection<DynamicTest> dynamicTests() {
+  Stream<DynamicTest> dynamicTests() {
     return InstanceDiscovery.of("ch.alpine", ShowProvider.class).stream() //
-        .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance))) //
-        .toList();
+        .map(Supplier::get) //
+        .map(instance -> DynamicTest.dynamicTest(instance.toString(), () -> accept(instance)));
   }
 
   @Override

@@ -3,6 +3,7 @@ package ch.alpine.curios.fig;
 
 import java.awt.GridLayout;
 import java.util.List;
+import java.util.function.Supplier;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,13 +22,14 @@ enum ShowDiscovery {
   static void main() {
     LookAndFeels.autoDetect();
     // ---
-    List<ShowProvider> list = InstanceDiscovery.of("ch.alpine", ShowProvider.class);
+    List<Supplier<ShowProvider>> list = InstanceDiscovery.of("ch.alpine", ShowProvider.class);
     JFrame jFrame = new JFrame();
     JPanel jPanel = new JPanel(new GridLayout(list.size(), 1));
     {
-      for (ShowProvider showProvider : list) {
+      for (Supplier<ShowProvider> supplier : list) {
+        ShowProvider showProvider = supplier.get();
         JButton jButton = new JButton(showProvider.getClass().getSimpleName());
-        jButton.addActionListener(_ -> showProvider.runStandalone());
+        jButton.addActionListener(_ -> supplier.get().runStandalone());
         jPanel.add(jButton);
       }
     }

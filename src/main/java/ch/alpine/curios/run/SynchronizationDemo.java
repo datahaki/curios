@@ -55,7 +55,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
   }
 
   @Override
-  public void runStandalone() {
+  public Void runStandalone() {
     TimeSeries timeSeries = TimeSeries.empty(ResamplingMethod.HOLD_VALUE_FROM_LEFT);
     Timing timing = Timing.started();
     launchThread(timing, timeSeries);
@@ -69,6 +69,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
       }
     }
     System.out.println("element count=" + timeSeries.size());
+    return null;
   }
 
   static void main() {
