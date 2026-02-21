@@ -7,7 +7,7 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
-import ch.alpine.tensor.num.SoftmaxLayer;
+import ch.alpine.tensor.nrm.SoftmaxVector;
 import ch.alpine.tensor.sca.Chop;
 
 public class GradientAgent extends Agent {
@@ -23,7 +23,7 @@ public class GradientAgent extends Agent {
 
   @Override
   public int protected_takeAction() {
-    Tensor pi = SoftmaxLayer.of(Ht);
+    Tensor pi = SoftmaxVector.of(Ht);
     final double rnd = RANDOM.nextDouble(); // value in [0, 1)
     notifyAboutRandomizedDecision();
     double sum = 0;
@@ -39,7 +39,7 @@ public class GradientAgent extends Agent {
 
   @Override
   protected void protected_feedback(final int a, Scalar r) {
-    Tensor pi = SoftmaxLayer.of(Ht);
+    Tensor pi = SoftmaxVector.of(Ht);
     for (int k = 0; k < n; ++k) {
       Scalar delta = r.subtract(getRewardAverage());
       // (2.10)

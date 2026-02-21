@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import ch.alpine.subare.demo.net.SoftmaxMLP.XORNet;
+import ch.alpine.subare.demo.net.SoftmaxMLP.Network;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
@@ -22,7 +22,7 @@ class SoftmaxMLPTest {
     Tensor y = Tensors.vectorInt(new int[] { 0, 0, 0, 1, 1, 1, 2, 2, 2 }).unmodifiable();
     for (int attempt = 0; attempt < 3; ++attempt) {
       SoftmaxMLP softmaxMLP = new SoftmaxMLP();
-      XORNet xorNet = softmaxMLP.new XORNet();
+      Network xorNet = softmaxMLP.new Network();
       xorNet.train(X, y);
       Scalar error = xorNet.evaluate(X, y);
       if (Scalars.isZero(error))

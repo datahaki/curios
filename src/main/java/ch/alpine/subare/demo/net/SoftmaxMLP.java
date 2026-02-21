@@ -39,15 +39,9 @@ public class SoftmaxMLP implements ManipulateProvider {
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
 
-  public class XORNet {
-    final int INPUT_SIZE = 2;
-    final int OUTPUT_SIZE = 3;
-    private final NetChain netChain;
+  public class Network {
+    private final NetChain netChain = NetChains.argMaxMLP(2, hiddenSize, 3);
     private final TableBuilder tableBuilder = new TableBuilder();
-
-    public XORNet() {
-      netChain = NetChains.argMaxMLP(INPUT_SIZE, hiddenSize, OUTPUT_SIZE);
-    }
 
     void train(Tensor x, Tensor y) {
       NetTrain.of(netChain, x, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
@@ -68,10 +62,10 @@ public class SoftmaxMLP implements ManipulateProvider {
   }
 
   public Show getShow() {
-    XORNet xorNet = new XORNet();
-    xorNet.train(X, y);
-    Scalar error = xorNet.evaluate(X, y);
-    Tensor table = xorNet.tableBuilder.getTable();
+    Network network = new Network();
+    network.train(X, y);
+    Scalar error = network.evaluate(X, y);
+    Tensor table = network.tableBuilder.getTable();
     IO.println(error);
     int n = Unprotect.dimension1Hint(table);
     Tensor domain = Range.of(0, table.length());

@@ -47,7 +47,8 @@ import ch.alpine.tensor.sca.Round;
 @ReflectionMarker
 public class XORNeuralNetwork implements ManipulateProvider {
   static final Distribution DISTRIBUTION = UniformDistribution.of(Clips.absolute(0.5));
-  public static final Tensor xor = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
+  public static final Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
+  public static final Tensor XOR = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
   // ---
   @FieldSelectionArray({ "4", "5", "6", "7" })
   public Integer hiddenSize = 4;
@@ -55,23 +56,15 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
 
-  public class BinOpLogicNet {
-    private final NetChain netChain;
+  public class Network {
+    private final NetChain netChain = NetChains.binary(2, hiddenSize, 1);
     private final TableBuilder tableBuilder = new TableBuilder();
 
-    public BinOpLogicNet() {
-      int INPUT_SIZE = 2;
-      int OUTPUT_SIZE = 1;
-      netChain = NetChains.binary(INPUT_SIZE, hiddenSize, OUTPUT_SIZE);
-    }
-
     void train(Tensor y) {
-      Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
       NetTrain.of(netChain, X, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
     }
 
     Scalar evaluate(Tensor Y) {
-      Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
       System.out.println("Evaluation after training:");
       Tensor errors = Tensors.empty();
       for (int sample = 0; sample < X.length(); ++sample) {
@@ -87,11 +80,11 @@ public class XORNeuralNetwork implements ManipulateProvider {
   }
 
   public Show getShow() {
-    BinOpLogicNet xorNet = new BinOpLogicNet();
-    xorNet.train(xor);
-    Scalar error = xorNet.evaluate(xor);
+    Network network = new Network();
+    network.train(XOR);
+    Scalar error = network.evaluate(XOR);
     IO.println(error);
-    Tensor table = xorNet.tableBuilder.getTable();
+    Tensor table = network.tableBuilder.getTable();
     IO.println(Dimensions.of(table));
     int n = Unprotect.dimension1Hint(table);
     Tensor domain = Range.of(0, table.length());
