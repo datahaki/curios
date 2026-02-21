@@ -2,7 +2,6 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
-import java.util.List;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -10,6 +9,7 @@ import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
+import ch.alpine.subare.demo.back.NetChain;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -18,7 +18,6 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.ext.MergeIllegal;
 import ch.alpine.tensor.io.TableBuilder;
 import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.pdf.Distribution;
@@ -57,13 +56,13 @@ public class XORNeuralNetwork implements ManipulateProvider {
   public Scalar timeout = Quantity.of(1, "s");
 
   public class BinOpLogicNet {
-    private final List<Layer> layers;
+    private final NetChain netChain;
     private final TableBuilder tableBuilder = new TableBuilder();
 
     public BinOpLogicNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      layers = List.of( //
+      netChain = NetChain.of(
           // LinearLayer.of(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
           // ElementwiseLayer.logSig(), //
           LinearFLayer.logSig(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
@@ -79,15 +78,15 @@ public class XORNeuralNetwork implements ManipulateProvider {
         for (int sample = 0; sample < X.length(); ++sample) {
           Tensor x = X.get(sample);
           // Forward pass
-          layers.stream().reduce(x, Layer.forward(), MergeIllegal.operator());
+          netChain.forward(x);
           // Backpropagation
-          Tensor d = layers.getLast().error(y.get(sample)).multiply(learningRate);
-          layers.reversed().stream().reduce(d, Layer.back(), MergeIllegal.operator());
+          Tensor d = netChain.error(y.get(sample)).multiply(learningRate);
+          netChain.back(d);
           // ---
-          layers.forEach(Layer::update);
+          netChain.update();
         }
         if (epoch % 10 == 0)
-          tableBuilder.appendRow(Tensor.of(layers.stream().map(Layer::parameters)));
+          tableBuilder.appendRow(netChain.parameters());
         ++epoch;
       }
     }
@@ -98,7 +97,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
       Tensor errors = Tensors.empty();
       for (int sample = 0; sample < X.length(); ++sample) {
         Tensor x = X.get(sample);
-        Tensor y = layers.stream().reduce(x, (r, l) -> l.forward(r), MergeIllegal.operator());
+        Tensor y = netChain.forward(x);
         Tensor t = Y.get(sample);
         Tensor e = t.subtract(y);
         errors.append(e);

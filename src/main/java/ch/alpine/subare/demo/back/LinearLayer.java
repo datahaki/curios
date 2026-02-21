@@ -1,6 +1,8 @@
 // code by jph
 package ch.alpine.subare.demo.back;
 
+import java.util.random.RandomGenerator;
+
 import ch.alpine.subare.demo.net.Layer;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
@@ -12,9 +14,9 @@ import ch.alpine.tensor.pdf.RandomVariate;
 /** inspired by
  * <a href="https://reference.wolfram.com/language/ref/LinearLayer.html">LinearLayer</a> */
 public class LinearLayer implements Layer {
-  public static LinearLayer of(Distribution d, int ante, int post) {
+  public static LinearLayer of(Distribution d, RandomGenerator randomGenerator, int ante, int post) {
     LinearLayer linearLayer = new LinearLayer();
-    linearLayer.W = RandomVariate.of(d, ante, post);
+    linearLayer.W = RandomVariate.of(d, randomGenerator, ante, post);
     linearLayer.b = Array.zeros(ante);
     return linearLayer;
   }

@@ -2,7 +2,6 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
-import java.util.List;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -10,6 +9,7 @@ import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
+import ch.alpine.subare.demo.back.NetChain;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -17,7 +17,6 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.ext.MergeIllegal;
 import ch.alpine.tensor.io.TableBuilder;
 import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.pdf.Distribution;
@@ -43,11 +42,11 @@ public class SoftmaxMLP implements ManipulateProvider {
   public class XORNet {
     final int INPUT_SIZE = 2;
     final int OUTPUT_SIZE = 3;
-    private final List<Layer> layers;
-    final TableBuilder tableBuilder = new TableBuilder();
+    private final NetChain netChain;
+    private final TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
-      layers = List.of( //
+      netChain = NetChain.of( //
           LinearFLayer.reLu(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
           LinearFLayer.maxE(DISTRIBUTION, OUTPUT_SIZE, hiddenSize), //
           new SoftArgMax());
@@ -59,16 +58,17 @@ public class SoftmaxMLP implements ManipulateProvider {
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
         for (int n = 0; n < X.length(); n++) {
           // Forward pass
-          layers.stream().reduce(X.get(n), Layer.forward(), MergeIllegal.operator());
+          Tensor x = X.get(n);
+          netChain.forward(x);
           // Backpropagation
-          Tensor d = layers.getLast().error(T.Get(n)).multiply(learningRate);
+          Tensor d = netChain.error(T.Get(n)).multiply(learningRate);
           // Cross-Entropy + Softmax simplifies gradient
-          layers.reversed().stream().reduce(d, Layer.back(), MergeIllegal.operator());
+          netChain.back(d);
           // ---
-          layers.forEach(Layer::update);
+          netChain.update();
         }
         if (epoch % 10 == 0)
-          tableBuilder.appendRow(Tensor.of(layers.stream().map(Layer::parameters)));
+          tableBuilder.appendRow(netChain.parameters());
         ++epoch;
       }
     }
@@ -78,7 +78,7 @@ public class SoftmaxMLP implements ManipulateProvider {
       Tensor errors = Tensors.empty();
       for (int n = 0; n < X.length(); n++) {
         Tensor x = X.get(n);
-        Tensor y = layers.stream().reduce(x, Layer.forward(), MergeIllegal.operator());
+        Tensor y = netChain.forward(x);
         Tensor error = y.subtract(T.get(n));
         System.out.println("I: " + x + " | " + y + "=" + T.get(n)); // + probs.maps(Round._2)
         errors.append(error);
