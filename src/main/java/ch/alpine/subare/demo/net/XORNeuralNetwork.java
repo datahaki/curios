@@ -2,7 +2,6 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
-import java.util.concurrent.ThreadLocalRandom;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -10,10 +9,8 @@ import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.subare.net.BinaryLayer;
-import ch.alpine.subare.net.ElementwiseLayer;
-import ch.alpine.subare.net.LinearLayer;
 import ch.alpine.subare.net.NetChain;
+import ch.alpine.subare.net.NetChains;
 import ch.alpine.subare.net.NetTrain;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -65,12 +62,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
     public BinOpLogicNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      netChain = NetChain.of( //
-          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), hiddenSize, INPUT_SIZE), //
-          ElementwiseLayer.logSig(), //
-          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), OUTPUT_SIZE, hiddenSize), //
-          ElementwiseLayer.logSig(), //
-          new BinaryLayer());
+      netChain = NetChains.binary(INPUT_SIZE, hiddenSize, OUTPUT_SIZE);
     }
 
     void train(Tensor y) {

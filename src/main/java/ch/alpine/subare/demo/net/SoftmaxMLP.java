@@ -2,7 +2,6 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
-import java.util.concurrent.ThreadLocalRandom;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -10,11 +9,9 @@ import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.subare.net.ElementwiseLayer;
-import ch.alpine.subare.net.LinearLayer;
 import ch.alpine.subare.net.NetChain;
+import ch.alpine.subare.net.NetChains;
 import ch.alpine.subare.net.NetTrain;
-import ch.alpine.subare.net.SoftArgMax;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -49,11 +46,7 @@ public class SoftmaxMLP implements ManipulateProvider {
     private final TableBuilder tableBuilder = new TableBuilder();
 
     public XORNet() {
-      netChain = NetChain.of( //
-          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), hiddenSize, INPUT_SIZE), //
-          ElementwiseLayer.relu(), //
-          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), OUTPUT_SIZE, hiddenSize), //
-          new SoftArgMax());
+      netChain = NetChains.argMaxMLP(INPUT_SIZE, hiddenSize, OUTPUT_SIZE);
     }
 
     void train(Tensor x, Tensor y) {
