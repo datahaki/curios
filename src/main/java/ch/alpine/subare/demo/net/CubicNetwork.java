@@ -23,15 +23,14 @@ import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.io.TableBuilder;
-import ch.alpine.tensor.nrm.FrobeniusNorm;
+import ch.alpine.tensor.nrm.VectorInfinityNorm;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
-import ch.alpine.tensor.pdf.c.UniformDistribution;
+import ch.alpine.tensor.pdf.c.ArcSinDistribution;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
-import ch.alpine.tensor.sca.Round;
 import ch.alpine.tensor.sca.pow.Power;
 
 @ReflectionMarker
@@ -42,7 +41,7 @@ public class CubicNetwork implements ManipulateProvider {
   @FieldSelectionArray({ "2", "3", "4", "6", "7", "8", "10", "12" })
   public Integer hiddenSize = 4;
   public Scalar learningRate = RealScalar.of(0.02);
-  public Integer maxEpoch = 10001;
+  public Integer maxEpoch = 4001;
   public Scalar timeout = Quantity.of(1, "s");
 
   public class Network {
@@ -54,7 +53,7 @@ public class CubicNetwork implements ManipulateProvider {
       Consumer<Tensor> consumer = tableBuilder::appendRow;
       int epoch = 0;
       Timing timing = Timing.started();
-      Distribution distribution = UniformDistribution.of(clip);
+      Distribution distribution = ArcSinDistribution.INSTANCE;
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
         Tensor xdata = Tensors.of(RandomVariate.of(distribution));
         Tensor y = netChain.forward(xdata);
@@ -71,16 +70,14 @@ public class CubicNetwork implements ManipulateProvider {
     }
 
     Scalar evaluate() {
-      System.out.println("Evaluation after training:");
       Tensor errors = Tensors.empty();
       for (Tensor x : Subdivide.increasing(clip, 20).maps(Tensors::of)) {
         Tensor y = netChain.forward(x);
         Tensor t = x.maps(power);
-        Tensor e = t.subtract(y);
+        Tensor e = t.subtract(y).Get(0);
         errors.append(e);
-        System.out.printf("Input: %s -> Error: %s\n", x, e.maps(Round._3));
       }
-      return FrobeniusNorm.of(errors);
+      return VectorInfinityNorm.of(errors);
     }
   }
 

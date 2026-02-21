@@ -17,9 +17,9 @@ class XORNeuralNetworkTest {
     Tensor y = XORNeuralNetwork.XOR;
     for (int attempt = 0; attempt < 3; ++attempt) {
       XORNeuralNetwork xorNeuralNetwork = new XORNeuralNetwork();
-      Network xorNet = xorNeuralNetwork.new Network();
-      xorNet.train(y);
-      Scalar error = xorNet.evaluate(y);
+      Network network = xorNeuralNetwork.new Network();
+      network.train(y);
+      Scalar error = network.evaluate(y);
       if (Scalars.lessThan(error, RealScalar.of(0.1)))
         return;
     }

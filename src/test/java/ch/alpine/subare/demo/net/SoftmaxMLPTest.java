@@ -22,9 +22,9 @@ class SoftmaxMLPTest {
     Tensor y = Tensors.vectorInt(new int[] { 0, 0, 0, 1, 1, 1, 2, 2, 2 }).unmodifiable();
     for (int attempt = 0; attempt < 3; ++attempt) {
       SoftmaxMLP softmaxMLP = new SoftmaxMLP();
-      Network xorNet = softmaxMLP.new Network();
-      xorNet.train(X, y);
-      Scalar error = xorNet.evaluate(X, y);
+      Network network = softmaxMLP.new Network();
+      network.train(X, y);
+      Scalar error = network.evaluate(X, y);
       if (Scalars.isZero(error))
         return;
     }
