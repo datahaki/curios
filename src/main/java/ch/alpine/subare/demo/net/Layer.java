@@ -24,9 +24,9 @@ public interface Layer {
    * gradOutput = dL/da
    * returns dL/dinput
    * 
-   * @param d
+   * @param gradOutput
    * @return */
-  Tensor back(Tensor d);
+  Tensor back(Tensor gradOutput);
 
   /** Update parameters (no-op for layers without params) */
   void update();

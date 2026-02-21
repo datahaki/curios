@@ -46,25 +46,26 @@ public class LinearFLayer implements Layer {
   ScalarUnaryOperator df;
   Tensor W;
   Tensor b;
-  Tensor x;
-  Tensor d;
+  Tensor inputCache;
+  Tensor gW;
+  Tensor gb;
 
   @Override
   public Tensor forward(Tensor x) {
-    this.x = x;
-    return W.dot(x).add(b).maps(f);
+    return W.dot(inputCache = x).add(b).maps(f);
   }
 
   @Override
-  public Tensor back(Tensor d) {
-    this.d = d;
-    return Entrywise.mul().apply(d.dot(W), x.maps(df));
+  public Tensor back(Tensor gradOutput) {
+    gW = TensorProduct.of(gradOutput, inputCache);
+    gb = gradOutput;
+    return Entrywise.mul().apply(gradOutput.dot(W), inputCache.maps(df));
   }
 
   @Override
   public void update() {
-    W = W.add(TensorProduct.of(d,x));
-    b = b.add(d);
+    W = W.add(gW);
+    b = b.add(gb);
   }
 
   @Override

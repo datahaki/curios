@@ -64,6 +64,8 @@ public class XORNeuralNetwork implements ManipulateProvider {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
       layers = List.of( //
+          // LinearLayer.of(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
+          // ElementwiseLayer.logSig(), //
           LinearFLayer.logSig(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
           LinearFLayer.logSig(DISTRIBUTION, OUTPUT_SIZE, hiddenSize), //
           new BinaryLayer());
