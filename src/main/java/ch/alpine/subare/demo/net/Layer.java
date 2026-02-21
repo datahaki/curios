@@ -14,10 +14,21 @@ public interface Layer {
     return (x, layer) -> layer.forward(x);
   }
 
+  /** Forward pass
+   * 
+   * @param x
+   * @return */
   Tensor forward(Tensor x);
 
+  /** Backward pass
+   * gradOutput = dL/da
+   * returns dL/dinput
+   * 
+   * @param d
+   * @return */
   Tensor back(Tensor d);
 
+  /** Update parameters (no-op for layers without params) */
   void update();
 
   Tensor error(Tensor y);
