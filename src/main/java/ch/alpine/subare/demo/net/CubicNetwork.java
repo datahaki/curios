@@ -31,6 +31,7 @@ import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
+import ch.alpine.tensor.sca.Round;
 import ch.alpine.tensor.sca.pow.Power;
 
 @ReflectionMarker
@@ -94,6 +95,7 @@ public class CubicNetwork implements ManipulateProvider {
     for (int i = 0; i < n; ++i)
       show1.add(ListLinePlot.of(domain, table.get(Tensor.ALL, i)));
     Show show2 = new Show();
+    show2.setPlotLabel("Infty error: " + error.maps(Round._3));
     show2.add(Plot.of(network.power, clip)).setLabel("cubic");
     show2.add(Plot.of(x -> network.netChain.forward(Tensors.of(x)).Get(0), clip)).setLabel("network");
     return ShowGridComponent.of(show1, show2);
