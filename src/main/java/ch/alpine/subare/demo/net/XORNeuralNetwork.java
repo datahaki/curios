@@ -64,8 +64,8 @@ public class XORNeuralNetwork implements ManipulateProvider {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
       layers = List.of( //
-          LinearLayer.logSig(DISTRIBUTION, INPUT_SIZE, hiddenSize), //
-          LinearLayer.logSig(DISTRIBUTION, hiddenSize, OUTPUT_SIZE), //
+          LinearFLayer.logSig(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
+          LinearFLayer.logSig(DISTRIBUTION, OUTPUT_SIZE, hiddenSize), //
           new BinaryLayer());
     }
 
@@ -100,7 +100,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
         Tensor t = Y.get(sample);
         Tensor e = t.subtract(y);
         errors.append(e);
-        System.out.printf("Input: %s -> Output: %s\n", x, e.maps(Round._3));
+        System.out.printf("Input: %s -> Error: %s\n", x, e.maps(Round._3));
       }
       return FrobeniusNorm.of(errors);
     }

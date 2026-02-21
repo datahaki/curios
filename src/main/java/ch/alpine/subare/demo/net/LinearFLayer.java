@@ -14,31 +14,31 @@ import ch.alpine.tensor.sca.UnitStep;
 import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
 import ch.alpine.tensor.sca.exp.LogisticSigmoid;
 
-public class LinearLayer implements Layer {
-  public static LinearLayer logSig(Distribution d, int ante, int post) {
-    LinearLayer linearLayer = new LinearLayer();
+public class LinearFLayer implements Layer {
+  public static LinearFLayer logSig(Distribution d, int ante, int post) {
+    LinearFLayer linearLayer = new LinearFLayer();
     linearLayer.f = LogisticSigmoid.FUNCTION;
     linearLayer.df = DLogisticSigmoid.NESTED;
     linearLayer.W = RandomVariate.of(d, ante, post);
-    linearLayer.b = Array.zeros(post);
+    linearLayer.b = Array.zeros(ante);
     return linearLayer;
   }
 
-  public static LinearLayer reLu(Distribution d, int ante, int post) {
-    LinearLayer linearLayer = new LinearLayer();
+  public static LinearFLayer reLu(Distribution d, int ante, int post) {
+    LinearFLayer linearLayer = new LinearFLayer();
     linearLayer.f = Ramp.FUNCTION;
     linearLayer.df = UnitStep.FUNCTION;
     linearLayer.W = RandomVariate.of(d, ante, post);
-    linearLayer.b = Array.zeros(post);
+    linearLayer.b = Array.zeros(ante);
     return linearLayer;
   }
 
-  public static LinearLayer maxE(Distribution d, int ante, int post) {
-    LinearLayer linearLayer = new LinearLayer();
+  public static LinearFLayer maxE(Distribution d, int ante, int post) {
+    LinearFLayer linearLayer = new LinearFLayer();
     linearLayer.f = s -> s;
     linearLayer.df = UnitStep.FUNCTION;
     linearLayer.W = RandomVariate.of(d, ante, post);
-    linearLayer.b = Array.zeros(post);
+    linearLayer.b = Array.zeros(ante);
     return linearLayer;
   }
 
@@ -52,18 +52,18 @@ public class LinearLayer implements Layer {
   @Override
   public Tensor forward(Tensor x) {
     this.x = x;
-    return x.dot(W).add(b).maps(f);
+    return W.dot(x).add(b).maps(f);
   }
 
   @Override
   public Tensor back(Tensor d) {
     this.d = d;
-    return Entrywise.mul().apply(W.dot(d), x.maps(df));
+    return Entrywise.mul().apply(d.dot(W), x.maps(df));
   }
 
   @Override
   public void update() {
-    W = W.add(TensorProduct.of(x, d));
+    W = W.add(TensorProduct.of(d,x));
     b = b.add(d);
   }
 

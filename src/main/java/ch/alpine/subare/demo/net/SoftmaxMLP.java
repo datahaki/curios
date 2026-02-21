@@ -48,8 +48,8 @@ public class SoftmaxMLP implements ManipulateProvider {
 
     public XORNet() {
       layers = List.of( //
-          LinearLayer.reLu(DISTRIBUTION, INPUT_SIZE, hiddenSize), //
-          LinearLayer.maxE(DISTRIBUTION, hiddenSize, OUTPUT_SIZE), //
+          LinearFLayer.reLu(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
+          LinearFLayer.maxE(DISTRIBUTION, OUTPUT_SIZE, hiddenSize), //
           new SoftArgMax());
     }
 
