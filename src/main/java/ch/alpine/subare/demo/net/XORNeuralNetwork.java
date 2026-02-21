@@ -49,9 +49,11 @@ public class XORNeuralNetwork implements ManipulateProvider {
   static final Distribution DISTRIBUTION = UniformDistribution.of(Clips.absolute(0.5));
   public static final Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
   public static final Tensor XOR = Tensors.matrixInt(new int[][] { { 0 }, { 1 }, { 1 }, { 0 } }).unmodifiable();
+  public static final int SKIP = 10;
   // ---
   @FieldSelectionArray({ "4", "5", "6", "7" })
   public Integer hiddenSize = 4;
+  public Scalar l2 = RealScalar.of(0.00001);
   public Scalar learningRate = RealScalar.of(1.6);
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
@@ -61,7 +63,8 @@ public class XORNeuralNetwork implements ManipulateProvider {
     private final TableBuilder tableBuilder = new TableBuilder();
 
     void train(Tensor y) {
-      NetTrain.of(netChain, X, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
+      netChain.setL2(l2);
+      NetTrain.of(netChain, X, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch, SKIP);
     }
 
     Scalar evaluate(Tensor Y) {
@@ -87,7 +90,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
     Tensor table = network.tableBuilder.getTable();
     IO.println(Dimensions.of(table));
     int n = Unprotect.dimension1Hint(table);
-    Tensor domain = Range.of(0, table.length());
+    Tensor domain = Range.of(0, table.length()).multiply(RealScalar.of(SKIP));
     Show show = new Show();
     for (int i = 0; i < n; ++i)
       show.add(ListLinePlot.of(domain, table.get(Tensor.ALL, i)));

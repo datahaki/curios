@@ -33,8 +33,10 @@ public class SoftmaxMLP implements ManipulateProvider {
       { 8, 1 }, { 9, 2 }, { 8, 2 } // Class 2
   }).unmodifiable();
   public static final Tensor y = Tensors.vectorInt(new int[] { 0, 0, 0, 1, 1, 1, 2, 2, 2 }).unmodifiable();
+  public static final int SKIP = 10;
   @FieldSelectionArray({ "6", "7", "8", "10" })
   public Integer hiddenSize = 8;
+  public Scalar l2 = RealScalar.of(1e-5);
   public Scalar learningRate = RealScalar.of(0.05);
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
@@ -44,7 +46,8 @@ public class SoftmaxMLP implements ManipulateProvider {
     private final TableBuilder tableBuilder = new TableBuilder();
 
     void train(Tensor x, Tensor y) {
-      NetTrain.of(netChain, x, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
+      netChain.setL2(l2);
+      NetTrain.of(netChain, x, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch, SKIP);
     }
 
     Scalar evaluate(Tensor X, Tensor T) {
@@ -68,7 +71,7 @@ public class SoftmaxMLP implements ManipulateProvider {
     Tensor table = network.tableBuilder.getTable();
     IO.println(error);
     int n = Unprotect.dimension1Hint(table);
-    Tensor domain = Range.of(0, table.length());
+    Tensor domain = Range.of(0, table.length()).multiply(RealScalar.of(SKIP));
     Show show = new Show();
     for (int i = 0; i < n; ++i)
       show.add(ListLinePlot.of(domain, table.get(Tensor.ALL, i)));

@@ -41,6 +41,7 @@ public class CubicNetwork implements ManipulateProvider {
   public Scalar scale = RealScalar.of(2);
   @FieldSelectionArray({ "2", "3", "4", "6", "7", "8", "10", "12" })
   public Integer hiddenSize = 4;
+  public Scalar l2 = RealScalar.of(1e-5);
   public Scalar learningRate = RealScalar.of(0.02);
   public Integer maxEpoch = 4001;
   public Scalar timeout = Quantity.of(1, "s");
@@ -51,16 +52,18 @@ public class CubicNetwork implements ManipulateProvider {
     private final TableBuilder tableBuilder = new TableBuilder();
 
     void train() {
+      netChain.setL2(l2);
       Consumer<Tensor> consumer = tableBuilder::appendRow;
       int epoch = 0;
       Timing timing = Timing.started();
       Distribution distribution = ArcSinDistribution.INSTANCE;
       while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
-        Tensor xdata = Tensors.of(RandomVariate.of(distribution));
-        Tensor y = netChain.forward(xdata);
+        Tensor x = Tensors.of(RandomVariate.of(distribution));
+        Tensor y = netChain.forward(x);
         //
-        Tensor d = xdata.maps(power).subtract(y).multiply(learningRate);
-        d = d.add(d);
+        Tensor diff = x.maps(power).subtract(y).multiply(learningRate);
+        // Tensor loss = Entrywise.mul().apply(diff, diff);
+        Tensor d = diff.add(diff);
         //
         netChain.back(d);
         netChain.update();
