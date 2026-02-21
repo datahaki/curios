@@ -11,12 +11,11 @@ import ch.alpine.tensor.ext.ArgMax;
 import ch.alpine.tensor.num.SoftmaxLayer;
 
 public class SoftArgMax implements Layer {
-  Tensor x;
+  Tensor interCache;
 
   @Override
   public Scalar forward(Tensor x) {
-    this.x = x;
-    return RealScalar.of(ArgMax.of(SoftmaxLayer.of(x)));
+    return RealScalar.of(ArgMax.of(interCache = SoftmaxLayer.of(x)));
   }
 
   @Override
@@ -31,7 +30,7 @@ public class SoftArgMax implements Layer {
   @Override
   public Tensor error(Tensor y) {
     int k = Scalars.intValueExact((Scalar) y);
-    return UnitVector.of(x.length(), k).subtract(SoftmaxLayer.of(x)); // one-hot target
+    return UnitVector.of(interCache.length(), k).subtract(interCache); // one-hot target
   }
 
   @Override

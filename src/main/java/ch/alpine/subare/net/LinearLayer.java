@@ -50,7 +50,7 @@ public class LinearLayer implements Layer {
 
   @Override
   public Tensor error(Tensor y) {
-    throw new RuntimeException();
+    throw new IllegalStateException();
   }
 
   @Override

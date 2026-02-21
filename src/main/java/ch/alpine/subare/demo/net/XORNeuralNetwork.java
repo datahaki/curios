@@ -14,9 +14,9 @@ import ch.alpine.subare.net.BinaryLayer;
 import ch.alpine.subare.net.ElementwiseLayer;
 import ch.alpine.subare.net.LinearLayer;
 import ch.alpine.subare.net.NetChain;
+import ch.alpine.subare.net.NetTrain;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
@@ -27,7 +27,6 @@ import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Quantity;
-import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Round;
 
@@ -76,23 +75,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
 
     void train(Tensor y) {
       Tensor X = Tensors.matrixInt(new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } }).unmodifiable();
-      int epoch = 0;
-      Timing timing = Timing.started();
-      while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
-        for (int sample = 0; sample < X.length(); ++sample) {
-          Tensor x = X.get(sample);
-          // Forward pass
-          netChain.forward(x);
-          // Backpropagation
-          Tensor d = netChain.error(y.get(sample)).multiply(learningRate);
-          netChain.back(d);
-          // ---
-          netChain.update();
-        }
-        if (epoch % 10 == 0)
-          tableBuilder.appendRow(netChain.parameters());
-        ++epoch;
-      }
+      NetTrain.of(netChain, X, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
     }
 
     Scalar evaluate(Tensor Y) {

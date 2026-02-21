@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.subare.net;
 
 import ch.alpine.tensor.Tensor;
@@ -74,7 +75,7 @@ public abstract class ElementwiseLayer implements Layer {
 
   @Override
   public Tensor error(Tensor y) {
-    return null;
+    throw new IllegalStateException();
   }
 
   @Override

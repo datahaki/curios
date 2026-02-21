@@ -13,10 +13,10 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.subare.net.ElementwiseLayer;
 import ch.alpine.subare.net.LinearLayer;
 import ch.alpine.subare.net.NetChain;
+import ch.alpine.subare.net.NetTrain;
 import ch.alpine.subare.net.SoftArgMax;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
@@ -26,7 +26,6 @@ import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.qty.Quantity;
-import ch.alpine.tensor.qty.Timing;
 
 @ReflectionMarker
 public class SoftmaxMLP implements ManipulateProvider {
@@ -57,25 +56,8 @@ public class SoftmaxMLP implements ManipulateProvider {
           new SoftArgMax());
     }
 
-    void train(Tensor X, Tensor T) {
-      int epoch = 0;
-      Timing timing = Timing.started();
-      while (Scalars.lessThan(timing.seconds(), timeout) && epoch < maxEpoch) {
-        for (int n = 0; n < X.length(); n++) {
-          // Forward pass
-          Tensor x = X.get(n);
-          netChain.forward(x);
-          // Backpropagation
-          Tensor d = netChain.error(T.Get(n)).multiply(learningRate);
-          // Cross-Entropy + Softmax simplifies gradient
-          netChain.back(d);
-          // ---
-          netChain.update();
-        }
-        if (epoch % 10 == 0)
-          tableBuilder.appendRow(netChain.parameters());
-        ++epoch;
-      }
+    void train(Tensor x, Tensor y) {
+      NetTrain.of(netChain, x, y, learningRate, tableBuilder::appendRow, timeout, maxEpoch);
     }
 
     Scalar evaluate(Tensor X, Tensor T) {
