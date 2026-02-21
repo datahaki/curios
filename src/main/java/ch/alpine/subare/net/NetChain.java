@@ -1,9 +1,9 @@
-package ch.alpine.subare.demo.back;
+package ch.alpine.subare.net;
 
 import java.util.List;
 
-import ch.alpine.subare.demo.net.Layer;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.ext.MergeIllegal;
 
 /** inspired by
@@ -37,7 +37,7 @@ public class NetChain {
   }
 
   public Tensor parameters() {
-    return Tensor.of(list.stream().map(Layer::parameters));
+    return Tensor.of(list.stream().map(Layer::parameters).flatMap(tensor -> Flatten.stream(tensor, -1)));
   }
 
   public Tensor error(Tensor tensor) {

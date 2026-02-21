@@ -2,6 +2,7 @@
 package ch.alpine.subare.demo.net;
 
 import java.awt.Container;
+import java.util.concurrent.ThreadLocalRandom;
 
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -9,8 +10,11 @@ import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.subare.demo.back.NetChain;
-import ch.alpine.tensor.Rational;
+import ch.alpine.subare.net.BinaryLayer;
+import ch.alpine.subare.net.ElementwiseLayer;
+import ch.alpine.subare.net.LinearLayer;
+import ch.alpine.subare.net.NetChain;
+import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
@@ -51,7 +55,7 @@ public class XORNeuralNetwork implements ManipulateProvider {
   // ---
   @FieldSelectionArray({ "4", "5", "6", "7" })
   public Integer hiddenSize = 4;
-  public Scalar learningRate = Rational.HALF;
+  public Scalar learningRate = RealScalar.of(1.6);
   public Integer maxEpoch = 8000;
   public Scalar timeout = Quantity.of(1, "s");
 
@@ -62,11 +66,11 @@ public class XORNeuralNetwork implements ManipulateProvider {
     public BinOpLogicNet() {
       int INPUT_SIZE = 2;
       int OUTPUT_SIZE = 1;
-      netChain = NetChain.of(
-          // LinearLayer.of(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
-          // ElementwiseLayer.logSig(), //
-          LinearFLayer.logSig(DISTRIBUTION, hiddenSize, INPUT_SIZE), //
-          LinearFLayer.logSig(DISTRIBUTION, OUTPUT_SIZE, hiddenSize), //
+      netChain = NetChain.of( //
+          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), hiddenSize, INPUT_SIZE), //
+          ElementwiseLayer.logSig(), //
+          LinearLayer.of(DISTRIBUTION, ThreadLocalRandom.current(), OUTPUT_SIZE, hiddenSize), //
+          ElementwiseLayer.logSig(), //
           new BinaryLayer());
     }
 

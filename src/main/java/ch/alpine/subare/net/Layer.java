@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.subare.demo.net;
+package ch.alpine.subare.net;
 
 import java.util.function.BiFunction;
 

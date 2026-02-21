@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.subare.demo.net;
+package ch.alpine.subare.net;
 
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;

@@ -1,12 +1,12 @@
 // code by jph
-package ch.alpine.subare.demo.back;
+package ch.alpine.subare.net;
 
 import java.util.random.RandomGenerator;
 
-import ch.alpine.subare.demo.net.Layer;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Flatten;
+import ch.alpine.tensor.io.MathematicaFormat;
 import ch.alpine.tensor.lie.TensorProduct;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
@@ -36,6 +36,7 @@ public class LinearLayer implements Layer {
 
   @Override
   public Tensor back(Tensor gradOutput) {
+    // IO.println("L L recv " + gradOutput.maps(Round._3));
     gW = TensorProduct.of(gradOutput, inputCache);
     gb = gradOutput;
     return gradOutput.dot(W); // gradInput
@@ -55,5 +56,10 @@ public class LinearLayer implements Layer {
   @Override
   public Tensor parameters() {
     return Flatten.of(W, b);
+  }
+
+  @Override
+  public String toString() {
+    return MathematicaFormat.concise("LinearLayer", W, b);
   }
 }

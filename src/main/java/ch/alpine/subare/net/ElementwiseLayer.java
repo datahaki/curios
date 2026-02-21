@@ -1,6 +1,5 @@
-package ch.alpine.subare.demo.back;
+package ch.alpine.subare.net;
 
-import ch.alpine.subare.demo.net.Layer;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
@@ -14,6 +13,15 @@ import ch.alpine.tensor.sca.tri.Tanh;
 /** inspired by
  * <a href="https://reference.wolfram.com/language/ref/ElementwiseLayer.html">ElementwiseLayer</a> */
 public abstract class ElementwiseLayer implements Layer {
+  public static Layer logSig() {
+    return new ElementwiseLayer(LogisticSigmoid.FUNCTION) {
+      @Override
+      public Tensor back(Tensor gradOutput) {
+        return Entrywise.mul().apply(gradOutput, outputCache.maps(DLogisticSigmoid.NESTED));
+      }
+    };
+  }
+
   /** ReLU:
    * gradInput[i] = (inputCache[i] > 0) ? gradOutput[i] : 0.0;
    * No shrinkage for positive inputs
@@ -46,24 +54,6 @@ public abstract class ElementwiseLayer implements Layer {
     };
   }
 
-  public static Layer logSig() {
-    return new ElementwiseLayer(LogisticSigmoid.FUNCTION) {
-      @Override
-      public Tensor back(Tensor gradOutput) {
-        return Entrywise.mul().apply(gradOutput, outputCache.maps(DLogisticSigmoid.NESTED));
-      }
-    };
-  }
-
-  public static Layer maxE() {
-    return new ElementwiseLayer(s -> s) {
-      @Override
-      public Tensor back(Tensor gradOutput) {
-        return Entrywise.mul().apply(gradOutput, outputCache.maps(DLogisticSigmoid.NESTED));
-      }
-    };
-  }
-
   private final ScalarUnaryOperator f;
   /** output cache */
   Tensor inputCache;
@@ -75,7 +65,7 @@ public abstract class ElementwiseLayer implements Layer {
 
   @Override
   public Tensor forward(Tensor input) {
-    return this.outputCache = (inputCache = input).maps(f);
+    return this.outputCache = ((inputCache = input).maps(f));
   }
 
   @Override

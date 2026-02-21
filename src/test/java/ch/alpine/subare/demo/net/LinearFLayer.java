@@ -1,6 +1,9 @@
 // code by jph
 package ch.alpine.subare.demo.net;
 
+import java.util.random.RandomGenerator;
+
+import ch.alpine.subare.net.Layer;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Flatten;
@@ -15,11 +18,11 @@ import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
 import ch.alpine.tensor.sca.exp.LogisticSigmoid;
 
 public class LinearFLayer implements Layer {
-  public static LinearFLayer logSig(Distribution d, int ante, int post) {
+  public static LinearFLayer logSig(Distribution d, RandomGenerator randomGenerator, int ante, int post) {
     LinearFLayer linearLayer = new LinearFLayer();
     linearLayer.f = LogisticSigmoid.FUNCTION;
     linearLayer.df = DLogisticSigmoid.NESTED;
-    linearLayer.W = RandomVariate.of(d, ante, post);
+    linearLayer.W = RandomVariate.of(d, randomGenerator, ante, post);
     linearLayer.b = Array.zeros(ante);
     return linearLayer;
   }

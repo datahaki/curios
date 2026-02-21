@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.subare.demo.net;
+package ch.alpine.subare.net;
 
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
