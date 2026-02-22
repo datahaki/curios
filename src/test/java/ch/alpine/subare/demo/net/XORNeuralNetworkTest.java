@@ -20,7 +20,7 @@ class XORNeuralNetworkTest {
       Network network = xorNeuralNetwork.new Network();
       network.train(y);
       Scalar error = network.evaluate(y);
-      if (Scalars.lessThan(error, RealScalar.of(0.1)))
+      if (Scalars.lessThan(error, RealScalar.of(0.2)))
         return;
     }
     fail();

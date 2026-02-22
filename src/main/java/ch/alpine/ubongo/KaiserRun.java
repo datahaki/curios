@@ -46,13 +46,11 @@ public class KaiserRun {
         List<UbongoSolution> ubongoSolutions = ubongoBoard.perCombo(puzzlePieces.size(), 1);
         if (ubongoSolutions.isEmpty())
           throw new RuntimeException("NO SOLUTION: " + month + " " + day + " " + dayOfWeek);
-        else {
-          UbongoSolution ubongoSolution = ubongoSolutions.getFirst();
-          String string = UbongoRender.string(ubongoBoard.board_size(), ubongoSolution.list());
-          IO.println(pair + " " + dayOfWeek.toString().substring(0, 3) + " " + string);
-          Tensor insert = UbongoRender.matrix(ubongoBoard.board_size(), ubongoSolution.list());
-          array.set(insert, month.ordinal(), day - 1, dayOfWeek.ordinal());
-        }
+        UbongoSolution ubongoSolution = ubongoSolutions.getFirst();
+        String string = UbongoRender.string(ubongoBoard.board_size(), ubongoSolution.list());
+        IO.println(pair + " " + dayOfWeek.toString().substring(0, 3) + " " + string);
+        Tensor insert = UbongoRender.matrix(ubongoBoard.board_size(), ubongoSolution.list());
+        array.set(insert, month.ordinal(), day - 1, dayOfWeek.ordinal());
       }
     });
     IO.println(timing.seconds().maps(Round._1));

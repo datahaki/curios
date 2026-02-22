@@ -3,7 +3,6 @@ package ch.alpine.ascona.analysis;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.Point2D;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
@@ -105,13 +104,7 @@ public class NetClassifyDemo extends ControlPointsDemo {
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     Tensor xdata = getGeodesicControlPoints();
     CoordinateBoundingBox cbb = CoordinateBounds.of(xdata);
-    Point2D min = geometricLayer.toPoint2D(cbb.min());
-    Point2D max = geometricLayer.toPoint2D(cbb.max());
-    Rectangle rectangle = new Rectangle( //
-        (int) min.getX(), //
-        (int) max.getY(), //
-        (int) (max.getX() - min.getX()), //
-        (int) (min.getY() - max.getY()));
+    Rectangle rectangle = geometricLayer.toRectangle(cbb);
     show.setAspectRatioDontCare();
     show.render(graphics, rectangle);
     // ---
