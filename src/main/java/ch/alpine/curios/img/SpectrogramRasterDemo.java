@@ -10,7 +10,7 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.fft.SpectrogramArray;
+import ch.alpine.tensor.fft.SpectrogramArrays;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.img.Raster;
@@ -23,7 +23,7 @@ import ch.alpine.tensor.sca.tri.Cos;
   ;
   static void main() throws IOException {
     Tensor tensor = Subdivide.of(0, 100, 2000).maps(Polynomial.of(Tensors.vector(0, 5, 1))).maps(Cos.FUNCTION);
-    Tensor spectrogram = SpectrogramArray.SPECTROGRAM.half_abs(tensor);
+    Tensor spectrogram = SpectrogramArrays.FOURIER.operator().half_abs(tensor);
     Path folder = HomeDirectory.Pictures.resolve(SpectrogramRasterDemo.class.getSimpleName());
     Files.createDirectories(folder);
     for (ColorDataGradients colorDataGradients : ColorDataGradients.values()) {

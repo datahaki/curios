@@ -11,8 +11,8 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Subdivide;
-import ch.alpine.tensor.fft.CepstrogramArray;
 import ch.alpine.tensor.fft.ChirpFunctions;
+import ch.alpine.tensor.fft.SpectrogramArrays;
 
 @ReflectionMarker
 public class CepstrogramDemo implements ManipulateProvider {
@@ -25,7 +25,7 @@ public class CepstrogramDemo implements ManipulateProvider {
     Tensor signal = Subdivide.of(0, 1, 10000).maps(chirpFunctions.of(f0, p1));
     return ShowGridComponent.of( //
         Spectrogram.of(signal, RealScalar.ONE).asShow(), //
-        Spectrogram.of(CepstrogramArray.REAL1, signal, RealScalar.ONE).asShow() //
+        Spectrogram.of(SpectrogramArrays.REAL1.operator(), signal, RealScalar.ONE).asShow() //
     );
   }
 
