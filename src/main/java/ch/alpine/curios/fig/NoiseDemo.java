@@ -1,6 +1,8 @@
 // code by jph
 package ch.alpine.curios.fig;
 
+import javax.swing.JDialog;
+
 import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowWindow;
@@ -28,6 +30,8 @@ public enum NoiseDemo {
     show3.add(DensityPlot.of( //
         (x, y) -> SimplexContinuousNoise.FUNCTION.apply(Tensors.of(x, y, x.zero(), x.zero())), //
         cbb));
-    ShowWindow.asDialog(show1, show2, show3);
+    JDialog jDialog = ShowWindow.asDialog(show1, show2, show3);
+    jDialog.setVisible(true);
+    // FIXME dialog does not show
   }
 }
