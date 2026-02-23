@@ -11,7 +11,6 @@ import ch.alpine.ascony.ren.LeversHud;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.ascony.win.PlaceWrap;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -61,7 +60,6 @@ public class IterativeCoordinateDemo extends ControlPointsDemo {
   @Override // from RenderInterface
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     timerFrame.geometricComponent.renderGrid(graphics);
-    RenderQuality.setQuality(graphics);
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     PlaceWrap placeWrap = new PlaceWrap(getGeodesicControlPoints());
     Optional<Tensor> optional = placeWrap.getOrigin();

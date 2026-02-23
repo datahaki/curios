@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 
 import ch.alpine.ascony.win.AbstractDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldSelectionCallback;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -57,7 +56,6 @@ public class UbongoBrowser extends AbstractDemo {
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     UbongoSolution ubongoSolution = list.get(param.index);
     StaticHelper.drawBoard(graphics, ubongoBoard, ubongoSolution.list());
-    RenderQuality.setQuality(graphics);
     graphics.setColor(Color.DARK_GRAY);
     graphics.drawString("depth=" + ubongoSolution.search(), 100, 12);
   }

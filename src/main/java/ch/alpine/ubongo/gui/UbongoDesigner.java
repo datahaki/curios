@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import ch.alpine.ascony.api.Box2D;
 import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.win.AbstractDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.AffineTransforms;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -132,7 +131,6 @@ public class UbongoDesigner extends AbstractDemo {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    RenderQuality.setQuality(graphics);
     graphics.setColor(Color.DARK_GRAY);
     int dimension1 = Unprotect.dimension1(template);
     for (int row = 0; row < template.length(); ++row) {

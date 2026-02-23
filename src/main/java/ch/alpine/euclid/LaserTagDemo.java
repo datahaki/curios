@@ -12,7 +12,6 @@ import ch.alpine.ascony.ref.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.lie.se2.Se2Matrix;
@@ -60,7 +59,6 @@ public class LaserTagDemo extends ControlPointsDemo {
 
   @Override // from RenderInterface
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    RenderQuality.setQuality(graphics);
     Tensor control = getGeodesicControlPoints();
     graphics.setColor(COLOR_DATA_INDEXED.getColor(0));
     if (param.show) {

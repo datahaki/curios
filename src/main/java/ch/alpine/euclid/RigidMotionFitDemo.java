@@ -12,7 +12,6 @@ import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -81,7 +80,6 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   @Override // from RenderInterface
   public synchronized void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     timerFrame.geometricComponent.renderGrid(graphics);
-    RenderQuality.setQuality(graphics);
     Tensor sequence = getGeodesicControlPoints();
     {
       Tensor target = Tensor.of(sequence.stream().map(R2Display.INSTANCE::xya2point));

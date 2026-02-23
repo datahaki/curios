@@ -12,7 +12,6 @@ import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -66,7 +65,6 @@ public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     boolean isMoving = param.move;
     controlPointsRender.setPositioningEnabled(!isMoving);
-    RenderQuality.setQuality(graphics);
     if (isMoving) {
       Tensor mouse = timerFrame.geometricComponent.getMouseSe2CState();
       TensorUnaryOperator se2Bijection = new Se2ForwardAction(Times.of(mouse, Tensors.vector(1, 1, 0.3)));

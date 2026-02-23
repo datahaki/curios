@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import ch.alpine.ascony.win.AbstractDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -32,7 +31,6 @@ public class UnicodeViewer extends AbstractDemo {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    RenderQuality.setQuality(graphics);
     graphics.setColor(Color.DARK_GRAY);
     int size = param.size;
     graphics.setFont(new Font(Font.DIALOG, Font.PLAIN, size));

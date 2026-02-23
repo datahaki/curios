@@ -10,7 +10,6 @@ import ch.alpine.ascony.ref.AsconaParam;
 import ch.alpine.ascony.ren.Curvature2DRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
@@ -58,7 +57,6 @@ public class NonuniformSplineDemo extends ControlPointsDemo {
   @Override // from RenderInterface
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
-    RenderQuality.setQuality(graphics);
     int _degree = param.degree;
     int _levels = param.refine;
     Tensor control = getGeodesicControlPoints();

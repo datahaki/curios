@@ -11,7 +11,6 @@ import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.R2Display;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.AbstractDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -66,7 +65,6 @@ public class HilbertBenchmarkDemo extends AbstractDemo {
     graphics.setColor(Color.LIGHT_GRAY);
     graphics.draw(geometricLayer.toPath2D(Box2D.CORNERS, true));
     // ---
-    RenderQuality.setQuality(graphics);
     final Tensor sequence = polygon;
     LeversRender leversRender = //
         LeversRender.of(manifoldDisplay, sequence, null, geometricLayer, graphics);

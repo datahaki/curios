@@ -11,7 +11,6 @@ import ch.alpine.ascony.ref.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -62,7 +61,6 @@ public class R2ParametricResampleDemo extends ControlPointsDemo {
   @Override // from RenderInterface
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     timerFrame.geometricComponent.renderGrid(graphics);
-    RenderQuality.setQuality(graphics);
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     Tensor control = getGeodesicControlPoints();
     graphics.setColor(COLOR_DATA_INDEXED.getColor(0));

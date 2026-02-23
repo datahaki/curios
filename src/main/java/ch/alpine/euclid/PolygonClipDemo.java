@@ -11,7 +11,6 @@ import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
-import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.crv.d2.PolyclipResult;
 import ch.alpine.sophis.crv.d2.PolygonCentroid;
@@ -43,7 +42,6 @@ public class PolygonClipDemo extends ControlPointsDemo {
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
-    RenderQuality.setQuality(graphics);
     new PathRender(COLOR_DATA_INDEXED.getColor(3), 1.5f).setCurve(CIRCLE, true).render(geometricLayer, graphics);
     Tensor sequence = getGeodesicControlPoints();
     {
@@ -96,7 +94,6 @@ public class PolygonClipDemo extends ControlPointsDemo {
     }
     LeversRender leversRender = LeversRender.of(manifoldDisplay, result, null, geometricLayer, graphics);
     leversRender.renderIndexP();
-    RenderQuality.setDefault(graphics);
     // new PathRender(COLOR_DATA_INDEXED.getColor(1), 2.5f).setCurve(HILBERT, false).render(geometricLayer, graphics);
   }
 
