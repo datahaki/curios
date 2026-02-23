@@ -133,7 +133,6 @@ public class UbongoDesigner extends AbstractDemo {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    AxesRender.INSTANCE.render(geometricLayer, graphics);
     RenderQuality.setQuality(graphics);
     graphics.setColor(Color.DARK_GRAY);
     int dimension1 = Unprotect.dimension1(template);
