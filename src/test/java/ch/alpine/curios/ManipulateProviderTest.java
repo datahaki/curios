@@ -6,21 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import javax.imageio.ImageIO;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
 import ch.alpine.bridge.pro.ManipulateProvider;
-import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.ref.InstanceDiscovery;
 
 class ManipulateProviderTest implements Consumer<ManipulateProvider> {
@@ -47,17 +42,14 @@ class ManipulateProviderTest implements Consumer<ManipulateProvider> {
     Graphics2D graphics = bufferedImage.createGraphics();
     jComponent.printAll(graphics);
     graphics.dispose();
-    if (false)
-      try {
-        ImageIO.write(bufferedImage, "png", HomeDirectory.Pictures.resolve("" + System.nanoTime() + ".png").toFile());
-      } catch (IOException e) {
-        throw new UncheckedIOException(e);
-      }
     COUNT.getAndIncrement();
   }
 
   @AfterAll
   static void here() {
-    assertTrue(22 <= COUNT.get());
+    int expect = 27;
+    assertTrue(expect <= COUNT.get());
+    if (expect < COUNT.get())
+      IO.println("ManipulateProviderTest: " + COUNT.get());
   }
 }
