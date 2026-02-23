@@ -18,7 +18,6 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import ch.alpine.ascony.api.Box2D;
-import ch.alpine.ascony.ren.AxesRender;
 import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.win.AbstractDemo;
 import ch.alpine.bridge.awt.RenderQuality;
