@@ -7,15 +7,15 @@ import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StepRecord;
 import ch.alpine.subare.util.EpisodeKickoff;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.sca.Chop;
 
 /** reproduces Figure 6.4 on p.139 */
 enum VI_Windygrid {
   ;
   public static void simulate(Windygrid windygrid) {
     ValueIteration vi = new ValueIteration(windygrid, windygrid);
-    vi.untilBelow(RealScalar.of(.001));
+    vi.untilBelow(Chop._03);
     final Tensor values = vi.vs().values();
     System.out.println("iterations=" + vi.iterations());
     System.out.println(values);

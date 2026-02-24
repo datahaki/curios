@@ -39,11 +39,6 @@ class FishfarmRaster implements StateRaster {
   }
 
   @Override
-  public int magnify() {
-    return 5;
-  }
-
-  @Override
   public Dimension dimensionStateRaster() {
     return new Dimension(fishfarm.period + 1, fishfarm.max_fish + 1);
   }

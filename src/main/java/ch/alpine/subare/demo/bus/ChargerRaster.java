@@ -41,11 +41,6 @@ import ch.alpine.tensor.Tensor;
   }
 
   @Override
-  public int magnify() {
-    return 6;
-  }
-
-  @Override
   public Dimension dimensionStateActionRaster() {
     Dimension dimension = new Dimension();
     dimension.width = charger.dimension.width;

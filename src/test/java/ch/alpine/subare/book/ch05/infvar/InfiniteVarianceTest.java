@@ -33,7 +33,7 @@ class InfiniteVarianceTest {
   void testValueIteration() {
     InfiniteVariance infiniteVariance = new InfiniteVariance();
     ValueIteration vi = new ValueIteration(infiniteVariance);
-    vi.untilBelow(RealScalar.of(.00001));
+    vi.untilBelow(Chop._05);
     DiscreteVs vs = vi.vs();
     Scalar diff = vs.value(InfiniteVariance.BACK).subtract(RealScalar.ONE);
     assertTrue(Scalars.lessThan(Abs.FUNCTION.apply(diff), RealScalar.of(.001)));

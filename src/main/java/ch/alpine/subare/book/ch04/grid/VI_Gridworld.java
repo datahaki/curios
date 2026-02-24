@@ -9,9 +9,9 @@ import ch.alpine.subare.util.DiscreteValueFunctions;
 import ch.alpine.subare.util.Policies;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateRasters;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Export;
+import ch.alpine.tensor.sca.Chop;
 
 /** solving grid world
  * gives the value function for the optimal policy equivalent to
@@ -41,7 +41,7 @@ enum VI_Gridworld {
     Gridworld gridworld = new Gridworld();
     GridworldRaster gridworldStateRaster = new GridworldRaster(gridworld);
     ValueIteration vi = new ValueIteration(gridworld, gridworld);
-    vi.untilBelow(RealScalar.of(.0001));
+    vi.untilBelow(Chop._04);
     DiscreteUtils.print(vi.vs());
     Policy policy = PolicyType.GREEDY.bestEquiprobable(gridworld, vi.vs(), null);
     Policies.print(policy, gridworld.states());

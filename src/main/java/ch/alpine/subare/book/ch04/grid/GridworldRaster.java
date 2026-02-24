@@ -66,9 +66,4 @@ class GridworldRaster implements StateRaster, StateActionRaster {
   public int joinAlongDimension() {
     return 0;
   }
-
-  @Override
-  public int magnify() {
-    return 7;
-  }
 }

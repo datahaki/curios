@@ -53,9 +53,4 @@ class BlackjackRaster implements StateRaster {
   public int joinAlongDimension() {
     return 0;
   }
-
-  @Override
-  public int magnify() {
-    return 5;
-  }
 }

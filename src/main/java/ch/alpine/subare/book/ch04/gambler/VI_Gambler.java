@@ -10,8 +10,8 @@ import ch.alpine.subare.util.DiscreteValueFunctions;
 import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.subare.util.Policies;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.N;
 
 /** Shangtong Zhang states that using double precision in python
@@ -28,7 +28,7 @@ import ch.alpine.tensor.sca.N;
     GamblerModel gamblerModel = GamblerModel.createDefault();
     DiscreteQsa ref = GamblerHelper.getOptimalQsa(gamblerModel);
     ValueIteration vi = new ValueIteration(gamblerModel, gamblerModel);
-    vi.untilBelow(RealScalar.of(1e-20));
+    vi.untilBelow(Chop._20);
     final DiscreteVs vs = vi.vs();
     final DiscreteVs vr = DiscreteUtils.createVs(gamblerModel, ref);
     Scalar diff = DiscreteValueFunctions.distance(vs, vr);

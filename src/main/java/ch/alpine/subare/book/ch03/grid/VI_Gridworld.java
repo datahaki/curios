@@ -7,7 +7,7 @@ import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.Policies;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.Round;
 
 /** solving grid world
@@ -44,7 +44,7 @@ import ch.alpine.tensor.sca.Round;
   static void main() {
     Gridworld gridworld = new Gridworld();
     ValueIteration vi = new ValueIteration(gridworld, gridworld);
-    vi.untilBelow(RealScalar.of(.0001));
+    vi.untilBelow(Chop._04);
     System.out.println("iterations=" + vi.iterations());
     DiscreteUtils.print(vi.vs(), Round._1);
     Policy policy = PolicyType.GREEDY.bestEquiprobable(gridworld, vi.vs(), null);

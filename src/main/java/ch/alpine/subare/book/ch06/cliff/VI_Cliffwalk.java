@@ -13,11 +13,11 @@ import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.subare.util.EpisodeKickoff;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateRasters;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Export;
+import ch.alpine.tensor.sca.Chop;
 
 /** value iteration for cliffwalk */
 enum VI_Cliffwalk {
@@ -27,7 +27,7 @@ enum VI_Cliffwalk {
     CliffwalkRaster cliffwalkRaster = new CliffwalkRaster(cliffwalk);
     DiscreteQsa ref = CliffwalkHelper.getOptimalQsa(cliffwalk);
     ValueIteration vi = new ValueIteration(cliffwalk, cliffwalk);
-    vi.untilBelow(RealScalar.of(.0001));
+    vi.untilBelow(Chop._04);
     DiscreteVs vs = vi.vs();
     DiscreteVs vr = DiscreteUtils.createVs(cliffwalk, ref);
     Scalar error = DiscreteValueFunctions.distance(vs, vr);

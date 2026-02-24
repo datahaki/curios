@@ -11,7 +11,6 @@ import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.subare.util.EpisodeKickoff;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.Round;
@@ -23,13 +22,13 @@ import ch.alpine.tensor.sca.Round;
   }
 
   public static DiscreteVs getOptimalVs(GamblerModel gamblerModel) {
-    return ValueIteration.solve(gamblerModel, RealScalar.of(1e-10));
+    return ValueIteration.solve(gamblerModel, Chop._10);
   }
 
   public static Policy getOptimalPolicy(GamblerModel gamblerModel) {
     // TODO SUBARE test for equality of policies from qsa and vs
     ValueIteration vi = new ValueIteration(gamblerModel, gamblerModel);
-    vi.untilBelow(RealScalar.of(1e-10));
+    vi.untilBelow(Chop._10);
     return PolicyType.GREEDY.bestEquiprobable(gamblerModel, vi.vs(), null);
   }
 

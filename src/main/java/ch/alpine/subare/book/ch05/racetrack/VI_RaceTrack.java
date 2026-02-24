@@ -10,7 +10,6 @@ import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StepRecord;
 import ch.alpine.subare.mc.MonteCarloEpisode;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.ext.HomeDirectory;
@@ -18,13 +17,14 @@ import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.AnimationWriter;
 import ch.alpine.tensor.io.GifAnimationWriter;
 import ch.alpine.tensor.io.Primitives;
+import ch.alpine.tensor.sca.Chop;
 
 /* package */ enum VI_RaceTrack {
   ;
   public static void make(String name, int maxSpeed, Path file) throws Exception {
     Racetrack racetrack = RacetrackHelper.create(name, maxSpeed);
     ValueIteration vi = new ValueIteration(racetrack, racetrack);
-    vi.untilBelow(RealScalar.of(10), 5);
+    vi.untilBelow(Chop.below(10), 5);
     System.out.println("iterations=" + vi.iterations());
     Policy policy = PolicyType.GREEDY.bestEquiprobable(racetrack, vi.vs(), null);
     try (AnimationWriter animationWriter = //

@@ -49,9 +49,4 @@ class DynamazeRaster implements StateRaster {
   public int joinAlongDimension() {
     return 1;
   }
-
-  @Override
-  public int magnify() {
-    return 4;
-  }
 }

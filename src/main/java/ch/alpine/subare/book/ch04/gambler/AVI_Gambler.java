@@ -35,12 +35,7 @@ public class AVI_Gambler implements ManipulateProvider {
   @Override
   public JComponent getContainer() {
     GamblerModel gamblerModel = new GamblerModel(max, P_win);
-    GamblerRaster gamblerRaster = new GamblerRaster(gamblerModel) {
-      @Override
-      public int magnify() {
-        return 1;
-      }
-    };
+    GamblerRaster gamblerRaster = new GamblerRaster(gamblerModel);
     DiscreteQsa ref = GamblerHelper.getOptimalQsa(gamblerModel);
     Tensor qsa = StateActionRasters._render1(gamblerRaster, ref);
     Show show1 = new Show();

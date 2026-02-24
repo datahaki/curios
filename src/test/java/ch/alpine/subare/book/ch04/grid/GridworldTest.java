@@ -18,7 +18,7 @@ class GridworldTest {
   void testVI() {
     Gridworld gridworld = new Gridworld();
     ValueIteration vi = new ValueIteration(gridworld, gridworld);
-    vi.untilBelow(RealScalar.of(.0001));
+    vi.untilBelow(Chop._04);
     DiscreteVs vs = vi.vs();
     // vs.print();
     assertEquals(vs.value(Tensors.vector(0, 2)), RealScalar.of(-2));

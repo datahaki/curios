@@ -47,9 +47,4 @@ import ch.alpine.tensor.Tensor;
   public int joinAlongDimension() {
     return 0;
   }
-
-  @Override
-  public int magnify() {
-    return 4;
-  }
 }
