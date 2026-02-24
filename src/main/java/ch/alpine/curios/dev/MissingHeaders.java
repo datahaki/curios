@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.dev;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.Optional;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-public enum MissingHeaders {
+enum MissingHeaders {
   INSTANCE;
 
   int checked = 0;
