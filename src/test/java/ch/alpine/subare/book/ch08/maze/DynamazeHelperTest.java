@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.RepetitionInfo;
 import org.junit.jupiter.api.Test;
 
 import ch.alpine.tensor.Tensor;
@@ -21,5 +23,12 @@ class DynamazeHelperTest {
   void testMaze5() {
     Tensor image = DynamazeHelper.load("maze5");
     assertEquals(Dimensions.of(image), List.of(32, 16, 4));
+  }
+
+  @RepeatedTest(3)
+  void testStarts(RepetitionInfo repetitionInfo) {
+    int limit = repetitionInfo.getCurrentRepetition();
+    Dynamaze dynamaze = DynamazeHelper.create5(limit);
+    assertEquals(dynamaze.startStates().length(), limit);
   }
 }

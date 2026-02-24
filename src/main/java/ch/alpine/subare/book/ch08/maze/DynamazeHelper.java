@@ -23,14 +23,17 @@ public enum DynamazeHelper {
     return fromImage(load(name));
   }
 
-  public static Dynamaze create5(int starts) {
+  /** TODO the parameter start does not seem to change anything
+   * 
+   * @param limit
+   * @return */
+  public static Dynamaze create5(int limit) {
     Tensor image = load("maze5");
-    for (int count = 0; count < starts; ++count) {
-      Tensor vec = STARTS_5.get(count);
+    STARTS_5.stream().limit(limit).forEach(vec -> {
       image.set(Dynamaze.GREEN, //
           Scalars.intValueExact(vec.Get(0)), //
           Scalars.intValueExact(vec.Get(1)));
-    }
+    });
     return fromImage(image);
   }
 

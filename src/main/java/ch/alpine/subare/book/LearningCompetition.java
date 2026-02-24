@@ -2,13 +2,12 @@
 package ch.alpine.subare.book;
 
 import java.awt.Point;
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
 
-import ch.alpine.ascony.io.AnimatedGifWriter;
+import ch.alpine.ascony.io.ImageIconRecorder;
 import ch.alpine.subare.api.ExplorationRate;
 import ch.alpine.subare.util.ConstantExplorationRate;
 import ch.alpine.subare.util.DiscreteQsa;
@@ -20,7 +19,6 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.api.ScalarTensorFunction;
 import ch.alpine.tensor.img.ColorDataGradients;
-import ch.alpine.tensor.io.ImageFormat;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.red.Min;
 import ch.alpine.tensor.sca.Round;
@@ -55,22 +53,17 @@ public class LearningCompetition {
     RESX = map.keySet().stream().mapToInt(point -> point.x).reduce(Math::max).orElseThrow() + 1;
     int RESY = map.keySet().stream().mapToInt(point -> point.y).reduce(Math::max).orElseThrow() + 1;
     Tensor image = Array.zeros(RESX + 1 + RESX, RESY, 4);
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try (AnimatedGifWriter animationWriter = //
-        AnimatedGifWriter.of(baos, period, true)) {
-      for (int index = 0; index < epsilon.length(); ++index) {
-        final int findex = index;
-        Timing timing = Timing.started();
-        map.entrySet().stream().parallel().forEach(entry -> //
-        processEntry(image, entry.getKey(), entry.getValue(), findex));
-        //
-        System.out.printf("%3d %s sec%n", index, timing.seconds().maps(Round._1));
-        animationWriter.write(ImageFormat.of(image));
-      }
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    ImageIconRecorder imageIconRecorder = new ImageIconRecorder(period);
+    for (int index = 0; index < epsilon.length(); ++index) {
+      final int findex = index;
+      Timing timing = Timing.started();
+      map.entrySet().stream().parallel().forEach(entry -> //
+      processEntry(image, entry.getKey(), entry.getValue(), findex));
+      //
+      System.out.printf("%3d %s sec%n", index, timing.seconds().maps(Round._1));
+      imageIconRecorder.write(image);
     }
-    return new ImageIcon(baos.toByteArray());
+    return imageIconRecorder.getIconImage();
   }
 
   private void processEntry(Tensor image, Point point, LearningContender learningContender, int index) {

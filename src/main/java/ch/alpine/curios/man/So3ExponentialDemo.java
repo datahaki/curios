@@ -2,12 +2,10 @@
 package ch.alpine.curios.man;
 
 import java.awt.Container;
-import java.io.ByteArrayOutputStream;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import ch.alpine.ascony.io.AnimatedGifWriter;
+import ch.alpine.ascony.io.ImageIconRecorder;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -19,7 +17,6 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.img.Raster;
-import ch.alpine.tensor.io.ImageFormat;
 
 @ReflectionMarker
 enum So3ExponentialDemo implements ManipulateProvider {
@@ -40,21 +37,15 @@ enum So3ExponentialDemo implements ManipulateProvider {
 
   @Override
   public Container getContainer() {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    try (AnimatedGifWriter animationWriter = //
-        AnimatedGifWriter.of(baos, millis, true)) {
-      for (Tensor _z : Subdivide.of(-4 * Math.PI, 4 * Math.PI, 10)) {
-        IO.print(".");
-        Slice slice = new Slice((Scalar) _z);
-        Tensor matrix = Parallelize.matrix(slice::function, RES, RES);
-        animationWriter.write(ImageFormat.of(Raster.of(matrix, ColorDataGradients.CLASSIC)));
-      }
-      IO.println();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+    ImageIconRecorder imageIconRecorder = new ImageIconRecorder(millis);
+    for (Tensor _z : Subdivide.of(-4 * Math.PI, 4 * Math.PI, 10)) {
+      IO.print(".");
+      Slice slice = new Slice((Scalar) _z);
+      Tensor matrix = Parallelize.matrix(slice::function, RES, RES);
+      imageIconRecorder.write(Raster.of(matrix, ColorDataGradients.CLASSIC));
     }
-    ImageIcon imageIcon = new ImageIcon(baos.toByteArray());
-    return new JLabel(imageIcon);
+    IO.println();
+    return new JLabel(imageIconRecorder.getIconImage());
   }
 
   static void main() {
