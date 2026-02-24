@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.subare.book.ch06.walk;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.mc.FirstVisitPolicyEvaluation;
 import ch.alpine.subare.util.DiscreteUtils;
@@ -20,9 +21,11 @@ import ch.alpine.tensor.sca.Round;
  * 5 0.84
  * 6 0
  * </pre> */
-enum FVPE_Randomwalk {
-  ;
-  static void main() {
+enum FVPE_Randomwalk implements RunProvider {
+  INSTANCE;
+
+  @Override
+  public Object runStandalone() {
     Randomwalk randomwalk = new Randomwalk(5);
     FirstVisitPolicyEvaluation fvpe = new FirstVisitPolicyEvaluation( //
         randomwalk, null);
@@ -31,5 +34,10 @@ enum FVPE_Randomwalk {
       ExploringStarts.batch(randomwalk, policy, fvpe);
     DiscreteVs vs = fvpe.vs();
     DiscreteUtils.print(vs, Round._2);
+    return vs;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

@@ -2,6 +2,7 @@
 // inspired by Shangtong Zhang
 package ch.alpine.subare.book.ch03.grid;
 
+import ch.alpine.bridge.pro.RunProvider;
 import ch.alpine.subare.alg.IterativePolicyEvaluation;
 import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.EquiprobablePolicy;
@@ -35,13 +36,20 @@ import ch.alpine.tensor.sca.Round;
  * {4, 2} -1.2
  * {4, 3} -1.4
  * {4, 4} -2.0 */
-/* package */ enum IPE_Gridworld {
-  ;
-  static void main() {
+/* package */ enum IPE_Gridworld implements RunProvider {
+  INSTANCE;
+
+  @Override
+  public Object runStandalone() {
     Gridworld gridworld = new Gridworld();
     IterativePolicyEvaluation ipe = new IterativePolicyEvaluation( //
         gridworld, EquiprobablePolicy.create(gridworld));
     ipe.until(RealScalar.of(.0001));
     DiscreteUtils.print(ipe.vs(), Round._1);
+    return ipe;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

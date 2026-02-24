@@ -1,22 +1,32 @@
 // code by jph
 package ch.alpine.subare.book.ch05.wireloop;
 
-import java.util.concurrent.TimeUnit;
+import java.awt.Container;
+import java.io.ByteArrayOutputStream;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+import ch.alpine.bridge.awt.AwtUtil;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.subare.alg.Random1StepTabularQPlanning;
 import ch.alpine.subare.util.ConstantLearningRate;
 import ch.alpine.subare.util.DiscreteQsa;
 import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.TabularSteps;
 import ch.alpine.tensor.RealScalar;
-import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
+import ch.alpine.tensor.ext.AnimatedGifWriter;
+import ch.alpine.tensor.io.ImageFormat;
 
 /** Example 4.1, p.82 */
-enum RSTQP_Wireloop {
-  ;
-  static void main() throws Exception {
+@ReflectionMarker
+enum RSTQP_Wireloop implements ManipulateProvider {
+  INSTANCE;
+
+  private final JLabel jLabel;
+
+  RSTQP_Wireloop() {
     String name = "wire5";
     WireloopReward wireloopReward = WireloopReward.freeSteps();
     wireloopReward = WireloopReward.constantCost();
@@ -26,16 +36,29 @@ enum RSTQP_Wireloop {
     DiscreteQsa qsa = DiscreteQsa.build(wireloop);
     Random1StepTabularQPlanning rstqp = Random1StepTabularQPlanning.of( //
         wireloop, qsa, ConstantLearningRate.of(RealScalar.ONE));
-    try (AnimationWriter animationWriter = //
-        new GifAnimationWriter(HomeDirectory.Pictures.resolve(name + "L_qsa_rstqp.gif"), 250, TimeUnit.MILLISECONDS)) {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try (AnimatedGifWriter animationWriter = AnimatedGifWriter.of(baos, 250, true)) {
       int batches = 50;
       for (int index = 0; index < batches; ++index) {
         Infoline infoline = Infoline.print(wireloop, index, ref, qsa);
         TabularSteps.batch(wireloop, wireloop, rstqp);
-        animationWriter.write(WireloopHelper.render(wireloopRaster, ref, qsa));
+        animationWriter.write(ImageFormat.of(WireloopHelper.render(wireloopRaster, ref, qsa)));
         if (infoline.isLossfree())
           break;
       }
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
+    ImageIcon imageIcon = new ImageIcon(baos.toByteArray());
+    jLabel = AwtUtil.iconAsLabel(imageIcon);
+  }
+
+  @Override
+  public Container getContainer() {
+    return jLabel;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

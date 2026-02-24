@@ -1,8 +1,14 @@
 // code by jph
 package ch.alpine.subare.book.ch05.wireloop;
 
+import java.awt.Container;
 import java.awt.Point;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+import ch.alpine.bridge.awt.AwtUtil;
+import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.subare.api.StateActionCounter;
 import ch.alpine.subare.td.Sarsa;
 import ch.alpine.subare.td.SarsaType;
@@ -20,9 +26,12 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Subdivide;
 
 /** Sarsa applied to gambler for different learning rate parameters */
-enum Bulk_Wireloop {
-  ;
-  static void handle(SarsaType sarsaType, int nstep) throws Exception {
+enum Bulk_Wireloop implements ManipulateProvider {
+  INSTANCE(SarsaType.QLEARNING, 1);
+
+  private final JLabel jLabel;
+
+  Bulk_Wireloop(SarsaType sarsaType, int nstep) {
     String name = "wire4";
     Wireloop wireloop = WireloopHelper.create(name, WireloopReward::id_x); // 20, 4/10
     final DiscreteQsa ref = WireloopHelper.getOptimalQsa(wireloop); // true q-function, for error measurement
@@ -31,11 +40,10 @@ enum Bulk_Wireloop {
     final Scalar losscap = RealScalar.of(.05); // .5
     final Tensor epsilon = Subdivide.of(.2, .05, 40); // .2, .6
     int x = 0;
+    String name1 = name + "_Q_" + sarsaType.name() + "_E" + epsilon.Get(0) + "_N" + nstep;
     LearningCompetition learningCompetition = new LearningCompetition( //
-        ref, name + "_Q_" + sarsaType.name() + "_E" + epsilon.Get(0) + "_N" + nstep, //
-        epsilon, errorcap, losscap);
+        ref, epsilon, errorcap, losscap);
     learningCompetition.nstep = 1;
-    learningCompetition.magnify = 5;
     for (Tensor factor : Subdivide.of(.1, 10, 20)) { // .5 16
       int y = 0;
       for (Tensor exponent : Subdivide.of(.51, 1.5, 20)) { // .51 2
@@ -51,10 +59,16 @@ enum Bulk_Wireloop {
       ++x;
     }
     // ---
-    learningCompetition.doit();
+    ImageIcon imageIcon = learningCompetition.doit();
+    jLabel = AwtUtil.iconAsLabel(imageIcon);
+  }
+
+  @Override
+  public Container getContainer() {
+    return jLabel;
   }
 
   static void main() throws Exception {
-    handle(SarsaType.QLEARNING, 2);
+    INSTANCE.runStandalone();
   }
 }

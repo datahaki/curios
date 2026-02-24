@@ -1,7 +1,6 @@
 // code by jph
 package ch.alpine.subare.book.ch04.gambler;
 
-import java.io.IOException;
 import java.nio.file.Path;
 
 import javax.swing.JComponent;
@@ -20,7 +19,6 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.img.ColorDataGradients;
-import ch.alpine.tensor.io.Put;
 
 /** action value iteration for gambler's dilemma
  * 
@@ -44,11 +42,11 @@ public class AVI_Gambler implements ManipulateProvider {
     Show show2 = new Show();
     show2.add(ArrayPlot.of(qsaPolicy, cdg));
     DiscreteVs vs = DiscreteUtils.createVs(gamblerModel, ref);
-    try {
-      Put.of(path.resolve("ex403_vs_values"), vs.values());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    // try {
+    // Put.of(path.resolve("ex403_vs_values"), vs.values());
+    // } catch (IOException e) {
+    // e.printStackTrace();
+    // }
     return ShowGridComponent.of(show1, show2);
   }
 
