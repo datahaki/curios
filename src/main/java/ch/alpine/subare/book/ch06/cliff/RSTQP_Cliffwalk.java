@@ -3,6 +3,8 @@ package ch.alpine.subare.book.ch06.cliff;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.alg.Random1StepTabularQPlanning;
 import ch.alpine.subare.util.ConstantLearningRate;
 import ch.alpine.subare.util.DiscreteQsa;
@@ -12,8 +14,6 @@ import ch.alpine.subare.util.TabularSteps;
 import ch.alpine.subare.util.gfx.StateActionRasters;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 import ch.alpine.tensor.sca.Round;
 
 enum RSTQP_Cliffwalk {

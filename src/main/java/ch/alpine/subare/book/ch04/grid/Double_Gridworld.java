@@ -3,6 +3,8 @@ package ch.alpine.subare.book.ch04.grid;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.api.EpisodeInterface;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StateActionCounter;
@@ -23,8 +25,6 @@ import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 import ch.alpine.tensor.io.Put;
 
 /** Double Sarsa for gridworld */

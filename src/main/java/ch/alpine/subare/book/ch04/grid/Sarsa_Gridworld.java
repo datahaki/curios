@@ -3,6 +3,8 @@ package ch.alpine.subare.book.ch04.grid;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.api.EpisodeInterface;
 import ch.alpine.subare.api.LearningRate;
 import ch.alpine.subare.api.Policy;
@@ -24,8 +26,6 @@ import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 import ch.alpine.tensor.io.Put;
 
 /** 1, or N-step Original/Expected Sarsa, and QLearning for gridworld

@@ -5,6 +5,8 @@ package ch.alpine.subare.book.ch06.windy;
 import java.nio.file.Path;
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.api.LearningRate;
 import ch.alpine.subare.api.StateActionCounter;
 import ch.alpine.subare.td.Sarsa;
@@ -18,8 +20,6 @@ import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 
 /** determines q(s, a) function for equiprobable "random" policy */
 enum Sarsa_Windygrid {

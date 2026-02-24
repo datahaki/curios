@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.alg.ValueIteration;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StepRecord;
@@ -14,8 +16,6 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.img.ImageResize;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 import ch.alpine.tensor.io.Primitives;
 import ch.alpine.tensor.sca.Chop;
 

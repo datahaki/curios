@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import ch.alpine.ascony.io.AnimatedGifWriter;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -16,7 +17,6 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
-import ch.alpine.tensor.ext.AnimatedGifWriter;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.img.Raster;
 import ch.alpine.tensor.io.ImageFormat;

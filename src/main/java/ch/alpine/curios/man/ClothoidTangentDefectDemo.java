@@ -28,15 +28,15 @@ import ch.alpine.tensor.sca.Round;
 @ReflectionMarker
 class ClothoidTangentDefectDemo implements ManipulateProvider {
   @FieldSlider
-  @FieldClip(min = "-1", max = "1")
+  @FieldClip(min = "-10", max = "10")
   public Scalar s1 = RealScalar.of(0);
   @FieldSlider
-  @FieldClip(min = "-1", max = "1")
+  @FieldClip(min = "-10", max = "10")
   public Scalar s2 = RealScalar.of(0);
 
   @Override
   public Container getContainer() {
-    Clip clip = Clips.absolute(15.0);
+    Clip clip = Clips.absolute(30.0);
     ClothoidTangentDefect clothoidTangentDefect = ClothoidTangentDefect.of(s1, s2);
     ClothoidSolutions clothoidSolutions = new ClothoidSolutions(clothoidTangentDefect, clip);
     Show show = new Show();

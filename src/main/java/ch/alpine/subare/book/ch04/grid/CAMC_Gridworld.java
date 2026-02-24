@@ -3,6 +3,8 @@ package ch.alpine.subare.book.ch04.grid;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.api.EpisodeVsEstimator;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.mc.ConstantAlphaMonteCarloVs;
@@ -12,8 +14,6 @@ import ch.alpine.subare.util.EquiprobablePolicy;
 import ch.alpine.subare.util.ExploringStarts;
 import ch.alpine.subare.util.gfx.StateRasters;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
-import ch.alpine.tensor.io.GifAnimationWriter;
 
 /* package */ enum CAMC_Gridworld { // TODO SUBARE work in progress?
   ;

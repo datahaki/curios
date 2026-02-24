@@ -4,6 +4,8 @@ package ch.alpine.subare.book.ch06.cliff;
 
 import java.util.concurrent.TimeUnit;
 
+import ch.alpine.ascony.io.AnimationWriter;
+import ch.alpine.ascony.io.GifAnimationWriter;
 import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.util.DiscreteQsa;
@@ -15,9 +17,7 @@ import ch.alpine.subare.util.Policies;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.AnimationWriter;
 import ch.alpine.tensor.io.Export;
-import ch.alpine.tensor.io.GifAnimationWriter;
 
 /** action value iteration for cliff walk */
 enum AVI_Cliffwalk {

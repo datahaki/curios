@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import ch.alpine.ascony.io.AnimatedGifWriter;
 import ch.alpine.bridge.awt.AwtUtil;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.subare.alg.ActionValueIteration;
@@ -20,7 +21,6 @@ import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.Policies;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.subare.util.gfx.StateActionRasters;
-import ch.alpine.tensor.ext.AnimatedGifWriter;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.ImageFormat;
