@@ -1,9 +1,8 @@
 // code by jph
 package ch.alpine.subare.book.ch04.gambler;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.alg.ValueIteration;
-import ch.alpine.subare.alg.ValueIterations;
 import ch.alpine.subare.api.EpisodeInterface;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.api.StepRecord;
@@ -14,16 +13,17 @@ import ch.alpine.subare.util.EpisodeKickoff;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.Round;
 
 /* package */ enum GamblerHelper {
   ;
   static DiscreteQsa getOptimalQsa(GamblerModel gamblerModel) {
-    return ActionValueIterations.solve(gamblerModel, RealScalar.of(.0001));
+    return ActionValueIteration.solve(gamblerModel, Chop._04);
   }
 
   public static DiscreteVs getOptimalVs(GamblerModel gamblerModel) {
-    return ValueIterations.solve(gamblerModel, RealScalar.of(1e-10));
+    return ValueIteration.solve(gamblerModel, RealScalar.of(1e-10));
   }
 
   public static Policy getOptimalPolicy(GamblerModel gamblerModel) {

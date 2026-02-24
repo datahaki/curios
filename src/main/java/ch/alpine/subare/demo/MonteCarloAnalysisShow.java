@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.analysis.DiscreteModelErrorAnalysis;
 import ch.alpine.subare.analysis.MonteCarloAlgorithms;
 import ch.alpine.subare.analysis.MonteCarloTrial;
@@ -23,6 +23,7 @@ import ch.alpine.subare.util.PolicyType;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.qty.Timing;
+import ch.alpine.tensor.sca.Chop;
 
 /* package */ enum MonteCarloAnalysisShow {
   ;
@@ -53,7 +54,7 @@ import ch.alpine.tensor.qty.Timing;
       return sarsa.qsa();
     }
     Timing timing = Timing.started();
-    DiscreteQsa optimalQsa = ActionValueIterations.solve((StandardModel) monteCarloInterface, RealScalar.of(0.0001));
+    DiscreteQsa optimalQsa = ActionValueIteration.solve((StandardModel) monteCarloInterface, Chop._04);
     System.out.println("Time for AVI: " + timing.seconds() + "s");
     return optimalQsa;
   }

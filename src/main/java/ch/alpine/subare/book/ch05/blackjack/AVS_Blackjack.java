@@ -12,13 +12,13 @@ import ch.alpine.subare.util.EGreedyPolicy;
 import ch.alpine.subare.util.ExploringStarts;
 import ch.alpine.subare.util.LinearExplorationRate;
 import ch.alpine.subare.util.PolicyType;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Join;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.AnimationWriter;
 import ch.alpine.tensor.io.GifAnimationWriter;
+import ch.alpine.tensor.sca.Chop;
 
 /** finding optimal policy to stay or hit
  * 
@@ -43,7 +43,7 @@ enum AVS_Blackjack {
           episodes += ExploringStarts.batchWithReplay(blackjack, policy, mces, avs);
         }
         ActionValueIteration avi = ActionValueIteration.of(blackjack, avs);
-        avi.untilBelow(RealScalar.of(.0001), 3);
+        avi.untilBelow(Chop._04, 3);
         animationWriter.write( //
             Join.of( //
                 BlackjackHelper.joinAll(blackjack, mces.qsa()), //

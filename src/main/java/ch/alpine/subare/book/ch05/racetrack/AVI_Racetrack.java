@@ -3,13 +3,13 @@ package ch.alpine.subare.book.ch05.racetrack;
 
 import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.util.DiscreteQsa;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Import;
 import ch.alpine.tensor.red.Tally;
+import ch.alpine.tensor.sca.Chop;
 
 /** action value iteration for gambler's dilemma */
 enum AVI_Racetrack {
@@ -17,7 +17,7 @@ enum AVI_Racetrack {
   static void precompute(String name) throws Exception {
     Racetrack racetrack = RacetrackHelper.create(name, 5);
     ActionValueIteration avi = ActionValueIteration.of(racetrack);
-    avi.untilBelow(RealScalar.of(1e-3), 2);
+    avi.untilBelow(Chop._03, 2);
     // avi.qsa().print();
     System.out.println(Tally.sorted(avi.qsa().values()));
     Export.object(HomeDirectory.Ephemeral.resolve(name + ".object"), avi.qsa());

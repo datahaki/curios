@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.alg.Random1StepTabularQPlanning;
 import ch.alpine.subare.api.StepDigest;
 import ch.alpine.subare.math.Index;
@@ -18,6 +18,7 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensors;
+import ch.alpine.tensor.sca.Chop;
 
 class GridworldTest {
   @Test
@@ -38,7 +39,7 @@ class GridworldTest {
   @Test
   void testR1STQL() {
     Gridworld gridworld = new Gridworld();
-    DiscreteQsa ref = ActionValueIterations.solve(gridworld, RealScalar.of(0.0001));
+    DiscreteQsa ref = ActionValueIteration.solve(gridworld, Chop._04);
     DiscreteQsa qsa = DiscreteQsa.build(gridworld);
     StepDigest stepDigest = //
         Random1StepTabularQPlanning.of(gridworld, qsa, ConstantLearningRate.of(RealScalar.ONE));

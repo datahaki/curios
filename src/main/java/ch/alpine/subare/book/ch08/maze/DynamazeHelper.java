@@ -3,14 +3,14 @@ package ch.alpine.subare.book.ch08.maze;
 
 import java.nio.file.Path;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.util.DiscreteQsa;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.io.Import;
+import ch.alpine.tensor.sca.Chop;
 
 public enum DynamazeHelper {
   ;
@@ -48,6 +48,6 @@ public enum DynamazeHelper {
   }
 
   static DiscreteQsa getOptimalQsa(Dynamaze dynamaze) {
-    return ActionValueIterations.solve(dynamaze, RealScalar.of(.0000001));
+    return ActionValueIteration.solve(dynamaze, Chop._07);
   }
 }

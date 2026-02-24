@@ -1,14 +1,14 @@
 // code by jph
 package ch.alpine.subare.demo.fish;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.util.DiscreteQsa;
-import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.sca.Chop;
 
 enum FishfarmHelper {
   ;
   static DiscreteQsa getOptimalQsa(Fishfarm cliffwalk) {
-    return ActionValueIterations.solve(cliffwalk, RealScalar.of(.0001));
+    return ActionValueIteration.solve(cliffwalk, Chop._04);
   }
   // static Policy getOptimalPolicy(Fishfarm cliffwalk) {
   // ValueIteration vi = new ValueIteration(cliffwalk, cliffwalk);

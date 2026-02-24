@@ -11,6 +11,7 @@ import ch.alpine.subare.util.DiscreteQsa;
 import ch.alpine.subare.util.DiscreteVs;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensors;
+import ch.alpine.tensor.sca.Chop;
 
 class GridworldTest {
   @Test
@@ -30,7 +31,7 @@ class GridworldTest {
   void testAVI() {
     Gridworld gridworld = new Gridworld();
     ActionValueIteration avi = ActionValueIteration.of(gridworld);
-    avi.untilBelow(RealScalar.of(.0001));
+    avi.untilBelow(Chop._04);
     // ---
     DiscreteQsa qsa = avi.qsa();
     // qsa.print();

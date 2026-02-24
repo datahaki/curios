@@ -10,8 +10,8 @@ import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.DiscreteValueFunctions;
 import ch.alpine.subare.util.Infoline;
 import ch.alpine.subare.util.TabularSteps;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.sca.Chop;
 
 enum RSTQP_Maxbias {
   ;
@@ -28,7 +28,7 @@ enum RSTQP_Maxbias {
     Infoline.print(maxbias, batches, ref, qsa);
     System.out.println("---");
     ActionValueIteration avi = ActionValueIteration.of(maxbias, avs);
-    avi.untilBelow(RealScalar.of(.0001));
+    avi.untilBelow(Chop._04);
     DiscreteUtils.print(avi.qsa());
     {
       Scalar error = DiscreteValueFunctions.distance(ref, avi.qsa());

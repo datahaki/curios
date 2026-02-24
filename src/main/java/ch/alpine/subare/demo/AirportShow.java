@@ -4,7 +4,7 @@ package ch.alpine.subare.demo;
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowWindow;
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.analysis.DiscreteModelErrorAnalysis;
 import ch.alpine.subare.api.FeatureMapper;
 import ch.alpine.subare.api.LearningRate;
@@ -27,6 +27,7 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.qty.Timing;
+import ch.alpine.tensor.sca.Chop;
 
 /** uses TrueOnlineSarsa */
 /* package */ enum AirportShow {
@@ -36,7 +37,7 @@ import ch.alpine.tensor.qty.Timing;
     Tensor XYsarsa = Tensors.empty();
     Tensor XYtoSarsa = Tensors.empty();
     Airport airport = Airport.INSTANCE;
-    DiscreteQsa optimalQsa = ActionValueIterations.solve(airport, RealScalar.of(0.0001));
+    DiscreteQsa optimalQsa = ActionValueIteration.solve(airport, Chop._04);
     // DiscreteUtils.print(optimalQsa);
     // Policies.print(policyQsa, airport.states());
     final int batches = 10;

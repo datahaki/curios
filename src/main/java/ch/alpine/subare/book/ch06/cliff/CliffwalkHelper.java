@@ -1,17 +1,18 @@
 // code by jph
 package ch.alpine.subare.book.ch06.cliff;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.alg.ValueIteration;
 import ch.alpine.subare.api.Policy;
 import ch.alpine.subare.util.DiscreteQsa;
 import ch.alpine.subare.util.PolicyType;
 import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.sca.Chop;
 
 enum CliffwalkHelper {
   ;
   static DiscreteQsa getOptimalQsa(Cliffwalk cliffwalk) {
-    return ActionValueIterations.solve(cliffwalk, RealScalar.of(.0001));
+    return ActionValueIteration.solve(cliffwalk, Chop._04);
   }
 
   static Policy getOptimalPolicy(Cliffwalk cliffwalk) {

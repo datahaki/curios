@@ -14,13 +14,14 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.sca.Abs;
+import ch.alpine.tensor.sca.Chop;
 
 class InfiniteVarianceTest {
   @Test
   void testActionValueIteration() {
     InfiniteVariance infiniteVariance = new InfiniteVariance();
     ActionValueIteration avi = ActionValueIteration.of(infiniteVariance);
-    avi.untilBelow(RealScalar.of(.00001));
+    avi.untilBelow(Chop._05);
     DiscreteQsa qsa = avi.qsa();
     Scalar diff = qsa.value(InfiniteVariance.BACK, InfiniteVariance.BACK).subtract(RealScalar.ONE);
     assertTrue(Scalars.lessThan(Abs.FUNCTION.apply(diff), RealScalar.of(.001)));

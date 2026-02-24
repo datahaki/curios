@@ -1,13 +1,13 @@
 // code by jph
 package ch.alpine.subare.book.ch06.maxbias;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.util.DiscreteQsa;
-import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.sca.Chop;
 
 enum MaxbiasHelper {
   ;
   static DiscreteQsa getOptimalQsa(Maxbias maxbias) {
-    return ActionValueIterations.solve(maxbias, RealScalar.of(.0001));
+    return ActionValueIteration.solve(maxbias, Chop._04);
   }
 }

@@ -3,7 +3,7 @@ package ch.alpine.subare.book.ch05.wireloop;
 
 import java.util.List;
 
-import ch.alpine.subare.alg.ActionValueIterations;
+import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.api.QsaInterface;
 import ch.alpine.subare.math.RobustArgMax;
 import ch.alpine.subare.util.DiscreteQsa;
@@ -36,7 +36,7 @@ public enum WireloopHelper {
   }
 
   static DiscreteQsa getOptimalQsa(Wireloop wireloop) {
-    return ActionValueIterations.solve(wireloop, RealScalar.of(.0001));
+    return ActionValueIteration.solve(wireloop, Chop._04);
   }
 
   private static Tensor renderActions(Wireloop wireloop, QsaInterface qsa) {

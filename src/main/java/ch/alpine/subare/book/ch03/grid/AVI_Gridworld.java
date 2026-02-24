@@ -5,7 +5,7 @@ package ch.alpine.subare.book.ch03.grid;
 import ch.alpine.subare.alg.ActionValueIteration;
 import ch.alpine.subare.util.DiscreteUtils;
 import ch.alpine.subare.util.DiscreteVs;
-import ch.alpine.tensor.RealScalar;
+import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.Round;
 
 /** solving grid world using action value iteration
@@ -42,7 +42,7 @@ import ch.alpine.tensor.sca.Round;
   static void main() {
     Gridworld gridworld = new Gridworld();
     ActionValueIteration avi = ActionValueIteration.of(gridworld);
-    avi.untilBelow(RealScalar.of(.0001));
+    avi.untilBelow(Chop._04);
     System.out.println("iterations=" + avi.iterations());
     DiscreteUtils.print(avi.qsa(), Round._1);
     DiscreteVs dvs = DiscreteUtils.createVs(gridworld, avi.qsa());
