@@ -3,7 +3,7 @@ package ch.alpine.curios.run;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
-import ch.alpine.bridge.pro.RunProvider;
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -22,7 +22,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
  * 
  * element count=3632
  * iterations=3611 */
-/* package */ enum SynchronizationDemo implements RunProvider {
+/* package */ enum SynchronizationDemo implements VoidProvider {
   INSTANCE;
 
   private static final Scalar SEC = Quantity.of(1, "s");

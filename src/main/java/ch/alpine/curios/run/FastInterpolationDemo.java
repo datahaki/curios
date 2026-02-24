@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.run;
 
-import ch.alpine.bridge.pro.RunProvider;
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
@@ -17,7 +17,7 @@ import ch.alpine.tensor.qty.Timing;
 /** demonstration that the function call
  * {@link Interpolation#at(Scalar)} is 2-3 times faster than
  * {@link Interpolation#get(Tensor)} */
-/* package */ enum FastInterpolationDemo implements RunProvider {
+/* package */ enum FastInterpolationDemo implements VoidProvider {
   INSTANCE;
 
   @Override

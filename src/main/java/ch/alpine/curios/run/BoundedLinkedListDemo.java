@@ -5,14 +5,14 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
-import ch.alpine.bridge.pro.RunProvider;
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.ext.BoundedLinkedList;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 
-/* package */ enum BoundedLinkedListDemo implements RunProvider {
+/* package */ enum BoundedLinkedListDemo implements VoidProvider {
   INSTANCE;
 
   @Override

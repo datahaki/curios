@@ -4,7 +4,7 @@ package ch.alpine.curios.run;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import ch.alpine.bridge.pro.RunProvider;
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
@@ -17,7 +17,7 @@ import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.io.StringScalar;
 
-/* package */ enum MatlabExportDemo implements RunProvider {
+/* package */ enum MatlabExportDemo implements VoidProvider {
   INSTANCE;
 
   static final Path PATH = HomeDirectory.Ephemeral.mk_dirs(MatlabExportDemo.class.getSimpleName());

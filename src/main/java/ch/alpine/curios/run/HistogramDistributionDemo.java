@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.run;
 
-import ch.alpine.bridge.pro.RunProvider;
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -18,7 +18,7 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.Round;
 
-/* package */ enum HistogramDistributionDemo implements RunProvider {
+/* package */ enum HistogramDistributionDemo implements VoidProvider {
   INSTANCE;
 
   @Override
