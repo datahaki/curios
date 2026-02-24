@@ -9,10 +9,14 @@ enum Dep {
   JAVADOC("org.apache.maven.plugins", "maven-javadoc-plugin", "3.12.0"),
   SUREFIRE("org.apache.maven.plugins", "maven-surefire-plugin", "3.5.5"),
   FAILSAFE("org.apache.maven.plugins", "maven-failsafe-plugin", "3.5.5"),
+  DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.1.4"),
   TENSOR("ch.alpine", "tensor", "1.0.7"),
   FLATLAF("com.formdev", "flatlaf", "3.7"),
   BRIDGE("ch.alpine", "bridge", "0.3.6"),
   SUBARE("ch.alpine", "subare", "0.4.4"),
+  SOPHUS("ch.alpine", "sophus", "0.1.0"),
+  SOPHIS("ch.alpine", "sophis", "0.0.1"),
+  ASCONY("ch.alpine", "ascony", "0.0.1"),
   //
   ;
 

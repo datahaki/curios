@@ -28,14 +28,14 @@ enum DepMaintenance {
     List<Dep> updated = new LinkedList<>();
     for (Dep dep : Dep.values())
       for (int index = 0; index < list.size(); ++index) {
-        if (dep.matchGroupId(list.get(index)) && //
-            dep.matchArtifactId(list.get(index + 1)) && //
+        if (dep.matchGroupId(list.get(index + 0)) && //
             dep.matchArtifactId(list.get(index + 1))) {
-          String versionTag = list.get(index + 2);
+          int version_pos = index + 2;
+          String versionTag = list.get(version_pos);
           if (dep.containsVersion(versionTag)) {
             if (!dep.matchesVersion(versionTag)) {
               String replace = versionTag.replace(versionTag.trim(), dep.version());
-              list.set(index + 2, replace);
+              list.set(version_pos, replace);
               updated.add(dep);
             }
           } else

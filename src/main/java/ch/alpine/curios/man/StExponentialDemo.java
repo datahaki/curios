@@ -19,6 +19,7 @@ import ch.alpine.sophus.math.api.Exponential;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.api.ScalarTensorFunction;
@@ -46,7 +47,8 @@ public class StExponentialDemo implements ManipulateProvider {
     RandomGenerator randomGenerator = new Random(3);
     StiefelManifold stiefelManifold = new StiefelManifold(n, k);
     Tensor p = RandomSample.of(stiefelManifold, randomGenerator);
-    Tensor v = new TStMemberQ(p).projection(RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, k, n));
+    Tensor v = new TStMemberQ(p).projection( //
+        RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
     circle.append(circle.get(0));
     Exponential exponential = stiefelManifold.exponential(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
