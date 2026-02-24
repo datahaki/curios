@@ -1,6 +1,14 @@
 // code by jph
 package ch.alpine.subare.book.ch02.bandits;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
+import ch.alpine.bridge.fig.ListLinePlot;
+import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.subare.book.ch02.Agent;
 import ch.alpine.subare.book.ch02.EGreedyAgent;
 import ch.alpine.subare.book.ch02.GradientAgent;
 import ch.alpine.subare.book.ch02.OptimistAgent;
@@ -10,11 +18,14 @@ import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
+import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.alg.Range;
 
 /** chapter 2:
  * Multi-arm Bandits */
-/* package */ enum Training {
-  ;
+enum Training implements ShowProvider {
+  INSTANCE;
+
   static Judger train(int epochs) {
     final int n = 3;
     Scalar econst = Rational.of(1, 12);
@@ -34,19 +45,20 @@ import ch.alpine.tensor.Scalars;
     return judger;
   }
 
-  static void main() {
+  @Override
+  public Show getShow() {
     Judger judger = train(100);
     judger.ranking();
-    // Map<Agent, Tensor> map =
-    judger.map();
-    // VisualSet visualSet = new VisualSet();
-    // for (Entry<Agent, Tensor> entry : map.entrySet()) {
-    // // VisualRow visualRow =
-    // visualSet.add(Range.of(0, entry.getValue().length()), entry.getValue());
-    // // visualRow.setLabel(entry.getKey().getClass().getSimpleName());
-    // }
-    // JFreeChart jFreeChart = ListPlot.of(visualSet);
-    // jFreeChart.setBackgroundPaint(Color.WHITE);
-    // ChartUtils.saveChartAsPNG(HomeDirectory.Pictures(Training.class.getSimpleName() + ".png"), jFreeChart, 1280, 720);
+    Map<Agent, Tensor> map = judger.map();
+    Show show = new Show();
+    for (Entry<Agent, Tensor> entry : map.entrySet()) {
+      Showable showable = show.add(ListLinePlot.of(Range.of(0, entry.getValue().length()), entry.getValue()));
+      showable.setLabel(entry.getKey().toString());
+    }
+    return show;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

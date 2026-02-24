@@ -38,12 +38,12 @@ import ch.alpine.tensor.Tensor;
       Tensor tensor = judger.ranking();
       // assert that no randomness was involved in the training
       if (a1.getRandomizedDecisionCount() != 0) {
-        System.out.println(a1.getAbsDesc());
+        System.out.println(a1);
         System.out.println(SummaryString.of(a1));
         throw new IllegalStateException();
       }
       if (a2.getRandomizedDecisionCount() != 0) {
-        System.out.println(a2.getAbsDesc());
+        System.out.println(a2);
         System.out.println(SummaryString.of(a2));
         throw new IllegalStateException();
       }

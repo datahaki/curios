@@ -11,6 +11,7 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.ext.Integers;
+import ch.alpine.tensor.io.MathematicaFormat;
 
 public abstract class Agent {
   protected static final RandomGenerator RANDOM = new SecureRandom();
@@ -80,15 +81,9 @@ public abstract class Agent {
 
   public abstract String getDescription();
 
-  public final String getAbsDesc() {
-    String name = getClass().getSimpleName();
-    name = name.substring(0, name.length() - 5); // drop "Agent"
-    return String.format("%10s%15s", name, getDescription());
-  }
-
   @Override
   public final String toString() {
-    return getAbsDesc();
+    return MathematicaFormat.concise(getClass().getSimpleName(), getDescription());
   }
 
   public final int getRandomizedDecisionCount() {

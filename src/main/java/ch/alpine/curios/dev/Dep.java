@@ -11,12 +11,14 @@ enum Dep {
   FAILSAFE("org.apache.maven.plugins", "maven-failsafe-plugin", "3.5.5"),
   DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.1.4"),
   FLATLAF("com.formdev", "flatlaf", "3.7"),
+  PITEST("org.pitest", "pitest-maven", "1.22.1"),
   TENSOR("io.github.datahaki", "tensor", "1.0.7"),
   BRIDGE("io.github.datahaki", "bridge", "0.3.6"),
   SUBARE("io.github.datahaki", "subare", "0.4.4"),
   SOPHUS("io.github.datahaki", "sophus", "0.1.0"),
   SOPHIS("io.github.datahaki", "sophis", "0.0.1"),
   ASCONY("io.github.datahaki", "ascony", "0.0.1"),
+  QHULL3("io.github.datahaki", "qhull3d", "0.0.3"),
   //
   ;
 
