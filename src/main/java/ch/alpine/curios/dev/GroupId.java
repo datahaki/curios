@@ -5,14 +5,16 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import ch.alpine.tensor.ext.HomeDirectory;
 
-enum DepMaintenance {
+enum GroupId {
   INSTANCE;
+
+  private static final String OLD = "<groupId>ch.alpine</groupId>";
+  private static final String NEW = "<groupId>io.github.datahaki</groupId>";
 
   public void visit(Path base) throws IOException {
     for (File file : base.toFile().listFiles()) {
@@ -25,26 +27,17 @@ enum DepMaintenance {
 
   void visit_pom(Path path) throws IOException {
     List<String> list = Files.lines(path).collect(Collectors.toList());
-    List<Dep> updated = new LinkedList<>();
-    for (Dep dep : Dep.values())
-      for (int index = 0; index < list.size(); ++index) {
-        if (dep.matchGroupId(list.get(index + 0)) && //
-            dep.matchArtifactId(list.get(index + 1))) {
-          int version_pos = index + 2;
-          String versionTag = list.get(version_pos);
-          if (dep.containsVersion(versionTag)) {
-            if (!dep.matchesVersion(versionTag)) {
-              String replace = versionTag.replace(versionTag.trim(), dep.tagged_version());
-              list.set(version_pos, replace);
-              updated.add(dep);
-            }
-          } else
-            throw new IllegalStateException();
-        }
+    boolean isDirty = false;
+    for (int index = 0; index < list.size(); ++index) {
+      String line = list.get(index);
+      if (line.contains(OLD)) {
+        String replace = line.replace(OLD, NEW);
+        list.set(index, replace);
+        isDirty = true;
       }
-    if (!updated.isEmpty()) {
+    }
+    if (isDirty) {
       IO.println(path);
-      updated.forEach(IO::println);
       Files.write(path, list);
     }
   }

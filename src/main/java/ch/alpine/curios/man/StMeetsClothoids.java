@@ -20,7 +20,6 @@ import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.crv.clt.Clothoid;
 import ch.alpine.sophis.crv.clt.ClothoidBuilder;
-import ch.alpine.sophis.crv.clt.ClothoidBuilders;
 import ch.alpine.sophis.crv.clt.ClothoidComparators;
 import ch.alpine.sophis.crv.clt.PriorityClothoid;
 import ch.alpine.sophis.ts.ClothoidTransition;
@@ -44,7 +43,7 @@ class StMeetsClothoids implements ManipulateProvider, RenderInterface {
   public Integer n = 10;
   public ClothoidComparators cc = ClothoidComparators.LENGTH;
   @FieldSlider
-  @FieldClip(min = "0", max = "10")
+  @FieldClip(min = "-10", max = "10")
   public Scalar split = RealScalar.of(0.2);
   // ---
   private final GeometricComponent geometricComponent = new GeometricComponent();
@@ -67,9 +66,7 @@ class StMeetsClothoids implements ManipulateProvider, RenderInterface {
     // IO.println(Pretty.of(sequence.maps(Round._3)));
     graphics.setColor(Color.BLUE);
     graphics.setStroke(new BasicStroke(1.5f));
-    // FIXME PriorityClothoid does not really work !?
     ClothoidBuilder clothoidBuilder = PriorityClothoid.of(cc);
-    clothoidBuilder = ClothoidBuilders.SE2_ANALYTIC.clothoidBuilder();
     for (int index = 0; index < sequence.length(); ++index) {
       Tensor end = sequence.get(index);
       Clothoid clothoid = clothoidBuilder.curve(beg, end);
