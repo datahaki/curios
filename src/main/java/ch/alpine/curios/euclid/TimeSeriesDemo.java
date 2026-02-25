@@ -41,7 +41,7 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param extends AsconaParam {
     public Param() {
-      super(true, ManifoldDisplays.R2_ONLY);
+      super(true);
     }
 
     public ResamplingMethods rm = ResamplingMethods.LINEAR_INTERPOLATION;

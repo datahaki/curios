@@ -22,7 +22,7 @@ public class ScreenRectanglesDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param extends AsconaParam {
     public Param() {
-      super(true, ManifoldDisplays.R2_ONLY);
+      super(true);
     }
   }
 

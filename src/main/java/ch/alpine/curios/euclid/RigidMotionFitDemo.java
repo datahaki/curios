@@ -45,7 +45,7 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param extends AsconaParam {
     public Param() {
-      super(false, ManifoldDisplays.R2_ONLY);
+      super(false);
     }
 
     @FieldClip(min = "2", max = "10")

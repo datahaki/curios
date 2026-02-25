@@ -36,7 +36,7 @@ public class PolygonClipDemo extends ControlPointsDemo {
   private static final SutherlandHodgmanAlgorithm POLYGON_CLIP = SutherlandHodgmanAlgorithm.of(CIRCLE);
 
   public PolygonClipDemo() {
-    super(new AsconaParam(true, ManifoldDisplays.R2_ONLY));
+    super(new AsconaParam(true));
     setControlPointsSe2(Tensor.of(CogPoints.of(4, RealScalar.of(5), RealScalar.of(-2)).stream().map(row -> row.append(RealScalar.ZERO))));
   }
 

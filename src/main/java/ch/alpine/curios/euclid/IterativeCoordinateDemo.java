@@ -36,7 +36,7 @@ public class IterativeCoordinateDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param extends AsconaParam {
     public Param() {
-      super(true, ManifoldDisplays.R2_ONLY);
+      super(true);
     }
 
     @FieldClip(min = "0", max = "20")

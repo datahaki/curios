@@ -38,7 +38,7 @@ public class LinearFractionalTransformDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param0 extends AsconaParam {
     public Param0() {
-      super(false, ManifoldDisplays.R2_ONLY);
+      super(false);
     }
   }
 

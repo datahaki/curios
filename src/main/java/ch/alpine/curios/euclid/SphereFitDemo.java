@@ -50,7 +50,7 @@ public class SphereFitDemo extends ControlPointsDemo {
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   public SphereFitDemo() {
-    super(new AsconaParam(true, ManifoldDisplays.R2_ONLY));
+    super(new AsconaParam(true));
     controlPointsRender.setMidpointIndicated(false);
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRenderHull);

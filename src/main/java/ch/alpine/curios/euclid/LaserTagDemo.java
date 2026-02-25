@@ -36,7 +36,7 @@ public class LaserTagDemo extends ControlPointsDemo {
   @ReflectionMarker
   public static class Param extends AsconaParam {
     public Param() {
-      super(false, ManifoldDisplays.R2_ONLY);
+      super(false);
     }
 
     public Boolean show = true;

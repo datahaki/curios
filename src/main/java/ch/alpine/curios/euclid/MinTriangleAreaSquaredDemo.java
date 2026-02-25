@@ -30,7 +30,7 @@ public class MinTriangleAreaSquaredDemo extends ControlPointsDemo {
   private final PathRender pathRender = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   public MinTriangleAreaSquaredDemo() {
-    super(new AsconaParam(true, ManifoldDisplays.R2_ONLY));
+    super(new AsconaParam(true));
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRender);
     // ---
