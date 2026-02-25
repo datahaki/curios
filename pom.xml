@@ -22,7 +22,12 @@
 			<artifactId>ascony</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.github.datahaki</groupId>
+			<artifactId>owlets</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>ai.djl</groupId>
 			<artifactId>api</artifactId>
@@ -38,7 +43,7 @@
 			<artifactId>pytorch-native-cpu</artifactId>
 			<version>2.1.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>

@@ -5,9 +5,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import ch.alpine.owl.glc.core.GlcNode;
-import ch.alpine.owl.glc.core.GoalInterface;
-import ch.alpine.owl.math.state.StateTime;
+import ch.alpine.owlets.glc.core.GlcNode;
+import ch.alpine.owlets.glc.core.GoalInterface;
+import ch.alpine.owlets.math.state.StateTime;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;

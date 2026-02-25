@@ -3,7 +3,7 @@ package ch.alpine.curios.klotzki;
 
 import java.io.Serializable;
 
-import ch.alpine.owl.glc.core.StateTimeRaster;
+import ch.alpine.owlets.glc.core.StateTimeRaster;
 import ch.alpine.tensor.Tensor;
 
 record KlotskiProblem( //

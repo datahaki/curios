@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.klotzki;
 
-import ch.alpine.owl.math.model.StateSpaceModel;
+import ch.alpine.owlets.math.model.StateSpaceModel;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
