@@ -19,7 +19,7 @@ import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 
 @ReflectionMarker
-public class ComputeContestsHost implements ManipulateProvider {
+class ComputeContestsHost implements ManipulateProvider {
   public ComputeContests computeContests = ComputeContests.MAT_VEC;
   @FieldSelectionArray({ "2[s]", "5[s]", "10[s]" })
   public Scalar timeout = Quantity.of(2, "s");
