@@ -2,6 +2,7 @@
 package ch.alpine.curios.euclid;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
@@ -36,6 +37,11 @@ public class MinTriangleAreaSquaredDemo extends ControlPointsDemo {
     Tensor blub = Tensors.fromString("{{1, 0, 0}, {0, 1, 0}, {2, 0, 2.5708}, {1, 0, 2.1}}");
     setControlPointsSe2(DubinsGenerator.of(Tensors.vector(0, 0, 0), //
         Tensor.of(blub.stream().map(Times.operator(Tensors.vector(2, 1, 1))))));
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   @Override // from RenderInterface

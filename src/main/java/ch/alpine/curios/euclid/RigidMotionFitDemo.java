@@ -3,6 +3,7 @@ package ch.alpine.curios.euclid;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.dis.R2Display;
@@ -65,6 +66,11 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
     fieldsEditor(0).addUniversalListener(this::shufflePoints);
     // ---
     shufflePoints();
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   private synchronized void shufflePoints() {

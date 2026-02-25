@@ -4,6 +4,7 @@ package ch.alpine.curios.euclid;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
@@ -50,6 +51,11 @@ public class LinearFractionalTransformDemo extends ControlPointsDemo {
     REF = Tensors.fromString("{{1,1,0}, {" + w + ",1,0}, {" + w + "," + h + ",0}, {1," + h + ",0}}");
     setControlPointsSe2(REF);
     timerFrame.geometricComponent.setModel2Pixel(Se2Matrix.flipY(400).dot(DiagonalMatrix.of(2, 2, 1)));
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   @Override

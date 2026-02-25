@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ref.AsconaParam;
@@ -68,6 +69,11 @@ public class TimeSeriesDemo extends ControlPointsDemo {
     randomFunction.evaluate(RealScalar.of(10));
     timeSeries = randomFunction.timeSeries();
     pathRender.setCurve(timeSeries.path(), false);
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   @Override

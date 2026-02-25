@@ -34,6 +34,11 @@ public class ScreenRectanglesDemo extends ControlPointsDemo {
     super(param);
   }
 
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
+  }
+
   private static Rectangle here(Point2D p, Point2D q) {
     int x = (int) p.getX();
     int y = (int) p.getY();

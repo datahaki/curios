@@ -2,6 +2,7 @@
 package ch.alpine.curios.euclid;
 
 import java.awt.Graphics2D;
+import java.util.List;
 import java.util.Optional;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
@@ -55,6 +56,11 @@ public class IterativeCoordinateDemo extends ControlPointsDemo {
     ManifoldDisplays manifoldDisplays = ManifoldDisplays.R2;
     setManifoldDisplay(manifoldDisplays);
     setControlPointsSe2(INITIAL);
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   @Override // from RenderInterface

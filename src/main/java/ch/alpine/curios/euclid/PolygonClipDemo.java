@@ -3,6 +3,7 @@ package ch.alpine.curios.euclid;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
@@ -37,6 +38,11 @@ public class PolygonClipDemo extends ControlPointsDemo {
   public PolygonClipDemo() {
     super(new AsconaParam(true, ManifoldDisplays.R2_ONLY));
     setControlPointsSe2(Tensor.of(CogPoints.of(4, RealScalar.of(5), RealScalar.of(-2)).stream().map(row -> row.append(RealScalar.ZERO))));
+  }
+
+  @Override
+  public List<ManifoldDisplays> getManifoldDisplays() {
+    return ManifoldDisplays.R2_ONLY;
   }
 
   @Override
