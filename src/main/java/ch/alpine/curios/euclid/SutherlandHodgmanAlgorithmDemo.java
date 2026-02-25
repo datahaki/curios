@@ -8,7 +8,7 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
@@ -39,11 +39,7 @@ public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict();
 
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(true);
-    }
-
+  public static class Param {
     public Boolean move = false;
     @FieldClip(min = "1", max = "10")
     public Integer n = 4;
@@ -56,7 +52,7 @@ public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
   }
 
   public SutherlandHodgmanAlgorithmDemo(Param param) {
-    super(param);
+    super(new AsconaParam(true), param);
     this.param = param;
     setControlPointsSe2(Tensor.of(CirclePoints.of(4).stream().map(row -> row.append(RealScalar.ZERO))));
   }

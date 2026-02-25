@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.fig.ListLinePlot;
@@ -39,11 +39,7 @@ import ch.alpine.tensor.tmp.TsEntrywise;
 // TODO ASCONA insert graph around ctrl point area
 public class TimeSeriesDemo extends ControlPointsDemo {
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(true);
-    }
-
+  public static class Param {
     public ResamplingMethods rm = ResamplingMethods.LINEAR_INTERPOLATION;
     public Integer refine = 5;
   }
@@ -57,7 +53,7 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   }
 
   public TimeSeriesDemo(Param param) {
-    super(param);
+    super(new AsconaParam(true), param);
     this.param = param;
     controlPointsRender.setMidpointIndicated(true);
     setManifoldDisplay(ManifoldDisplays.R2);

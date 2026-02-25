@@ -7,7 +7,7 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.Curvature2DRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -30,11 +30,7 @@ import ch.alpine.tensor.sca.Clips;
 
 public class NonuniformSplineDemo extends ControlPointsDemo {
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(true);
-    }
-
+  public static class Param {
     @FieldSelectionArray({ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" })
     public Integer degree = 1;
     @FieldSlider
@@ -49,7 +45,7 @@ public class NonuniformSplineDemo extends ControlPointsDemo {
   }
 
   public NonuniformSplineDemo(Param param) {
-    super(param);
+    super(new AsconaParam(true), param);
     this.param = param;
     // ---
     setControlPointsSe2(Tensors.fromString("{{0, 0, 0}, {1, 0, 0}}"));

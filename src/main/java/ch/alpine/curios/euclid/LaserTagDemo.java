@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -34,11 +34,7 @@ public class LaserTagDemo extends ControlPointsDemo {
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(false);
-    }
-
+  public static class Param {
     public Boolean show = true;
   }
 
@@ -49,7 +45,7 @@ public class LaserTagDemo extends ControlPointsDemo {
   }
 
   public LaserTagDemo(Param param) {
-    super(param);
+    super(new AsconaParam(false), param);
     this.param = param;
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRenderHull);

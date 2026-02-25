@@ -8,13 +8,12 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.ImageRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
-import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.api.Genesis;
 import ch.alpine.sophis.gbc.d2.ThreePointCoordinate;
 import ch.alpine.sophis.gbc.d2.ThreePointScalings;
@@ -34,18 +33,10 @@ import ch.alpine.tensor.sca.Clips;
 
 public class LinearFractionalTransformDemo extends ControlPointsDemo {
   private Tensor REF;
-
-  @ReflectionMarker
-  public static class Param0 extends AsconaParam {
-    public Param0() {
-      super(false);
-    }
-  }
-
   final BufferedImage bi = ResourceData.bufferedImage("/ch/alpine/ascona/image/album_it.jpg");
 
   public LinearFractionalTransformDemo() {
-    super(new Param0());
+    super(new AsconaParam(false));
     int w = bi.getWidth() - 1;
     int h = bi.getHeight() - 1;
     REF = Tensors.fromString("{{1,1,0}, {" + w + ",1,0}, {" + w + "," + h + ",0}, {1," + h + ",0}}");

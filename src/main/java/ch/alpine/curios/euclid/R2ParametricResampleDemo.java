@@ -8,7 +8,7 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -31,11 +31,7 @@ public class R2ParametricResampleDemo extends ControlPointsDemo {
 
   // ---
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(true);
-    }
-
+  public static class Param {
     @FieldClip(min = "0", max = "10")
     public Scalar threshold = RealScalar.of(3);
     public Scalar ds = RealScalar.of(0.3);
@@ -52,7 +48,7 @@ public class R2ParametricResampleDemo extends ControlPointsDemo {
   }
 
   public R2ParametricResampleDemo(Param param) {
-    super(param);
+    super(new AsconaParam(true), param);
     this.param = param;
     // ---
     int n = 20;

@@ -8,7 +8,7 @@ import java.util.List;
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.dis.R2Display;
 import ch.alpine.ascony.dis.Se2Display;
-import ch.alpine.ascony.ref.AsconaParam;
+import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
@@ -43,11 +43,7 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
       new PointsRender(new Color(128, 128, 128, 64), new Color(128, 128, 128, 255));
 
   @ReflectionMarker
-  public static class Param extends AsconaParam {
-    public Param() {
-      super(false);
-    }
-
+  public static class Param {
     @FieldClip(min = "2", max = "10")
     public Integer length = 5;
   }
@@ -60,7 +56,7 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   }
 
   public RigidMotionFitDemo(Param param) {
-    super(param);
+    super(new AsconaParam(false), param);
     this.param = param;
     // ---
     fieldsEditor(0).addUniversalListener(this::shufflePoints);
