@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.gal;
 
+import java.awt.Window;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,14 +9,17 @@ import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowWindow;
+import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.bridge.swing.LookAndFeels;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.ply.Chebyshev;
 
-enum ChebyshevUTDemo {
-  ;
-  static void main() {
+enum ChebyshevUTDemo implements WindowProvider {
+  INSTANCE;
+
+  @Override
+  public Window getWindow() {
     LookAndFeels.autoDetect();
     List<Show> list = new LinkedList<>();
     for (Chebyshev chebyshev : Chebyshev.values()) {
@@ -28,6 +32,10 @@ enum ChebyshevUTDemo {
       }
       list.add(show);
     }
-    ShowWindow.asDialog(list);
+    return ShowWindow.asDialog(list);
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

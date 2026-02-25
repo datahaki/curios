@@ -22,8 +22,9 @@ enum ShowDiscovery implements WindowProvider {
 
   @Override
   public Window getWindow() {
-    List<Supplier<ShowProvider>> list = InstanceDiscovery.of(getClass().getPackageName(), ShowProvider.class);
     JFrame jFrame = new JFrame();
+    List<Supplier<ShowProvider>> list = //
+        InstanceDiscovery.of(getClass().getPackageName(), ShowProvider.class);
     JPanel jPanel = new JPanel(new GridLayout(list.size(), 1));
     for (Supplier<ShowProvider> supplier : list) {
       ShowProvider showProvider = supplier.get();
