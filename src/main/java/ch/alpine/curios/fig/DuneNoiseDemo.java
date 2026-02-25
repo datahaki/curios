@@ -4,7 +4,7 @@ package ch.alpine.curios.fig;
 import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.sophus.math.noise.PerlinContinuousNoise;
+import ch.alpine.sophis.noise.PerlinContinuousNoise;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;

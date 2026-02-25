@@ -5,7 +5,7 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.sophus.math.noise.ColoredNoise;
+import ch.alpine.sophis.noise.ColoredNoise;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Range;

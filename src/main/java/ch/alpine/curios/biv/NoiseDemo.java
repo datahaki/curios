@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.biv;
 
-import ch.alpine.sophus.math.noise.PerlinContinuousNoise;
-import ch.alpine.sophus.math.noise.SimplexContinuousNoise;
+import ch.alpine.sophis.noise.PerlinContinuousNoise;
+import ch.alpine.sophis.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensors;

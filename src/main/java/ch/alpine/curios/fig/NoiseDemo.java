@@ -6,7 +6,7 @@ import javax.swing.JDialog;
 import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowWindow;
-import ch.alpine.sophus.math.noise.SimplexContinuousNoise;
+import ch.alpine.sophis.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
