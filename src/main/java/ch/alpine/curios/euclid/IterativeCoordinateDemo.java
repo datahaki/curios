@@ -16,8 +16,8 @@ import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.dv.Biinvariants;
 import ch.alpine.sophis.gbc.d2.IterativeCoordinateMatrix;
+import ch.alpine.sophus.api.Manifold;
 import ch.alpine.sophus.hs.HomogeneousSpace;
-import ch.alpine.sophus.math.api.Manifold;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 

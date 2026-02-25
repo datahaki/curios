@@ -10,7 +10,7 @@ enum DepBrowse {
   ;
   static void main() throws IOException, URISyntaxException {
     for (Dep dep : Dep.values())
-      if (!dep.groupId().startsWith("io.github.")) {
+      if (!dep.groupId().startsWith("io.github.datahaki")) {
         String url = dep.website();
         if (Desktop.isDesktopSupported())
           Desktop.getDesktop().browse(new URI(url));

@@ -13,9 +13,9 @@ import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.crv.d2.alg.ConvexHull2D;
+import ch.alpine.sophus.api.TangentSpace;
 import ch.alpine.sophus.hs.st.StiefelManifold;
 import ch.alpine.sophus.hs.st.TStMemberQ;
-import ch.alpine.sophus.math.api.Exponential;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -50,7 +50,7 @@ public class StExponentialDemo implements ManipulateProvider {
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
     circle.append(circle.get(0));
-    Exponential exponential = stiefelManifold.exponential(p);
+    TangentSpace exponential = stiefelManifold.exponential(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Clip clip = Clips.translation(scalar).apply(Clips.absolute(4));
     Tensor res = Subdivide.increasing(clip, 50).maps(stf);

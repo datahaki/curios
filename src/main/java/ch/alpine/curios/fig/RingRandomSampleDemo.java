@@ -4,7 +4,7 @@ package ch.alpine.curios.fig;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowProvider;
-import ch.alpine.sophus.math.sample.RingRandomSample;
+import ch.alpine.sophus.rsm.RingRandomSample;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.pdf.RandomSample;

@@ -23,9 +23,9 @@ import ch.alpine.sophis.crv.clt.ClothoidBuilder;
 import ch.alpine.sophis.crv.clt.ClothoidComparators;
 import ch.alpine.sophis.crv.clt.PriorityClothoid;
 import ch.alpine.sophis.ts.ClothoidTransition;
+import ch.alpine.sophus.api.TangentSpace;
 import ch.alpine.sophus.hs.st.StiefelManifold;
 import ch.alpine.sophus.hs.st.TStMemberQ;
-import ch.alpine.sophus.math.api.Exponential;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
@@ -59,7 +59,7 @@ class StMeetsClothoids implements ManipulateProvider, RenderInterface {
     Tensor p = stiefelManifold.randomSample(randomGenerator);
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
-    Exponential exponential = stiefelManifold.exponential(p);
+    TangentSpace exponential = stiefelManifold.exponential(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Tensor beg = Tensors.vector(-5, 0, 0);
     Tensor sequence = Transpose.of(stf.apply(split)).multiply(RealScalar.of(3));

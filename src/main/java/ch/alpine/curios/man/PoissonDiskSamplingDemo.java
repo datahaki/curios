@@ -10,7 +10,7 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.sophus.math.sample.PoissonDiskSampling;
+import ch.alpine.sophus.rsm.PoissonDiskSampling;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
