@@ -25,7 +25,7 @@ import ch.alpine.tensor.sca.pow.Sqrt;
 @ReflectionMarker
 public class CircleQualityDemo implements ManipulateProvider {
   @FieldSlider
-  @FieldClip(min = "1", max = "20")
+  @FieldClip(min = "1", max = "40")
   public Scalar quality = RealScalar.of(10);
 
   @Override
@@ -34,7 +34,7 @@ public class CircleQualityDemo implements ManipulateProvider {
     Show show2 = new Show();
     for (Tensor _x : Subdivide.of(0.1, 2, 20)) {
       Scalar radius = (Scalar) _x;
-      int n = Math.max(2, Ceiling.intValueExact(Sqrt.FUNCTION.apply(radius).multiply(quality)));
+      int n = Math.max(3, Ceiling.intValueExact(Sqrt.FUNCTION.apply(radius).multiply(quality)));
       Tensor curve = CirclePoints.of(n).multiply(radius);
       curve.append(curve.get(0));
       show1.add(ListLinePlot.of(Subdivide.increasing(Clips.unit(), curve.length() - 1), //

@@ -1,13 +1,16 @@
 // code by jph
 package ch.alpine.curios.fig;
 
+import ch.alpine.bridge.fig.ArrayShowable;
 import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Range;
 import ch.alpine.tensor.img.ColorDataIndexed;
+import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 
 class HueColorBlocksDemo implements ShowProvider {
@@ -16,7 +19,9 @@ class HueColorBlocksDemo implements ShowProvider {
     ColorDataIndexed colorDataIndexed = HueColorBlocks.of(10, 5);
     Tensor tensor = Tensors.of(Range.of(0, colorDataIndexed.length())).maps(colorDataIndexed);
     Show show = new Show();
-    show.add(ImagePlot.of(ImageFormat.of(tensor)));
+    Showable showable = show.add(ImagePlot.of(ImageFormat.of(tensor)));
+    ArrayShowable arrayShowable = (ArrayShowable) showable;
+    arrayShowable.setImageResize(ImageResize.DEGREE_0);
     return show;
   }
 

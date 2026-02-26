@@ -3,6 +3,7 @@ package ch.alpine.curios.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Window;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import javax.swing.JToolBar;
 import javax.swing.WindowConstants;
 
 import ch.alpine.bridge.lang.UnicodeString;
+import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.ext.ResourceData;
 import ch.alpine.tensor.qty.SimpleUnitSystem;
@@ -24,7 +26,7 @@ import ch.alpine.tensor.qty.Unit;
 import ch.alpine.tensor.qty.UnitSystem;
 import ch.alpine.tensor.qty.UnitSystems;
 
-/* package */ class UnitSystemDemo extends JFrame {
+/* package */ class UnitSystemDemo implements WindowProvider {
   private static final Font FONT = new Font(Font.DIALOG, Font.BOLD, 22);
   private static final Font AREA_FONT = new Font(Font.DIALOG, Font.PLAIN, 22);
 
@@ -32,15 +34,15 @@ import ch.alpine.tensor.qty.UnitSystems;
     return SimpleUnitSystem.from(ResourceData.properties("/ch/alpine/tensor/qty/si_reduced.properties"));
   }
 
+  private final JFrame jFrame = new JFrame();
   private final JTextArea jTextArea = new JTextArea();
   private final JLabel jLabel = new JLabel();
   // ---
   private UnitSystem unitSystem;
 
   public UnitSystemDemo() {
-    super("UnitSystemDemo");
     unitSystem = unitSystem();
-    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     JPanel jPane = new JPanel(new BorderLayout());
     JPanel jPanel = new JPanel(new BorderLayout());
     {
@@ -92,8 +94,7 @@ import ch.alpine.tensor.qty.UnitSystems;
     jPane.add(BorderLayout.CENTER, jPanel);
     jLabel.setFont(FONT);
     jPane.add(BorderLayout.NORTH, jLabel);
-    setContentPane(jPane);
-    setBounds(100, 100, 600, 900);
+    jFrame.setContentPane(jPane);
   }
 
   private String format() {
@@ -111,8 +112,12 @@ import ch.alpine.tensor.qty.UnitSystems;
     jLabel.setText("base: " + UnitSystems.base(unitSystem).toString());
   }
 
+  @Override
+  public Window getWindow() {
+    return jFrame;
+  }
+
   static void main() {
-    UnitSystemDemo unitSystemDemo = new UnitSystemDemo();
-    unitSystemDemo.setVisible(true);
+    new UnitSystemDemo().runStandalone();
   }
 }

@@ -20,7 +20,8 @@ enum Dep {
   SOPHUS("io.github.datahaki", "sophus", "0.1.0"),
   SOPHIS("io.github.datahaki", "sophis", "0.0.1"),
   ASCONY("io.github.datahaki", "ascony", "0.0.1"),
-  QHULL3("io.github.datahaki", "qhull3d", "0.0.3"),
+  QHULL3("io.github.datahaki", "qhull3", "0.0.1"),
+  OWLETS("io.github.datahaki", "owlets", "0.0.1"),
   //
   ;
 

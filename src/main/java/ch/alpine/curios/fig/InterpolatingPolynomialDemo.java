@@ -2,11 +2,14 @@
 package ch.alpine.curios.fig;
 
 import java.awt.BasicStroke;
+import java.awt.Container;
 
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Showable;
-import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
@@ -17,12 +20,15 @@ import ch.alpine.tensor.sca.ply.ChebyshevNodes;
 import ch.alpine.tensor.sca.ply.InterpolatingPolynomial;
 import ch.alpine.tensor.sca.ply.Polynomial;
 
-class InterpolatingPolynomialDemo implements ShowProvider {
+@ReflectionMarker
+class InterpolatingPolynomialDemo implements ManipulateProvider {
+  public Tensor coeffs = Tensors.vector(3, 2, .3, -1);
+  public Clip clip = Clips.interval(0.3, 0.8);
+
   @Override
-  public Show getShow() {
-    Polynomial f = Polynomial.of(Tensors.vector(3, 2, .3, -1));
+  public Container getContainer() {
+    Polynomial f = Polynomial.of(coeffs);
     Show show = new Show();
-    Clip clip = Clips.interval(0.3, 0.8);
     Showable showable = show.add(Plot.of(f, clip));
     showable.setStroke(new BasicStroke(10));
     for (int d = 1; d < 10; ++d) {
@@ -34,7 +40,7 @@ class InterpolatingPolynomialDemo implements ShowProvider {
       Showable showable2 = show.add(Plot.of(suo, clip));
       showable2.setLabel("deg " + d);
     }
-    return show;
+    return ShowGridComponent.of(show);
   }
 
   static void main() {

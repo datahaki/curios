@@ -4,8 +4,11 @@ package ch.alpine.curios.usr;
 import ch.alpine.tensor.Parallelize;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Throw;
+import ch.alpine.tensor.lie.Symmetrize;
 import ch.alpine.tensor.mat.IdentityMatrix;
 import ch.alpine.tensor.mat.Tolerance;
+import ch.alpine.tensor.mat.ev.Eigensystem;
+import ch.alpine.tensor.mat.ev.RealEigensystem;
 import ch.alpine.tensor.mat.ex.MatrixExp;
 import ch.alpine.tensor.mat.ex.MatrixLog;
 import ch.alpine.tensor.mat.ex.MatrixPower;
@@ -90,6 +93,19 @@ public enum ComputeContests {
       s_ser.stop();
       s_par.start();
       new Mahalanobis(a).matrix();
+      s_par.stop();
+    }
+  },
+  EIGSYS("sym", "real") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = NormalDistribution.of(1, 4);
+      Tensor a = Symmetrize.of(RandomVariate.of(distribution, n, n));
+      s_ser.start();
+      Eigensystem.ofSymmetric(a);
+      s_ser.stop();
+      s_par.start();
+      RealEigensystem.of(a);
       s_par.stop();
     }
   },

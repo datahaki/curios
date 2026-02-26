@@ -10,17 +10,20 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import ch.alpine.bridge.awt.RenderQuality;
+import ch.alpine.bridge.awt.ScalableImage;
 import ch.alpine.curios.ubongo.PuzzlePiece;
 import ch.alpine.curios.ubongo.UbongoBoard;
 import ch.alpine.curios.ubongo.UbongoEntry;
 import ch.alpine.curios.ubongo.UbongoLoader;
 import ch.alpine.curios.ubongo.UbongoPublish;
 import ch.alpine.curios.ubongo.UbongoSolution;
+import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.ext.ResourceData;
+import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.img.ImageRotate;
 import ch.alpine.tensor.io.ImageFormat;
 
@@ -118,7 +121,9 @@ import ch.alpine.tensor.io.ImageFormat;
       Tensor tensor = UbongoRender.of(size, solution);
       int pix = 50;
       int piy = 120;
-      graphics.drawImage(ImageFormat.of(tensor), pix, piy, size.get(1) * scale, size.get(0) * scale, null);
+      graphics.drawImage( //
+          new ScalableImage(ImageFormat.of(tensor)).getScaledInstance(ImageResize.DEGREE_0, RealScalar.of(scale)), //
+          pix, piy, null);
     }
     int pix = 0;
     for (UbongoEntry ubongoEntry : solution) {
@@ -127,7 +132,9 @@ import ch.alpine.tensor.io.ImageFormat;
       List<Integer> size = Dimensions.of(tensor);
       int scale = 15;
       int piw = size.get(1) * scale;
-      graphics.drawImage(ImageFormat.of(tensor), 30 + pix, 30, piw, size.get(0) * scale, null);
+      graphics.drawImage( //
+          new ScalableImage(ImageFormat.of(tensor)).getScaledInstance(ImageResize.DEGREE_0, RealScalar.of(scale)), //
+          30 + pix, 30, null);
       pix += piw + 20;
     }
   }

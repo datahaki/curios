@@ -1,9 +1,13 @@
 // code by jph
 package ch.alpine.curios.pdf;
 
+import java.awt.Container;
+
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.pro.ShowWindow;
+import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.pdf.InverseCDF;
 import ch.alpine.tensor.pdf.RandomVariate;
@@ -13,12 +17,17 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
-public enum HistogramDistributionDemo {
-  ;
-  static void main() {
+@ReflectionMarker
+enum HistogramDistributionDemo implements ManipulateProvider {
+  INSTANCE;
+
+  public Integer samples = 2000;
+
+  @Override
+  public Container getContainer() {
     UnivariateDistribution dist = (UnivariateDistribution) NormalDistribution.of(1, 2);
     HistogramDistribution distribution = (HistogramDistribution) //
-    HistogramDistribution.of(RandomVariate.of(dist, 2000), RealScalar.of(0.25));
+    HistogramDistribution.of(RandomVariate.of(dist, samples), RealScalar.of(0.25));
     Show show1 = new Show();
     Show show2 = new Show();
     {
@@ -34,6 +43,10 @@ public enum HistogramDistributionDemo {
       show2.add(Plot.of(InverseCDF.of(distribution)::quantile, clip));
       show2.add(Plot.of(InverseCDF.of(dist)::quantile, clip));
     }
-    ShowWindow.asDialog(show1, show2);
+    return ShowGridComponent.of(show1, show1);
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }
