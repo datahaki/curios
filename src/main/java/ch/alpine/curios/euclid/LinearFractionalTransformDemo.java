@@ -4,16 +4,14 @@ package ch.alpine.curios.euclid;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.ImageRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.api.Genesis;
 import ch.alpine.sophis.gbc.d2.ThreePointCoordinate;
@@ -32,7 +30,7 @@ import ch.alpine.tensor.mat.DiagonalMatrix;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-public class LinearFractionalTransformDemo extends ControlPointsDemo {
+public class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
   private Tensor REF;
   final BufferedImage bi = ResourceData.bufferedImage("/ch/alpine/ascona/image/album_it.jpg");
 
@@ -45,12 +43,7 @@ public class LinearFractionalTransformDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.HEAD_TAIL;
   }
 

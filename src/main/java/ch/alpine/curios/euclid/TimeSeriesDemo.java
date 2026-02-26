@@ -6,13 +6,11 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import java.util.List;
 
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.TsPlot;
@@ -38,7 +36,7 @@ import ch.alpine.tensor.tmp.TsEntrywise;
 
 /** split interface and biinvariant mean based curve subdivision */
 // TODO ASCONA insert graph around ctrl point area
-public class TimeSeriesDemo extends ControlPointsDemo {
+public class TimeSeriesDemo extends EuclideanPlaneDemo {
   @ReflectionMarker
   public static class Param {
     public ResamplingMethods rm = ResamplingMethods.LINEAR_INTERPOLATION;
@@ -56,7 +54,6 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   public TimeSeriesDemo(Param param) {
     super(param);
     this.param = param;
-    setManifoldDisplay(ManifoldDisplays.R2);
     timerFrame.geometricComponent.setOffset(100, 600);
     RandomFunction randomFunction = RandomFunction.of(WienerProcess.standard());
     Distribution distribution = UniformDistribution.of(0, 10);
@@ -68,12 +65,7 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.CURVYCURV;
   }
 

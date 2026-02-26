@@ -4,16 +4,14 @@ package ch.alpine.curios.euclid;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -36,7 +34,7 @@ import ch.alpine.tensor.lie.rot.Cross;
 import ch.alpine.tensor.red.Mean;
 import ch.alpine.tensor.red.Times;
 
-public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
+public class SutherlandHodgmanAlgorithmDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict();
 
   @ReflectionMarker
@@ -59,12 +57,7 @@ public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.CURVYCURV;
   }
 

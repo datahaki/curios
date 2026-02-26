@@ -2,15 +2,13 @@
 package ch.alpine.curios.euclid;
 
 import java.awt.Graphics2D;
-import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.crv.d2.PolygonCentroid;
 import ch.alpine.sophis.crv.dub.DubinsGenerator;
@@ -25,7 +23,7 @@ import ch.alpine.tensor.red.Times;
 /** Reference:
  * "Polygon Laplacian Made Simple"
  * by Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch, 2020 */
-public class MinTriangleAreaSquaredDemo extends ControlPointsDemo {
+public class MinTriangleAreaSquaredDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.cyclic();
   // ---
   private final PathRender pathRender = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
@@ -39,12 +37,7 @@ public class MinTriangleAreaSquaredDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.SCATTERED;
   }
 

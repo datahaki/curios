@@ -2,16 +2,14 @@
 package ch.alpine.curios.euclid;
 
 import java.awt.Graphics2D;
-import java.util.List;
 import java.util.Optional;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversHud;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.ascony.win.PlaceWrap;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -23,7 +21,7 @@ import ch.alpine.sophus.hs.HomogeneousSpace;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 
-public class IterativeCoordinateDemo extends ControlPointsDemo {
+public class IterativeCoordinateDemo extends EuclideanPlaneDemo {
   public static final Tensor INITIAL = Tensors.matrix(new Number[][] { //
       { 0, 0, 0 }, //
       { -0.583, -2.317, 0.000 }, //
@@ -50,18 +48,11 @@ public class IterativeCoordinateDemo extends ControlPointsDemo {
     super(param);
     this.param = param;
     // ---
-    ManifoldDisplays manifoldDisplays = ManifoldDisplays.R2;
-    setManifoldDisplay(manifoldDisplays);
     setControlPointsSe2(INITIAL);
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.SCATTERED;
   }
 

@@ -3,16 +3,14 @@ package ch.alpine.curios.euclid;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.crv.d2.PolyclipResult;
 import ch.alpine.sophis.crv.d2.PolygonCentroid;
@@ -31,7 +29,7 @@ import ch.alpine.tensor.lie.rot.CirclePoints;
 import ch.alpine.tensor.lie.rot.Cross;
 import ch.alpine.tensor.red.Mean;
 
-public class PolygonClipDemo extends ControlPointsDemo {
+public class PolygonClipDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict();
   private static final Tensor CIRCLE = CirclePoints.of(7).multiply(RealScalar.of(4));
   private static final SutherlandHodgmanAlgorithm POLYGON_CLIP = SutherlandHodgmanAlgorithm.of(CIRCLE);
@@ -41,12 +39,7 @@ public class PolygonClipDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.CURVYCURV;
   }
 

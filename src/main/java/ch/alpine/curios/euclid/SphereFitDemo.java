@@ -4,16 +4,14 @@ package ch.alpine.curios.euclid;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.util.List;
 import java.util.Optional;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.crv.d2.alg.ConvexHull2D;
 import ch.alpine.sophis.crv.d2.ex.StarPoints;
@@ -43,7 +41,7 @@ import ch.alpine.tensor.sca.var.InversePowerVariogram;
 
 // TODO ASCONA REV name of demo !?
 // ... toggle convex hull, matching, median ...
-public class SphereFitDemo extends ControlPointsDemo {
+public class SphereFitDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.cyclic();
   private static final Tensor CIRCLE = CirclePoints.of(10).multiply(RealScalar.of(3));
   // ---
@@ -60,12 +58,7 @@ public class SphereFitDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.SCATTERED;
   }
 

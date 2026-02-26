@@ -3,9 +3,7 @@ package ch.alpine.curios.euclid;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.List;
 
-import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.dis.R2Display;
 import ch.alpine.ascony.dis.Se2Display;
 import ch.alpine.ascony.ren.LeversRender;
@@ -13,7 +11,7 @@ import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
-import ch.alpine.ascony.win.ControlPointsDemo;
+import ch.alpine.ascony.win.EuclideanPlaneDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -33,7 +31,7 @@ import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.Clips;
 
-public class RigidMotionFitDemo extends ControlPointsDemo {
+public class RigidMotionFitDemo extends EuclideanPlaneDemo {
   private static final Tensor CIRCLE = CirclePoints.of(31);
   private static final Tensor ORIGIN = CirclePoints.of(3).multiply(RealScalar.of(0.2));
   private static final PointsRender POINTS_RENDER_RESULT = //
@@ -66,12 +64,7 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   }
 
   @Override
-  public List<ManifoldDisplays> permitted_manifoldDisplays() {
-    return ManifoldDisplays.R2_ONLY;
-  }
-
-  @Override
-  public ControlPointType controlPointType() {
+  protected ControlPointType controlPointType() {
     return ControlPointTypes.HEAD_TAIL;
   }
 
