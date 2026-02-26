@@ -10,6 +10,8 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.PathRender;
+import ch.alpine.ascony.win.ControlPointType;
+import ch.alpine.ascony.win.ControlPointTypes;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
@@ -54,7 +56,6 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   public TimeSeriesDemo(Param param) {
     super(param);
     this.param = param;
-    controlPointsRender.setMidpointIndicated(true);
     setManifoldDisplay(ManifoldDisplays.R2);
     timerFrame.geometricComponent.setOffset(100, 600);
     RandomFunction randomFunction = RandomFunction.of(WienerProcess.standard());
@@ -72,6 +73,11 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   }
 
   @Override
+  public ControlPointType controlPointType() {
+    return ControlPointTypes.CURVYCURV;
+  }
+
+  @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     // AxesRender.INSTANCE.render(geometricLayer, graphics);
     TimeSeries custom = TimeSeries.empty(param.rm.get());
@@ -80,7 +86,8 @@ public class TimeSeriesDemo extends ControlPointsDemo {
       custom.insert(key, row.get(1));
     }
     pathRender.render(geometricLayer, graphics);
-    controlPointsRender.render(geometricLayer, graphics);
+    // TODO inspect
+    // render(geometricLayer, graphics);
     int row = 0;
     {
       Show show = new Show();

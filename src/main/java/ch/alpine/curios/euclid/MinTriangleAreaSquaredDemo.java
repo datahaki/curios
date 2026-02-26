@@ -8,6 +8,8 @@ import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
+import ch.alpine.ascony.win.ControlPointType;
+import ch.alpine.ascony.win.ControlPointTypes;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.crv.d2.PolygonCentroid;
@@ -39,6 +41,11 @@ public class MinTriangleAreaSquaredDemo extends ControlPointsDemo {
   @Override
   public List<ManifoldDisplays> permitted_manifoldDisplays() {
     return ManifoldDisplays.R2_ONLY;
+  }
+
+  @Override
+  public ControlPointType controlPointType() {
+    return ControlPointTypes.SCATTERED;
   }
 
   @Override // from RenderInterface
