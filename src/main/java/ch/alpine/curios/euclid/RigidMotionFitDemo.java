@@ -91,7 +91,6 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
           .render(geometricLayer, graphics);
       {
         Tensor domain = Subdivide.increasing(Clips.unit(), 10);
-        // LieGroupElement lieGroupElement =
         for (Tensor p : points) {
           Tensor xya_0 = Append.of(p, RealScalar.ZERO);
           Tensor xya_1 = Se2CoveringGroup.INSTANCE.combine(solve, xya_0);
