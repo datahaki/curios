@@ -3,9 +3,8 @@ package ch.alpine.curios.man;
 
 import java.awt.Container;
 
-import javax.swing.JLabel;
-
 import ch.alpine.ascony.io.ImageIconRecorder;
+import ch.alpine.bridge.awt.AwtUtil;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -44,8 +43,7 @@ enum So3ExponentialDemo implements ManipulateProvider {
       Tensor matrix = Parallelize.matrix(slice::function, RES, RES);
       imageIconRecorder.write(Raster.of(matrix, ColorDataGradients.CLASSIC));
     }
-    IO.println();
-    return new JLabel(imageIconRecorder.getIconImage());
+    return AwtUtil.iconAsLabel(imageIconRecorder.getIconImage());
   }
 
   static void main() {

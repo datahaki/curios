@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -28,7 +29,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import ch.alpine.bridge.awt.WindowClosed;
-import ch.alpine.bridge.swing.LookAndFeels;
+import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -52,7 +53,7 @@ import ch.alpine.tensor.sca.Ramp;
 import ch.alpine.tensor.sca.Sign;
 import ch.alpine.tensor.sca.pow.Power;
 
-class SbfShow {
+class SbfShow implements WindowProvider {
   public static final int MAX = 3;
   public static final ColorDataIndexed COLOR_DATA_INDEXED = StrictColorDataIndexed.of(Subdivide.of(0, 1, MAX).maps(ColorDataGradients.AVOCADO));
   private final List<SbfItem> sbfItems;
@@ -195,9 +196,12 @@ class SbfShow {
     }
   }
 
+  @Override
+  public Window getWindow() {
+    return jFrame;
+  }
+
   static void main() throws IOException {
-    LookAndFeels.autoDetect();
-    SbfShow sbfShow = new SbfShow(SbfType.binnen);
-    sbfShow.jFrame.setVisible(true);
+    new SbfShow(SbfType.binnen).runStandalone();
   }
 }
