@@ -8,7 +8,6 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
@@ -52,7 +51,7 @@ public class SutherlandHodgmanAlgorithmDemo extends ControlPointsDemo {
   }
 
   public SutherlandHodgmanAlgorithmDemo(Param param) {
-    super(new AsconaParam(true), param);
+    super(param);
     this.param = param;
     setControlPointsSe2(Tensor.of(CirclePoints.of(4).stream().map(row -> row.append(RealScalar.ZERO))));
   }

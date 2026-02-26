@@ -8,7 +8,6 @@ import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.ImageRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
@@ -36,7 +35,6 @@ public class LinearFractionalTransformDemo extends ControlPointsDemo {
   final BufferedImage bi = ResourceData.bufferedImage("/ch/alpine/ascona/image/album_it.jpg");
 
   public LinearFractionalTransformDemo() {
-    super(new AsconaParam(false));
     int w = bi.getWidth() - 1;
     int h = bi.getHeight() - 1;
     REF = Tensors.fromString("{{1,1,0}, {" + w + ",1,0}, {" + w + "," + h + ",0}, {1," + h + ",0}}");
@@ -47,6 +45,11 @@ public class LinearFractionalTransformDemo extends ControlPointsDemo {
   @Override
   public List<ManifoldDisplays> permitted_manifoldDisplays() {
     return ManifoldDisplays.R2_ONLY;
+  }
+
+  @Override
+  protected boolean addRemoveControlPoints() {
+    return false;
   }
 
   @Override

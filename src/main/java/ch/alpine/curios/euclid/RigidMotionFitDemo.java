@@ -8,7 +8,6 @@ import java.util.List;
 import ch.alpine.ascony.dis.ManifoldDisplays;
 import ch.alpine.ascony.dis.R2Display;
 import ch.alpine.ascony.dis.Se2Display;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
@@ -56,7 +55,7 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   }
 
   public RigidMotionFitDemo(Param param) {
-    super(new AsconaParam(false), param);
+    super(param);
     this.param = param;
     // ---
     fieldsEditor(0).addUniversalListener(this::shufflePoints);
@@ -67,6 +66,11 @@ public class RigidMotionFitDemo extends ControlPointsDemo {
   @Override
   public List<ManifoldDisplays> permitted_manifoldDisplays() {
     return ManifoldDisplays.R2_ONLY;
+  }
+
+  @Override
+  protected boolean addRemoveControlPoints() {
+    return false;
   }
 
   private synchronized void shufflePoints() {

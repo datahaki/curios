@@ -9,7 +9,6 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -45,7 +44,7 @@ public class LaserTagDemo extends ControlPointsDemo {
   }
 
   public LaserTagDemo(Param param) {
-    super(new AsconaParam(false), param);
+    super(param);
     this.param = param;
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRenderHull);
@@ -57,6 +56,11 @@ public class LaserTagDemo extends ControlPointsDemo {
   @Override
   public List<ManifoldDisplays> permitted_manifoldDisplays() {
     return ManifoldDisplays.R2_ONLY;
+  }
+
+  @Override
+  protected boolean addRemoveControlPoints() {
+    return false;
   }
 
   @Override // from RenderInterface

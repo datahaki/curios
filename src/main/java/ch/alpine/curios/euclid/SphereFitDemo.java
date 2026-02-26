@@ -9,7 +9,6 @@ import java.util.Optional;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -50,7 +49,6 @@ public class SphereFitDemo extends ControlPointsDemo {
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   public SphereFitDemo() {
-    super(new AsconaParam(true));
     controlPointsRender.setMidpointIndicated(false);
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRenderHull);

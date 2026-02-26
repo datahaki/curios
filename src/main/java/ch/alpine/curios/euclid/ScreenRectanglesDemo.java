@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.awt.ScreenRectangles;
@@ -18,10 +17,6 @@ import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.tensor.Tensor;
 
 public class ScreenRectanglesDemo extends ControlPointsDemo {
-  public ScreenRectanglesDemo() {
-    super(new AsconaParam(true));
-  }
-
   @Override
   public List<ManifoldDisplays> permitted_manifoldDisplays() {
     return ManifoldDisplays.R2_ONLY;

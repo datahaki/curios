@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.LeversHud;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
@@ -46,7 +45,7 @@ public class IterativeCoordinateDemo extends ControlPointsDemo {
   }
 
   public IterativeCoordinateDemo(Param param) {
-    super(new AsconaParam(true), param);
+    super(param);
     this.param = param;
     // ---
     ManifoldDisplays manifoldDisplays = ManifoldDisplays.R2;

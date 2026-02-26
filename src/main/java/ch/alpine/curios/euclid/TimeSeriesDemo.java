@@ -9,7 +9,6 @@ import java.awt.geom.Point2D;
 import java.util.List;
 
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.AsconaParam;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointsDemo;
 import ch.alpine.bridge.fig.ListLinePlot;
@@ -53,7 +52,7 @@ public class TimeSeriesDemo extends ControlPointsDemo {
   }
 
   public TimeSeriesDemo(Param param) {
-    super(new AsconaParam(true), param);
+    super(param);
     this.param = param;
     controlPointsRender.setMidpointIndicated(true);
     setManifoldDisplay(ManifoldDisplays.R2);
