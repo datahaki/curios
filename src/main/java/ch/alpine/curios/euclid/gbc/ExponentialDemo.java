@@ -66,7 +66,7 @@ class ExponentialDemo extends EuclideanPlaneDemo {
       HomogeneousSpace homogeneousSpace = manifoldDisplay.homogeneousSpace();
       Manifold manifold = homogeneousSpace;
       final Tensor sequence = placeWrap.getSequence();
-      final Tensor levers2 = manifold.exponential(origin).log().slash(sequence);
+      final Tensor levers2 = manifold.tangentSpace(origin).log().slash(sequence);
       {
         Tensor hull = ConvexHull2D.of(sequence);
         PathRender pathRender = new PathRender(new Color(0, 0, 255, 128));

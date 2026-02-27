@@ -59,7 +59,7 @@ class StMeetsClothoids implements ManipulateProvider, RenderInterface {
     Tensor p = stiefelManifold.randomSample(randomGenerator);
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
-    TangentSpace exponential = stiefelManifold.exponential(p);
+    TangentSpace exponential = stiefelManifold.tangentSpace(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Tensor beg = Tensors.vector(-5, 0, 0);
     Tensor sequence = Transpose.of(stf.apply(split)).multiply(RealScalar.of(3));

@@ -50,7 +50,7 @@ public class StExponentialDemo implements ManipulateProvider {
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
     CIRCLE.append(CIRCLE.get(0));
-    TangentSpace exponential = stiefelManifold.exponential(p);
+    TangentSpace exponential = stiefelManifold.tangentSpace(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Clip clip = Clips.translation(scalar).apply(Clips.absolute(4));
     Tensor res = Subdivide.increasing(clip, 50).maps(stf);

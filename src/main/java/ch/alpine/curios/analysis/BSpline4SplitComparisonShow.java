@@ -60,9 +60,9 @@ import ch.alpine.tensor.sca.Round;
         Tensor m3 = d3.lo(p, q, r);
         // ---
         {
-          Tensor v1 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.exponential(m1)).tangent();
-          Tensor v2 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.exponential(m2)).tangent();
-          Tensor v3 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.exponential(m3)).tangent();
+          Tensor v1 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.tangentSpace(m1)).tangent();
+          Tensor v2 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.tangentSpace(m2)).tangent();
+          Tensor v3 = MeanDefect.of(sequence, weights_lo, Se2CoveringGroup.INSTANCE.tangentSpace(m3)).tangent();
           Tensor err = Tensors.of( //
               Vector2Norm.of(v1), //
               Vector2Norm.of(v2), //

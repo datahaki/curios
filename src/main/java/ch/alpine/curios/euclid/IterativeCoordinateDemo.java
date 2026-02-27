@@ -68,7 +68,7 @@ class IterativeCoordinateDemo extends EuclideanPlaneDemo {
       Manifold manifold = homogeneousSpace;
       try {
         Tensor matrix = new IterativeCoordinateMatrix(param.total).origin( //
-            manifold.exponential(origin).log().slash(sequence));
+            manifold.tangentSpace(origin).log().slash(sequence));
         Tensor circum = matrix.dot(sequence);
         // new PointsRender(color_fill, color_draw).show(matrixLift, shape, points);
         // new PointsRender(new Color(128, 128, 128, 64), new Color(128, 128, 128, 255)) //
