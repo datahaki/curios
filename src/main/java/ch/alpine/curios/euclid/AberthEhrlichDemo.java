@@ -57,7 +57,7 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
   }
 
   private final Param param;
-  private Tensor zeros;
+  private Tensor complexZeros;
 
   public AberthEhrlichDemo() {
     super(param = new Param());
@@ -69,6 +69,10 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
       }
     });
     shuffle();
+    ManifoldDisplay manifoldDisplay = manifoldDisplay();
+    RandomSampleInterface randomSampleInterface = manifoldDisplay.randomSampleInterface();
+    Tensor points = RandomSample.of(randomSampleInterface, 3);
+    setControlPointsSe2(manifoldDisplay.point2xya().slash(points));
   }
 
   @Override
@@ -81,7 +85,7 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
 
   private void shuffle() {
     RandomSampleInterface randomSampleInterface = manifoldDisplay().randomSampleInterface();
-    zeros = V2S.slash(RandomSample.of(randomSampleInterface, 10));
+    complexZeros = V2S.slash(RandomSample.of(randomSampleInterface, 100));
   }
 
   @Override
@@ -89,7 +93,7 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
     Tensor seeds = V2S.slash(getGeodesicControlPoints());
     final int length = seeds.length();
     if (2 < length) {
-      Tensor _zeros = zeros.extract(0, length);
+      Tensor _zeros = complexZeros.extract(0, length);
       TensorUnaryOperator tuo = tv -> {
         Scalar t = V2S.apply(tv);
         Tensor _seeds = seeds.copy();
@@ -125,19 +129,19 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
     }
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     {
-      Tensor sequence = zeros.extract(0, length).maps(S2V);
+      Tensor sequence = complexZeros.extract(0, length).maps(S2V);
       LeversRender leversRender = LeversRender.of(manifoldDisplay, sequence, null, geometricLayer, graphics);
       leversRender.renderSequence(POINTS_RENDER_0);
       leversRender.renderIndexP("z");
     }
     if (1 < length) {
       {
-        Scalar bound = bounds(zeros.extract(0, length), seeds);
+        Scalar bound = bounds(complexZeros.extract(0, length), seeds);
         PathRender pathRender = new PathRender(Color.RED);
         pathRender.setCurve(CirclePoints.of(70).multiply(bound), true) //
             .render(geometricLayer, graphics);
       }
-      Tensor table = table(zeros.extract(0, length), seeds, param.depth);
+      Tensor table = table(complexZeros.extract(0, length), seeds, param.depth);
       int dimension1 = Unprotect.dimension1(table);
       // IO.println(Pretty.of(table.maps(Round._1)));
       for (int index = 0; index < dimension1; ++index) {
