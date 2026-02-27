@@ -27,7 +27,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Round;
 
 @ReflectionMarker
-public class MandelbulbDemo implements ManipulateProvider {
+class MandelbulbDemo implements ManipulateProvider {
   private static final CoordinateBoundingBox CBB = CoordinateBoundingBox.of(Clips.absolute(1), Clips.absolute(1));
   private static final Scalar THRESHOLD = RealScalar.of(5.0);
   public Boolean snapToInt = false;

@@ -31,7 +31,7 @@ import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.Clips;
 
-public class RigidMotionFitDemo extends EuclideanPlaneDemo {
+class RigidMotionFitDemo extends EuclideanPlaneDemo {
   private static final Tensor CIRCLE = CirclePoints.of(31);
   private static final Tensor ORIGIN = CirclePoints.of(3).multiply(RealScalar.of(0.2));
   private static final PointsRender POINTS_RENDER_RESULT = //
@@ -42,7 +42,7 @@ public class RigidMotionFitDemo extends EuclideanPlaneDemo {
       new PointsRender(new Color(128, 128, 128, 64), new Color(128, 128, 128, 255));
 
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     @FieldClip(min = "2", max = "10")
     public Integer length = 5;
   }
@@ -51,12 +51,7 @@ public class RigidMotionFitDemo extends EuclideanPlaneDemo {
   private Tensor points;
 
   public RigidMotionFitDemo() {
-    this(new Param());
-  }
-
-  public RigidMotionFitDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     // ---
     fieldsEditor(0).addUniversalListener(this::shufflePoints);
     // ---

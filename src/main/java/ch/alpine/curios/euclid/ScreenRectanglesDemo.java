@@ -17,7 +17,7 @@ import ch.alpine.bridge.awt.ScreenRectangles;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.tensor.Tensor;
 
-public class ScreenRectanglesDemo extends EuclideanPlaneDemo {
+class ScreenRectanglesDemo extends EuclideanPlaneDemo {
   @Override
   protected ControlPointType controlPointType() {
     return ControlPointTypes.CURVYCURV;

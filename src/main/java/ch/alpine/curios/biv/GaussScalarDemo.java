@@ -10,7 +10,7 @@ import ch.alpine.tensor.num.Prime;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-/* package */ record GaussScalarDemo(int prime) implements DensityPlotProvider {
+record GaussScalarDemo(int prime) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new GaussScalarDemo(Prime.of(100).number().intValue());
 
   @Override

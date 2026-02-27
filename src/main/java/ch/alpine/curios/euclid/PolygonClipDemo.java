@@ -29,7 +29,7 @@ import ch.alpine.tensor.lie.rot.CirclePoints;
 import ch.alpine.tensor.lie.rot.Cross;
 import ch.alpine.tensor.red.Mean;
 
-public class PolygonClipDemo extends EuclideanPlaneDemo {
+class PolygonClipDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict();
   private static final Tensor CIRCLE = CirclePoints.of(7).multiply(RealScalar.of(4));
   private static final SutherlandHodgmanAlgorithm POLYGON_CLIP = SutherlandHodgmanAlgorithm.of(CIRCLE);

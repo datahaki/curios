@@ -23,7 +23,7 @@ import ch.alpine.tensor.red.Times;
 /** Reference:
  * "Polygon Laplacian Made Simple"
  * by Astrid Bunge, Philipp Herholz, Misha Kazhdan, Mario Botsch, 2020 */
-public class MinTriangleAreaSquaredDemo extends EuclideanPlaneDemo {
+class MinTriangleAreaSquaredDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.cyclic();
   // ---
   private final PathRender pathRender = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);

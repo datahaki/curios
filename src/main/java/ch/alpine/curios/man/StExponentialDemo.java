@@ -33,8 +33,8 @@ import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
 public class StExponentialDemo implements ManipulateProvider {
-  private static final Tensor circle = CirclePoints.of(50);
-  private static final Integer k = 2;
+  private static final Tensor CIRCLE = CirclePoints.of(50);
+  private static final Integer K = 2;
   @FieldSlider
   @FieldClip(min = "3", max = "12")
   public Integer n = 6;
@@ -45,18 +45,18 @@ public class StExponentialDemo implements ManipulateProvider {
   @Override
   public Container getContainer() {
     RandomGenerator randomGenerator = new Random(3);
-    StiefelManifold stiefelManifold = new StiefelManifold(n, k);
+    StiefelManifold stiefelManifold = new StiefelManifold(n, K);
     Tensor p = RandomSample.of(stiefelManifold, randomGenerator);
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
-    circle.append(circle.get(0));
+    CIRCLE.append(CIRCLE.get(0));
     TangentSpace exponential = stiefelManifold.exponential(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Clip clip = Clips.translation(scalar).apply(Clips.absolute(4));
     Tensor res = Subdivide.increasing(clip, 50).maps(stf);
     // IO.println(Dimensions.of(res));
     Show show = new Show();
-    show.add(ListLinePlot.of(circle));
+    show.add(ListLinePlot.of(CIRCLE));
     for (int i = 0; i < n; ++i)
       show.add(ListLinePlot.of(res.get(Tensor.ALL, Tensor.ALL, i)));
     Tensor ply = Transpose.of(res.get(0));

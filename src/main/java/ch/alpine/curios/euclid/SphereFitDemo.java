@@ -41,7 +41,7 @@ import ch.alpine.tensor.sca.var.InversePowerVariogram;
 
 // TODO ASCONA REV name of demo !?
 // ... toggle convex hull, matching, median ...
-public class SphereFitDemo extends EuclideanPlaneDemo {
+class SphereFitDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.cyclic();
   private static final Tensor CIRCLE = CirclePoints.of(10).multiply(RealScalar.of(3));
   // ---

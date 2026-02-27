@@ -10,10 +10,12 @@ import javax.swing.JComponent;
 
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
+import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 
 @ReflectionMarker
 public class UnicodeViewer implements ManipulateProvider {
+  @FieldSelectionArray({ "27", "28", "29" })
   public String hex = "27";
   @FieldClip(min = "30", max = "50")
   public Integer size = 40;

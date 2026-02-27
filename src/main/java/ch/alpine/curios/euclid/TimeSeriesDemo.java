@@ -36,9 +36,9 @@ import ch.alpine.tensor.tmp.TsEntrywise;
 
 /** split interface and biinvariant mean based curve subdivision */
 // TODO ASCONA insert graph around ctrl point area
-public class TimeSeriesDemo extends EuclideanPlaneDemo {
+class TimeSeriesDemo extends EuclideanPlaneDemo {
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     public ResamplingMethods rm = ResamplingMethods.LINEAR_INTERPOLATION;
     public Integer refine = 5;
   }
@@ -48,12 +48,7 @@ public class TimeSeriesDemo extends EuclideanPlaneDemo {
   private final PathRender pathRender = new PathRender(new Color(0, 255, 0, 128));
 
   public TimeSeriesDemo() {
-    this(new Param());
-  }
-
-  public TimeSeriesDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     timerFrame.geometricComponent.setOffset(100, 600);
     RandomFunction randomFunction = RandomFunction.of(WienerProcess.standard());
     Distribution distribution = UniformDistribution.of(0, 10);

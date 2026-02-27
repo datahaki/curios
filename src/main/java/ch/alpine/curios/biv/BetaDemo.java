@@ -13,7 +13,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.gam.Beta;
 
 /** inspired by Mathematica's documentation of Beta */
-/* package */ record BetaDemo(int depth) implements DensityPlotProvider {
+record BetaDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new BetaDemo(2);
 
   @Override

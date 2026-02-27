@@ -17,7 +17,7 @@ import ch.alpine.tensor.red.Min;
 import ch.alpine.tensor.sca.Clips;
 
 /** used as logo of edelweis */
-public enum Se2onR2Demo implements DensityPlotProvider {
+enum Se2onR2Demo implements DensityPlotProvider {
   INSTANCE;
 
   private final Tensor actions = Tensors.of( //

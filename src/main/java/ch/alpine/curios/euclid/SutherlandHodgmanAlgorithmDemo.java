@@ -34,11 +34,11 @@ import ch.alpine.tensor.lie.rot.Cross;
 import ch.alpine.tensor.red.Mean;
 import ch.alpine.tensor.red.Times;
 
-public class SutherlandHodgmanAlgorithmDemo extends EuclideanPlaneDemo {
+class SutherlandHodgmanAlgorithmDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict();
 
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     public Boolean move = false;
     @FieldClip(min = "1", max = "10")
     public Integer n = 4;
@@ -47,12 +47,7 @@ public class SutherlandHodgmanAlgorithmDemo extends EuclideanPlaneDemo {
   private final Param param;
 
   public SutherlandHodgmanAlgorithmDemo() {
-    this(new Param());
-  }
-
-  public SutherlandHodgmanAlgorithmDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     setControlPointsSe2(Tensor.of(CirclePoints.of(4).stream().map(row -> row.append(RealScalar.ZERO))));
   }
 

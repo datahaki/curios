@@ -10,7 +10,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.pow.Power;
 import ch.alpine.tensor.sca.tri.Cos;
 
-/* package */ record WeierstrassDemo(int depth) implements DensityPlotProvider {
+record WeierstrassDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new WeierstrassDemo(20);
 
   @Override

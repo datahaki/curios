@@ -21,7 +21,7 @@ import ch.alpine.sophus.hs.HomogeneousSpace;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 
-public class IterativeCoordinateDemo extends EuclideanPlaneDemo {
+class IterativeCoordinateDemo extends EuclideanPlaneDemo {
   public static final Tensor INITIAL = Tensors.matrix(new Number[][] { //
       { 0, 0, 0 }, //
       { -0.583, -2.317, 0.000 }, //
@@ -33,7 +33,7 @@ public class IterativeCoordinateDemo extends EuclideanPlaneDemo {
   }).unmodifiable();
 
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     @FieldClip(min = "0", max = "20")
     public Integer total = 2;
   }
@@ -41,12 +41,7 @@ public class IterativeCoordinateDemo extends EuclideanPlaneDemo {
   private final Param param;
 
   public IterativeCoordinateDemo() {
-    this(new Param());
-  }
-
-  public IterativeCoordinateDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     // ---
     setControlPointsSe2(INITIAL);
   }

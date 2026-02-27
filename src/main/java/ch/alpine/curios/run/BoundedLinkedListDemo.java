@@ -12,7 +12,7 @@ import ch.alpine.tensor.ext.BoundedLinkedList;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Timing;
 
-/* package */ enum BoundedLinkedListDemo implements VoidProvider {
+enum BoundedLinkedListDemo implements VoidProvider {
   INSTANCE;
 
   @Override

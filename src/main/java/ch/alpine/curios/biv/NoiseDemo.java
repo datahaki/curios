@@ -11,7 +11,7 @@ import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-public enum NoiseDemo implements DensityPlotProvider {
+enum NoiseDemo implements DensityPlotProvider {
   SIMPLEX {
     @Override
     public Scalar apply(Scalar x, Scalar y) {

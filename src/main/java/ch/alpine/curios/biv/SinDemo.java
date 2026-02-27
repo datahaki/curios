@@ -15,7 +15,7 @@ import ch.alpine.tensor.sca.tri.ArcTan;
 import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by mathematica's documentation of Gamma */
-/* package */ record SinDemo(int depth) implements DensityPlotProvider {
+record SinDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new SinDemo(3);
 
   @Override

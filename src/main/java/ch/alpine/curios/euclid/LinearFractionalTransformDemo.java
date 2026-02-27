@@ -30,7 +30,7 @@ import ch.alpine.tensor.mat.DiagonalMatrix;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-public class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
+class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
   private Tensor REF;
   final BufferedImage bi = ResourceData.bufferedImage("/ch/alpine/ascona/image/album_it.jpg");
 

@@ -13,7 +13,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.gam.Gamma;
 
 /** inspired by Mathematica's documentation of Gamma */
-/* package */ record GammaDemo(int depth) implements DensityPlotProvider {
+record GammaDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new GammaDemo(2);
 
   @Override

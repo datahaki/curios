@@ -26,26 +26,21 @@ import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 
-public class LaserTagDemo extends EuclideanPlaneDemo {
+class LaserTagDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict().deriveWithAlpha(128);
   // ---
   private static final String TEXT = "WILLKOMMEN IN"; // "NIEDERSACHSEN";
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     public Boolean show = true;
   }
 
   private final Param param;
 
   public LaserTagDemo() {
-    this(new Param());
-  }
-
-  public LaserTagDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     // ---
     timerFrame.geometricComponent.addRenderInterface(pathRenderHull);
     // ---

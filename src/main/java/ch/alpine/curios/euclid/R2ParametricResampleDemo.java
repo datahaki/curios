@@ -24,13 +24,12 @@ import ch.alpine.tensor.img.ColorDataIndexed;
 import ch.alpine.tensor.img.ColorDataLists;
 import ch.alpine.tensor.lie.rot.CirclePoints;
 
-public class R2ParametricResampleDemo extends EuclideanPlaneDemo {
+class R2ParametricResampleDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict().deriveWithAlpha(128);
   private static final PointsRender POINTS_RENDER = new PointsRender(new Color(0, 128, 128, 64), new Color(0, 128, 128, 255));
 
-  // ---
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     @FieldClip(min = "0", max = "10")
     public Scalar threshold = RealScalar.of(3);
     public Scalar ds = RealScalar.of(0.3);
@@ -43,12 +42,7 @@ public class R2ParametricResampleDemo extends EuclideanPlaneDemo {
   private final Param param;
 
   public R2ParametricResampleDemo() {
-    this(new Param());
-  }
-
-  public R2ParametricResampleDemo(Param param) {
-    super(param);
-    this.param = param;
+    super(param = new Param());
     // ---
     int n = 20;
     setControlPointsSe2(PadRight.zeros(n, 3).apply(CirclePoints.of(n).multiply(RealScalar.of(3))));
