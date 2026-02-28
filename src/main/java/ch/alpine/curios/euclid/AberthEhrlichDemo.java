@@ -71,8 +71,7 @@ class AberthEhrlichDemo extends EuclideanPlaneDemo {
     shuffle();
     ManifoldDisplay manifoldDisplay = manifoldDisplay();
     RandomSampleInterface randomSampleInterface = manifoldDisplay.randomSampleInterface();
-    Tensor points = RandomSample.of(randomSampleInterface, 3);
-    setControlPointsSe2(manifoldDisplay.point2xya().slash(points));
+    setGeodesicControlPoints(RandomSample.of(randomSampleInterface, 3));
   }
 
   @Override
