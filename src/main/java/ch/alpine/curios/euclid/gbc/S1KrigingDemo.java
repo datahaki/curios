@@ -71,9 +71,9 @@ public class S1KrigingDemo extends ControlPointsDemo {
     this.param = param;
     // ---
     setControlPointsSe2(Tensors.fromString("{{1, 0, 0}, {0, 1.2, 0}, {-1, 1, 0}}"));
-    timerFrame.geometricComponent.addRenderInterfaceBackground(new BoundingBoxRender(coordinateBoundingBox));
-    timerFrame.geometricComponent.addRenderInterfaceBackground(S1FrameRender.INSTANCE);
-    timerFrame.geometricComponent.setOffset(500, 500);
+    geometricComponent().addRenderInterfaceBackground(new BoundingBoxRender(coordinateBoundingBox));
+    geometricComponent().addRenderInterfaceBackground(S1FrameRender.INSTANCE);
+    geometricComponent().setOffset(500, 500);
   }
 
   @Override

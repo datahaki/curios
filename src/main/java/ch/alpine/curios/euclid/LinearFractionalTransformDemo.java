@@ -39,7 +39,7 @@ class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
     int h = bi.getHeight() - 1;
     REF = Tensors.fromString("{{1,1,0}, {" + w + ",1,0}, {" + w + "," + h + ",0}, {1," + h + ",0}}");
     setControlPointsSe2(REF);
-    timerFrame.geometricComponent.setModel2Pixel(Se2Matrix.flipY(400).dot(DiagonalMatrix.of(2, 2, 1)));
+    geometricComponent().setModel2Pixel(Se2Matrix.flipY(400).dot(DiagonalMatrix.of(2, 2, 1)));
   }
 
   @Override

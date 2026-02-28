@@ -22,6 +22,7 @@ import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.win.AbstractDemo;
 import ch.alpine.bridge.gfx.AffineTransforms;
 import ch.alpine.bridge.gfx.GeometricLayer;
+import ch.alpine.bridge.io.ResourceLocator;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldFuse;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -46,7 +47,7 @@ import ch.alpine.tensor.img.ImageRotate;
 import ch.alpine.tensor.io.Import;
 import ch.alpine.tensor.sca.Floor;
 
-public class UbongoDesigner extends AbstractDemo {
+class UbongoDesigner extends AbstractDemo {
   private static final int EXT = 11;
   public static final Scalar FREE = UbongoBoard.FREE;
   static final Collector<CharSequence, ?, String> EMBRACE = //
@@ -59,7 +60,7 @@ public class UbongoDesigner extends AbstractDemo {
   }
 
   @ReflectionMarker
-  public static class Param {
+  static class Param {
     @FieldClip(min = "1", max = "12")
     public Integer num = 4;
     @FieldFuse
@@ -74,10 +75,11 @@ public class UbongoDesigner extends AbstractDemo {
   }
 
   @ReflectionMarker
-  public static class Paran {
+  static class Paran {
     public UbongoBoards ubongoBoards = UbongoBoards.STANDARD;
   }
 
+  private final ResourceLocator resourceLocator = ResourceLocator.of(getClass());
   private final Param param;
   private final GridRender gridRender;
   private Tensor template = Array.zeros(EXT, EXT);
@@ -107,16 +109,16 @@ public class UbongoDesigner extends AbstractDemo {
     // ---
     Tensor matrix = Tensors.fromString("{{30, 0, 100}, {0, -30, 500}, {0, 0, 1}}");
     matrix = matrix.dot(Se2Matrix.of(Tensors.vector(0, 0, -Math.PI / 2)));
-    timerFrame.geometricComponent.setModel2Pixel(matrix);
-    timerFrame.geometricComponent.setOffset(100, 100);
+    geometricComponent().setModel2Pixel(matrix);
+    geometricComponent().setOffset(100, 100);
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
     gridRender = new GridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
-    timerFrame.geometricComponent.jComponent.addMouseListener(new MouseAdapter() {
+    geometricComponent().jComponent.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == 1) {
-          Tensor xya = timerFrame.geometricComponent.getMouseSe2CState().maps(Floor.FUNCTION);
+          Tensor xya = geometricComponent().getMouseSe2CState().maps(Floor.FUNCTION);
           int row = xya.Get(0).number().intValue();
           int col = xya.Get(1).number().intValue();
           if (0 <= row && row < row_max)

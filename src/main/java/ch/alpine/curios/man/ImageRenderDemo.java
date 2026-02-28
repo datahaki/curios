@@ -46,7 +46,7 @@ class ImageRenderDemo extends AbstractDemo {
   @Override // from RenderInterface
   public synchronized void render(GeometricLayer geometricLayer, Graphics2D graphics) {
     AxesRender.INSTANCE.render(geometricLayer, graphics);
-    Tensor mouse = timerFrame.geometricComponent.getMouseSe2CState();
+    Tensor mouse = geometricComponent().getMouseSe2CState();
     {
       geometricLayer.pushMatrix(Se2Matrix.of(mouse));
       new ImageRender( //

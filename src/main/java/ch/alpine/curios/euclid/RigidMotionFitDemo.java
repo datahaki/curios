@@ -75,7 +75,7 @@ class RigidMotionFitDemo extends EuclideanPlaneDemo {
 
   @Override // from RenderInterface
   public synchronized void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    timerFrame.geometricComponent.renderGrid(graphics);
+    geometricComponent().renderGrid(graphics);
     Tensor sequence = getGeodesicControlPoints();
     {
       Tensor target = Tensor.of(sequence.stream().map(R2Display.INSTANCE::xya2point));

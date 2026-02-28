@@ -42,7 +42,7 @@ class LaserTagDemo extends EuclideanPlaneDemo {
   public LaserTagDemo() {
     super(param = new Param());
     // ---
-    timerFrame.geometricComponent.addRenderInterface(pathRenderHull);
+    geometricComponent().addRenderInterface(pathRenderHull);
     // ---
     Distribution distribution = UniformDistribution.of(-4, 4);
     setControlPointsSe2(RandomVariate.of(distribution, TEXT.length() + 2, 3));

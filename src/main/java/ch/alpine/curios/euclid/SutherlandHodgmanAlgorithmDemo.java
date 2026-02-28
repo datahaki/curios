@@ -62,7 +62,7 @@ class SutherlandHodgmanAlgorithmDemo extends EuclideanPlaneDemo {
     boolean isMoving = param.move;
     setPositioningEnabled(!isMoving);
     if (isMoving) {
-      Tensor mouse = timerFrame.geometricComponent.getMouseSe2CState();
+      Tensor mouse = geometricComponent().getMouseSe2CState();
       TensorUnaryOperator se2Bijection = new Se2ForwardAction(Times.of(mouse, Tensors.vector(1, 1, 0.3)));
       Tensor sequence = Tensor.of(getGeodesicControlPoints().stream().map(se2Bijection));
       // ---

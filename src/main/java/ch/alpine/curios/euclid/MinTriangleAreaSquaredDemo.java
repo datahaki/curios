@@ -29,7 +29,7 @@ class MinTriangleAreaSquaredDemo extends EuclideanPlaneDemo {
   private final PathRender pathRender = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   public MinTriangleAreaSquaredDemo() {
-    timerFrame.geometricComponent.addRenderInterface(pathRender);
+    geometricComponent().addRenderInterface(pathRender);
     // ---
     Tensor blub = Tensors.fromString("{{1, 0, 0}, {0, 1, 0}, {2, 0, 2.5708}, {1, 0, 2.1}}");
     setControlPointsSe2(DubinsGenerator.of(Tensors.vector(0, 0, 0), //

@@ -49,7 +49,7 @@ class BSplineFunctionDemo extends EuclideanPlaneDemo {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    timerFrame.geometricComponent.renderGrid(graphics);
+    geometricComponent().renderGrid(graphics);
     Tensor control = getGeodesicControlPoints();
     Tensor refined = Tensors.empty();
     int n = control.length();

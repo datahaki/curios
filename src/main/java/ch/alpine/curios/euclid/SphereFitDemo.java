@@ -49,7 +49,7 @@ class SphereFitDemo extends EuclideanPlaneDemo {
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   public SphereFitDemo() {
-    timerFrame.geometricComponent.addRenderInterface(pathRenderHull);
+    geometricComponent().addRenderInterface(pathRenderHull);
     // ---
     Tensor blub = Tensors.fromString(
         "{{1, 0, 0}, {1, 0, 0}, {2, 0, 2.5708}, {1, 0, 2.1}, {1.5, 0, 0}, {2.3, 0, -1.2}, {1.5, 0, 0}, {4, 0, 3.14159}, {2, 0, 3.14159}, {2, 0, 0}}");

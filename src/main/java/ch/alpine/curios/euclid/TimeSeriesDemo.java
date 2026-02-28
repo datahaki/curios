@@ -107,13 +107,13 @@ class TimeSeriesDemo extends EuclideanPlaneDemo {
       Show show = new Show();
       show.add(TsPlot.of(TsEntrywise.plus(timeSeries, custom))).setLabel("sum");
       show.add(TsPlot.of(product)).setLabel("times");
-      Dimension dimension = timerFrame.geometricComponent.jComponent.getSize();
+      Dimension dimension = geometricComponent().jComponent.getSize();
       show.render_autoIndent(graphics, new Rectangle(dimension.width - 500, row++ * 300, 500, 300));
     }
     {
       Show show = new Show();
       show.add(TsPlot.of(TimeSeriesIntegrate.of(product))).setLabel("prd-integral");
-      Dimension dimension = timerFrame.geometricComponent.jComponent.getSize();
+      Dimension dimension = geometricComponent().jComponent.getSize();
       show.render_autoIndent(graphics, new Rectangle(dimension.width - 500, row++ * 300, 500, 300));
     }
   }

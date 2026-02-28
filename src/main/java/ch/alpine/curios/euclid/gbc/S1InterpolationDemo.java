@@ -69,9 +69,9 @@ public class S1InterpolationDemo extends ControlPointsDemo {
     this.param = param;
     // ---
     setControlPointsSe2(Tensors.fromString("{{1, 0, 0}, {0, 1.2, 0}, {-0.5, 0.8, 0}}"));
-    timerFrame.geometricComponent.setOffset(500, 500);
-    timerFrame.geometricComponent.addRenderInterfaceBackground(new BoundingBoxRender(coordinateBoundingBox));
-    timerFrame.geometricComponent.addRenderInterfaceBackground(S1FrameRender.INSTANCE);
+    geometricComponent().setOffset(500, 500);
+    geometricComponent().addRenderInterfaceBackground(new BoundingBoxRender(coordinateBoundingBox));
+    geometricComponent().addRenderInterfaceBackground(S1FrameRender.INSTANCE);
   }
 
   @Override
