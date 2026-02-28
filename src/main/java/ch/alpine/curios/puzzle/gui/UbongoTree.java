@@ -1,13 +1,16 @@
 // code by jph
 package ch.alpine.curios.puzzle.gui;
 
+import java.awt.Container;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-import ch.alpine.ascony.win.AbstractDemo;
+import ch.alpine.ascony.ren.RenderInterface;
+import ch.alpine.ascony.win.GeometricComponent;
 import ch.alpine.bridge.gfx.GeometricLayer;
+import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionCallback;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.curios.puzzle.UbongoBoards;
@@ -16,49 +19,35 @@ import ch.alpine.curios.puzzle.UbongoSolution;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 
-public class UbongoTree extends AbstractDemo {
-  @ReflectionMarker
-  public static class Param {
-    public UbongoBoards ubongoBoards = UbongoBoards.AIRPLAN1;
-    private List<UbongoSolution> list;
-    @FieldSelectionCallback("index")
-    public Integer index = 0;
-
-    public List<Scalar> index() {
-      return Objects.isNull(list) //
-          ? List.of()
-          : IntStream.range(0, list.size()).mapToObj(RealScalar::of).toList();
-    }
-
-    public void update() {
-      list = UbongoLoader.INSTANCE.load(ubongoBoards);
-    }
-
-    public UbongoSolution getSolution() {
-      return list.get(index);
-    }
-  }
-
-  private final Param param;
+@ReflectionMarker
+class UbongoTree implements ManipulateProvider, RenderInterface {
+  public UbongoBoards ubongoBoards = UbongoBoards.AIRPLAN1;
+  private List<UbongoSolution> list;
+  @FieldSelectionCallback("index")
+  public Integer index = 0;
+  private final GeometricComponent geometricComponent = new GeometricComponent();
 
   public UbongoTree() {
-    this(new Param());
+    geometricComponent.addRenderInterface(this);
   }
 
-  public UbongoTree(Param param) {
-    super(param);
-    this.param = param;
-    param.update();
-    fieldsEditor(0).addUniversalListener(param::update);
+  public List<Scalar> index() {
+    return Objects.isNull(list) //
+        ? List.of()
+        : IntStream.range(0, list.size()).mapToObj(RealScalar::of).toList();
   }
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    if (param.list.size() <= param.index) {
-      param.index = 0;
-      fieldsEditor(0).updateJComponents();
-    }
-    StaticHelper.drawBoard(graphics, param.ubongoBoards.board(), param.getSolution().list());
+    int i = Math.min(Math.max(0, index), list.size() - 1);
+    UbongoSolution ubongoSolution = list.get(i);
+    StaticHelper.drawBoard(graphics, ubongoBoards.board(), ubongoSolution.list());
+  }
+
+  @Override
+  public Container getContainer() {
+    list = UbongoLoader.INSTANCE.load(ubongoBoards);
+    return geometricComponent.jComponent;
   }
 
   static void main() {

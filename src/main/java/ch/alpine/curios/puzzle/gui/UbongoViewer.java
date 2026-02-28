@@ -1,40 +1,29 @@
 // code by jph
 package ch.alpine.curios.puzzle.gui;
 
+import java.awt.Container;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import ch.alpine.ascony.win.AbstractDemo;
-import ch.alpine.bridge.gfx.GeometricLayer;
+import javax.swing.JComponent;
+
+import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.curios.puzzle.UbongoPublish;
 
-public class UbongoViewer extends AbstractDemo {
+@ReflectionMarker
+class UbongoViewer implements ManipulateProvider {
   private static final int SCALE = 46;
-
-  @ReflectionMarker
-  public static class Param {
-    public UbongoPublish ubongoPublish = UbongoPublish.LETTERH1;
-  }
-
-  private final Param param;
-  // private final BufferedImage bufferedImage;
-
-  public UbongoViewer() {
-    this(new Param());
-  }
-
-  public UbongoViewer(Param param) {
-    super(param);
-    this.param = param;
-    // DensityPlot densityPlot = DuneNoiseDemo.densityPlot();
-    // densityPlot.setPlotPoints(300);
-    // bufferedImage = densityPlot.getImage();
-  }
+  public UbongoPublish ubongoPublish = UbongoPublish.LETTERH1;
 
   @Override
-  public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    // graphics.drawImage(bufferedImage, 0, 0, 800, 800, null);
-    StaticHelper.draw(graphics, param.ubongoPublish, SCALE);
+  public Container getContainer() {
+    return new JComponent() {
+      @Override
+      protected void paintComponent(Graphics graphics) {
+        StaticHelper.draw((Graphics2D) graphics, ubongoPublish, SCALE);
+      }
+    };
   }
 
   static void main() {

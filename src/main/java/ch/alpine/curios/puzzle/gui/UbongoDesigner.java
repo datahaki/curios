@@ -81,18 +81,14 @@ class UbongoDesigner extends AbstractDemo {
 
   private final ResourceLocator resourceLocator = ResourceLocator.of(getClass());
   private final Param param;
+  private final Paran paran;
   private final GridRender gridRender;
   private Tensor template = Array.zeros(EXT, EXT);
   private SolveThread solveThread = null;
   private final Path FILE;
 
   public UbongoDesigner() {
-    this(new Param(), new Paran());
-  }
-
-  public UbongoDesigner(Param param, Paran paran) {
-    super(param, paran);
-    this.param = param;
+    super(param = new Param(), paran = new Paran());
     FILE = resourceLocator.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
     fieldsEditor(0).addUniversalListener(this::run2);
     fieldsEditor(1).addUniversalListener(() -> {

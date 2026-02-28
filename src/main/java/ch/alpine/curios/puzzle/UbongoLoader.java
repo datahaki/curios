@@ -28,7 +28,7 @@ public enum UbongoLoader {
       try {
         return Import.object(file);
       } catch (Exception exception) {
-        exception.printStackTrace();
+        System.err.println("fail load ubongo sol: " + file);
       }
     System.out.println("compute");
     List<UbongoSolution> list = ubongoBoards.solve();

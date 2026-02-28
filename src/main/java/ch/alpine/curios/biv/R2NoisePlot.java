@@ -3,7 +3,6 @@ package ch.alpine.curios.biv;
 
 import ch.alpine.sophis.noise.NativeContinuousNoise;
 import ch.alpine.sophis.noise.SimplexContinuousNoise;
-import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.img.ColorDataGradient;
@@ -19,7 +18,7 @@ class R2NoisePlot implements DensityPlotProvider {
 
   @Override
   public Scalar apply(Scalar x, Scalar y) {
-    return UnitStep.FUNCTION.apply(NOISE.apply(Tensors.of(x, y)).subtract(RealScalar.of(0.0)));
+    return UnitStep.FUNCTION.apply(NOISE.apply(Tensors.of(x, y)));
   }
 
   @Override

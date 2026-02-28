@@ -20,7 +20,6 @@ class UnicodeViewer implements ManipulateProvider {
   private final JComponent jComponent = new JComponent() {
     @Override
     protected void paintComponent(Graphics graphics) {
-      // Font font = new Font("Noto Color qwe qweEmoji", Font.PLAIN, 24);
       graphics.setColor(Color.DARK_GRAY);
       int size = font.getSize();
       graphics.setFont(font);
