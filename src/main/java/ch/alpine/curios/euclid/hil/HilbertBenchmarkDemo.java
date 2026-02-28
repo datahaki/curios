@@ -25,7 +25,6 @@ class HilbertBenchmarkDemo implements ManipulateProvider {
   @FieldClip(min = "20", max = "100")
   @FieldSelectionArray({ "20", "30", "50" })
   public Integer resolution = 20;
-  public Boolean ctrl = false;
   public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override

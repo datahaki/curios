@@ -1,9 +1,13 @@
 // code by jph
 package ch.alpine.curios.usr;
 
+import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Parallelize;
+import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
+import ch.alpine.tensor.itp.LinearInterpolation;
 import ch.alpine.tensor.lie.Symmetrize;
 import ch.alpine.tensor.mat.IdentityMatrix;
 import ch.alpine.tensor.mat.Tolerance;
@@ -19,12 +23,15 @@ import ch.alpine.tensor.mat.pi.PseudoInverse;
 import ch.alpine.tensor.mat.qr.GramSchmidt;
 import ch.alpine.tensor.mat.qr.QRDecomposition;
 import ch.alpine.tensor.mat.re.Inverse;
+import ch.alpine.tensor.mat.re.LinearSolve;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
+import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Timing;
+import ch.alpine.tensor.sca.Chop;
 
-public enum ComputeContests {
+enum ComputeContests {
   MAT_MAT("serial", "parallel") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
@@ -54,6 +61,22 @@ public enum ComputeContests {
       Tensor cp = Parallelize.dot(a, b);
       s_par.stop();
       if (!Tolerance.CHOP.isClose(cs, cp))
+        throw new Throw(cs);
+    }
+  },
+  SLV_INV("LinearSolve", "Inverse") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = NormalDistribution.standard();
+      Tensor a = RandomVariate.of(distribution, n, n);
+      Tensor b = RandomVariate.of(distribution, n, n);
+      s_ser.start();
+      Tensor cs = LinearSolve.of(a, b);
+      s_ser.stop();
+      s_par.start();
+      Tensor cp = Inverse.of(a).dot(b);
+      s_par.stop();
+      if (!Chop._06.isClose(cs, cp))
         throw new Throw(cs);
     }
   },
@@ -135,7 +158,29 @@ public enum ComputeContests {
       MatrixPower.of(a, 0.6);
       s_par.stop();
     }
-  };
+  },
+  INTERP1("at", "get") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Tensor tensor = RandomVariate.of(UniformDistribution.unit(), 30, 3);
+      LinearInterpolation linearInterpolation = //
+          (LinearInterpolation) LinearInterpolation.of(tensor);
+      s_ser.start();
+      {
+        Scalar a = DoubleScalar.of(4.123);
+        for (int index = 0; index < 50000; ++index)
+          linearInterpolation.at(a);
+      }
+      s_ser.stop();
+      s_par.start();
+      {
+        Tensor b = Tensors.vector(4.123);
+        for (int index = 0; index < 50000; ++index)
+          linearInterpolation.get(b);
+      }
+      s_par.stop();
+    }
+  },;
 
   public final String label1;
   public final String label2;
