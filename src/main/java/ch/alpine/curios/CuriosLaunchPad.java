@@ -5,6 +5,7 @@ import ch.alpine.bridge.io.FileBlock;
 import ch.alpine.bridge.io.ResourceLocator;
 import ch.alpine.bridge.pro.RunLaunchPad;
 
+/** entry point to launch miniatures */
 enum CuriosLaunchPad {
   ;
   static void main() {
