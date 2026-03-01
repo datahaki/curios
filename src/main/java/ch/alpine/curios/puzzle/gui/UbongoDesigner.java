@@ -18,7 +18,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import ch.alpine.ascony.api.Box2D;
-import ch.alpine.ascony.ren.GridRender;
+import ch.alpine.ascony.ren.FixGridRender;
 import ch.alpine.ascony.win.AbstractDemo;
 import ch.alpine.bridge.gfx.AffineTransforms;
 import ch.alpine.bridge.gfx.GeometricLayer;
@@ -82,7 +82,7 @@ class UbongoDesigner extends AbstractDemo {
   private final ResourceLocator resourceLocator = ResourceLocator.of(getClass());
   private final Param param;
   private final Paran paran;
-  private final GridRender gridRender;
+  private final FixGridRender gridRender;
   private Tensor template = Array.zeros(EXT, EXT);
   private SolveThread solveThread = null;
   private final Path FILE;
@@ -109,7 +109,7 @@ class UbongoDesigner extends AbstractDemo {
     geometricComponent().setOffset(100, 100);
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
-    gridRender = new GridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
+    gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
     geometricComponent().jComponent.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent mouseEvent) {

@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Graphics2D;
 
 import ch.alpine.ascony.dis.Se2ClothoidDisplay;
+import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.ren.RenderInterface;
@@ -34,7 +35,7 @@ class SpiralDemo implements ManipulateProvider, RenderInterface {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    geometricComponent.renderGrid(graphics);
+    new GridRender(geometricComponent.jComponent::getSize).render(geometricLayer, graphics);
     {
       Tensor points = Subdivide.increasing(clip, samples).maps(spiralParam.scalarTensorFunction);
       new PathRender(Color.BLUE, 1f).setCurve(points, false).render(geometricLayer, graphics);

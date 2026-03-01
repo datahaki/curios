@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.stream.IntStream;
 
 import ch.alpine.ascony.arp.CenterNorms;
+import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.ren.RenderInterface;
 import ch.alpine.ascony.win.GeometricComponent;
 import ch.alpine.bridge.gfx.GeometricLayer;
@@ -86,7 +87,7 @@ class DbscanDemo implements ManipulateProvider, RenderInterface {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    geometricComponent.renderGrid(graphics);
+    new GridRender(geometricComponent.jComponent::getSize).render(geometricLayer, graphics);
     Timing timing = Timing.started();
     Tensor points = Tensor.of(pointsAll.stream().limit(count));
     Integer[] labels = Dbscan.of(points, centerNorms::ndCenterInterface, radius, minPts);

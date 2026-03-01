@@ -19,6 +19,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
@@ -93,8 +94,8 @@ class TimeSeriesDemo extends EuclideanPlaneDemo {
       // Dimension dimension = timerFrame.geometricComponent.jComponent.getSize();
       // show.render_autoIndent(graphics, new Rectangle(dimension.width - 500, row++ * 300, 500, 300));
       double amp = 6;
-      Point2D lh = geometricLayer.toPoint2D(0, amp);
-      Point2D rl = geometricLayer.toPoint2D(10, -amp);
+      Point2D lh = geometricLayer.toPoint2D(Tensors.vector(0, amp));
+      Point2D rl = geometricLayer.toPoint2D(Tensors.vector(10, -amp));
       Rectangle rectangle = new Rectangle( //
           (int) lh.getX(), (int) lh.getY(), //
           (int) (rl.getX() - lh.getX()), //

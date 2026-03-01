@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import ch.alpine.ascony.ref.BaseCurvatureParam;
 import ch.alpine.ascony.ren.Curvature2DRender;
+import ch.alpine.ascony.ren.GridRender;
 import ch.alpine.ascony.ren.LeversRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
@@ -49,7 +50,7 @@ class BSplineFunctionDemo extends EuclideanPlaneDemo {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    geometricComponent().renderGrid(graphics);
+    new GridRender(timerFrame.geometricComponent.jComponent::getSize).render(geometricLayer, graphics);
     Tensor control = getGeodesicControlPoints();
     Tensor refined = Tensors.empty();
     int n = control.length();
