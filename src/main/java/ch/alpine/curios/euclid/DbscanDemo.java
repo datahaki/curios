@@ -124,7 +124,6 @@ class DbscanDemo implements ManipulateProvider, RenderInterface {
       geometricLayer.popMatrix();
     }
     {
-      graphics.setClip(null);
       graphics.setColor(Color.GRAY);
       graphics.drawString(seconds.maps(Round._4).toString(), 0, 40);
     }

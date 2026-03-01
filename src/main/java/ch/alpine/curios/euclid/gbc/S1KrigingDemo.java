@@ -10,7 +10,7 @@ import ch.alpine.ascony.api.Box2D;
 import ch.alpine.ascony.api.LogWeightings;
 import ch.alpine.ascony.dis.ManifoldDisplay;
 import ch.alpine.ascony.dis.ManifoldDisplays;
-import ch.alpine.ascony.ren.BoundingBoxRender;
+import ch.alpine.ascony.reg.RegionRenders;
 import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.ren.PointsRender;
 import ch.alpine.ascony.win.ControlPointType;
@@ -71,7 +71,7 @@ public class S1KrigingDemo extends ControlPointsDemo {
     this.param = param;
     // ---
     setControlPointsSe2(Tensors.fromString("{{1, 0, 0}, {0, 1.2, 0}, {-1, 1, 0}}"));
-    geometricComponent().addRenderInterfaceBackground(new BoundingBoxRender(coordinateBoundingBox));
+    geometricComponent().addRenderInterfaceBackground(RegionRenders.of(coordinateBoundingBox));
     geometricComponent().addRenderInterfaceBackground(S1FrameRender.INSTANCE);
     geometricComponent().setOffset(500, 500);
   }
