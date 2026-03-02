@@ -64,7 +64,7 @@ class IterativeCoordinateDemo extends EuclideanPlaneDemo {
       LeversRender leversRender = //
           LeversRender.of(manifoldDisplay, sequence, origin, geometricLayer, graphics);
       leversRender.renderSurfaceP();
-      LeversHud.render(Biinvariants.LEVERAGES, leversRender, null);
+      LeversHud.render(Biinvariants.USANCE, leversRender, null);
       HomogeneousSpace homogeneousSpace = manifoldDisplay.homogeneousSpace();
       Manifold manifold = homogeneousSpace;
       try {

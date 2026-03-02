@@ -30,19 +30,6 @@ public class RegionRenderDemo implements ManipulateProvider {
 
   public RegionRenderDemo() {
     {
-      // Tensor model2Pixel = geometricComponent.getModel2Pixel();
-      // IO.println(Pretty.of(model2Pixel));
-      // Tensor res = Transpose.of(Times.of(Tensors.fromString("{1[m^-1],1[m^-1],1}"), Transpose.of(model2Pixel)));
-      // IO.println(Pretty.of(res));
-      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 0, 2);
-      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 1, 2);
-      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 0);
-      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 1);
-      // IO.println(Pretty.of(model2Pixel));
-      // Tensor axes = Se2Matrix.model2pixel(Quantity.of(1, "m^-1"));
-      // model2Pixel = axes.dot(model2Pixel);
-      // IO.println(Pretty.of(model2Pixel.maps(Round._3)));
-      // geometricComponent.setModel2Pixel(model2Pixel);
       geometricComponent.setPerPixel(Quantity.of(60, "m^-1"));
       Tensor model2Pixel = geometricComponent.getModel2Pixel();
       IO.println(Pretty.of(model2Pixel));
@@ -64,10 +51,10 @@ public class RegionRenderDemo implements ManipulateProvider {
       geometricComponent.addRenderInterface(renderInterface);
     }
     {
-      RenderInterface boundingBoxRender = RegionRenders.of(CoordinateBoundingBox.of( //
+      RenderInterface renderInterface = RegionRenders.of(CoordinateBoundingBox.of( //
           Clips.interval(Quantity.of(-4, "m"), Quantity.of(-3, "m")), //
           Clips.absolute(Quantity.of(1, "m"))));
-      geometricComponent.addRenderInterface(boundingBoxRender);
+      geometricComponent.addRenderInterface(renderInterface);
     }
     {
       Tensor polygon = HilbertPolygon.of(3).multiply(Quantity.of(0.1, "m"));

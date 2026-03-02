@@ -49,18 +49,16 @@ import ch.alpine.tensor.qty.UnitSystems;
       JToolBar jToolBar = new JToolBar();
       jToolBar.setFloatable(false);
       JTextField jTextFieldA = new JTextField();
-      jTextFieldA.setFont(FONT);
-      jTextFieldA.setText("A");
-      jToolBar.add(jTextFieldA);
-      JLabel arrow = new JLabel(" \u2192 "); // ->
-      arrow.setFont(FONT);
-      jToolBar.add(arrow);
       JTextField jTextFieldB = new JTextField();
-      jTextFieldB.setText("V");
-      jTextFieldB.setFont(FONT);
-      jToolBar.add(jTextFieldB);
+      // ---
       {
-        JButton jButton = new JButton("substitute");
+        jTextFieldA.setFont(FONT);
+        jTextFieldA.setText("A");
+        jToolBar.add(jTextFieldA);
+      }
+      {
+        JButton jButton = new JButton(" \u2192 ");
+        jButton.setFont(FONT);
         jButton.addActionListener(_ -> {
           String prev = jTextFieldA.getText().trim();
           String next = jTextFieldB.getText().trim();
@@ -82,8 +80,17 @@ import ch.alpine.tensor.qty.UnitSystems;
         jToolBar.add(jButton);
       }
       {
+        jTextFieldB.setText("V");
+        jTextFieldB.setFont(FONT);
+        jToolBar.add(jTextFieldB);
+      }
+      {
         JButton jButton = new JButton("reset");
-        jButton.addActionListener(_ -> update(unitSystem()));
+        jButton.addActionListener(_ -> {
+          update(unitSystem());
+          jTextFieldA.setText("A");
+          jTextFieldB.setText("V");
+        });
         jToolBar.add(jButton);
       }
       jPanel.add(BorderLayout.NORTH, jToolBar);
