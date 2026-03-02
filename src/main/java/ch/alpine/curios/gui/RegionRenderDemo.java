@@ -16,11 +16,10 @@ import ch.alpine.sophis.crv.d2.ex.HilbertPolygon;
 import ch.alpine.sophis.reg.BallRegion;
 import ch.alpine.sophis.reg.ConeRegion;
 import ch.alpine.sophis.reg.EllipsoidRegion;
-import ch.alpine.sophus.lie.se2.Se2Matrix;
 import ch.alpine.tensor.RealScalar;
-import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
+import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.sca.Clips;
@@ -31,14 +30,22 @@ public class RegionRenderDemo implements ManipulateProvider {
 
   public RegionRenderDemo() {
     {
+      // Tensor model2Pixel = geometricComponent.getModel2Pixel();
+      // IO.println(Pretty.of(model2Pixel));
+      // Tensor res = Transpose.of(Times.of(Tensors.fromString("{1[m^-1],1[m^-1],1}"), Transpose.of(model2Pixel)));
+      // IO.println(Pretty.of(res));
+      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 0, 2);
+      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 1, 2);
+      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 0);
+      // model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 1);
+      // IO.println(Pretty.of(model2Pixel));
+      // Tensor axes = Se2Matrix.model2pixel(Quantity.of(1, "m^-1"));
+      // model2Pixel = axes.dot(model2Pixel);
+      // IO.println(Pretty.of(model2Pixel.maps(Round._3)));
+      // geometricComponent.setModel2Pixel(model2Pixel);
+      geometricComponent.setPerPixel(Quantity.of(60, "m^-1"));
       Tensor model2Pixel = geometricComponent.getModel2Pixel();
-      model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 0, 2);
-      model2Pixel.set(s -> Quantity.of((Scalar) s, "m"), 1, 2);
-      model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 0);
-      model2Pixel.set(s -> Quantity.of((Scalar) s, "m^-1"), 2, 1);
-      Tensor axes = Se2Matrix.model2pixel(Quantity.of(1, "m^-1"));
-      model2Pixel = axes.dot(model2Pixel);
-      geometricComponent.setModel2Pixel(model2Pixel);
+      IO.println(Pretty.of(model2Pixel));
     }
     {
       BallRegion ballRegion = new BallRegion(Tensors.fromString("{2[m],3[m]}"), Quantity.of(1, "m"));
