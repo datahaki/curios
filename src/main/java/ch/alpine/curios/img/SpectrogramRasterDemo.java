@@ -13,6 +13,8 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
+import ch.alpine.tensor.fft.SpectrogramArray;
+import ch.alpine.tensor.fft.SpectrogramArrays;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
@@ -35,7 +37,8 @@ class SpectrogramRasterDemo implements ManipulateProvider {
   public Container getContainer() {
     Tensor tensor = Subdivide.increasing(clip, numel).maps(Polynomial.of(coeffs)).maps(Cos.FUNCTION);
     Show show = new Show();
-    show.add(Spectrogram.of(tensor, sampleRate, windowFunctions.get(), cdg));
+    SpectrogramArray spectrogramArray = SpectrogramArrays.FOURIER.operator().config(windowFunctions.get());
+    show.add(Spectrogram.of(spectrogramArray, tensor, sampleRate, cdg));
     return ShowGridComponent.of(show);
   }
 

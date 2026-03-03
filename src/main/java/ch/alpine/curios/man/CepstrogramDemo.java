@@ -24,7 +24,7 @@ public class CepstrogramDemo implements ManipulateProvider {
   public Container getContainer() {
     Tensor signal = Subdivide.of(0, 1, 10000).maps(chirpFunctions.of(f0, p1));
     return ShowGridComponent.of( //
-        Spectrogram.of(signal, RealScalar.ONE).asShow(), //
+        Spectrogram.of(SpectrogramArrays.FOURIER.operator(), signal, RealScalar.ONE).asShow(), //
         Spectrogram.of(SpectrogramArrays.REAL1.operator(), signal, RealScalar.ONE).asShow() //
     );
   }

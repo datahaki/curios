@@ -20,6 +20,7 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Range;
+import ch.alpine.tensor.fft.SpectrogramArrays;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 
@@ -46,7 +47,7 @@ public class ColoredNoiseDemo implements ManipulateProvider {
     }
     Show show2 = new Show();
     {
-      show2.add(Spectrogram.of(values, RealScalar.ONE));
+      show2.add(Spectrogram.of(SpectrogramArrays.FOURIER.operator(), values, RealScalar.ONE));
     }
     return ShowGridComponent.of(List.of(show1, show2));
   }

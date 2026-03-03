@@ -13,19 +13,23 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.fft.SpectrogramArrays;
 import ch.alpine.tensor.sca.exp.LogisticMap;
+import ch.alpine.tensor.sca.win.WindowFunctions;
 
 @ReflectionMarker
-public class SpectrogramDemo implements ManipulateProvider {
+class SpectrogramDemo implements ManipulateProvider {
   @FieldClip(min = "0", max = "4")
   public Scalar r = RealScalar.of(3.857);
   public Scalar seed = RealScalar.of(0.5);
+  public SpectrogramArrays spectrogramArrays = SpectrogramArrays.FOURIER;
+  public WindowFunctions windowFunctions = WindowFunctions.DIRICHLET;
 
   @Override
   public Container getContainer() {
     Show show = new Show();
     Tensor signal = Tensor.of(Stream.generate(LogisticMap.of(r, seed)).limit(10000));
-    show.add(Spectrogram.of(signal, RealScalar.ONE));
+    show.add(Spectrogram.of(spectrogramArrays.operator().config(windowFunctions.get()), signal, RealScalar.ONE));
     return ShowGridComponent.of(show);
   }
 
