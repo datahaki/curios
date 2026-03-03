@@ -29,7 +29,6 @@ class ChebyshevInterpDemo implements ManipulateProvider {
   @Override
   public Container getContainer() {
     ScalarUnaryOperator suo0 = x -> Sin.FUNCTION.apply(x.multiply(x).negate().add(x));
-    // suo = Exp.FUNCTION;
     Clip clip = Clips.absoluteOne();
     ScalarUnaryOperator suo1 = ChebyshevInterpolation.of(suo0, chebyshevNodes, n);
     ScalarUnaryOperator suo2 = ChebyshevInterpolation.of(suo0, chebyshevNodes, n);

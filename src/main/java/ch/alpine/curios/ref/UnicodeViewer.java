@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.usr;
+package ch.alpine.curios.ref;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -24,13 +24,12 @@ class UnicodeViewer implements ManipulateProvider {
       int size = font.getSize();
       graphics.setFont(font);
       int ofs = Integer.parseInt(hex, 16) * 256;
-      for (int i = 0; i < 16; ++i) {
+      for (int i = 0; i < 16; ++i)
         for (int j = 0; j < 16; ++j) {
           int res = ofs + i * 16 + j;
           char chr = (char) res;
           graphics.drawString("" + chr, j * size, (i + 1) * size);
         }
-      }
     };
   };
 

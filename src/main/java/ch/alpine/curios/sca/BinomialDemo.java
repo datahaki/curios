@@ -31,8 +31,6 @@ class BinomialDemo implements ManipulateProvider {
       for (int k = 0; k < row.length(); ++k)
         tensor.set(RealScalar.of(row.Get(k).number()), i, k);
     }
-    // Tensor rgba = tensor.map(ColorDataGradients.GRAYSCALE);
-    // Export.of(HomeDirectory.Pictures.resolve("gauss.png"), tensor);
     Show show = new Show();
     show.add(MatrixPlot.of(tensor));
     return ShowGridComponent.of(show);

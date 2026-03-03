@@ -3,6 +3,7 @@ package ch.alpine.curios.ref;
 
 import java.util.Optional;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.bridge.ref.util.DialogFieldsEditor;
 import ch.alpine.bridge.ref.util.ObjectProperties;
 import ch.alpine.bridge.swing.LookAndFeels;
@@ -16,6 +17,7 @@ enum DialogFieldsEditorBlockDemo {
     public final DoneCheck doneCheck = new DoneCheck();
   }
 
+  @ReflectionMarker
   public static class DoneCheck {
     public Integer integer = 3;
     public Pivots pivots = Pivots.ARGMAX_ABS;

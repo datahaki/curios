@@ -23,12 +23,13 @@ import ch.alpine.tensor.sca.ply.Polynomial;
 
 @ReflectionMarker
 class PolynomialShow implements ManipulateProvider {
+  private static final Tensor x = Tensors.fromString("{100[K], 110.0[K], 120[K], 133[K], 140[K], 150[K]}");
+  private static final Tensor y = Tensors.fromString("{10[bar], 20[bar], 22[bar], 23[bar], 25[bar], 26.0[bar]}");
+
   @Override
   public Container getContainer() {
     List<Show> list = new LinkedList<>();
     for (int degree = 0; degree <= 4; ++degree) {
-      Tensor x = Tensors.fromString("{100[K], 110.0[K], 120[K], 133[K], 140[K], 150[K]}");
-      Tensor y = Tensors.fromString("{10[bar], 20[bar], 22[bar], 23[bar], 25[bar], 26.0[bar]}");
       ScalarUnaryOperator x_to_y = Polynomial.fit(x, y, degree);
       ScalarUnaryOperator y_to_x = Polynomial.fit(y, x, degree);
       Clip domain_x = Clips.interval(Quantity.of(100, "K"), Quantity.of(150, "K"));

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.swing.JLabel;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.bridge.ref.util.DialogFieldsEditor;
 import ch.alpine.bridge.ref.util.ObjectProperties;
 import ch.alpine.bridge.swing.LookAndFeels;
@@ -13,6 +14,7 @@ import ch.alpine.tensor.Tensors;
 
 enum DialogFieldsEditorBlock2Demo {
   ;
+  @ReflectionMarker
   public static class DoneCheck {
     public Tensor tensor = Tensors.vector(1, 2, 3);
   }
