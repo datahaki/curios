@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.sca;
 
+import java.awt.Container;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +9,9 @@ import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.pro.ShowWindow;
+import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
@@ -18,9 +21,10 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.ply.Polynomial;
 
-/* package */ enum PolynomialShow {
-  ;
-  static void main() {
+@ReflectionMarker
+class PolynomialShow implements ManipulateProvider {
+  @Override
+  public Container getContainer() {
     List<Show> list = new LinkedList<>();
     for (int degree = 0; degree <= 4; ++degree) {
       Tensor x = Tensors.fromString("{100[K], 110.0[K], 120[K], 133[K], 140[K], 150[K]}");
@@ -39,6 +43,10 @@ import ch.alpine.tensor.sca.ply.Polynomial;
       show.add(ListLinePlot.of(samples_y.maps(y_to_x), samples_y));
       list.add(show);
     }
-    ShowWindow.asDialog(list);
+    return ShowGridComponent.of(list);
+  }
+
+  static void main() {
+    new PolynomialShow().runStandalone();
   }
 }
