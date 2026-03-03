@@ -20,11 +20,12 @@ import ch.alpine.tensor.sca.Clips;
     Tensor domain = Subdivide.increasing(Clips.positive(1.0), 255).maps(Tensors::of);
     Tensor result = Tensors.empty();
     for (ColorDataGradients colorDataGradients : ColorDataGradients.values())
-      result.append(ImageResize.nearest(Transpose.of(domain.maps(colorDataGradients)), 8, 1));
+      result.append(ImageResize.nearest(Transpose.of(domain.maps(colorDataGradients)), 1, 1));
     Tensor image = Flatten.of(result, 1);
     // IO.println(Dimensions.of(image));
     Show show = new Show();
     show.add(ImagePlot.of(ImageFormat.of(image)));
+    show.setAspectRatioDontCare();
     return show;
   }
 

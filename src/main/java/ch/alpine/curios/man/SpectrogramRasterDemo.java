@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.img;
+package ch.alpine.curios.man;
 
 import java.awt.Container;
 
@@ -30,6 +30,7 @@ class SpectrogramRasterDemo implements ManipulateProvider {
   public Integer numel = 2000;
   public Tensor coeffs = Tensors.vector(0, 5, 1);
   public Scalar sampleRate = RealScalar.ONE;
+  public SpectrogramArrays spectrogramArrays = SpectrogramArrays.FOURIER;
   public WindowFunctions windowFunctions = WindowFunctions.DIRICHLET;
   public ColorDataGradients cdg = ColorDataGradients.CMYK_REVERSED;
 
@@ -37,7 +38,7 @@ class SpectrogramRasterDemo implements ManipulateProvider {
   public Container getContainer() {
     Tensor tensor = Subdivide.increasing(clip, numel).maps(Polynomial.of(coeffs)).maps(Cos.FUNCTION);
     Show show = new Show();
-    SpectrogramArray spectrogramArray = SpectrogramArrays.FOURIER.operator().config(windowFunctions.get());
+    SpectrogramArray spectrogramArray = spectrogramArrays.operator().config(windowFunctions.get());
     show.add(Spectrogram.of(spectrogramArray, tensor, sampleRate, cdg));
     return ShowGridComponent.of(show);
   }

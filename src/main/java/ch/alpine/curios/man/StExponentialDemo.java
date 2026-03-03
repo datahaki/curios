@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.random.RandomGenerator;
 
 import ch.alpine.bridge.fig.ListLinePlot;
+import ch.alpine.bridge.fig.PolygonPlot;
+import ch.alpine.bridge.fig.PolygonPlot.Option;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
@@ -33,7 +35,7 @@ import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
 public class StExponentialDemo implements ManipulateProvider {
-  private static final Tensor CIRCLE = CirclePoints.of(50);
+  private static final Tensor CIRCLE = CirclePoints.of(40);
   private static final Integer K = 2;
   @FieldSlider
   @FieldClip(min = "3", max = "12")
@@ -49,20 +51,17 @@ public class StExponentialDemo implements ManipulateProvider {
     Tensor p = RandomSample.of(stiefelManifold, randomGenerator);
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
-    CIRCLE.append(CIRCLE.get(0));
     TangentSpace exponential = stiefelManifold.tangentSpace(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
     Clip clip = Clips.translation(scalar).apply(Clips.absolute(4));
     Tensor res = Subdivide.increasing(clip, 50).maps(stf);
     // IO.println(Dimensions.of(res));
     Show show = new Show();
-    show.add(ListLinePlot.of(CIRCLE));
+    show.add(PolygonPlot.of(CIRCLE)).setAlpha(64);
+    Tensor ply = Transpose.of(res.get(0));
+    show.add(PolygonPlot.of(ConvexHull2D.of(ply), Option.FILL)).setAlpha(64);
     for (int i = 0; i < n; ++i)
       show.add(ListLinePlot.of(res.get(Tensor.ALL, Tensor.ALL, i)));
-    Tensor ply = Transpose.of(res.get(0));
-    Tensor hull = ConvexHull2D.of(ply);
-    hull.append(hull.get(0));
-    show.add(ListLinePlot.of(hull));
     show.setCbb(CoordinateBoundingBox.of(Clips.absoluteOne(), Clips.absoluteOne()));
     show.setAspectRatioOne();
     return ShowGridComponent.of(show);
