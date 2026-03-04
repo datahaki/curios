@@ -2,6 +2,7 @@
 package ch.alpine.curios.fig;
 
 import ch.alpine.bridge.fig.Plot;
+import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowProvider;
@@ -19,7 +20,7 @@ class BSplineBlendDemo implements ShowProvider {
     show.setPlotLabel("BSplineInterpolation");
     for (int degree = 0; degree < 4; ++degree) {
       Interpolation interpolation = BSplineInterpolation.of(degree, tensor);
-      Showable showable = show.add(Plot.of(interpolation::At, Clips.unit()));
+      Showable showable = show.add(Plot.of(interpolation::At, Clips.unit(), PlotOption.STRICT));
       showable.setLabel("degree " + degree);
     }
     return show;

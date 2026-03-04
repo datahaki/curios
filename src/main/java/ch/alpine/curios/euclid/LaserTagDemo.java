@@ -29,12 +29,12 @@ import ch.alpine.tensor.pdf.c.UniformDistribution;
 class LaserTagDemo extends EuclideanPlaneDemo {
   private static final ColorDataIndexed COLOR_DATA_INDEXED = ColorDataLists._097.strict().deriveWithAlpha(128);
   // ---
-  private static final String TEXT = "WILLKOMMEN IN"; // "NIEDERSACHSEN";
   private final PathRender pathRenderHull = new PathRender(COLOR_DATA_INDEXED.getColor(1), 1.5f);
 
   @ReflectionMarker
   static class Param {
     public Boolean show = true;
+    public String TEXT = "WILLKOMMEN IN";
   }
 
   private final Param param;
@@ -45,7 +45,7 @@ class LaserTagDemo extends EuclideanPlaneDemo {
     geometricComponent().addRenderInterface(pathRenderHull);
     // ---
     Distribution distribution = UniformDistribution.of(-4, 4);
-    setControlPointsSe2(RandomVariate.of(distribution, TEXT.length() + 2, 3));
+    setControlPointsSe2(RandomVariate.of(distribution, param.TEXT.length() + 2, 3));
   }
 
   @Override
@@ -84,7 +84,7 @@ class LaserTagDemo extends EuclideanPlaneDemo {
       graphics.fill(path2d);
       Point2D point2d = geometricLayer.toPoint2D(o1.multiply(RealScalar.of(-0.5)));
       graphics.setColor(Color.DARK_GRAY);
-      graphics.drawString("" + TEXT.charAt(index - 1), (int) point2d.getX() - 8, (int) point2d.getY() + 10);
+      graphics.drawString("" + param.TEXT.charAt(index - 1), (int) point2d.getX() - 8, (int) point2d.getY() + 10);
       geometricLayer.popMatrix();
     }
   }

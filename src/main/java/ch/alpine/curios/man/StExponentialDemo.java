@@ -6,8 +6,8 @@ import java.util.Random;
 import java.util.random.RandomGenerator;
 
 import ch.alpine.bridge.fig.ListLinePlot;
+import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.PolygonPlot;
-import ch.alpine.bridge.fig.PolygonPlot.Option;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
@@ -59,7 +59,7 @@ public class StExponentialDemo implements ManipulateProvider {
     Show show = new Show();
     show.add(PolygonPlot.of(CIRCLE)).setAlpha(64);
     Tensor ply = Transpose.of(res.get(0));
-    show.add(PolygonPlot.of(ConvexHull2D.of(ply), Option.FILL)).setAlpha(64);
+    show.add(PolygonPlot.of(ConvexHull2D.of(ply), PlotOption.FILL)).setAlpha(64);
     for (int i = 0; i < n; ++i)
       show.add(ListLinePlot.of(res.get(Tensor.ALL, Tensor.ALL, i)));
     show.setCbb(CoordinateBoundingBox.of(Clips.absoluteOne(), Clips.absoluteOne()));

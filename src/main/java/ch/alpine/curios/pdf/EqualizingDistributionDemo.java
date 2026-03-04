@@ -3,7 +3,7 @@ package ch.alpine.curios.pdf;
 
 import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Plot;
-import ch.alpine.bridge.fig.Plot.Option;
+import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.Tensor;
@@ -27,11 +27,11 @@ public enum EqualizingDistributionDemo {
     Show show1 = new Show();
     show1.setPlotLabel("PDF");
     show1.add(ListPlot.of(dist1::at, Range.of(0, 20))).setLabel("CategoricalDistribution");
-    show1.add(Plot.of(PDF.of(dist2)::at, Clips.positive(20), Option.FILLING)).setLabel("EqualizingDistribution");
+    show1.add(Plot.of(PDF.of(dist2)::at, Clips.positive(20), PlotOption.FILL)).setLabel("EqualizingDistribution");
     Show show2 = new Show();
     Clip clip = Clips.unit();
-    show2.add(Plot.of(InverseCDF.of(dist1)::quantile, clip, Option.STRICT));
-    show2.add(Plot.of(InverseCDF.of(dist2)::quantile, clip, Option.STRICT));
+    show2.add(Plot.of(InverseCDF.of(dist1)::quantile, clip, PlotOption.STRICT));
+    show2.add(Plot.of(InverseCDF.of(dist2)::quantile, clip, PlotOption.STRICT));
     ShowWindow.asDialog(show1, show2);
   }
 }

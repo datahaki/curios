@@ -2,7 +2,9 @@
 package ch.alpine.curios.euclid;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import ch.alpine.ascony.dis.ManifoldDisplay;
@@ -12,6 +14,8 @@ import ch.alpine.ascony.ren.PathRender;
 import ch.alpine.ascony.win.ControlPointType;
 import ch.alpine.ascony.win.ControlPointTypes;
 import ch.alpine.ascony.win.EuclideanPlaneDemo;
+import ch.alpine.bridge.fig.ImagePlot;
+import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.sophis.api.Genesis;
 import ch.alpine.sophis.gbc.d2.ThreePointCoordinate;
@@ -39,7 +43,7 @@ class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
     int h = bi.getHeight() - 1;
     REF = Tensors.fromString("{{1,1,0}, {" + w + ",1,0}, {" + w + "," + h + ",0}, {1," + h + ",0}}");
     setControlPointsSe2(REF);
-    geometricComponent().setModel2Pixel(Se2Matrix.flipY(400).dot(DiagonalMatrix.of(2, 2, 1)));
+    geometricComponent().setModel2Pixel(Se2Matrix.flipY(500).dot(DiagonalMatrix.of(4, 4, 1)));
   }
 
   @Override
@@ -78,16 +82,18 @@ class LinearFractionalTransformDemo extends EuclideanPlaneDemo {
           RealScalar.of(h).subtract(p.Get(1)), p.Get(0))));
       LinearFractionalTransform lft = lft(points, resw, resh);
       leversRender.renderMatrix2(Tensors.vector(0, 0, 0), lft.matrix());
+      Dimension dimension = timerFrame.geometricComponent.jComponent.getSize();
+      dimension.width /= 2;
+      dimension.height /= 2;
       {
-        BufferedImage res1 = ImageFormat.of(rectify1(src, points, resw, resh));
-        int x = res1.getWidth() * f;
-        graphics.drawImage(res1, x + 2, 0, x, res1.getHeight() * f, null);
+        Show show = new Show();
+        show.add(ImagePlot.of(ImageFormat.of(rectify1(src, points, resw, resh))));
+        show.render_autoIndent(graphics, new Rectangle(dimension.width, dimension.height, dimension.width, dimension.height));
       }
       {
-        Tensor res = rectify2(src, points, resw, resh);
-        // res = res.map(Clips.positive(255));
-        BufferedImage res2 = ImageFormat.of(res);
-        graphics.drawImage(res2, 0, 0, res2.getWidth() * f, res2.getHeight() * f, null);
+        Show show = new Show();
+        show.add(ImagePlot.of(ImageFormat.of(rectify2(src, points, resw, resh))));
+        show.render_autoIndent(graphics, new Rectangle(dimension.width, 0, dimension.width, dimension.height));
       }
     }
   }
