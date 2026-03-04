@@ -10,9 +10,7 @@ import ch.alpine.ascony.win.GeometricComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.reg.EllipsoidRegion;
-import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.sca.Clips;
@@ -23,8 +21,6 @@ class MixedRenderDemo implements ManipulateProvider {
 
   public MixedRenderDemo() {
     geometricComponent.setPerPixel(Quantity.of(60, "m^-1"), Quantity.of(30, "s^-1"));
-    Tensor model2Pixel = geometricComponent.getModel2Pixel();
-    IO.println(Pretty.of(model2Pixel));
     {
       EllipsoidRegion ellipsoidRegion = //
           new EllipsoidRegion(Tensors.fromString("{2[m],-1[s]}"), Tensors.fromString("{1[m],0.5[s]}"));

@@ -19,7 +19,6 @@ import ch.alpine.sophis.reg.EllipsoidRegion;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.sca.Clips;
@@ -29,11 +28,7 @@ public class RegionRenderDemo implements ManipulateProvider {
   private final GeometricComponent geometricComponent = new GeometricComponent();
 
   public RegionRenderDemo() {
-    {
-      geometricComponent.setPerPixel(Quantity.of(60, "m^-1"));
-      Tensor model2Pixel = geometricComponent.getModel2Pixel();
-      IO.println(Pretty.of(model2Pixel));
-    }
+    geometricComponent.setPerPixel(Quantity.of(60, "m^-1"));
     {
       BallRegion ballRegion = new BallRegion(Tensors.fromString("{2[m],3[m]}"), Quantity.of(1, "m"));
       BallRegionRender ballRegionRender = new BallRegionRender(ballRegion);

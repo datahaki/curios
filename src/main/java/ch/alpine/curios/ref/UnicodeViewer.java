@@ -8,6 +8,7 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+import ch.alpine.bridge.awt.RenderQuality;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -20,6 +21,7 @@ class UnicodeViewer implements ManipulateProvider {
   private final JComponent jComponent = new JComponent() {
     @Override
     protected void paintComponent(Graphics graphics) {
+      RenderQuality.setQuality(graphics);
       graphics.setColor(Color.DARK_GRAY);
       int size = font.getSize();
       graphics.setFont(font);
