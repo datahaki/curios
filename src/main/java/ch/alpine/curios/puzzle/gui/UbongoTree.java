@@ -47,7 +47,7 @@ class UbongoTree implements ManipulateProvider, RenderInterface {
   @Override
   public Container getContainer() {
     list = UbongoLoader.INSTANCE.load(ubongoBoards);
-    return geometricComponent.jComponent;
+    return geometricComponent;
   }
 
   static void main() {

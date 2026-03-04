@@ -108,6 +108,7 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
         center(paran.ubongoBoards.board().mask());
         param.num = paran.ubongoBoards.use();
         fieldsEditor0.updateJComponents();
+        geometricComponent.repaint();
       });
     }
     try {
@@ -124,7 +125,7 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
     // gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
-    geometricComponent.jComponent.addMouseListener(new MouseAdapter() {
+    geometricComponent.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == 1) {
@@ -136,13 +137,13 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
               boolean free = template.get(row, col).equals(FREE);
               template.set(free ? RealScalar.ZERO : FREE, row, col);
             }
-          geometricComponent.jComponent.repaint();
+          geometricComponent.repaint();
         }
       }
     });
     geometricComponent.addRenderInterface(this);
     jPanel.add(jToolBar, BorderLayout.NORTH);
-    jPanel.add(geometricComponent.jComponent, BorderLayout.CENTER);
+    jPanel.add(geometricComponent, BorderLayout.CENTER);
     jFrame.setContentPane(jPanel);
   }
 

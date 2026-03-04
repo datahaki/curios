@@ -41,7 +41,7 @@ public class UbongoBrowser implements ManipulateProvider, RenderInterface {
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    int read = Math.min(Math.max(0, index), list.size());
+    int read = Math.min(Math.max(0, index), list.size() - 1);
     UbongoSolution ubongoSolution = list.get(read);
     StaticHelper.drawBoard(graphics, ubongoBoard, ubongoSolution.list());
     graphics.setColor(Color.DARK_GRAY);
@@ -50,7 +50,7 @@ public class UbongoBrowser implements ManipulateProvider, RenderInterface {
 
   @Override
   public Container getContainer() {
-    return geometricComponent.jComponent;
+    return geometricComponent;
   }
 
   static void main() {

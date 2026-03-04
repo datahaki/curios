@@ -18,11 +18,9 @@ class SolveThread extends Thread {
         UbongoBrowser ubongoBrowser = new UbongoBrowser(ubongoBoard, list);
         ubongoBrowser.runStandalone();
       }
-      IO.println("THREAD STOPPED");
     });
     this.ubongoBoard = ubongoBoard;
     start();
-    IO.println("THREAD START");
   }
 
   public String getMessage() {
