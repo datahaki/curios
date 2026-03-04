@@ -6,10 +6,10 @@ import ch.alpine.bridge.io.ResourceLocator;
 import ch.alpine.bridge.pro.RunLaunchPad;
 
 /** entry point to launch miniatures */
-enum CuriosLaunchPad {
+enum LocalLaunchPad {
   ;
   static void main() {
-    if (!FileBlock.of(ResourceLocator.of(CuriosLaunchPad.class).resolve("")))
-      RunLaunchPad.create(CuriosLaunchPad.class.getPackageName()).runStandalone();
+    if (!FileBlock.of(ResourceLocator.of(LocalLaunchPad.class).resolve("")))
+      RunLaunchPad.create(LocalLaunchPad.class.getPackageName()).runStandalone();
   }
 }
