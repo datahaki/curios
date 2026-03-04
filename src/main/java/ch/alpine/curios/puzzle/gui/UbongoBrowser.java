@@ -2,16 +2,18 @@
 package ch.alpine.curios.puzzle.gui;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
-import ch.alpine.ascony.win.AbstractDemo;
+import ch.alpine.bridge.gfx.GeometricComponent;
 import ch.alpine.bridge.gfx.GeometricLayer;
+import ch.alpine.bridge.gfx.RenderInterface;
+import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionCallback;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.bridge.swing.LookAndFeels;
 import ch.alpine.curios.puzzle.UbongoBoard;
 import ch.alpine.curios.puzzle.UbongoBoards;
 import ch.alpine.curios.puzzle.UbongoLoader;
@@ -19,50 +21,40 @@ import ch.alpine.curios.puzzle.UbongoSolution;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 
-public class UbongoBrowser extends AbstractDemo {
+@ReflectionMarker
+public class UbongoBrowser implements ManipulateProvider, RenderInterface {
+  private final GeometricComponent geometricComponent = new GeometricComponent();
   private final UbongoBoard ubongoBoard;
   private final List<UbongoSolution> list;
+  @FieldSelectionCallback("index")
+  public Integer index = 0;
 
-  @ReflectionMarker
-  public static class Param {
-    private final int limit;
-
-    public Param(int limit) {
-      this.limit = limit;
-    }
-
-    @FieldSelectionCallback("index")
-    public Integer index = 0;
-
-    public List<Scalar> index() {
-      return IntStream.range(0, limit).mapToObj(RealScalar::of).toList();
-    }
+  public List<Scalar> index() {
+    return IntStream.range(0, list.size()).mapToObj(RealScalar::of).toList();
   }
-
-  private final Param param;
 
   public UbongoBrowser(UbongoBoard ubongoBoard, List<UbongoSolution> list) {
-    this(new Param(list.size()), ubongoBoard, list);
-  }
-
-  public UbongoBrowser(Param param, UbongoBoard ubongoBoard, List<UbongoSolution> list) {
-    super(param);
-    this.param = param;
     this.ubongoBoard = Objects.requireNonNull(ubongoBoard);
     this.list = Objects.requireNonNull(list);
+    geometricComponent.addRenderInterface(this);
   }
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
-    UbongoSolution ubongoSolution = list.get(param.index);
+    int read = Math.min(Math.max(0, index), list.size());
+    UbongoSolution ubongoSolution = list.get(read);
     StaticHelper.drawBoard(graphics, ubongoBoard, ubongoSolution.list());
     graphics.setColor(Color.DARK_GRAY);
     graphics.drawString("depth=" + ubongoSolution.search(), 100, 12);
   }
 
+  @Override
+  public Container getContainer() {
+    return geometricComponent.jComponent;
+  }
+
   static void main() {
-    LookAndFeels.autoDetect();
-    UbongoBoards ubongoBoards = UbongoBoards.KIRCH12;
+    UbongoBoards ubongoBoards = UbongoBoards.KIRCH06;
     List<UbongoSolution> list = // ubongoBoards.solve();
         UbongoLoader.INSTANCE.load(ubongoBoards);
     if (list.isEmpty()) {

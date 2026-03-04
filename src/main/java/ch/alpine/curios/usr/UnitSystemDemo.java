@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.gui;
+package ch.alpine.curios.usr;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -15,7 +15,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
-import javax.swing.WindowConstants;
 
 import ch.alpine.bridge.lang.UnicodeString;
 import ch.alpine.bridge.pro.WindowProvider;
@@ -42,7 +41,6 @@ import ch.alpine.tensor.qty.UnitSystems;
 
   public UnitSystemDemo() {
     unitSystem = unitSystem();
-    jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     JPanel jPane = new JPanel(new BorderLayout());
     JPanel jPanel = new JPanel(new BorderLayout());
     {

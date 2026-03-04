@@ -1,5 +1,5 @@
 // code by jph
-package ch.alpine.curios.gui;
+package ch.alpine.curios.usr;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

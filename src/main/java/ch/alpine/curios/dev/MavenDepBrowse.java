@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-enum DepBrowse {
+enum MavenDepBrowse {
   ;
   static void main() throws IOException, URISyntaxException {
     for (Dep dep : Dep.values())

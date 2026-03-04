@@ -1,10 +1,12 @@
 // code by jph
 package ch.alpine.curios.puzzle.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.Window;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
@@ -17,15 +19,21 @@ import java.util.Objects;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import ch.alpine.ascony.api.Box2D;
-import ch.alpine.ascony.ren.FixGridRender;
-import ch.alpine.ascony.win.AbstractDemo;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+
 import ch.alpine.bridge.gfx.AffineTransforms;
+import ch.alpine.bridge.gfx.GeometricComponent;
 import ch.alpine.bridge.gfx.GeometricLayer;
+import ch.alpine.bridge.gfx.RenderInterface;
 import ch.alpine.bridge.io.ResourceLocator;
+import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldFuse;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
+import ch.alpine.bridge.ref.util.FieldsEditor;
+import ch.alpine.bridge.ref.util.ToolbarFieldsEditor;
 import ch.alpine.curios.puzzle.Candidates;
 import ch.alpine.curios.puzzle.PuzzlePiece;
 import ch.alpine.curios.puzzle.UbongoBoard;
@@ -41,13 +49,12 @@ import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.ArrayPad;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Flatten;
-import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.img.ImageCrop;
 import ch.alpine.tensor.img.ImageRotate;
 import ch.alpine.tensor.io.Import;
 import ch.alpine.tensor.sca.Floor;
 
-class UbongoDesigner extends AbstractDemo {
+class UbongoDesigner implements WindowProvider, RenderInterface {
   private static final int EXT = 11;
   public static final Scalar FREE = UbongoBoard.FREE;
   static final Collector<CharSequence, ?, String> EMBRACE = //
@@ -79,23 +86,30 @@ class UbongoDesigner extends AbstractDemo {
     public UbongoBoards ubongoBoards = UbongoBoards.STANDARD;
   }
 
+  private final JFrame jFrame = new JFrame();
+  private final JPanel jPanel = new JPanel(new BorderLayout());
+  private final JToolBar jToolBar = new JToolBar();
+  GeometricComponent geometricComponent = new GeometricComponent();
   private final ResourceLocator resourceLocator = ResourceLocator.of(getClass());
-  private final Param param;
-  private final Paran paran;
-  private final FixGridRender gridRender;
+  private final Param param = new Param();
+  private final Paran paran = new Paran();
+  // private final FixGridRender gridRender;
   private Tensor template = Array.zeros(EXT, EXT);
   private SolveThread solveThread = null;
   private final Path FILE;
 
   public UbongoDesigner() {
-    super(param = new Param(), paran = new Paran());
     FILE = resourceLocator.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
-    fieldsEditor(0).addUniversalListener(this::run2);
-    fieldsEditor(1).addUniversalListener(() -> {
-      center(paran.ubongoBoards.board().mask());
-      param.num = paran.ubongoBoards.use();
-      fieldsEditor(0).updateJComponents();
-    });
+    FieldsEditor fieldsEditor0 = ToolbarFieldsEditor.addToComponent(param, jToolBar);
+    fieldsEditor0.addUniversalListener(this::run2);
+    {
+      FieldsEditor fieldsEditor = ToolbarFieldsEditor.addToComponent(paran, jToolBar);
+      fieldsEditor.addUniversalListener(() -> {
+        center(paran.ubongoBoards.board().mask());
+        param.num = paran.ubongoBoards.use();
+        fieldsEditor0.updateJComponents();
+      });
+    }
     try {
       template = Import.of(FILE);
     } catch (Exception e) {
@@ -105,16 +119,16 @@ class UbongoDesigner extends AbstractDemo {
     // ---
     Tensor matrix = Tensors.fromString("{{30, 0, 100}, {0, -30, 500}, {0, 0, 1}}");
     matrix = matrix.dot(Se2Matrix.of(Tensors.vector(0, 0, -Math.PI / 2)));
-    geometricComponent().setModel2Pixel(matrix);
-    geometricComponent().setOffset(100, 100);
+    geometricComponent.setModel2Pixel(matrix);
+    geometricComponent.setOffset(100, 100);
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
-    gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
-    geometricComponent().jComponent.addMouseListener(new MouseAdapter() {
+    // gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
+    geometricComponent.jComponent.addMouseListener(new MouseAdapter() {
       @Override
       public void mousePressed(MouseEvent mouseEvent) {
         if (mouseEvent.getButton() == 1) {
-          Tensor xya = geometricComponent().getMouseSe2CState().maps(Floor.FUNCTION);
+          Tensor xya = geometricComponent.getMouseSe2CState().maps(Floor.FUNCTION);
           int row = xya.Get(0).number().intValue();
           int col = xya.Get(1).number().intValue();
           if (0 <= row && row < row_max)
@@ -122,13 +136,19 @@ class UbongoDesigner extends AbstractDemo {
               boolean free = template.get(row, col).equals(FREE);
               template.set(free ? RealScalar.ZERO : FREE, row, col);
             }
+          geometricComponent.jComponent.repaint();
         }
       }
     });
+    geometricComponent.addRenderInterface(this);
+    jPanel.add(jToolBar, BorderLayout.NORTH);
+    jPanel.add(geometricComponent.jComponent, BorderLayout.CENTER);
+    jFrame.setContentPane(jPanel);
   }
 
   @Override
   public void render(GeometricLayer geometricLayer, Graphics2D graphics) {
+    // new GridRender(() -> geometricComponent.jComponent.getSize()).render(geometricLayer, graphics);
     graphics.setColor(Color.DARK_GRAY);
     int dimension1 = Unprotect.dimension1(template);
     for (int row = 0; row < template.length(); ++row) {
@@ -142,7 +162,7 @@ class UbongoDesigner extends AbstractDemo {
         }
       }
     }
-    gridRender.render(geometricLayer, graphics);
+    // gridRender.render(geometricLayer, graphics);
     {
       int count = (int) Flatten.stream(template, -1).filter(FREE::equals).count();
       graphics.setColor(Color.DARK_GRAY);
@@ -218,6 +238,11 @@ class UbongoDesigner extends AbstractDemo {
     final int end0 = def0 - beg0;
     final int end1 = def1 - beg1;
     template = ArrayPad.of(mask, List.of(beg0, beg1), List.of(end0, end1));
+  }
+
+  @Override
+  public Window getWindow() {
+    return jFrame;
   }
 
   static void main() {

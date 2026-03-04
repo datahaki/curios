@@ -24,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
-import javax.swing.WindowConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
@@ -76,7 +75,6 @@ class SbfShow implements WindowProvider {
     sbfItems = SbfParser.get(sbfType);
     sbfTrack = new SbfTrack(sbfType, sbfItems.size());
     jFrame.setTitle(sbfType.name());
-    jFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     WindowClosed.runs(jFrame, sbfTrack::store);
     jLabel.setPreferredSize(new Dimension(200, 200));
     JPanel jPanelGrid = new JPanel(new GridLayout(3, 1));
