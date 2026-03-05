@@ -25,7 +25,7 @@ import ch.alpine.tensor.qty.Unit;
 import ch.alpine.tensor.qty.UnitSystem;
 import ch.alpine.tensor.qty.UnitSystems;
 
-/* package */ class UnitSystemDemo implements WindowProvider {
+class UnitSystemDemo implements WindowProvider {
   private static final Font FONT = new Font(Font.DIALOG, Font.BOLD, 22);
   private static final Font AREA_FONT = new Font(Font.DIALOG, Font.PLAIN, 22);
 

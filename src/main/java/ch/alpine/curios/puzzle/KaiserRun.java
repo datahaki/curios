@@ -2,6 +2,7 @@
 package ch.alpine.curios.puzzle;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.List;
@@ -17,7 +18,7 @@ import ch.alpine.tensor.io.Put;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Round;
 
-public class KaiserRun {
+abstract class KaiserRun {
   public record Pair(Month month, int day) {
     public static Stream<Pair> all() {
       return Stream.of(Month.values()) //
@@ -30,14 +31,17 @@ public class KaiserRun {
     }
   }
 
-  public static Tensor check(CalendarBoard calendarBoard) {
-    Pair.all().forEach(pair -> {
+  public abstract Stream<Pair> stream();
+
+  Tensor array = Array.zeros(12, 31, 7);
+
+  public Tensor check(CalendarBoard calendarBoard) {
+    stream().forEach(pair -> {
       for (DayOfWeek dayOfWeek : DayOfWeek.values())
         Throw.unless(calendarBoard.isSinglesFree(pair.month, pair.day, dayOfWeek));
     });
-    Tensor array = Array.zeros(12, 31, 7);
     Timing timing = Timing.started();
-    Pair.all().parallel().forEach(pair -> {
+    stream().parallel().forEach(pair -> {
       Month month = pair.month;
       int day = pair.day;
       for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
@@ -54,17 +58,21 @@ public class KaiserRun {
       }
     });
     IO.println(timing.seconds().maps(Round._1));
-    try {
-      IO.println("storing");
-      Put.of(HomeDirectory.Ephemeral.resolve("cheese.mathematica"), array);
-      IO.println("stored");
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     return array;
   }
 
-  static void main() {
-    check(CalendarBoards.CHEESY.calendarBoard());
+  void store(Path path) throws IOException {
+    Put.of(path, array);
+  }
+
+  static void main() throws IOException {
+    KaiserRun kaiserRun = new KaiserRun() {
+      @Override
+      public Stream<Pair> stream() {
+        return Pair.all();
+      }
+    };
+    kaiserRun.check(CalendarBoards.CHEESY.calendarBoard());
+    kaiserRun.store(HomeDirectory.Ephemeral.resolve("cheese.mathematica"));
   }
 }

@@ -6,7 +6,7 @@ import ch.alpine.tensor.fft.FourierDCT;
 import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.sca.Round;
 
-public enum WolframUpdate {
+enum WolframUpdate {
   ;
   static void main() {
     Tensor matrix = FourierDCT._2.matrix(4);

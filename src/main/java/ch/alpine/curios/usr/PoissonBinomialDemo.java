@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.usr;
 
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.pdf.Distribution;
@@ -12,9 +13,9 @@ import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.red.Mean;
 import ch.alpine.tensor.red.Variance;
 
-/* package */ enum PoissonBinomialDemo {
-  ;
-  static void main() {
+class PoissonBinomialDemo implements VoidProvider {
+  @Override
+  public Void runStandalone() {
     Tensor p_vector = RandomVariate.of(UniformDistribution.unit(), 1000);
     Distribution distribution = PoissonBinomialDistribution.of(p_vector);
     Tensor samples;
@@ -35,5 +36,10 @@ import ch.alpine.tensor.red.Variance;
       Scalar seconds = timing.seconds();
       System.out.println("sec  hist = " + seconds);
     }
+    return null;
+  }
+
+  static void main() {
+    new PoissonBinomialDemo().runStandalone();
   }
 }

@@ -10,7 +10,7 @@ import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.qty.Unit;
 import ch.alpine.tensor.qty.UnitConvert;
 
-/* package */ enum QuantityDemo {
+enum QuantityDemo {
   ;
   private static void _cholesky() {
     Tensor matrix = Tensors.fromString( //

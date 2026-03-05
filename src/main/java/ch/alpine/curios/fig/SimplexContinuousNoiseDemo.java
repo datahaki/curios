@@ -1,19 +1,22 @@
 // code by jph
 package ch.alpine.curios.fig;
 
-import javax.swing.JDialog;
+import java.awt.Container;
 
 import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.pro.ShowWindow;
+import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
-public enum NoiseDemo {
-  ;
-  static void main() {
+@ReflectionMarker
+class SimplexContinuousNoiseDemo implements ManipulateProvider {
+  @Override
+  public Container getContainer() {
     CoordinateBoundingBox cbb = CoordinateBoundingBox.of(Clips.absolute(15), Clips.absolute(15));
     Show show1 = new Show();
     show1.setPlotLabel("SimplexContinuousNoise[x,y]");
@@ -30,8 +33,10 @@ public enum NoiseDemo {
     show3.add(DensityPlot.of( //
         (x, y) -> SimplexContinuousNoise.FUNCTION.apply(Tensors.of(x, y, x.zero(), x.zero())), //
         cbb));
-    JDialog jDialog = ShowWindow.asDialog(show1, show2, show3);
-    jDialog.setVisible(true);
-    // FIXME dialog does not show
+    return ShowGridComponent.of(show1, show2, show3);
+  }
+
+  static void main() {
+    new SimplexContinuousNoiseDemo().runStandalone();
   }
 }

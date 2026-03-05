@@ -30,7 +30,7 @@ import ch.alpine.tensor.sca.Round;
 import ch.alpine.tensor.sca.exp.Exp;
 import ch.alpine.tensor.sca.pow.Sqrt;
 
-/* package */ enum ReadmeDemo {
+enum ReadmeDemo {
   ;
   static void demoInverse() {
     Tensor matrix = Tensors.matrixInt(new int[][] { { 2, -3, 2 }, { 4, 9, -3 }, { -1, 3, 2 } });
