@@ -30,15 +30,6 @@ jobs:
         run: mvn -B --no-transfer-progress install -DskipTests
         working-directory: ./tensor
 
-      - name: checkout subare
-        uses: actions/checkout@v4
-        with:
-          repository: datahaki/subare
-          path: subare
-      - name: build and install subare
-        run: mvn -B --no-transfer-progress install -DskipTests
-        working-directory: ./subare
-
       - name: checkout sophus
         uses: actions/checkout@v4
         with:
@@ -65,15 +56,6 @@ jobs:
       - name: build and install bridge
         run: mvn -B --no-transfer-progress install -DskipTests
         working-directory: ./bridge
-
-      - name: checkout ascony
-        uses: actions/checkout@v4
-        with:
-          repository: datahaki/ascony
-          path: ascony
-      - name: build and install ascony
-        run: mvn -B --no-transfer-progress install -DskipTests
-        working-directory: ./ascony
 
       - name: mvn test
         shell: bash
