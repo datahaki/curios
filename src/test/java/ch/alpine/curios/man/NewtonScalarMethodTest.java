@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.curios.man;
 
 import org.junit.jupiter.api.Test;

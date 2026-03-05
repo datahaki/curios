@@ -27,6 +27,7 @@ import javax.swing.JToolBar;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
+import ch.alpine.bridge.awt.AwtUtil;
 import ch.alpine.bridge.awt.WindowClosed;
 import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.tensor.RealScalar;
@@ -115,7 +116,7 @@ class SbfShow implements WindowProvider {
         }
       });
       jToolBar.add(jButton);
-      jToolBar.addSeparator();
+      AwtUtil.addSeparator(jToolBar);
     }
     jToolBar.add(progress);
     jToolBar.setFloatable(false);
