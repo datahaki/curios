@@ -24,8 +24,9 @@ class KaiserRunTest {
   @ParameterizedTest
   @EnumSource
   void testEmu(CalendarBoards calendarBoards) {
+    IO.println(calendarBoards);
     Month month = Month.values()[ThreadLocalRandom.current().nextInt(12)];
-    int day = ThreadLocalRandom.current().nextInt(29);
+    int day = 1 + ThreadLocalRandom.current().nextInt(28);
     KaiserRun kaiserRun = new KaiserRun() {
       @Override
       public Stream<Pair> stream() {
