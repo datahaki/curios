@@ -4,7 +4,6 @@ package ch.alpine.curios.pdf;
 import java.awt.Container;
 
 import ch.alpine.bridge.fig.Plot;
-import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
@@ -32,11 +31,11 @@ class PdfCdfDemo implements ManipulateProvider {
     Distribution histogram = HistogramDistribution.of(RandomVariate.of(distribution, samples), binning);
     Show showPdf = new Show();
     showPdf.add(Plot.of(PDF.of(histogram)::at, clipX)).setLabel(histogram.toString());
-    showPdf.add(Plot.of(PDF.of(distribution)::at, clipX, PlotOption.STRICT)).setLabel(distribution.toString());
+    showPdf.add(Plot.of(PDF.of(distribution)::at, clipX)).setLabel(distribution.toString());
     Show showCdf = new Show();
     showCdf.add(Plot.of(CDF.of(histogram)::p_lessThan, clipX)).setLabel("CDF " + histogram);
     if (distribution instanceof CDF)
-      showCdf.add(Plot.of(CDF.of(distribution)::p_lessThan, clipX, PlotOption.STRICT)).setLabel("CDF " + distribution);
+      showCdf.add(Plot.of(CDF.of(distribution)::p_lessThan, clipX)).setLabel("CDF " + distribution);
     return ShowGridComponent.of(showPdf, showCdf);
   }
 
