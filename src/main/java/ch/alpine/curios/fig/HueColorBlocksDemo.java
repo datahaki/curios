@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.fig;
 
-import ch.alpine.bridge.fig.ArrayShowable;
+import ch.alpine.bridge.fig.ImageShowable;
 import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
@@ -20,7 +20,7 @@ class HueColorBlocksDemo implements ShowProvider {
     Tensor tensor = Tensors.of(Range.of(0, colorDataIndexed.length())).maps(colorDataIndexed);
     Show show = new Show();
     Showable showable = show.add(ImagePlot.of(ImageFormat.of(tensor)));
-    ArrayShowable arrayShowable = (ArrayShowable) showable;
+    ImageShowable arrayShowable = (ImageShowable) showable;
     arrayShowable.setImageResize(ImageResize.DEGREE_0);
     return show;
   }
