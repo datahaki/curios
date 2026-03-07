@@ -39,9 +39,7 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     Show show = new Show();
     show.setPlotLabel(pretty(localDate));
     show.setGridLines(false);
-    ImagePlot imagePlot = ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())));
-    imagePlot.setImageResize(ImageResize.DEGREE_0);
-    show.add(imagePlot);
+    show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())), ImageResize.DEGREE_0));
     List<StringItem> list = calendarBoard.mapping().entrySet().stream().map(e -> StringItem.of(e.getKey(), e.getValue())).toList();
     show.add(StringPlot.of(list));
     return show;

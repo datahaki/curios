@@ -2,9 +2,7 @@
 package ch.alpine.curios.fig;
 
 import ch.alpine.bridge.fig.ImagePlot;
-import ch.alpine.bridge.fig.ImageShowable;
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
@@ -19,9 +17,7 @@ class HueColorBlocksDemo implements ShowProvider {
     ColorDataIndexed colorDataIndexed = HueColorBlocks.of(10, 5);
     Tensor tensor = Tensors.of(Range.of(0, colorDataIndexed.length())).maps(colorDataIndexed);
     Show show = new Show();
-    Showable showable = show.add(ImagePlot.of(ImageFormat.of(tensor)));
-    ImageShowable imageShowable = (ImageShowable) showable;
-    imageShowable.setImageResize(ImageResize.DEGREE_0);
+    show.add(ImagePlot.of(ImageFormat.of(tensor), ImageResize.DEGREE_0));
     return show;
   }
 
