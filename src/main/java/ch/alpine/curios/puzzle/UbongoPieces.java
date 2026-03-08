@@ -2,8 +2,8 @@
 package ch.alpine.curios.puzzle;
 
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 /** 12 different pieces */
 public enum UbongoPieces {
@@ -26,7 +26,7 @@ public enum UbongoPieces {
     puzzlePiece = PuzzlePiece.of(ordinal(), color, strings);
   }
 
-  private static final List<PuzzlePiece> LIST = Stream.of(values()).map(up -> up.puzzlePiece).toList();
+  private static final List<PuzzlePiece> LIST = Arrays.stream(values()).map(up -> up.puzzlePiece).toList();
 
   public static final List<PuzzlePiece> list() {
     return LIST;

@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.puzzle;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import ch.alpine.tensor.img.ColorDataLists;
 
@@ -27,7 +27,7 @@ public enum CaesarPieces {
         strings);
   }
 
-  private static final List<PuzzlePiece> LIST = Stream.of(values()).map(up -> up.puzzlePiece).toList();
+  private static final List<PuzzlePiece> LIST = Arrays.stream(values()).map(up -> up.puzzlePiece).toList();
 
   public static final List<PuzzlePiece> list() {
     return LIST;

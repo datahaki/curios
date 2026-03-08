@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.DayOfWeek;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -21,7 +22,7 @@ import ch.alpine.tensor.sca.Round;
 abstract class KaiserRun {
   public record Pair(Month month, int day) {
     public static Stream<Pair> all() {
-      return Stream.of(Month.values()) //
+      return Arrays.stream(Month.values()) //
           .flatMap(month -> IntStream.rangeClosed(1, 31).boxed().map(day -> new Pair(month, day)));
     }
 

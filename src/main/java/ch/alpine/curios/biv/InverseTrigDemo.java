@@ -1,7 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.Scalar;
@@ -24,7 +24,7 @@ record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements D
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     Scalar seed = Power.of(ComplexScalar.of(re, im), EXPONENT);
-    return Stream.of(scalarUnaryOperators) //
+    return Arrays.stream(scalarUnaryOperators) //
         .map(scalarUnaryOperator -> scalarUnaryOperator.apply(seed)) //
         .map(Im.FUNCTION) //
         .reduce(Scalar::add) //

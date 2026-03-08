@@ -3,6 +3,7 @@ package ch.alpine.curios.puzzle;
 
 import java.awt.Color;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,8 +19,8 @@ import ch.alpine.tensor.img.ImageRotate;
 
 public record PuzzlePiece(int ordinal, Color color, Tensor mask, int count, Set<OrientedPiece> stamps) implements Serializable {
   public static PuzzlePiece of(int ordinal, Color color, String... strings) {
-    final int n = Stream.of(strings).mapToInt(String::length).max().orElseThrow();
-    Tensor mask = Tensor.of(Stream.of(strings).map(string -> {
+    final int n = Arrays.stream(strings).mapToInt(String::length).max().orElseThrow();
+    Tensor mask = Tensor.of(Arrays.stream(strings).map(string -> {
       Tensor row = Array.zeros(n);
       for (int index = 0; index < string.length(); ++index)
         if (string.charAt(index) == 'x')
