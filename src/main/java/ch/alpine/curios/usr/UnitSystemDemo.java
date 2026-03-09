@@ -30,7 +30,7 @@ class UnitSystemDemo implements WindowProvider {
   private static final Font AREA_FONT = new Font(Font.DIALOG, Font.PLAIN, 22);
 
   /* package */ static UnitSystem unitSystem() {
-    return SimpleUnitSystem.from(ResourceData.properties("/ch/alpine/tensor/qty/si_reduced.properties"));
+    return SimpleUnitSystem.from(ResourceData.properties("ch/alpine/tensor/qty/si_reduced.properties"));
   }
 
   private final JFrame jFrame = new JFrame();

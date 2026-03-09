@@ -35,7 +35,7 @@ import ch.alpine.tensor.io.ImageFormat;
   private static final Color FILL = Color.LIGHT_GRAY;
   private static final String[] STARS = { "\u2729", "\u272a", "\u272b", "\u272c", "\u272d", "\u272e", "\u272f", "\u2730" };
   private static final List<BufferedImage> DICE = IntStream.range(0, 6) //
-      .mapToObj(count -> ResourceData.bufferedImage("/ch/alpine/ubongo/dice" + count + ".png")) //
+      .mapToObj(count -> ResourceData.bufferedImage("ch/alpine/ubongo/dice" + count + ".png")) //
       .toList();
 
   public static void draw(Graphics2D graphics, UbongoPublish ubongoPublish, int SCALE) {

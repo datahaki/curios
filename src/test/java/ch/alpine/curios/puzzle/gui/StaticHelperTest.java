@@ -22,7 +22,7 @@ class StaticHelperTest {
   @Test
   void testResData21() {
     IntStream.range(0, 6) //
-        .mapToObj(count -> ResourceData.bufferedImage("/ch/alpine/ubongo/dice" + count + ".png")) //
+        .mapToObj(count -> ResourceData.bufferedImage("ch/alpine/ubongo/dice" + count + ".png")) //
         .toList();
   }
 }

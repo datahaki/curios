@@ -19,7 +19,7 @@ import ch.alpine.tensor.io.ImageFormat;
 @ReflectionMarker
 public class ImageFiltersDemo implements ManipulateProvider {
   public static final Tensor IMAGE = ImageFormat.from( //
-      ResourceData.bufferedImage("/ch/alpine/curios/man/ca54d607.png")).unmodifiable();
+      ResourceData.bufferedImage("ch/alpine/curios/man/ca54d607.png")).unmodifiable();
   // ---
   public ImageFilters imageFilters = ImageFilters.MEDIAN;
   @FieldSlider

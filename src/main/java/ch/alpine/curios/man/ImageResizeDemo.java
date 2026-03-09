@@ -26,7 +26,7 @@ public class ImageResizeDemo implements ManipulateProvider {
   public Scalar magnify = RealScalar.of(1);
 
   public ImageResizeDemo() {
-    BufferedImage bufferedImage = ResourceData.bufferedImage("/ch/alpine/curios/man/vehicle_c.png");
+    BufferedImage bufferedImage = ResourceData.bufferedImage("ch/alpine/curios/man/vehicle_c.png");
     for (ImageResize imageResize : ImageResize.values())
       map.put(imageResize, new ScalableImage(bufferedImage));
   }

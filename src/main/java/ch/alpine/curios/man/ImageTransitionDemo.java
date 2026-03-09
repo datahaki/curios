@@ -24,8 +24,8 @@ import ch.alpine.tensor.img.ImageResize;
 
 @ReflectionMarker
 public class ImageTransitionDemo implements ManipulateProvider {
-  private final ScalableImage im1 = new ScalableImage(ResourceData.bufferedImage("/ch/alpine/curios/man/vehicle_c.png"));
-  private final ScalableImage im2 = new ScalableImage(ResourceData.bufferedImage("/ch/alpine/curios/man/vehicle_g.png"));
+  private final ScalableImage im1 = new ScalableImage(ResourceData.bufferedImage("ch/alpine/curios/man/vehicle_c.png"));
+  private final ScalableImage im2 = new ScalableImage(ResourceData.bufferedImage("ch/alpine/curios/man/vehicle_g.png"));
   @FieldClip(min = "0.01", max = "0.1")
   @FieldSlider
   public Scalar ex = RealScalar.of(0.05);
