@@ -1,25 +1,32 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.img.ColorDataGradient;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.num.GaussScalar;
 import ch.alpine.tensor.num.Prime;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
+import ch.alpine.tensor.sca.Floor;
 
 // TODO
 record GaussScalarDemo(int prime) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = //
-      new GaussScalarDemo(Prime.of(100).number().intValue());
+      new GaussScalarDemo(Scalars.intValueExact(Prime.of(100)));
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
-    GaussScalar x = GaussScalar.of(re.number().intValue(), prime);
-    GaussScalar y = GaussScalar.of(im.number().intValue(), prime);
-    return RealScalar.of(x.divide(y).number());
+    GaussScalar x = GaussScalar.of(Floor.intValueExact(re), prime);
+    GaussScalar y = GaussScalar.of(Floor.intValueExact(im), prime);
+    try {
+      return RealScalar.of(x.divide(y).number());
+    } catch (Exception e) {
+      return DoubleScalar.INDETERMINATE;
+    }
   }
 
   @Override
