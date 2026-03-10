@@ -121,7 +121,7 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     Tensor matrix = Tensors.fromString("{{30, 0, 100}, {0, -30, 500}, {0, 0, 1}}");
     matrix = matrix.dot(Se2Matrix.of(Tensors.vector(0, 0, -Math.PI / 2)));
     geometricComponent.setModel2Pixel(matrix);
-    geometricComponent.setOffset(100, 100);
+    // geometricComponent.setOffset(100, 100);
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
     // gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
