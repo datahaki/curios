@@ -22,9 +22,7 @@ import ch.alpine.tensor.tmp.TimeSeries;
  * 
  * element count=3632
  * iterations=3611 */
-/* package */ enum SynchronizationDemo implements VoidProvider {
-  INSTANCE;
-
+class SynchronizationDemo implements VoidProvider {
   private static final Scalar SEC = Quantity.of(1, "s");
 
   private static Scalar spawn() {
@@ -73,6 +71,6 @@ import ch.alpine.tensor.tmp.TimeSeries;
   }
 
   static void main() {
-    INSTANCE.runStandalone();
+    new SynchronizationDemo().runStandalone();
   }
 }

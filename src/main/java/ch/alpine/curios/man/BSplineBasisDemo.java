@@ -23,7 +23,7 @@ import ch.alpine.tensor.img.ColorDataIndexed;
 import ch.alpine.tensor.img.ColorDataLists;
 
 @ReflectionMarker
-public class BSplineBasisDemo implements ManipulateProvider {
+class BSplineBasisDemo implements ManipulateProvider {
   @FieldSelectionArray({ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" })
   public Integer degree = 1;
   public ColorDataLists cdl = ColorDataLists._097;
@@ -34,14 +34,16 @@ public class BSplineBasisDemo implements ManipulateProvider {
     int _degree = degree;
     ColorDataIndexed colorDataIndexed = cdl.cyclic().deriveWithAlpha(192);
     for (int length = 2; length <= 8; ++length) {
-      Tensor domain = Subdivide.of(0, length - 1, 100);
+      int upper = length - 1;
+      Tensor domain = Subdivide.of(0, upper, 20 * upper);
       Show show = new Show(colorDataIndexed);
       for (int k_th = 0; k_th < length; ++k_th) {
+        Tensor knots = UnitVector.of(length, k_th);
         GeodesicBSplineFunction bSplineFunction = //
-            GeodesicBSplineFunction.of(RGroup.INSTANCE, _degree, UnitVector.of(length, k_th));
+            GeodesicBSplineFunction.of(RGroup.INSTANCE, _degree, knots);
         Tensor values = domain.maps(bSplineFunction);
         Tensor tensor = Transpose.of(Tensors.of(domain, values));
-        show.add(ListLinePlot.of(tensor));
+        show.add(ListLinePlot.of(tensor)).setLabel("" + knots);
       }
       list.add(show);
     }

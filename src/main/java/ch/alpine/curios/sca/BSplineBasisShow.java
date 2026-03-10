@@ -9,7 +9,7 @@ import ch.alpine.tensor.itp.BSplineBasis;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
-class BSplineBasisDemo implements ShowProvider {
+class BSplineBasisShow implements ShowProvider {
   @Override
   public Show getShow() {
     Clip clip = Clips.absolute(3);
@@ -23,6 +23,6 @@ class BSplineBasisDemo implements ShowProvider {
   }
 
   static void main() {
-    new BSplineBasisDemo().runStandalone();
+    new BSplineBasisShow().runStandalone();
   }
 }
