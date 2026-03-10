@@ -25,11 +25,11 @@ import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.ext.HomeDirectory;
 
 @ReflectionMarker
 public class JpgBlenderDemo implements ManipulateProvider, RenderInterface {
-  private static final File ROOT = //
-      new File("/home/datahaki/Downloads/jpgblender");
+  private static final File ROOT = HomeDirectory.Pictures.resolve("").toFile();
   // ---
   private BufferedImage bufferedImage;
   @FieldSelectionCallback("files")

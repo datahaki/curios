@@ -16,8 +16,6 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.curios.puzzle.UbongoBoards;
 import ch.alpine.curios.puzzle.UbongoLoader;
 import ch.alpine.curios.puzzle.UbongoSolution;
-import ch.alpine.tensor.RealScalar;
-import ch.alpine.tensor.Scalar;
 
 @ReflectionMarker
 class UbongoTree implements ManipulateProvider, RenderInterface {
@@ -31,10 +29,11 @@ class UbongoTree implements ManipulateProvider, RenderInterface {
     geometricComponent.addRenderInterface(this);
   }
 
-  public List<Scalar> index() {
+  @ReflectionMarker
+  public List<Integer> index() {
     return Objects.isNull(list) //
         ? List.of()
-        : IntStream.range(0, list.size()).mapToObj(RealScalar::of).toList();
+        : IntStream.range(0, list.size()).boxed().toList();
   }
 
   @Override

@@ -3,9 +3,11 @@ package ch.alpine.curios.boat;
 
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSlider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Scalar;
 
-public class BoatObject {
+@ReflectionMarker
+class BoatObject {
   @FieldSlider(showValue = true)
   @FieldClip(min = "2000.0[kg]", max = "20000.0[kg]")
   public Scalar displacement;
