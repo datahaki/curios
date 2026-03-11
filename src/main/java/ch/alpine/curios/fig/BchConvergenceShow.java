@@ -1,10 +1,17 @@
 // code by jph
 package ch.alpine.curios.fig;
 
+import java.awt.Container;
+
 import ch.alpine.bridge.fig.ListLinePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Showable;
-import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.FieldClip;
+import ch.alpine.bridge.ref.ann.FieldFuse;
+import ch.alpine.bridge.ref.ann.FieldSlider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.lie.MatrixAlgebra;
 import ch.alpine.sophus.lie.se.SeNGroup;
 import ch.alpine.sophus.lie.sl.SlNGroup;
@@ -17,11 +24,17 @@ import ch.alpine.tensor.lie.bch.BakerCampbellHausdorff;
 import ch.alpine.tensor.mat.ex.MatrixExp;
 import ch.alpine.tensor.mat.ex.MatrixLog;
 import ch.alpine.tensor.nrm.FrobeniusNorm;
+import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.exp.Log10;
 
-record BchConvergenceShow(int depth) implements ShowProvider {
-  public static final ShowProvider INSTANCE = new BchConvergenceShow(9);
+@ReflectionMarker
+class BchConvergenceShow implements ManipulateProvider {
+  @FieldSlider
+  @FieldClip(min = "1", max = "12")
+  public Integer depth = 1;
+  @FieldFuse
+  public transient Boolean shuffle = false;
 
   Showable add(String name, MatrixAlgebra matrixAlgebra) {
     Tensor tensor = err(matrixAlgebra);
@@ -33,7 +46,7 @@ record BchConvergenceShow(int depth) implements ShowProvider {
   private Tensor err(MatrixAlgebra matrixAlgebra) {
     Tensor ad = matrixAlgebra.ad().maps(N.DOUBLE);
     BakerCampbellHausdorff bakerCampbellHausdorff = //
-        (BakerCampbellHausdorff) BakerCampbellHausdorff.of(ad, depth);
+        new BakerCampbellHausdorff(ad, depth, Chop._15);
     Tensor x = Tensors.vector(+0.10, +0.12, +0.07);
     Tensor y = Tensors.vector(+0.05, -0.06, +0.11);
     Tensor series = bakerCampbellHausdorff.series(x, y);
@@ -45,16 +58,16 @@ record BchConvergenceShow(int depth) implements ShowProvider {
   }
 
   @Override
-  public Show getShow() {
+  public Container getContainer() {
     Show show = new Show();
-    show.setPlotLabel("bch convergence");
-    show.add(add("se2", new SeNGroup(2).matrixAlgebra()));
-    show.add(add("so3", new SoNGroup(3).matrixAlgebra()));
-    show.add(add("sl2", new SlNGroup(2).matrixAlgebra()));
-    return show;
+    show.setPlotLabel("bch convergence depth=" + depth);
+    show.add(add("se2", MatrixAlgebra.of(new SeNGroup(2))));
+    show.add(add("so3", MatrixAlgebra.of(new SoNGroup(3))));
+    show.add(add("sl2", MatrixAlgebra.of(new SlNGroup(2))));
+    return ShowGridComponent.of(show);
   }
 
   static void main() {
-    new BchConvergenceShow(11).runStandalone();
+    new BchConvergenceShow().runStandalone();
   }
 }
