@@ -39,6 +39,7 @@ import ch.alpine.curios.puzzle.PuzzlePiece;
 import ch.alpine.curios.puzzle.UbongoBoard;
 import ch.alpine.curios.puzzle.UbongoBoards;
 import ch.alpine.curios.puzzle.UbongoPieces;
+import ch.alpine.sophis.crv.d2.ex.Box2D;
 import ch.alpine.sophus.lie.se2.Se2Matrix;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -157,7 +158,7 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
         Scalar scalar = template.Get(row, col);
         if (!scalar.equals(FREE)) {
           geometricLayer.pushMatrix(Se2Matrix.translation(Tensors.vector(row, col)));
-          Path2D path2d = geometricLayer.toPath2D(Box2D.SQUARE, true);
+          Path2D path2d = geometricLayer.toPath2D(Box2D.UNIT_SQUARE);
           graphics.fill(path2d);
           geometricLayer.popMatrix();
         }

@@ -23,7 +23,7 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
-public class HistogramDistributionManipulate implements ManipulateProvider {
+public class HistogramDistributionDemo implements ManipulateProvider {
   public Scalar p1 = RealScalar.of(1.2);
   public Scalar p2 = RealScalar.of(1.3);
   public Scalar support = RealScalar.of(4);
@@ -44,6 +44,6 @@ public class HistogramDistributionManipulate implements ManipulateProvider {
   }
 
   static void main() {
-    new HistogramDistributionManipulate().runStandalone();
+    new HistogramDistributionDemo().runStandalone();
   }
 }

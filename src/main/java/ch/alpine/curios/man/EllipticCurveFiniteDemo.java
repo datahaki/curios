@@ -19,7 +19,7 @@ import ch.alpine.tensor.mat.UpperEvaluation;
 import ch.alpine.tensor.num.GaussScalar;
 
 @ReflectionMarker
-public class EllipticCurveFinite implements ManipulateProvider {
+public class EllipticCurveFiniteDemo implements ManipulateProvider {
   @FieldSelectionArray({ "61", "347", "1667" })
   public Integer prime = 61;
   public Integer a = 9;
@@ -54,6 +54,6 @@ public class EllipticCurveFinite implements ManipulateProvider {
   }
 
   static void main() {
-    new EllipticCurveFinite().runStandalone();
+    new EllipticCurveFiniteDemo().runStandalone();
   }
 }

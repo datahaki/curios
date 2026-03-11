@@ -13,7 +13,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.curios.puzzle.CalendarBoards;
 
 @ReflectionMarker
-public class CalendarManipulate implements ManipulateProvider {
+public class CalendarBoardsDemo implements ManipulateProvider {
   public CalendarBoards calendarBoards = CalendarBoards.CAESAR;
   public LocalDate localDate = LocalDate.now();
 
@@ -25,6 +25,6 @@ public class CalendarManipulate implements ManipulateProvider {
   }
 
   static void main() {
-    new CalendarManipulate().runStandalone();
+    new CalendarBoardsDemo().runStandalone();
   }
 }

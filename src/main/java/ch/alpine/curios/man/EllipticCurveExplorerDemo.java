@@ -29,7 +29,7 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
-public class EllipticCurveExplorer implements ManipulateProvider {
+public class EllipticCurveExplorerDemo implements ManipulateProvider {
   @FieldSelectionArray({ "{-1,0}", "{-1,1/4}", "{-1,1}", "{0,-2}", "{0,2}", "{0,5}", "{1,-1}" })
   public Tensor a_b = Tensors.vector(-1, +1);
   @FieldClip(min = "1", max = "5")
@@ -76,6 +76,6 @@ public class EllipticCurveExplorer implements ManipulateProvider {
   }
 
   static void main() {
-    new EllipticCurveExplorer().runStandalone();
+    new EllipticCurveExplorerDemo().runStandalone();
   }
 }
