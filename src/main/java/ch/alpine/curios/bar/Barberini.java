@@ -84,9 +84,9 @@ public class Barberini {
 
   void load() throws IOException {
     boolean asd = false;
-    for (Path file : Files.list(SRC).toList())
-      if (!properties.containsKey(file.getFileName())) {
-        imagePoly = new ImagePoly(file.getFileName().toString());
+    for (Path path : Files.list(SRC).toList())
+      if (!properties.containsKey(path.getFileName())) {
+        imagePoly = new ImagePoly(path.getFileName().toString());
         asd = true;
         break;
       }

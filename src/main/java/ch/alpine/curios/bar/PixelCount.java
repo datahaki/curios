@@ -26,8 +26,8 @@ enum PixelCount {
       System.out.println(total);
     }
     System.out.println("---");
-    for (Path file : Files.list(Barberini.DST).toList()) {
-      BufferedImage image = ImageIO.read(file.toFile());
+    for (Path path : Files.list(Barberini.DST).toList()) {
+      BufferedImage image = ImageIO.read(path.toFile());
       System.out.println(image.getHeight() * image.getWidth());
     }
   }
