@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ch.alpine.bridge.awt.RenderQuality;
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;

@@ -1,11 +1,11 @@
 // code by jph
 package ch.alpine.curios.fig;
 
-import ch.alpine.bridge.fig.ListPlot;
-import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.plt.ListPlot;
+import ch.alpine.bridge.fig.plt.Plot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Tensor;

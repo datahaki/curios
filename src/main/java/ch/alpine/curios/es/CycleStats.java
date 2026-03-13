@@ -5,10 +5,10 @@ import java.util.Map.Entry;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-import ch.alpine.bridge.fig.ListLinePlot;
-import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.plt.ListLinePlot;
+import ch.alpine.bridge.fig.plt.ListPlot;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;

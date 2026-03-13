@@ -7,11 +7,11 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.random.RandomGenerator;
 
-import ch.alpine.bridge.fig.DensityPlot;
-import ch.alpine.bridge.fig.ListLinePlot;
-import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.fig.plt.DensityPlot;
+import ch.alpine.bridge.fig.plt.ListLinePlot;
+import ch.alpine.bridge.fig.plt.ListPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.fit.WeiszfeldMethod;

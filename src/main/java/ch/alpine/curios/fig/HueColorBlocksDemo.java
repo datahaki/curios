@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.fig;
 
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;

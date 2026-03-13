@@ -5,9 +5,9 @@ import java.awt.Window;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.plt.Plot;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.bridge.pro.WindowProvider;
 import ch.alpine.bridge.swing.LookAndFeels;

@@ -1,9 +1,9 @@
 // code by jph
 package ch.alpine.curios.sca;
 
-import ch.alpine.bridge.fig.Plot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.plt.Plot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.itp.BSplineBasis;
 import ch.alpine.tensor.sca.Clip;

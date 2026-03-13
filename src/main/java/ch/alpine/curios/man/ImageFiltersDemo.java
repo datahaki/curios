@@ -5,10 +5,10 @@ import java.util.stream.IntStream;
 
 import javax.swing.JComponent;
 
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.ShowOption;
+import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSlider;

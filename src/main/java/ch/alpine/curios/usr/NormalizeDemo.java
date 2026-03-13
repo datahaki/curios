@@ -4,9 +4,9 @@ package ch.alpine.curios.usr;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import ch.alpine.bridge.fig.ListLinePlot;
-import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ListLinePlot;
+import ch.alpine.bridge.fig.plt.ListPlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;

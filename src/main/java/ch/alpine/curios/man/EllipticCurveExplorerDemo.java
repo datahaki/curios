@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import javax.swing.JComponent;
 
-import ch.alpine.bridge.fig.ListPlot;
-import ch.alpine.bridge.fig.ReImPlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
+import ch.alpine.bridge.fig.plt.ListPlot;
+import ch.alpine.bridge.fig.plt.ReImPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;

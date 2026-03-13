@@ -4,10 +4,10 @@ package ch.alpine.curios.fig;
 import java.util.List;
 import java.util.stream.Stream;
 
-import ch.alpine.bridge.fig.ListLinePlot;
-import ch.alpine.bridge.fig.ListPlot;
-import ch.alpine.bridge.fig.ReImPlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ListLinePlot;
+import ch.alpine.bridge.fig.plt.ListPlot;
+import ch.alpine.bridge.fig.plt.ReImPlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;

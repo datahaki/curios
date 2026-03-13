@@ -4,11 +4,11 @@ package ch.alpine.curios.puzzle.gui;
 import java.time.LocalDate;
 import java.util.List;
 
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowOption;
-import ch.alpine.bridge.fig.StringPlot;
-import ch.alpine.bridge.fig.StringPlot.StringItem;
+import ch.alpine.bridge.fig.plt.ImagePlot;
+import ch.alpine.bridge.fig.plt.StringPlot;
+import ch.alpine.bridge.fig.plt.StringPlot.StringItem;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.curios.puzzle.CaesarPieces;
 import ch.alpine.curios.puzzle.CalendarBoard;

@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.exp;
 
-import ch.alpine.bridge.fig.ListPlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ListPlot;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;

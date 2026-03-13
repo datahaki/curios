@@ -9,8 +9,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Rescale;

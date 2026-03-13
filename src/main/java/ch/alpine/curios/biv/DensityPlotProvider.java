@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.biv;
 
-import ch.alpine.bridge.fig.DensityPlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.DensityPlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
 import ch.alpine.tensor.img.ColorDataGradient;

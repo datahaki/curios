@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JDialog;
 
 import ch.alpine.bridge.awt.RenderQuality;
-import ch.alpine.bridge.fig.ImagePlot;
 import ch.alpine.bridge.fig.Show;
+import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.gfx.GeometricLayer;
 import ch.alpine.bridge.pro.ShowWindow;
 import ch.alpine.sophis.api.GeoPosition;
