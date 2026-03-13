@@ -24,6 +24,7 @@ import ch.alpine.sophis.api.GeoPosition;
 import ch.alpine.sophis.dv.Biinvariant;
 import ch.alpine.sophis.dv.Biinvariants;
 import ch.alpine.sophis.dv.Sedarim;
+import ch.alpine.sophis.var.InversePowerVariogram;
 import ch.alpine.sophus.bm.LinearBiinvariantMean;
 import ch.alpine.sophus.hs.s.SnManifold;
 import ch.alpine.tensor.RealScalar;
@@ -42,7 +43,6 @@ import ch.alpine.tensor.mat.IdentityMatrix;
 import ch.alpine.tensor.qty.QuantityMagnitude;
 import ch.alpine.tensor.qty.UnitSystem;
 import ch.alpine.tensor.sca.Clips;
-import ch.alpine.tensor.sca.var.InversePowerVariogram;
 
 class IbericoSetShow {
   private static final Stroke STROKE = //

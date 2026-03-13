@@ -9,6 +9,7 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
+import ch.alpine.sophis.var.VariogramFunctions;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -16,7 +17,6 @@ import ch.alpine.tensor.api.ScalarUnaryOperator;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
-import ch.alpine.tensor.sca.var.VariogramFunctions;
 
 @ReflectionMarker
 class VariogramFunctionsShow implements ManipulateProvider {

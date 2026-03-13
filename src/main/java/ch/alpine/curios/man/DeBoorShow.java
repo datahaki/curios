@@ -25,7 +25,7 @@ import ch.alpine.tensor.itp.BSplineFunctionString;
 import ch.alpine.tensor.itp.DeBoor;
 
 @ReflectionMarker
-public class DeBoorDemo implements ManipulateProvider {
+public class DeBoorShow implements ManipulateProvider {
   @FieldSelectionArray({ "0", "1", "2", "3", "4", "5", "6" })
   public Integer degree = 1;
   public ColorDataLists cdl = ColorDataLists._097;
@@ -54,6 +54,6 @@ public class DeBoorDemo implements ManipulateProvider {
   }
 
   static void main() {
-    new DeBoorDemo().runStandalone();
+    new DeBoorShow().runStandalone();
   }
 }
