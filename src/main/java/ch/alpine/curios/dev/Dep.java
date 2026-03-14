@@ -12,7 +12,7 @@ enum Dep {
   GPG("org.apache.maven.plugins", "maven-gpg-plugin", "3.2.8"),
   SONATYPE("org.sonatype.central", "central-publishing-maven-plugin", "0.10.0"),
   DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.1.4"),
-  FLATLAF("com.formdev", "flatlaf", "3.7"),
+  FLATLAF("com.formdev", "flatlaf", "3.7.1"),
   PITEST("org.pitest", "pitest-maven", "1.22.1"),
   TENSOR("io.github.datahaki", "tensor", "1.1.0"),
   BRIDGE("io.github.datahaki", "bridge", "0.3.6"),
