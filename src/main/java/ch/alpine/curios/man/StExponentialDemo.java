@@ -48,7 +48,7 @@ public class StExponentialDemo implements ManipulateProvider {
   public Container getContainer() {
     RandomGenerator randomGenerator = new Random(3);
     StiefelManifold stiefelManifold = new StiefelManifold(n, K);
-    Tensor p = RandomSample.of(stiefelManifold, randomGenerator);
+    Tensor p = RandomSample.of(stiefelManifold.randomSampleInterface(), randomGenerator);
     Tensor v = new TStMemberQ(p).projection( //
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
     TangentSpace exponential = stiefelManifold.tangentSpace(p);
