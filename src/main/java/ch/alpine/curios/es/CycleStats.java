@@ -43,7 +43,6 @@ class CycleStats {
     for (Entry<Integer, Tensor> entry : map.entrySet()) {
       Tensor value = entry.getValue();
       ListPlot showable = (ListPlot) ListPlot.of(value);
-      showable.filling = true;
       // DiscretePlot.of(i->value.Get(i.number().intValue()), Clips.positive(value.length()-1));
       showable.setLabel(labels[lab++]);
       show.add(showable);

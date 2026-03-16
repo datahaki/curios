@@ -1,18 +1,21 @@
 // code by jph
 package ch.alpine.curios.geo;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
-import java.io.IOException;
 
 import javax.swing.JComponent;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
 
+import ch.alpine.bridge.awt.AwtUtil;
+import ch.alpine.bridge.fig.geo.TileServer;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 
@@ -20,61 +23,61 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 class MapView implements ManipulateProvider {
   static final int N = 5;
   static final int M = 4;
-  public Integer z = 3;
-  public Integer x = 0;
-  public Integer y = 0;
   private final JComponent jComponent = new JComponent() {
     @Override
     protected void paintComponent(Graphics graphics) {
-      try {
-        for (int i = 0; i < N; ++i)
-          for (int j = 0; j < M; ++j)
-            graphics.drawImage(UrlPathCache.get(tile.add(i, j)), 256 * i, 256 * j, null);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
-      }
+      Dimension dimension = jComponent.getSize();
+      Point center = AwtUtil.center(dimension);
+      TileCoordinate ol = tileCoordinate.shift(-center.x, -center.y);
+      for (int ix = 0; ix < dimension.width + 256; ix += 256)
+        for (int iy = 0; iy < dimension.height + 256; iy += 256) {
+          TileCoordinate shift = ol.shift(ix, iy);
+          graphics.drawImage(urlPathCache.getTile(shift.tile()), ix - shift.pix(), iy - shift.piy(), null);
+        }
+      graphics.setColor(Color.RED);
+      graphics.drawLine(center.x - 2, center.y, center.x + 2, center.y);
+      graphics.drawLine(center.x, center.y - 2, center.x, center.y + 2);
+      graphics.setColor(Color.WHITE);
+      graphics.drawString("z=" + tileCoordinate.tile().z(), 0, 20);
     }
   };
-  private Tile tile;
+  private final UrlPathCache urlPathCache = new UrlPathCache(TileServer.OPENTOPOMAP);
+  private TileCoordinate tileCoordinate;
 
   public MapView() {
-    tile = new Tile(z, x, y);
+    tileCoordinate = new TileCoordinate(new Tile(4, 8, 6), 200, 100);
     jComponent.addMouseWheelListener(new MouseWheelListener() {
       @Override
       public void mouseWheelMoved(MouseWheelEvent e) {
-        Point point = e.getPoint();
-        if (point.x < 256 * N && point.y < 256 * M) {
-          point.x /= 128;
-          point.y /= 128;
-          if (e.getWheelRotation() == 1)
-            tile = tile.zoomIn(point.x, point.y);
-          else
-            tile = tile.zoomOut();
-          MapView.this.x = tile.x();
-          MapView.this.y = tile.y();
-          MapView.this.z = tile.z();
-          jComponent.repaint();
-        }
-      }
-    });
-    jComponent.addMouseListener(new MouseAdapter() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        Dimension dimension = jComponent.getSize();
-        int sx = dimension.width / 3;
-        int sy = dimension.height / 3;
-        Point point = e.getPoint();
-        if (point.x < sx)
-          tile = tile.add(-1, 0);
-        if (2 * sx < point.x)
-          tile = tile.add(+1, 0);
-        if (point.y < sy)
-          tile = tile.add(0, -1);
-        if (2 * sy < point.y)
-          tile = tile.add(0, +1);
+        tileCoordinate = tileCoordinate.zoom(e.getWheelRotation());
         jComponent.repaint();
       }
     });
+    MouseInputListener mouseInputListener = new MouseInputAdapter() {
+      private Point down;
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+        down = e.getPoint();
+      }
+
+      @Override
+      public void mouseDragged(MouseEvent e) {
+        Point here = e.getPoint();
+        int dx = down.x - here.x;
+        int dy = down.y - here.y;
+        down = here;
+        tileCoordinate = tileCoordinate.shift(dx, dy);
+        jComponent.repaint();
+      }
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        down = null;
+      }
+    };
+    jComponent.addMouseListener(mouseInputListener);
+    jComponent.addMouseMotionListener(mouseInputListener);
   }
 
   @Override
