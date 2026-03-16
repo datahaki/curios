@@ -18,11 +18,10 @@ import ch.alpine.bridge.awt.AwtUtil;
 import ch.alpine.bridge.fig.geo.TileServer;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
+import ch.alpine.tensor.qty.Quantity;
 
 @ReflectionMarker
 class MapView implements ManipulateProvider {
-  static final int N = 5;
-  static final int M = 4;
   private final JComponent jComponent = new JComponent() {
     @Override
     protected void paintComponent(Graphics graphics) {
@@ -45,7 +44,9 @@ class MapView implements ManipulateProvider {
   private TileCoordinate tileCoordinate;
 
   public MapView() {
-    tileCoordinate = new TileCoordinate(new Tile(4, 8, 6), 200, 100);
+    // ,
+    TileCoordinate from = EarthCoordinate.from(8, Quantity.of(38.343373, "deg"), Quantity.of(-0.762800, "deg"));
+    tileCoordinate = from; // new TileCoordinate(new Tile(4, 8, 6), 200, 100);
     jComponent.addMouseWheelListener(new MouseWheelListener() {
       @Override
       public void mouseWheelMoved(MouseWheelEvent e) {

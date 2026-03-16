@@ -15,22 +15,32 @@ public record TileCoordinate(Tile tile, int pix, int piy) {
     Integers.requireEquals(Integers.clip(0, 255).applyAsInt(piy), piy);
   }
 
+  public long absx() {
+    return tile.x() * 256 + pix;
+  }
+
+  public long absy() {
+    return tile.y() * 256 + piy;
+  }
+
+  /** @param dx pixel level
+   * @param dy pixel level
+   * @return */
   public TileCoordinate shift(int dx, int dy) {
     int z = tile.z();
-    long max = (1 << (z + 8)) - 1;
-    long nx = (tile.x() * 256 + pix + dx) & max;
-    long ny = (tile.y() * 256 + piy + dy) & max;
+    long mask = (1 << (z + 8)) - 1;
+    long nx = (absx() + dx) & mask;
+    long ny = (absy() + dy) & mask;
     return of(z, nx, ny);
   }
 
   public TileCoordinate zoom(int delta) {
-    int nz = Math.min(Math.max(0, tile.z() + delta), 19);
-    delta = nz - tile.z();
-    IO.println("delta=" + delta);
     int z = tile.z();
-    long max = (1 << (z + 8)) - 1;
-    long nx = (tile.x() * 256 + pix) & max;
-    long ny = (tile.y() * 256 + piy) & max;
+    int nz = Math.min(Math.max(0, z + delta), 19);
+    delta = nz - z;
+    long mask = (1 << (z + 8)) - 1;
+    long nx = absx() & mask;
+    long ny = absy() & mask;
     if (0 <= delta) {
       nx <<= delta;
       ny <<= delta;

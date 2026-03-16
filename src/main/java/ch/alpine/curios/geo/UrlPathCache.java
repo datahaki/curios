@@ -46,7 +46,6 @@ class UrlPathCache {
     if (!Files.isRegularFile(path))
       download(tile, path);
     try {
-      // IO.println("read=" + path);
       BufferedImage bufferedImage = ImageIO.read(path.toFile());
       return bufferedImage;
     } catch (Exception e) {
@@ -71,7 +70,7 @@ class UrlPathCache {
 
   static void main() {
     UrlPathCache urlPathCache = new UrlPathCache(TileServer.OPENTOPOMAP);
-    int z = 6;
+    final int z = 7;
     for (int iz = 0; iz <= z; ++iz) {
       int max = Tile.maxInclusive(iz);
       for (int ix = 0; ix <= max; ++ix)
