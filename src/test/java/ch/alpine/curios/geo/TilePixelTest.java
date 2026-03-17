@@ -34,7 +34,7 @@ class TilePixelTest {
 
   @Test
   void testMax() {
-    Clip clip = TilePixel.CLIP2;
+    Clip clip = TilePixel.LAT_DOMAIN;
     Tolerance.CHOP.requireClose(clip.max(), RealScalar.of(1.4844222297453324));
   }
 

@@ -61,7 +61,6 @@ class IbericoSetShow {
     Biinvariant biinvariant = Biinvariants.METRIC.ofSafe(SnManifold.INSTANCE);
     sedarim = biinvariant.coordinate(InversePowerVariogram.of(2), p_s2);
     q_xy = Tensor.of(tab.stream().map(row -> row.extract(0, 2)));
-    // GeometricLayer geometricLayer = new GeometricLayer(IdentityMatrix.of(3));
     graphics = bufferedImage.createGraphics();
   }
 

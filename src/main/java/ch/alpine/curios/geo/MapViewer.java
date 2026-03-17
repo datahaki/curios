@@ -21,25 +21,28 @@ import ch.alpine.tensor.qty.Quantity;
 
 @ReflectionMarker
 class MapViewer implements ManipulateProvider {
-  public Color marker = Color.MAGENTA;
   public TileServers tileServers = TileServers.OpenStreetMap;
-  private final GeoComponent jComponent = new GeoComponent() {
+  public Color marker = Color.MAGENTA;
+  public Boolean showCycles = false;
+  private final GeoComponent geoComponent = new GeoComponent() {
     @Override
     public void renderMore(Graphics2D graphics) {
-      Dimension dimension = getSize();
-      Point center = AwtUtil.center(dimension);
-      TilePixel origin = tilePixel.shift(-center.x, -center.y);
-      int z = tilePixel.tile().z();
-      graphics.setColor(marker);
-      graphics.setStroke(new BasicStroke(4f));
-      for (Tensor seg : segments) {
-        TilePixel beg = TilePixel.from(z, seg.get(0));
-        TilePixel end = TilePixel.from(z, seg.get(1));
-        int p1x = (int) (beg.absx() - origin.absx());
-        int p1y = (int) (beg.absy() - origin.absy());
-        int p2x = (int) (end.absx() - origin.absx());
-        int p2y = (int) (end.absy() - origin.absy());
-        graphics.drawLine(p1x, p1y, p2x, p2y);
+      if (showCycles) {
+        Dimension dimension = getSize();
+        Point center = AwtUtil.center(dimension);
+        TilePixel origin = tilePixel.shift(-center.x, -center.y);
+        int z = tilePixel.tile().z();
+        graphics.setColor(marker);
+        graphics.setStroke(new BasicStroke(4f));
+        for (Tensor seg : segments) {
+          TilePixel beg = TilePixel.from(z, seg.get(0));
+          TilePixel end = TilePixel.from(z, seg.get(1));
+          int p1x = (int) (beg.absx() - origin.absx());
+          int p1y = (int) (beg.absy() - origin.absy());
+          int p2x = (int) (end.absx() - origin.absx());
+          int p2y = (int) (end.absy() - origin.absy());
+          graphics.drawLine(p1x, p1y, p2x, p2y);
+        }
       }
     };
   };
@@ -48,13 +51,14 @@ class MapViewer implements ManipulateProvider {
 
   public MapViewer() {
     tilePixel = TilePixel.from(7, Quantity.of(38.343373, "deg"), Quantity.of(-0.762800, "deg"));
-    jComponent.tilePixel = tilePixel;
+    geoComponent.tilePixel = tilePixel;
   }
 
   @Override
   public Container getContainer() {
-    jComponent.tileServers = tileServers;
-    return jComponent;
+    geoComponent.tileServers = tileServers;
+    geoComponent.getCache().debug_print = true;
+    return geoComponent;
   }
 
   static Tensor segments() {

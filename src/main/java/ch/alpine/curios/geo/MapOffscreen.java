@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.curios.geo;
 
 import java.awt.Container;
