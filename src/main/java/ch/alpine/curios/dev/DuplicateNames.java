@@ -21,6 +21,9 @@ enum DuplicateNames {
     ignore.add("StaticHelper");
     ignore.add("TestHelper");
     ignore.add("StaticHelperTest");
+    // LocalLaunchPad
+    ignore.add("LocalLaunchPad");
+    ignore.add("RunProviderTest");
   }
 
   public void visit(Path base) throws IOException {

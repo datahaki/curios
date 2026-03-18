@@ -17,7 +17,7 @@ enum TilePreloader {
         for (int y = 0; y <= max; ++y) {
           Tile tile = new Tile(z, x, y);
           mapImagesCache.getTile(tile);
-          if (400 < mapImagesCache.getDownloadCount())
+          if (1000 < mapImagesCache.getDownloadCount())
             return;
         }
     }
