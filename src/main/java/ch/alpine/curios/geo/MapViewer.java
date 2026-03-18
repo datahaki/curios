@@ -7,11 +7,14 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import ch.alpine.bridge.awt.AwtUtil;
 import ch.alpine.bridge.fig.Ticks;
 import ch.alpine.bridge.geo.GeoComponent;
+import ch.alpine.bridge.geo.MapImagesCache;
 import ch.alpine.bridge.geo.TilePixel;
 import ch.alpine.bridge.geo.TileServers;
 import ch.alpine.bridge.pro.ManipulateProvider;
@@ -34,6 +37,7 @@ class MapViewer implements ManipulateProvider {
   public Color marker = Color.MAGENTA;
   public Boolean crosshair = true;
   public Boolean gridlines = true;
+  public Boolean availability = true;
   public Boolean showCycles = false;
   private final GeoComponent geoComponent = new GeoComponent() {
     @Override
@@ -91,6 +95,22 @@ class MapViewer implements ManipulateProvider {
             graphics.drawString(" " + Ticks.format(tick), x, y);
           }
         }
+      }
+      if (availability) {
+        TilePixel zoom = origin.zoom(1);
+        MapImagesCache mapImagesCache = tileServers.cache();
+        graphics.setColor(new Color(255, 0, 0, 16));
+        for (int ix = 0; ix < dimension.width * 2 + 256; ix += 256)
+          for (int iy = 0; iy < dimension.height * 2 + 256; iy += 256) {
+            TilePixel shift = zoom.shift(ix, iy);
+            Path path = mapImagesCache.path(shift.tile());
+            boolean exists = Files.isRegularFile(path);
+            if (!exists) {
+              graphics.fillRect((ix - shift.pix()) / 2, (iy - shift.piy()) / 2, 128, 128);
+            }
+            // BufferedImage bufferedImage = mapImagesCache.getTile(shift.tile());
+            // graphics.drawImage(bufferedImage, (ix - shift.pix()) / 2, (iy - shift.piy()) / 2, 128, 128, null);
+          }
       }
       if (showCycles) {
         graphics.setColor(marker);
