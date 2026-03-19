@@ -26,6 +26,7 @@ import javax.swing.JToolBar;
 import ch.alpine.bridge.gfx.AffineTransforms;
 import ch.alpine.bridge.gfx.GeometricComponent;
 import ch.alpine.bridge.gfx.GeometricLayer;
+import ch.alpine.bridge.gfx.PvmBuilder;
 import ch.alpine.bridge.gfx.RenderInterface;
 import ch.alpine.bridge.io.ResourceLocator;
 import ch.alpine.bridge.pro.WindowProvider;
@@ -119,10 +120,8 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     }
     center(template);
     // ---
-    Tensor matrix = Tensors.fromString("{{30, 0, 100}, {0, -30, 500}, {0, 0, 1}}");
-    matrix = matrix.dot(Se2Matrix.of(Tensors.vector(0, 0, -Math.PI / 2)));
-    geometricComponent.setModel2Pixel(matrix);
-    // geometricComponent.setOffset(100, 100);
+    Tensor pvm = PvmBuilder.rot().setOffset(100, 100).setPerPixel(30).digest();
+    geometricComponent.setModel2Pixel(pvm);
     int row_max = template.length();
     int col_max = Unprotect.dimension1(template);
     // gridRender = new FixGridRender(Subdivide.of(0, row_max, row_max), Subdivide.of(0, col_max, col_max));
@@ -168,7 +167,7 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     {
       int count = (int) Flatten.stream(template, -1).filter(FREE::equals).count();
       graphics.setColor(Color.DARK_GRAY);
-      graphics.drawString("free=" + count, 0, 30);
+      graphics.drawString("free=" + count, 0, 12);
       List<List<PuzzlePiece>> candidates = Candidates.of(param.num, count, UbongoPieces.list());
       if (candidates.isEmpty()) {
         graphics.setColor(Color.RED);
