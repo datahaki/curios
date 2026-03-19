@@ -72,8 +72,8 @@ class ColorDataGradientsDemo implements ShowProvider {
     Path file = HomeDirectory.Pictures.resolve(ColorDataGradients.class.getSimpleName().toLowerCase() + ".png");
     try {
       Export.of(file, res);
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
     Show show = new Show();
     show.add(ImagePlot.of(ImageFormat.of(res)));

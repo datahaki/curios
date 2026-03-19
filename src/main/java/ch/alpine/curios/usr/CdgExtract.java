@@ -39,8 +39,8 @@ class CdgExtract implements ShowProvider {
       Path path = HomeDirectory.Projects.resolve("tensor", //
           "src/main/resources/ch/alpine/tensor/img/colorscheme", "sunset2.csv");
       Export.of(path, rgba);
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
     return show;
   }

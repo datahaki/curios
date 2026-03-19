@@ -35,8 +35,8 @@ public enum MetadataDemo {
       System.out.println(metadata.toString());
     } catch (ImageProcessingException e) {
       e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
   }
 

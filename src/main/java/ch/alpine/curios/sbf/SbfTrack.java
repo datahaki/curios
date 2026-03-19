@@ -17,7 +17,7 @@ class SbfTrack {
     local = SbfParser.ROOT.resolve(sbfType + ".tensor");
     try {
       tensor = Get.of(local);
-    } catch (IOException e) {
+    } catch (IOException ioException) {
       tensor = Array.zeros(fallback, 0);
     }
   }
@@ -26,8 +26,8 @@ class SbfTrack {
     try {
       Put.of(local, tensor);
       System.out.println("stored");
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
   }
 }

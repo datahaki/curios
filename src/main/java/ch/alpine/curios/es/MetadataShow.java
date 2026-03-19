@@ -26,8 +26,8 @@ public class MetadataShow {
       }
     } catch (ImageProcessingException e) {
       e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
     new StringAreaShow(stringBuilder.toString());
   }

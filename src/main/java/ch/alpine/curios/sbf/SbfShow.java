@@ -186,8 +186,8 @@ class SbfShow implements WindowProvider {
         try (InputStream inputStream = Files.newInputStream(sbfItem.gfx)) {
           BufferedImage bufferedImage = ImageIO.read(inputStream);
           jLabel.setIcon(new ImageIcon(bufferedImage, "desc"));
-        } catch (IOException e) {
-          e.printStackTrace();
+        } catch (IOException ioException) {
+          ioException.printStackTrace();
         }
       }
     } catch (BadLocationException e) {

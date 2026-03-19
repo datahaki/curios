@@ -101,8 +101,8 @@ public class Barberini {
           bufferedImage.getWidth(), //
           bufferedImage.getHeight()));
       jComponent.repaint();
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (IOException ioException) {
+      ioException.printStackTrace();
     }
   }
 
@@ -140,8 +140,8 @@ public class Barberini {
                 try {
                   Jpeg.put(result, HomeDirectory.Pictures.resolve("barberini", "s" + ip.name), 1);
                   System.out.println("saved");
-                } catch (IOException e) {
-                  e.printStackTrace();
+                } catch (IOException ioException) {
+                  ioException.printStackTrace();
                 }
               }
             }).start();
