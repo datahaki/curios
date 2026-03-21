@@ -4,20 +4,20 @@ package ch.alpine.curios.fig;
 import java.awt.Container;
 import java.util.List;
 
+import ch.alpine.bridge.fig.Meshgrid;
 import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.plt.ReliefImage;
 import ch.alpine.bridge.fig.plt.ReliefPlot;
 import ch.alpine.bridge.fig.plt.VectorPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Dimensions;
-import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
 import ch.alpine.tensor.api.TensorUnaryOperator;
 import ch.alpine.tensor.img.ColorDataGradients;
@@ -44,15 +44,16 @@ class ReliefPlotDemo implements ManipulateProvider {
   @FieldSelectionArray({ "20", "30", "50", "100", "200" })
   public Integer resy = 100;
   public ColorDataGradients cdg = ColorDataGradients.ALPINE;
-  public transient Tensor vec = ReliefPlot.REF.maps(Round._2);
+  public transient Tensor vec = ReliefImage.REF.maps(Round._2);
 
   @Override
   public Container getContainer() {
     CoordinateBoundingBox cbb = CoordinateBoundingBox.of(ranx, rany);
-    Tensor matrix = mesheval((x, y) -> Sin.FUNCTION.apply(Vector2NormSquared.of(Tensors.of(x, y))), cbb, resx, resy);
+    ScalarBinaryOperator sbo = (x, y) -> Sin.FUNCTION.apply(Vector2NormSquared.of(Tensors.of(x, y)));
+    Tensor matrix = new Meshgrid(cbb, resx, resy).image(sbo);
     Show showR = new Show();
     showR.setPlotLabel("ReliefPlot");
-    ReliefPlot.REF = NORMALIZE_UNLESS_ZERO.apply(vec);
+    ReliefImage.REF = NORMALIZE_UNLESS_ZERO.apply(vec);
     Showable showable = ReliefPlot.of(matrix, cbb, cdg);
     showR.add(showable);
     showR.setAspectRatioOne();
@@ -67,15 +68,6 @@ class ReliefPlotDemo implements ManipulateProvider {
     showable2.set(PlotOption.STRICT, true);
     showV.setAspectRatioOne();
     return ShowGridComponent.of(showR, showV);
-  }
-
-  private static Tensor mesheval(ScalarBinaryOperator sbo, CoordinateBoundingBox cbb, int resx, int resy) {
-    // TODO BRIDGE resolution based on aspect ratio and cbb ?
-    Tensor dx = Subdivide.intermediate_increasing(cbb.clip(0), resx);
-    Tensor dy = Subdivide.intermediate_decreasing(cbb.clip(1), resy);
-    return Tensor.of(dy.stream().parallel() //
-        .map(Scalar.class::cast) //
-        .map(y -> Tensor.of(dx.stream().map(Scalar.class::cast).map(x -> sbo.apply(x, y)))));
   }
 
   static void main() {
