@@ -40,9 +40,9 @@ class ReliefPlotDemo implements ManipulateProvider {
   public Clip ranx = Clips.absolute(4);
   public Clip rany = Clips.absolute(4);
   @FieldSelectionArray({ "20", "30", "50", "100", "200" })
-  public Integer resx = 100;
+  public Integer width = 100;
   @FieldSelectionArray({ "20", "30", "50", "100", "200" })
-  public Integer resy = 100;
+  public Integer height = 100;
   public ColorDataGradients cdg = ColorDataGradients.ALPINE;
   public transient Tensor vec = ReliefImage.REF.maps(Round._2);
 
@@ -50,7 +50,7 @@ class ReliefPlotDemo implements ManipulateProvider {
   public Container getContainer() {
     CoordinateBoundingBox cbb = CoordinateBoundingBox.of(ranx, rany);
     ScalarBinaryOperator sbo = (x, y) -> Sin.FUNCTION.apply(Vector2NormSquared.of(Tensors.of(x, y)));
-    Tensor matrix = new Meshgrid(cbb, resx, resy).image(sbo);
+    Tensor matrix = new Meshgrid(cbb, width, height).image(sbo);
     Show showR = new Show();
     showR.setPlotLabel("ReliefPlot");
     ReliefImage.REF = NORMALIZE_UNLESS_ZERO.apply(vec);
