@@ -78,17 +78,17 @@ class CycleImages {
     Dimension dimension = new Dimension(routeCount * 2 + 80, height + 38);
     {
       Show show = CycleImages.image(1, Quantity.of(112, "km"));
-      show.setPlotLabel("Days sorted by distance");
+      show.setShowLabel("Days sorted by distance");
       show.export(HomeDirectory.Pictures.resolve("cycling_distance.png"), dimension);
     }
     {
       Show show = CycleImages.image(2, Quantity.of(4020, "m"));
-      show.setPlotLabel("Days sorted by ascent");
+      show.setShowLabel("Days sorted by ascent");
       show.export(HomeDirectory.Pictures.resolve("cycling_ascent.png"), dimension);
     }
     {
       Show show = CycleImages.image(3, Quantity.of(100, "m*km^-1"));
-      show.setPlotLabel("Days sorted by ascent rate");
+      show.setShowLabel("Days sorted by ascent rate");
       show.export(HomeDirectory.Pictures.resolve("cycling_rate.png"), dimension);
     }
   }

@@ -33,7 +33,7 @@ class PeriodogramDemo implements ShowProvider {
     Tensor domain = Range.of(0, n);
     Tensor signal = Tensors.vector(i -> _f(RealScalar.of(i)), n).add(noised);
     Show show = new Show();
-    show.setPlotLabel(Periodogram.class.getSimpleName() + " and " + HaarWaveletTransform.class.getSimpleName());
+    show.setShowLabel(Periodogram.class.getSimpleName() + " and " + HaarWaveletTransform.class.getSimpleName());
     {
       Tensor points = Transpose.of(Tensors.of(domain, signal));
       Showable showable = show.add(Periodogram.of(points));

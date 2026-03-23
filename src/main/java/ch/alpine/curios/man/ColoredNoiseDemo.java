@@ -42,7 +42,7 @@ public class ColoredNoiseDemo implements ManipulateProvider {
     Tensor domain = Range.of(0, values.length());
     Show show1 = new Show();
     {
-      show1.setPlotLabel(distribution.toString());
+      show1.setShowLabel(distribution.toString());
       show1.add(ListLinePlot.of(domain, values));
     }
     Show show2 = new Show();

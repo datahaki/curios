@@ -36,7 +36,7 @@ class ChebyshevInterpDemo implements ManipulateProvider {
     InterpolatingPolynomial ip = InterpolatingPolynomial.of(knots);
     ScalarUnaryOperator suo3 = ip.scalarUnaryOperator(knots.maps(suo0));
     Show show1 = new Show(cdl.cyclic().deriveWithAlpha(128));
-    show1.setPlotLabel("Functions");
+    show1.setShowLabel("Functions");
     show1.add(Plot.of(suo0, clip)).setLabel("f");
     show1.add(Plot.of(suo1, clip)).setLabel("interp");
     Showable showable = show1.add(Plot.of(suo2, clip));
@@ -44,7 +44,7 @@ class ChebyshevInterpDemo implements ManipulateProvider {
     showable.setStroke(new BasicStroke(5));
     show1.add(Plot.of(suo3, clip)).setLabel("inpol");
     Show show2 = new Show();
-    show2.setPlotLabel("Error");
+    show2.setShowLabel("Error");
     show2.add(Plot.of(s -> suo1.apply(s).subtract(suo2.apply(s)), clip));
     return ShowGridComponent.of(show1, show2);
   }

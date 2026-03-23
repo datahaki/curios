@@ -36,14 +36,14 @@ class MatrixGradientDemo implements ManipulateProvider {
     if (rescale)
       grad = grad.rescale();
     Show showX = new Show();
-    showX.setPlotLabel(clip.toString());
+    showX.setShowLabel(clip.toString());
     showX.add(MatrixPlot.of(grad.dx(), cdg));
     Show showY = new Show();
-    showY.setPlotLabel(grad.range().toString());
+    showY.setShowLabel(grad.range().toString());
     showY.add(MatrixPlot.of(grad.dy(), cdg));
     Show showV = new Show();
     {
-      showV.setPlotLabel("Matrix Gradient Array");
+      showV.setShowLabel("Matrix Gradient Array");
       Interpolation interpolation = LinearInterpolation.of(MatrixGradient.of(matrix).array());
       List<Integer> list = Dimensions.of(matrix);
       Showable showable = showV.add(VectorPlot.of(interpolation::get, //
@@ -55,7 +55,7 @@ class MatrixGradientDemo implements ManipulateProvider {
     }
     Show showW = new Show();
     {
-      showW.setPlotLabel("Matrix Gradient Cross");
+      showW.setShowLabel("Matrix Gradient Cross");
       Interpolation interpolation = LinearInterpolation.of(MatrixGradient.of(matrix).cross());
       List<Integer> list = Dimensions.of(matrix);
       Showable showable = showW.add(VectorPlot.of(interpolation::get, //

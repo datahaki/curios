@@ -32,12 +32,12 @@ class EqualizingDistributionDemo implements ManipulateProvider {
     CategoricalDistribution dist1 = CategoricalDistribution.fromUnscaledPDF(unscaledPDF);
     Distribution dist2 = EqualizingDistribution.fromUnscaledPDF(unscaledPDF);
     Show show1 = new Show();
-    show1.setPlotLabel("PDF");
+    show1.setShowLabel("PDF");
     show1.add(ListPlot.of(dist1::at, Range.of(0, 20))).setLabel("CategoricalDistribution");
     show1.add(Plot.of(PDF.of(dist2)::at, Clips.positive(20), PlotOption.FILL)).setLabel("EqualizingDistribution");
     Clip clip = Clips.unit();
     Show show2 = new Show();
-    show2.setPlotLabel("CDF");
+    show2.setShowLabel("CDF");
     show2.add(Plot.of(InverseCDF.of(dist1)::quantile, clip, PlotOption.STRICT));
     show2.add(Plot.of(InverseCDF.of(dist2)::quantile, clip, PlotOption.STRICT));
     return ShowGridComponent.of(show1, show2);

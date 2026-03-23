@@ -52,13 +52,13 @@ class ReliefPlotDemo implements ManipulateProvider {
     ScalarBinaryOperator sbo = (x, y) -> Sin.FUNCTION.apply(Vector2NormSquared.of(Tensors.of(x, y)));
     Tensor matrix = new Meshgrid(cbb, width, height).image(sbo);
     Show showR = new Show();
-    showR.setPlotLabel("ReliefPlot");
+    showR.setShowLabel("ReliefPlot");
     ReliefImage.REF = NORMALIZE_UNLESS_ZERO.apply(vec);
     Showable showable = ReliefPlot.of(matrix, cbb, cdg);
     showR.add(showable);
     showR.setAspectRatioOne();
     Show showV = new Show();
-    showV.setPlotLabel("Matrix Gradient Array");
+    showV.setShowLabel("Matrix Gradient Array");
     Interpolation interpolation = LinearInterpolation.of(MatrixGradient.of(matrix).array());
     List<Integer> list = Dimensions.of(matrix);
     Showable showable2 = showV.add(VectorPlot.of(interpolation::get, //

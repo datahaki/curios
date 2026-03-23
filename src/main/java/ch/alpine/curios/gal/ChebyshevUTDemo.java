@@ -24,7 +24,7 @@ enum ChebyshevUTDemo implements WindowProvider {
     List<Show> list = new LinkedList<>();
     for (Chebyshev chebyshev : Chebyshev.values()) {
       Show show = new Show();
-      show.setPlotLabel("Chebyshev " + chebyshev);
+      show.setShowLabel("Chebyshev " + chebyshev);
       for (int d = 0; d < 5; ++d) {
         ScalarUnaryOperator suo = chebyshev.of(d);
         Showable showable2 = show.add(Plot.of(suo, Clips.absoluteOne()));

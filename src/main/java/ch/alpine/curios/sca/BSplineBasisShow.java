@@ -14,7 +14,7 @@ class BSplineBasisShow implements ShowProvider {
   public Show getShow() {
     Clip clip = Clips.absolute(3);
     Show show = new Show();
-    show.setPlotLabel("BSplineBasis");
+    show.setShowLabel("BSplineBasis");
     for (int d = 0; d < 6; ++d) {
       Showable showable = show.add(Plot.of(BSplineBasis.of(d), clip));
       showable.setLabel("deg " + d);

@@ -38,7 +38,7 @@ class PolynomialShow implements ManipulateProvider {
       samples_x.maps(x_to_y);
       samples_y.maps(y_to_x);
       Show show = new Show();
-      show.setPlotLabel("Degree " + degree);
+      show.setShowLabel("Degree " + degree);
       show.add(ListPlot.of(x, y));
       show.add(Plot.of(x_to_y, domain_x));
       show.add(ListLinePlot.of(samples_y.maps(y_to_x), samples_y));

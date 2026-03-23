@@ -24,7 +24,7 @@ class BSplineInterpDemo implements ShowProvider {
     int n = 10;
     Tensor tensor = RandomVariate.of(UniformDistribution.unit(20), n);
     Show show = new Show();
-    show.setPlotLabel("BSplineInterpolation");
+    show.setShowLabel("BSplineInterpolation");
     Tensor points = Tensors.vector(i -> Tensors.of(RealScalar.of(i), tensor.Get(i)), n);
     {
       Showable showable = show.add(ListPlot.of(points));

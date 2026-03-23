@@ -38,7 +38,7 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     List<UbongoEntry> solution = ubongoSolution.list();
     Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
     Show show = new Show();
-    show.setPlotLabel(pretty(localDate));
+    show.setShowLabel(pretty(localDate));
     show.set(ShowOption.GRID, false);
     show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())), ImageResize.DEGREE_0));
     List<StringItem> list = calendarBoard.mapping().entrySet().stream().map(e -> StringItem.of(e.getKey(), e.getValue())).toList();

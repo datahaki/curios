@@ -32,7 +32,7 @@ class ColorDataGradientsShow implements ManipulateProvider {
     Optional<Tensor> optional = colorDataGradients.queryTableRgba();
     if (optional.isPresent()) {
       Tensor rgba = optional.orElseThrow();
-      show.setPlotLabel(colorDataGradients.toString());
+      show.setShowLabel(colorDataGradients.toString());
       {
         Tensor domain = Range.of(0, rgba.length());
         show.add(ListLinePlot.of(domain, rgba.get(Tensor.ALL, 0))).setLabel("red");

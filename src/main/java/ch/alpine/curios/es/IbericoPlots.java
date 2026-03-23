@@ -31,9 +31,9 @@ class IbericoPlots {
   private Show show5 = new Show();
 
   public IbericoPlots() {
-    show1.setPlotLabel("Length");
-    show2.setPlotLabel("Ascent");
-    show3.setPlotLabel("Rate of Ascent");
+    show1.setShowLabel("Length");
+    show2.setShowLabel("Ascent");
+    show3.setShowLabel("Rate of Ascent");
   }
 
   void add(Tensor routes, String label) {

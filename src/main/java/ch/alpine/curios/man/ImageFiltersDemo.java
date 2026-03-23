@@ -35,7 +35,7 @@ public class ImageFiltersDemo implements ManipulateProvider {
     image.set(imageFilters.filter(image.get(Tensor.ALL, Tensor.ALL, index), width), //
         Tensor.ALL, Tensor.ALL, index));
     Show show = new Show();
-    show.setPlotLabel(Dimensions.of(image).toString());
+    show.setShowLabel(Dimensions.of(image).toString());
     show.add(ImagePlot.of(ImageFormat.of(image)));
     show.set(ShowOption.GRID, false);
     return ShowGridComponent.of(show);

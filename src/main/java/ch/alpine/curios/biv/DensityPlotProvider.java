@@ -16,7 +16,7 @@ interface DensityPlotProvider extends ScalarBinaryOperator, ShowProvider {
   @Override
   default Show getShow() {
     Show show = new Show();
-    show.setPlotLabel(getClass().getSimpleName());
+    show.setShowLabel(getClass().getSimpleName());
     show.add(DensityPlot.of( //
         this, cbb(), colorDataGradient()));
     return show;

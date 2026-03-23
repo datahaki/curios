@@ -38,7 +38,7 @@ enum CandidatesShow implements ShowProvider {
       pnts = Join.of(pnts, xy);
     }
     show.add(ListPlot.of(pnts)).setColor(Color.BLACK);
-    show.setPlotLabel("Candidates " + name());
+    show.setShowLabel("Candidates " + name());
     return show;
   }
 

@@ -29,7 +29,7 @@ class DuneNoiseDemo implements ShowProvider {
     int w = 2;
     CoordinateBoundingBox cbb = CoordinateBoundingBox.of(Clips.absolute(w), Clips.absolute(w));
     Show show = new Show();
-    show.setPlotLabel("SimplexContinuousNoise[x,y]");
+    show.setShowLabel("SimplexContinuousNoise[x,y]");
     int co1 = 192 + 32;
     Tensor colors = Tensors.of( //
         Tensors.vector(co1, co1, co1, 255), //

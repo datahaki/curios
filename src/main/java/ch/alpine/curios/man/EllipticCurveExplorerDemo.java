@@ -56,7 +56,7 @@ public class EllipticCurveExplorerDemo implements ManipulateProvider {
         set.add(point);
       }
     }
-    show.setPlotLabel(ellipticCurve.discriminant().toString() + "   roots=" + valid_roots);
+    show.setShowLabel(ellipticCurve.discriminant().toString() + "   roots=" + valid_roots);
     Clip clip = Clips.absolute(10);
     for (int i = 0; i < depth; ++i) {
       // TODO make discovery more efficient by avoiding repeating combos

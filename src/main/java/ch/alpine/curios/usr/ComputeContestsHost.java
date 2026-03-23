@@ -40,7 +40,7 @@ class ComputeContestsHost implements ManipulateProvider {
       dim += 2;
     } while (Scalars.lessThan(timing.seconds(), timeout));
     Show show = new Show();
-    show.setPlotLabel(computeContests.toString());
+    show.setShowLabel(computeContests.toString());
     Showable s1;
     Showable s2;
     s1 = show.add(ListLinePlot.of(t_ser));

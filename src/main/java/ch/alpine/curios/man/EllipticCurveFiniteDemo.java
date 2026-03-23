@@ -33,7 +33,7 @@ public class EllipticCurveFiniteDemo implements ManipulateProvider {
     if (Scalars.isZero(discriminant)) {
       System.err.println("discriminant zero");
     } else {
-      show.setPlotLabel("discriminant=" + discriminant);
+      show.setShowLabel("discriminant=" + discriminant);
       Tensor all = Tensors.empty();
       for (int i = 0; i < prime; ++i)
         try {

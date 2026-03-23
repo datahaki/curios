@@ -18,7 +18,7 @@ class ChebyshevInterpolationDemo implements ShowProvider {
   public Show getShow() {
     Polynomial f = Polynomial.of(Tensors.vector(3, .2, .3, -1));
     Show show = new Show();
-    show.setPlotLabel("ChebyshevInterpolation");
+    show.setShowLabel("ChebyshevInterpolation");
     Showable showable = show.add(Plot.of(f, Clips.absoluteOne()));
     showable.setStroke(new BasicStroke(10));
     for (int d = 1; d < 10; ++d) {

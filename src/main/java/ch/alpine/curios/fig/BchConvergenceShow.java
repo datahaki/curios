@@ -60,7 +60,7 @@ class BchConvergenceShow implements ManipulateProvider {
   @Override
   public Container getContainer() {
     Show show = new Show();
-    show.setPlotLabel("bch convergence depth=" + depth);
+    show.setShowLabel("bch convergence depth=" + depth);
     show.add(add("se2", MatrixAlgebra.of(new SeNGroup(2))));
     show.add(add("so3", MatrixAlgebra.of(new SoNGroup(3))));
     show.add(add("sl2", MatrixAlgebra.of(new SlNGroup(2))));

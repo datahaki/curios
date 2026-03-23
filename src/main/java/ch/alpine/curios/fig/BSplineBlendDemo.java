@@ -17,7 +17,7 @@ class BSplineBlendDemo implements ShowProvider {
   public Show getShow() {
     Tensor tensor = UnitVector.of(2, 1);
     Show show = new Show();
-    show.setPlotLabel("BSplineInterpolation");
+    show.setShowLabel("BSplineInterpolation");
     for (int degree = 0; degree < 4; ++degree) {
       Interpolation interpolation = BSplineInterpolation.of(degree, tensor);
       Showable showable = show.add(Plot.of(interpolation::At, Clips.unit(), PlotOption.STRICT));

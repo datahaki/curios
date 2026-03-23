@@ -37,7 +37,7 @@ class FoldListDemo implements ShowProvider {
       }
     }
     Show show = new Show();
-    show.setPlotLabel("Mat . Vec");
+    show.setShowLabel("Mat . Vec");
     show.add(ListLinePlot.of(t_ser)).setLabel("serial");
     show.add(ListLinePlot.of(t_par)).setLabel("parallel");
     return show;
