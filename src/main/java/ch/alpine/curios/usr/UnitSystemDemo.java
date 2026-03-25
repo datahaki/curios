@@ -2,6 +2,7 @@
 package ch.alpine.curios.usr;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Window;
 import java.util.Set;
@@ -56,6 +57,7 @@ class UnitSystemDemo implements WindowProvider {
       }
       {
         JButton jButton = new JButton(" \u2192 ");
+        jButton.setBackground(Color.GREEN);
         jButton.setFont(FONT);
         jButton.addActionListener(_ -> {
           String prev = jTextFieldA.getText().trim();
