@@ -17,7 +17,7 @@ import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Pretty;
 import ch.alpine.tensor.io.StringScalar;
 
-/* package */ enum MatlabExportDemo implements VoidProvider {
+enum MatlabExportDemo implements VoidProvider {
   INSTANCE;
 
   static final Path PATH = HomeDirectory.Ephemeral.mk_dirs(MatlabExportDemo.class.getSimpleName());

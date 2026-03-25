@@ -14,7 +14,7 @@ import ch.alpine.tensor.pdf.d.BinomialDistribution;
 import ch.alpine.tensor.pdf.d.GeometricDistribution;
 import ch.alpine.tensor.sca.Round;
 
-/* package */ enum PDFDemo {
+enum PDFDemo {
   ;
   static void main() {
     { // random variate from a distribution

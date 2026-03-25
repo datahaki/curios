@@ -14,7 +14,7 @@ import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 import ch.alpine.tensor.sca.Clips;
 
-/* package */ class ColorDataGradientDemo implements ShowProvider {
+class ColorDataGradientDemo implements ShowProvider {
   @Override
   public Show getShow() {
     Tensor domain = Subdivide.increasing(Clips.positive(1.0), 255).maps(Tensors::of);

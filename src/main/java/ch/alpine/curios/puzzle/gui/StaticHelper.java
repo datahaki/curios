@@ -27,7 +27,7 @@ import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.img.ImageRotate;
 import ch.alpine.tensor.io.ImageFormat;
 
-/* package */ enum StaticHelper {
+enum StaticHelper {
   ;
   private static final int MARGIN_Y = 13;
   // 61.1465

@@ -21,7 +21,7 @@ import ch.alpine.tensor.sca.Round;
 
 /** comparison between subdivision by geodesic averaging with
  * unique biinvariant mean as reference */
-/* package */ enum BSpline4SplitComparisonShow {
+enum BSpline4SplitComparisonShow {
   ;
   static void main() {
     Dual3PointCurveSubdivision d0 = //

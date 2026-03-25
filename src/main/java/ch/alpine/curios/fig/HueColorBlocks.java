@@ -14,7 +14,7 @@ import ch.alpine.tensor.img.ColorFormat;
 import ch.alpine.tensor.img.StrictColorDataIndexed;
 import ch.alpine.tensor.sca.Mod;
 
-/* package */ enum HueColorBlocks {
+enum HueColorBlocks {
   ;
   private static final Mod MOD = Mod.function(1);
   // double goldenAngle = (3 - Math.sqrt(5)) * 0.5;

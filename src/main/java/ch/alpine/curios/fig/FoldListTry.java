@@ -10,7 +10,7 @@ import ch.alpine.tensor.api.TensorUnaryOperator;
 
 /** inspired by
  * <a href="https://reference.wolfram.com/language/ref/FoldList.html">FoldList</a> */
-/* package */ enum FoldListTry {
+enum FoldListTry {
   ;
   private static class FoldDigest implements TensorUnaryOperator {
     private final TensorBinaryOperator binaryOperator;

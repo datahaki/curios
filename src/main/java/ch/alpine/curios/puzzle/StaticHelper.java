@@ -8,7 +8,7 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
 
-/* package */ enum StaticHelper {
+enum StaticHelper {
   ;
   public static final Scalar FREE = RealScalar.ONE.negate();
 

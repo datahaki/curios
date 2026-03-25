@@ -14,7 +14,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-/* package */ enum HttpsFetch {
+enum HttpsFetch {
   ;
   static void main() throws IOException, InterruptedException, URISyntaxException {
     // Create a new trust manager that trust all certificates

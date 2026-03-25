@@ -18,7 +18,7 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.sca.N;
 import ch.alpine.tensor.sca.Round;
 
-/* package */ enum HistogramDistributionShow implements VoidProvider {
+enum HistogramDistributionShow implements VoidProvider {
   INSTANCE;
 
   @Override

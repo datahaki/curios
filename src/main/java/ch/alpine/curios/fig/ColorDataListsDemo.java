@@ -22,7 +22,7 @@ import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.ImageFormat;
 import ch.alpine.tensor.sca.Ceiling;
 
-/* package */ enum ColorDataListsDemo {
+enum ColorDataListsDemo {
   ;
   static String csv(String name) {
     if (name.charAt(0) == '_')

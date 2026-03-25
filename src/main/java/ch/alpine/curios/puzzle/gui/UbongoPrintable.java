@@ -12,7 +12,7 @@ import java.util.List;
 
 import ch.alpine.curios.puzzle.UbongoPublish;
 
-/* package */ class UbongoPrintable implements Printable {
+class UbongoPrintable implements Printable {
   private final int scale;
   private final double factor;
   private final List<UbongoPublish> list;

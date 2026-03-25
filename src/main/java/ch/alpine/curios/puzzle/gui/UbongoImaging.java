@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import ch.alpine.curios.puzzle.UbongoPublish;
 import ch.alpine.tensor.ext.HomeDirectory;
 
-/* package */ enum UbongoImaging {
+enum UbongoImaging {
   ;
   static void main() throws IOException {
     List<UbongoPublish> list2 = Arrays.stream(UbongoPublish.values()) //
