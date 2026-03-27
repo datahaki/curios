@@ -31,8 +31,8 @@ class SeaImage {
       Scalar factor = Rational.of(1, 50);
       Scalar min_x = cbb.clip(0).min();
       Scalar min_y = cbb.clip(1).min();
-      int wx = Ceiling.intValueExact(cbb.clip(0).width().multiply(factor));
-      int wy = Ceiling.intValueExact(cbb.clip(1).width().multiply(factor));
+      int wx = Ceiling.intValueExact(cbb.clip(0).length().multiply(factor));
+      int wy = Ceiling.intValueExact(cbb.clip(1).length().multiply(factor));
       Scalar zbuf = RealScalar.of(255).divide(cbb.clip(2).min().negate());
       Tensor zeros = Array.zeros(wx + 1, wy + 1);
       System.out.println(wx + " " + wy);

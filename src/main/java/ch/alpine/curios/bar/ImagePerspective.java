@@ -34,7 +34,7 @@ public enum ImagePerspective {
       Tensor of = Tensor.of(points.stream().map(r -> r.subtract(mean)));
       values = SingularValueDecomposition.of(of).values();
       box = CoordinateBounds.of(points);
-      boolean s1 = Scalars.lessEquals(box.clip(0).width(), box.clip(1).width());
+      boolean s1 = Scalars.lessEquals(box.clip(0).length(), box.clip(1).length());
       boolean s2 = Scalars.lessEquals(values.Get(0), values.Get(1));
       if (s1 != s2) {
         System.out.println(" SWAP !!!");
