@@ -21,7 +21,7 @@ import ch.alpine.tensor.io.Primitives;
 import ch.alpine.tensor.red.Times;
 
 /** uses ColorSpace.CS_CIEXYZ to interpolate colors */
-// TODO ASCONA add labels for each method, perhaps use graphs!
+// TODO CURIOS add labels for each method, perhaps use graphs!
 @ReflectionMarker
 public class ColorInterpDemo implements ManipulateProvider {
   private static final ColorSpace COLOR_SPACE = ColorSpace.getInstance(ColorSpace.CS_CIEXYZ);

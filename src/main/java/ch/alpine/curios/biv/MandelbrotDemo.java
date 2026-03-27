@@ -8,25 +8,26 @@ import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
-import ch.alpine.tensor.sca.Abs;
+import ch.alpine.tensor.sca.AbsSquared;
 import ch.alpine.tensor.sca.Arg;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
 class MandelbrotDemo extends DensityPlotProvider {
-  private static final Scalar TWO = RealScalar.of(2.0);
+  private static final Scalar FOUR = RealScalar.of(4.0);
   public Integer depth = 80;
+  public Integer limit = 6;
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
     final Scalar c = ComplexScalar.of(re, im);
-    Scalar arg = null;
+    Scalar arg = DoubleScalar.INDETERMINATE;
     Scalar z = c;
     for (int index = 0; index < depth; ++index) {
       z = z.multiply(z).add(c);
-      if (Scalars.lessThan(TWO, Abs.FUNCTION.apply(z)))
+      if (Scalars.lessThan(FOUR, AbsSquared.FUNCTION.apply(z)))
         return DoubleScalar.INDETERMINATE;
-      if (index <= 6) // TODO
+      if (index <= limit)
         arg = Arg.FUNCTION.apply(z);
     }
     return arg;
@@ -34,7 +35,7 @@ class MandelbrotDemo extends DensityPlotProvider {
 
   @Override
   public CoordinateBoundingBox cbb() {
-    return CoordinateBoundingBox.of(Clips.interval(-1.4, -1.0), Clips.interval(+0.0, +0.4));
+    return CoordinateBoundingBox.of(Clips.interval(-1.4, 0.5), Clips.interval(-1, +1));
   }
 
   static void main() {

@@ -86,7 +86,6 @@ enum Boats {
       "7.7[m]", //
       "3.2[m]", //
       "40.1[m^2]"),
-  // TODO numbers probably not accurate!
   CONTEST_40_S(//
       "11793[kg]", //
       "4536[kg]", //
@@ -136,7 +135,6 @@ enum Boats {
       "5.5[m]", //
       "2.4[m]", //
       "23.2[m^2]"),
-  // TODO UNCLEAR
   FRANS_MAAS_38(//
       "7000[kg]", //
       "3500[kg]", //
@@ -200,7 +198,6 @@ enum Boats {
       "6.5[m]", //
       "2.4[m]", //
       "28.0[m^2]"),
-  // TODO UNCLEAR
   NICHOLSON_31(//
       "5899[kg]", //
       "2177[kg]", //
@@ -215,7 +212,6 @@ enum Boats {
       "7.4[m]", //
       "3[m]", //
       "35.9[m^2]"),
-  // TODO UNCLEAR
   PHANTOM_35(//
       "7500[kg]", //
       "3000[kg]", //

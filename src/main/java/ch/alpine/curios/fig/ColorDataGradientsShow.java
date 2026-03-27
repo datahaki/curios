@@ -44,7 +44,7 @@ class ColorDataGradientsShow implements ManipulateProvider {
       Tensor domain = Transpose.of(Subdivide.increasing(Clips.unit(), 255).maps(s -> Array.same(s, 20))).maps(colorDataGradients);
       BufferedImage bufferedImage = ImageFormat.of(domain);
       shov.add(ImagePlot.of(bufferedImage));
-      shov.setAspectRatioDontCare(); // FIXME does not work
+      shov.setAspectRatioDontCare(); // FIXME CURIOS does not work
     }
     return ShowGridComponent.of(show, shov);
   }

@@ -28,10 +28,11 @@ class VariogramFunctionsShow implements ManipulateProvider {
     Show show = new Show();
     Clip clipx = Clips.interval(0, 2);
     for (Scalar param : params)
-      try { // TODO remove try once robust
+      try {
         ScalarUnaryOperator suo = vF.of(param);
         show.add(Plot.of(suo, Clips.interval(0, 2), PlotOption.STRICT)).setLabel(suo.toString());
       } catch (Exception exception) {
+        exception.printStackTrace();
         // System.out.println("doesnt work: "+variograms);
       }
     show.setCbb(CoordinateBoundingBox.of(clipx, Clips.interval(-0.3, 2)));
