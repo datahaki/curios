@@ -3,6 +3,7 @@ package ch.alpine.curios.biv;
 
 import java.util.Arrays;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
@@ -17,6 +18,7 @@ import ch.alpine.tensor.sca.tri.ArcSinh;
 import ch.alpine.tensor.sca.tri.ArcTanh;
 
 /** inspired by Mathematica's documentation of DensityPlot */
+@ReflectionMarker
 record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements DensityPlotProvider {
   private static final int EXPONENT = 3;
   public static final DensityPlotProvider INSTANCE = new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION);

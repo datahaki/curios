@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
@@ -13,6 +14,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.gam.Beta;
 
 /** inspired by Mathematica's documentation of Beta */
+@ReflectionMarker
 record BetaDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new BetaDemo(2);
 

@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.clt.ClothoidBuilder;
 import ch.alpine.sophus.clt.ClothoidBuilders;
 import ch.alpine.sophus.clt.LagrangeQuadraticD;
@@ -13,6 +14,7 @@ import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
+@ReflectionMarker
 record ClothoidFigure(Scalar angle) implements DensityPlotProvider {
   private static final ClothoidBuilder CLOTHOID_BUILDER = ClothoidBuilders.SE2_ANALYTIC.clothoidBuilder();
   public static final DensityPlotProvider INSTANCE = new ClothoidFigure(RealScalar.of(2.6));

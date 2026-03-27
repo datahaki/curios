@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.noise.PerlinContinuousNoise;
 import ch.alpine.sophis.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.RealScalar;
@@ -11,6 +12,7 @@ import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
+@ReflectionMarker
 enum NoiseDemo implements DensityPlotProvider {
   SIMPLEX {
     @Override

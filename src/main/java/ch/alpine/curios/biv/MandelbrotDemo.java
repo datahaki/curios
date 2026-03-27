@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
@@ -13,6 +14,7 @@ import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
 import ch.alpine.tensor.sca.Clips;
 
+@ReflectionMarker
 record MandelbrotDemo(int depth) implements DensityPlotProvider {
   private static final Scalar TWO = RealScalar.of(2.0);
   public static final DensityPlotProvider INSTANCE = new MandelbrotDemo(80);

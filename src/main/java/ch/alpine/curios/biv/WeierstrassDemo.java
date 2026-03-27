@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.img.ColorDataGradient;
@@ -10,6 +11,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.pow.Power;
 import ch.alpine.tensor.sca.tri.Cos;
 
+@ReflectionMarker
 record WeierstrassDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new WeierstrassDemo(20);
 

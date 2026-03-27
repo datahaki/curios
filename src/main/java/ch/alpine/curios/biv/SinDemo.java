@@ -2,6 +2,7 @@
 // https://mathematica.stackexchange.com/questions/9167/adapt-colorfunction-in-array-plot
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.img.ColorDataGradient;
@@ -15,6 +16,7 @@ import ch.alpine.tensor.sca.tri.ArcTan;
 import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by mathematica's documentation of Gamma */
+@ReflectionMarker
 record SinDemo(int depth) implements DensityPlotProvider {
   public static final DensityPlotProvider INSTANCE = new SinDemo(3);
 

@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.noise.NativeContinuousNoise;
 import ch.alpine.sophis.noise.SimplexContinuousNoise;
 import ch.alpine.tensor.Scalar;
@@ -12,6 +13,7 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.UnitStep;
 
+@ReflectionMarker
 class R2NoisePlot implements DensityPlotProvider {
   private static final NativeContinuousNoise NOISE = SimplexContinuousNoise.FUNCTION;
   private static final Clip CLIP = Clips.absolute(2);

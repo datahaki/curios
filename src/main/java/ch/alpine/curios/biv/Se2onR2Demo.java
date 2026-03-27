@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.lie.se2.Se2Group;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -17,6 +18,7 @@ import ch.alpine.tensor.red.Min;
 import ch.alpine.tensor.sca.Clips;
 
 /** used as logo of edelweis */
+@ReflectionMarker
 enum Se2onR2Demo implements DensityPlotProvider {
   INSTANCE;
 

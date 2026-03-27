@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.biv;
 
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
@@ -16,6 +17,7 @@ import ch.alpine.tensor.sca.Im;
 import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by document by Paul Bourke */
+@ReflectionMarker
 record JuliaSinDemo(Scalar c) implements DensityPlotProvider {
   private static final Scalar MAX = RealScalar.of(50);
   private static final int MAX_ITERATIONS = 10;
