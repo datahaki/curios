@@ -7,8 +7,6 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
@@ -18,10 +16,10 @@ import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by document by Paul Bourke */
 @ReflectionMarker
-record JuliaSinDemo(Scalar c) implements DensityPlotProvider {
+class JuliaSinDemo extends DensityPlotProvider {
   private static final Scalar MAX = RealScalar.of(50);
   private static final int MAX_ITERATIONS = 10;
-  public static final DensityPlotProvider INSTANCE = new JuliaSinDemo(ComplexScalar.of(1.1, 0.5));
+  public Scalar c = ComplexScalar.of(1.1, 0.5);
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -39,12 +37,7 @@ record JuliaSinDemo(Scalar c) implements DensityPlotProvider {
     return CoordinateBoundingBox.of(Clips.interval(-2.3, +2.3), Clips.interval(-2.3, +2.3));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.HUE;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new JuliaSinDemo().runStandalone();
   }
 }

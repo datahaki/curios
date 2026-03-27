@@ -7,8 +7,6 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Im;
@@ -19,9 +17,13 @@ import ch.alpine.tensor.sca.tri.ArcTanh;
 
 /** inspired by Mathematica's documentation of DensityPlot */
 @ReflectionMarker
-record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements DensityPlotProvider {
+class InverseTrigDemo extends DensityPlotProvider {
   private static final int EXPONENT = 3;
-  public static final DensityPlotProvider INSTANCE = new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION);
+  private final ScalarUnaryOperator[] scalarUnaryOperators;
+
+  InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) {
+    this.scalarUnaryOperators = scalarUnaryOperators;
+  }
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -38,12 +40,7 @@ record InverseTrigDemo(ScalarUnaryOperator... scalarUnaryOperators) implements D
     return CoordinateBoundingBox.of(Clips.absolute(2.0), Clips.absolute(2.0));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.THERMOMETER;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new InverseTrigDemo(ArcSinh.FUNCTION, ArcCosh.FUNCTION, ArcTanh.FUNCTION).runStandalone();
   }
 }

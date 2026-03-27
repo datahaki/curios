@@ -6,8 +6,6 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.num.GaussScalar;
 import ch.alpine.tensor.num.Prime;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
@@ -15,7 +13,7 @@ import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Floor;
 
 @ReflectionMarker
-class GaussScalarDemo implements DensityPlotProvider {
+class GaussScalarDemo extends DensityPlotProvider {
   public Integer prime = Scalars.intValueExact(Prime.of(100));
 
   @Override
@@ -32,11 +30,6 @@ class GaussScalarDemo implements DensityPlotProvider {
   @Override
   public CoordinateBoundingBox cbb() {
     return CoordinateBoundingBox.of(Clips.interval(1, prime - 1), Clips.interval(1, prime - 1));
-  }
-
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.STARRY_NIGHT;
   }
 
   static void main() {

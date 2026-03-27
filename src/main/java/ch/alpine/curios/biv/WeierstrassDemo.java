@@ -4,16 +4,14 @@ package ch.alpine.curios.biv;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.pow.Power;
 import ch.alpine.tensor.sca.tri.Cos;
 
 @ReflectionMarker
-record WeierstrassDemo(int depth) implements DensityPlotProvider {
-  public static final DensityPlotProvider INSTANCE = new WeierstrassDemo(20);
+class WeierstrassDemo extends DensityPlotProvider {
+  public Integer depth = 10;
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -29,12 +27,7 @@ record WeierstrassDemo(int depth) implements DensityPlotProvider {
     return CoordinateBoundingBox.of(Clips.interval(0.25, 1.0), Clips.interval(0.25, 1.0));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.ALPINE;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new WeierstrassDemo().runStandalone();
   }
 }

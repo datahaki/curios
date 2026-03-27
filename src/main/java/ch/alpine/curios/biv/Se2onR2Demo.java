@@ -10,8 +10,6 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.alg.Outer;
 import ch.alpine.tensor.ext.ArgMin;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.nrm.Vector2Norm;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.red.Min;
@@ -19,9 +17,7 @@ import ch.alpine.tensor.sca.Clips;
 
 /** used as logo of edelweis */
 @ReflectionMarker
-enum Se2onR2Demo implements DensityPlotProvider {
-  INSTANCE;
-
+class Se2onR2Demo extends DensityPlotProvider {
   private final Tensor actions = Tensors.of( //
       Tensors.vector(+0.1, +0.2, +0.3), //
       Tensors.vector(-0.3, +0.2, -0.5), //
@@ -47,12 +43,7 @@ enum Se2onR2Demo implements DensityPlotProvider {
     return CoordinateBoundingBox.of(Clips.absolute(2), Clips.absolute(2));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.CMYK_REVERSED;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new Se2onR2Demo().runStandalone();
   }
 }

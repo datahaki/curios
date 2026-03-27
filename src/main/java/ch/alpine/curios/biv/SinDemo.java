@@ -5,8 +5,6 @@ package ch.alpine.curios.biv;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ComplexScalar;
 import ch.alpine.tensor.Scalar;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.num.Pi;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.red.Nest;
@@ -17,8 +15,8 @@ import ch.alpine.tensor.sca.tri.Sin;
 
 /** inspired by mathematica's documentation of Gamma */
 @ReflectionMarker
-record SinDemo(int depth) implements DensityPlotProvider {
-  public static final DensityPlotProvider INSTANCE = new SinDemo(3);
+class SinDemo extends DensityPlotProvider {
+  public Integer depth = 3;
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -31,12 +29,7 @@ record SinDemo(int depth) implements DensityPlotProvider {
     return CoordinateBoundingBox.of(Clips.absolute(Pi.VALUE), Clips.absolute(Pi.VALUE));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.SUNSET;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new SinDemo().runStandalone();
   }
 }

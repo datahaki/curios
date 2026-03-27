@@ -7,17 +7,15 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Abs;
 import ch.alpine.tensor.sca.Arg;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
-record MandelbrotDemo(int depth) implements DensityPlotProvider {
+class MandelbrotDemo extends DensityPlotProvider {
   private static final Scalar TWO = RealScalar.of(2.0);
-  public static final DensityPlotProvider INSTANCE = new MandelbrotDemo(80);
+  public Integer depth = 80;
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
@@ -28,7 +26,7 @@ record MandelbrotDemo(int depth) implements DensityPlotProvider {
       z = z.multiply(z).add(c);
       if (Scalars.lessThan(TWO, Abs.FUNCTION.apply(z)))
         return DoubleScalar.INDETERMINATE;
-      if (index <= 6)
+      if (index <= 6) // TODO
         arg = Arg.FUNCTION.apply(z);
     }
     return arg;
@@ -39,12 +37,7 @@ record MandelbrotDemo(int depth) implements DensityPlotProvider {
     return CoordinateBoundingBox.of(Clips.interval(-1.4, -1.0), Clips.interval(+0.0, +0.4));
   }
 
-  @Override
-  public ColorDataGradient colorDataGradient() {
-    return ColorDataGradients.HUE;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    new MandelbrotDemo().runStandalone();
   }
 }

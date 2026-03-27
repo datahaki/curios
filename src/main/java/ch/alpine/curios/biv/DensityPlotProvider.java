@@ -7,22 +7,23 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.plt.DensityPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
-import ch.alpine.tensor.img.ColorDataGradient;
+import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 
-// TODO CURIOS generalize subclasses
-interface DensityPlotProvider extends ScalarBinaryOperator, ManipulateProvider {
-  CoordinateBoundingBox cbb();
+@ReflectionMarker
+abstract class DensityPlotProvider implements ScalarBinaryOperator, ManipulateProvider {
+  abstract CoordinateBoundingBox cbb();
 
-  ColorDataGradient colorDataGradient();
+  public ColorDataGradients cdg = ColorDataGradients.ALPINE;
 
   @Override
-  default Container getContainer() {
+  public Container getContainer() {
     Show show = new Show();
     show.setShowLabel(getClass().getSimpleName());
     show.add(DensityPlot.of( //
-        this, cbb(), colorDataGradient()));
+        this, cbb(), cdg));
     return ShowGridComponent.of(show);
   }
 }
