@@ -17,20 +17,21 @@ import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.img.ColorDataGradients;
 import ch.alpine.tensor.img.ColorDataLists;
 import ch.alpine.tensor.io.ImageFormat;
+import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
-class ColorDataGradientsShow implements ManipulateProvider {
+class ColorDataGradientsPlot implements ManipulateProvider {
   public ColorDataGradients colorDataGradients = ColorDataGradients.CLASSIC;
 
   @Override
   public Container getContainer() {
     Show show = new Show(ColorDataLists._109.strict().deriveWithAlpha(192));
-    Show shov = new Show();
     Optional<Tensor> optional = colorDataGradients.queryTableRgba();
+    int width = optional.map(Tensor::length).orElse(256) - 1;
     Tensor domain = Tensors.of(Subdivide.increasing(Clips.unit(), 255).maps(colorDataGradients));
-    shov.add(ImagePlot.of(ImageFormat.of(domain)));
-    shov.setAspectRatioMaxFit();
+    show.add(ImagePlot.of(ImageFormat.of(domain), CoordinateBoundingBox.of(Clips.positive(width), Clips.positive(255))));
+    show.setAspectRatioMaxFit();
     if (optional.isPresent()) {
       Tensor rgba = optional.orElseThrow();
       show.setShowLabel(colorDataGradients.toString());
@@ -39,10 +40,10 @@ class ColorDataGradientsShow implements ManipulateProvider {
       show.add(ListLinePlot.of(xs, rgba.get(Tensor.ALL, 1))).setLabel("green");
       show.add(ListLinePlot.of(xs, rgba.get(Tensor.ALL, 2))).setLabel("blue");
     }
-    return ShowGridComponent.of(shov, show);
+    return ShowGridComponent.of(show);
   }
 
   static void main() {
-    new ColorDataGradientsShow().runStandalone();
+    new ColorDataGradientsPlot().runStandalone();
   }
 }
