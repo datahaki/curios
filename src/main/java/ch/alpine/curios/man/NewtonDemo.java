@@ -11,7 +11,7 @@ import ch.alpine.bridge.fig.plt.DensityPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.ComplexScalar;
+import ch.alpine.tensor.Complex;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
@@ -34,7 +34,7 @@ public class NewtonDemo implements ManipulateProvider {
   public JComponent getContainer() {
     Show show = new Show();
     ScalarUnaryOperator scalarUnaryOperator = NewtonScalarMethod.polynomial(coeffs).iteration;
-    ScalarBinaryOperator sbo = (re, im) -> Arg.FUNCTION.apply(Nest.of(scalarUnaryOperator, ComplexScalar.of(re, im), depth));
+    ScalarBinaryOperator sbo = (re, im) -> Arg.FUNCTION.apply(Nest.of(scalarUnaryOperator, Complex.of(re, im), depth));
     CoordinateBoundingBox cbb = CoordinateBoundingBox.of(Clips.absolute(2.0), Clips.absolute(2.0));
     show.add(DensityPlot.of(sbo, cbb, cdg));
     return ShowGridComponent.of(List.of(show));

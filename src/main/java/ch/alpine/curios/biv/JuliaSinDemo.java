@@ -2,7 +2,7 @@
 package ch.alpine.curios.biv;
 
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.ComplexScalar;
+import ch.alpine.tensor.Complex;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -19,11 +19,11 @@ import ch.alpine.tensor.sca.tri.Sin;
 class JuliaSinDemo extends DensityPlotProvider {
   private static final Scalar MAX = RealScalar.of(50);
   private static final int MAX_ITERATIONS = 10;
-  public Scalar c = ComplexScalar.of(1.1, 0.5);
+  public Scalar c = Complex.of(1.1, 0.5);
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
-    Scalar z = ComplexScalar.of(re, im);
+    Scalar z = Complex.of(re, im);
     for (int count = 0; count < MAX_ITERATIONS; ++count) {
       z = Sin.FUNCTION.apply(z).multiply(c);
       if (Scalars.lessThan(MAX, Abs.FUNCTION.apply(Im.FUNCTION.apply(z))))

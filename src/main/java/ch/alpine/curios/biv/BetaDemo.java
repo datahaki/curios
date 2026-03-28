@@ -2,7 +2,7 @@
 package ch.alpine.curios.biv;
 
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.ComplexScalar;
+import ch.alpine.tensor.Complex;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
@@ -18,7 +18,7 @@ class BetaDemo extends DensityPlotProvider {
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
-    Scalar seed = ComplexScalar.of(re, im);
+    Scalar seed = Complex.of(re, im);
     try {
       return Arg.FUNCTION.apply(Nest.of(z -> Beta.of(z, z), seed, depth));
     } catch (Exception exception) {

@@ -3,7 +3,7 @@
 package ch.alpine.curios.biv;
 
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.ComplexScalar;
+import ch.alpine.tensor.Complex;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.num.Pi;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
@@ -20,7 +20,7 @@ class SinDemo extends DensityPlotProvider {
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
-    Scalar seed = ComplexScalar.of(re, im);
+    Scalar seed = Complex.of(re, im);
     return Re.FUNCTION.apply(ArcTan.FUNCTION.apply(Nest.of(Sin.FUNCTION, seed, depth)));
   }
 

@@ -2,7 +2,7 @@
 package ch.alpine.curios.biv;
 
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
-import ch.alpine.tensor.ComplexScalar;
+import ch.alpine.tensor.Complex;
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
@@ -20,7 +20,7 @@ class MandelbrotDemo extends DensityPlotProvider {
 
   @Override
   public Scalar apply(Scalar re, Scalar im) {
-    final Scalar c = ComplexScalar.of(re, im);
+    final Scalar c = Complex.of(re, im);
     Scalar arg = DoubleScalar.INDETERMINATE;
     Scalar z = c;
     for (int index = 0; index < depth; ++index) {
