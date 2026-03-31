@@ -9,12 +9,14 @@ import ch.alpine.bridge.fig.plt.ListPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldSlider;
+import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.rsm.RingRandomSample;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.pdf.RandomSample;
 
+@ReflectionMarker
 class RingRandomSampleDemo implements ManipulateProvider {
   @FieldClip(min = "0", max = "1")
   @FieldSlider

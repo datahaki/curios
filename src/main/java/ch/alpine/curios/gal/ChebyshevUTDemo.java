@@ -32,7 +32,7 @@ enum ChebyshevUTDemo implements WindowProvider {
       }
       list.add(show);
     }
-    return ShowWindow.asDialog(list);
+    return ShowWindow.asFrame(list);
   }
 
   static void main() {

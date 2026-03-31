@@ -3,6 +3,7 @@ package ch.alpine.curios.puzzle.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -100,6 +101,8 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
   private final Path FILE;
 
   public UbongoDesigner() {
+    jToolBar.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
+    jToolBar.setFloatable(false);
     FILE = resourceLocator.resolve(UbongoDesigner.class.getSimpleName() + ".csv");
     FieldsEditor fieldsEditor0 = ToolbarFieldsEditor.addToComponent(param, jToolBar);
     fieldsEditor0.addUniversalListener(this::run2);
