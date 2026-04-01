@@ -14,6 +14,8 @@ import java.util.Map;
 import ch.alpine.tensor.ext.PathName;
 
 class Dict {
+  private static final int HEADER = 200;
+
   /** @param path to index-file
    * @param charset
    * @return
@@ -46,44 +48,17 @@ class Dict {
     String[] splits = line.split("\t");
     String entry = splits[0];
     OfsLen ofsLen = OfsLen.of(splits[1], splits[2]);
-    if (!map.containsKey(entry))
-      map.put(entry, new LinkedList<>());
-    map.get(entry).add(ofsLen);
-    // {
-    String string = extract(ofsLen);
-    entries.add(string);
-    // Optional<String> optional = string.lines().skip(1).findFirst();
-    // if (optional.isPresent()) {
-    // String words = optional.orElseThrow();
-    // if (words.startsWith("1. ")) {
-    // // IO.println(string);
-    // List<String> alts = string.lines().filter(Head::numbered) //
-    // .map(s -> s.substring(3)).toList();
-    // // IO.println(alts);
-    // alts.forEach(alt -> regRev(alt, ofsLen));
-    // } else {
-    // regRev(words, ofsLen);
-    // }
-    // }
-    // }
+    if (HEADER <= ofsLen.ofs()) {
+      if (!map.containsKey(entry))
+        map.put(entry, new LinkedList<>());
+      map.get(entry).add(ofsLen);
+      String string = extract(ofsLen);
+      entries.add(string);
+    }
   }
-  // private void regRev(String words, OfsLen ofsLen) {
-  // for (String word : words.split(",")) {
-  // word = word.trim().toLowerCase();
-  // if (!rev.containsKey(word))
-  // rev.put(word, new LinkedList<>());
-  // rev.get(word).add(ofsLen);
-  // }
-  // }
 
   List<String> lookup(String entry) {
-    return
-    // Stream.concat( //
-    // map.getOrDefault(entry, List.of()).stream(), //
-    // rev.getOrDefault(entry, List.of()).stream()) //
-    map.getOrDefault(entry, List.of()).stream()
-        // .distinct() //
-        .map(this::extract).toList();
+    return map.getOrDefault(entry, List.of()).stream().map(this::extract).toList();
   }
 
   List<String> findIn(String pat, int limit) {
@@ -92,5 +67,12 @@ class Dict {
 
   String extract(OfsLen ofsLen) {
     return new String(bytes, ofsLen.ofs(), ofsLen.len(), charset);
+  }
+
+  public List<String> answer(String search, int limit) {
+    List<String> list = lookup(search);
+    if (list.isEmpty())
+      list = findIn(search, limit);
+    return list;
   }
 }
