@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import ch.alpine.tensor.ext.PathName;
 
@@ -57,22 +58,15 @@ class Dict {
     }
   }
 
-  List<String> lookup(String entry) {
-    return map.getOrDefault(entry, List.of()).stream().map(this::extract).toList();
+  Stream<String> lookup(String search) {
+    return map.getOrDefault(search, List.of()).stream().map(this::extract);
   }
 
-  List<String> findIn(String pat, int limit) {
-    return entries.stream().filter(e -> e.contains(pat)).limit(limit).toList();
+  Stream<String> findIn(String search) {
+    return entries.stream().filter(e -> e.contains(search));
   }
 
   String extract(OfsLen ofsLen) {
     return new String(bytes, ofsLen.ofs(), ofsLen.len(), charset);
-  }
-
-  public List<String> answer(String search, int limit) {
-    List<String> list = lookup(search);
-    if (list.isEmpty())
-      list = findIn(search, limit);
-    return list;
   }
 }

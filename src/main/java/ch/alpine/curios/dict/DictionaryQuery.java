@@ -2,10 +2,12 @@
 package ch.alpine.curios.dict;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +24,7 @@ import javax.swing.text.StyledDocument;
 
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.FieldsEditorParam;
+import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ext.HomeDirectory;
 
@@ -29,6 +32,8 @@ import ch.alpine.tensor.ext.HomeDirectory;
 class DictionaryQuery implements ManipulateProvider {
   public String search = "";
   public String draft = "";
+  @FieldClip(min = "0", max = "100")
+  public Integer limit = 3;
   public Font font = new Font(Font.DIALOG, Font.PLAIN, 14);
   // ---
   private final JScrollPane jScrollPane;
@@ -39,6 +44,7 @@ class DictionaryQuery implements ManipulateProvider {
   public DictionaryQuery(Dict... dict) {
     this.dicts = List.of(dict);
     jTextPane.setEditable(false);
+    jTextPane.setPreferredSize(new Dimension(400, 400));
     jScrollPane = new JScrollPane(jTextPane, //
         ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, //
         ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -46,7 +52,9 @@ class DictionaryQuery implements ManipulateProvider {
 
   @Override
   public Container getContainer() {
-    List<String> list = dicts.stream().flatMap(d -> d.answer(search, 3).stream()).toList();
+    List<String> list = new LinkedList<>();
+    dicts.stream().forEach(d -> d.lookup(search).forEach(list::add));
+    dicts.stream().forEach(d -> d.findIn(search).limit(limit).forEach(list::add));
     jTextPane.setFont(font);
     try {
       styledDocument.remove(0, styledDocument.getLength());
@@ -82,32 +90,6 @@ class DictionaryQuery implements ManipulateProvider {
     Matcher matcher = pattern.matcher(string);
     StringMatcher.stream(matcher, matchWrap);
     jTextPane.setCaretPosition(0);
-    // JTextPane textPane = new JTextPane();
-    // StyledDocument doc = textPane.getStyledDocument();
-    // // Normal paragraph style
-    // Style normal = doc.addStyle("normal", null);
-    // StyleConstants.setFontSize(normal, 16);
-    // // Paragraph style with spacing
-    // Style spaced = doc.addStyle("spaced", normal);
-    // StyleConstants.setSpaceAbove(spaced, 10f); // space before paragraph
-    // StyleConstants.setSpaceBelow(spaced, 20f); // space after paragraph
-    // try {
-    // doc.insertString(doc.getLength(),
-    // "First paragraph (no extra spacing)\n", normal);
-    // doc.insertString(doc.getLength(),
-    // "Second paragraph (with spacing)\n", spaced);
-    // doc.insertString(doc.getLength(),
-    // "Third paragraph (also spaced)\n", spaced);
-    // } catch (BadLocationException e) {
-    // e.printStackTrace();
-    // }
-    // int pos = 0;
-    // while (matcher.find()) {
-    // handleText(input, pos, matcher.start());
-    // handleMatch(matcher);
-    // pos = matcher.end();
-    // }
-    // handleText(input, pos, input.length());
     JViewport jViewport = jScrollPane.getViewport();
     jViewport.setViewPosition(new Point(0, 0));
     // chatgpt:
@@ -126,6 +108,8 @@ class DictionaryQuery implements ManipulateProvider {
     Dict dictSE = Dict.of(root.resolve("freedict-spa-eng-0.3.1.dictd", "spa-eng", "spa-eng.index"));
     Dict dictDS = Dict.of(root.resolve("freedict-deu-spa-2025.11.23.dictd", "deu-spa", "deu-spa.index"));
     Dict dictSD = Dict.of(root.resolve("freedict-spa-deu-0.1.dictd", "spa-deu", "spa-deu.index"));
-    new DictionaryQuery(dictES, dictSE, dictDS, dictSD).runStandalone();
+    Dict dictFS = Dict.of(root.resolve("freedict-fra-spa-2025.11.23.dictd", "fra-spa", "fra-spa.index"));
+    Dict dictSF = Dict.of(root.resolve("freedict-spa-fra-2025.11.23.dictd", "spa-fra", "spa-fra.index"));
+    new DictionaryQuery(dictES, dictSE, dictDS, dictSD, dictFS, dictSF).runStandalone();
   }
 }
