@@ -7,7 +7,7 @@ import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.img.ColorDataIndexed;
+import ch.alpine.tensor.col.ColorDataIndexed;
 import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 

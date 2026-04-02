@@ -5,7 +5,7 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.plt.MatrixPlot;
 import ch.alpine.bridge.pro.ShowProvider;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.col.ColorDataGradients;
 import ch.alpine.tensor.mat.GaussianMatrix;
 
 class GaussianMatrixDemo implements ShowProvider {

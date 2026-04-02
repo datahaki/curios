@@ -12,8 +12,8 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Range;
+import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.img.ColorDataLists;
 import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Import;
 
@@ -37,7 +37,7 @@ class CdgExtract implements ShowProvider {
       Tensor rgba = Tensor.of(IntStream.of(indeces).mapToObj(tensor::get));
       IO.println(rgba);
       Path path = HomeDirectory.Projects.resolve("tensor", //
-          "src/main/resources/ch/alpine/tensor/img/colorscheme", "sunset2.csv");
+          "src/main/resources/ch/alpine/tensor/col/scheme", "sunset2.csv");
       Export.of(path, rgba);
     } catch (IOException ioException) {
       ioException.printStackTrace();

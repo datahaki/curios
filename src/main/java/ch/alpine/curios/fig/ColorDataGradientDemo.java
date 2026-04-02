@@ -9,7 +9,7 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.alg.Transpose;
-import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.col.ColorDataGradients;
 import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 import ch.alpine.tensor.sca.Clips;

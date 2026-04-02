@@ -16,7 +16,7 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Ordering;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.img.ColorDataLists;
+import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.pdf.BinCounts;
 import ch.alpine.tensor.qty.Quantity;
 

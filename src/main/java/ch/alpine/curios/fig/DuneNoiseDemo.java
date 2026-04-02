@@ -9,8 +9,8 @@ import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
-import ch.alpine.tensor.img.ColorDataGradient;
-import ch.alpine.tensor.img.LinearColorDataGradient;
+import ch.alpine.tensor.col.ColorDataGradient;
+import ch.alpine.tensor.col.LinearColorDataGradient;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clips;
 

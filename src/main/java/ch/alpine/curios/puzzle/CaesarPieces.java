@@ -4,7 +4,7 @@ package ch.alpine.curios.puzzle;
 import java.util.Arrays;
 import java.util.List;
 
-import ch.alpine.tensor.img.ColorDataLists;
+import ch.alpine.tensor.col.ColorDataLists;
 
 public enum CaesarPieces {
   C1("xxx", "x"),

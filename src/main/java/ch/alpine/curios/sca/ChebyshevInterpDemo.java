@@ -12,7 +12,7 @@ import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.api.ScalarUnaryOperator;
-import ch.alpine.tensor.img.ColorDataLists;
+import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.ply.ChebyshevInterpolation;

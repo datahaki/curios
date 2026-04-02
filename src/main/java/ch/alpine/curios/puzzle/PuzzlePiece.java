@@ -14,7 +14,7 @@ import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.alg.NestList;
 import ch.alpine.tensor.alg.Reverse;
-import ch.alpine.tensor.img.ColorFormat;
+import ch.alpine.tensor.col.ColorFormat;
 import ch.alpine.tensor.img.ImageRotate;
 
 public record PuzzlePiece(int ordinal, Color color, Tensor mask, int count, Set<OrientedPiece> stamps) implements Serializable {

@@ -19,8 +19,8 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
 import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.alg.UnitVector;
-import ch.alpine.tensor.img.ColorDataIndexed;
-import ch.alpine.tensor.img.ColorDataLists;
+import ch.alpine.tensor.col.ColorDataIndexed;
+import ch.alpine.tensor.col.ColorDataLists;
 
 @ReflectionMarker
 class BSplineBasisDemo implements ManipulateProvider {

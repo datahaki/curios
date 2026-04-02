@@ -16,10 +16,10 @@ import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.chq.DeterminateScalarQ;
-import ch.alpine.tensor.img.ColorDataIndexed;
-import ch.alpine.tensor.img.CyclicColorDataIndexed;
+import ch.alpine.tensor.col.ColorDataIndexed;
+import ch.alpine.tensor.col.CyclicColorDataIndexed;
+import ch.alpine.tensor.col.StrictColorDataIndexed;
 import ch.alpine.tensor.img.ImageRotate;
-import ch.alpine.tensor.img.StrictColorDataIndexed;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 

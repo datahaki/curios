@@ -9,7 +9,7 @@ import ch.alpine.bridge.fig.plt.DensityPlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.api.ScalarBinaryOperator;
-import ch.alpine.tensor.img.ColorDataGradients;
+import ch.alpine.tensor.col.ColorDataGradients;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 
 @ReflectionMarker

@@ -19,8 +19,8 @@ import ch.alpine.curios.puzzle.UbongoEntry;
 import ch.alpine.curios.puzzle.UbongoSolution;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Dimensions;
+import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.ext.RomanNumeral;
-import ch.alpine.tensor.img.ColorDataLists;
 import ch.alpine.tensor.img.ImageResize;
 import ch.alpine.tensor.io.ImageFormat;
 
