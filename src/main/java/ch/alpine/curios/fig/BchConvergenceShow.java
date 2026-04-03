@@ -20,7 +20,7 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Accumulate;
 import ch.alpine.tensor.alg.Range;
-import ch.alpine.tensor.lie.bch.BakerCampbellHausdorff;
+import ch.alpine.tensor.lie.BakerCampbellHausdorff;
 import ch.alpine.tensor.mat.ex.MatrixExp;
 import ch.alpine.tensor.mat.ex.MatrixLog;
 import ch.alpine.tensor.nrm.FrobeniusNorm;
