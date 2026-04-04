@@ -14,6 +14,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
@@ -53,6 +55,7 @@ import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.alg.Flatten;
 import ch.alpine.tensor.img.ImageCrop;
 import ch.alpine.tensor.img.ImageRotate;
+import ch.alpine.tensor.io.Export;
 import ch.alpine.tensor.io.Import;
 import ch.alpine.tensor.sca.Floor;
 
@@ -214,7 +217,11 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     if (param.solve) {
       param.solve = false;
       if (Objects.isNull(solveThread)) {
-        Unprotect.Export(FILE, template);
+        try {
+          Export.of(FILE, template);
+        } catch (IOException ioException) {
+          throw new UncheckedIOException(ioException);
+        }
         Tensor result = ImageCrop.eq(RealScalar.ZERO).apply(template);
         solveThread = new SolveThread(UbongoBoard.of(result), param.num);
       } else {
