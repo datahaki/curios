@@ -15,12 +15,14 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.alg.Last;
+import ch.alpine.tensor.col.ColorDataGradients;
 import ch.alpine.tensor.num.GaussScalar;
 
 @ReflectionMarker
 class BinomialDemo implements ManipulateProvider {
   @FieldSelectionArray({ "251", "653", "997" })
   public Integer prime = 251;
+  public ColorDataGradients cdg = ColorDataGradients.CLASSIC;
 
   @Override
   public Container getContainer() {
@@ -32,7 +34,7 @@ class BinomialDemo implements ManipulateProvider {
         tensor.set(RealScalar.of(row.Get(k).number()), i, k);
     }
     Show show = new Show();
-    show.add(MatrixPlot.of(tensor));
+    show.add(MatrixPlot.of(tensor, cdg));
     return ShowGridComponent.of(show);
   }
 

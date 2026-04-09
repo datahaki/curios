@@ -36,8 +36,7 @@ class CdgExtract implements ShowProvider {
       IO.println(tensor.length());
       Tensor rgba = Tensor.of(IntStream.of(indeces).mapToObj(tensor::get));
       IO.println(rgba);
-      Path path = HomeDirectory.Projects.resolve("tensor", //
-          "src/main/resources/ch/alpine/tensor/col/scheme", "sunset2.csv");
+      Path path = HomeDirectory.Ephemeral.resolve("sunset2.csv");
       Export.of(path, rgba);
     } catch (IOException ioException) {
       ioException.printStackTrace();
