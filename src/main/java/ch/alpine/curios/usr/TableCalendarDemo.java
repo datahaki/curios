@@ -19,27 +19,31 @@ import ch.alpine.tensor.qty.DateTime;
 public enum TableCalendarDemo {
   ;
   static void main() throws IOException {
-    DateTime beg = DateTime.of(LocalDate.of(2023, Month.SEPTEMBER, 1 + 2), LocalTime.MIDNIGHT);
-    DateTime end = DateTime.of(LocalDate.of(2024, Month.MAY, 2 + 3), LocalTime.MIDNIGHT);
+    DateTime beg = DateTime.of(LocalDate.of(2026, Month.MAY, 10), LocalTime.MIDNIGHT);
+    DateTime end = DateTime.of(LocalDate.of(2026, Month.OCTOBER, 4), LocalTime.MIDNIGHT);
     System.out.println("from");
     System.out.println(beg);
     System.out.println("until");
     System.out.println(end);
     System.out.println("Su Mo Tu We Th Fr Sa");
     Tensor table = Tensors.empty();
-    Tensor row = Tensors.empty();
-    while (Scalars.lessThan(beg, end)) {
-      row.append(beg);
-      DayOfWeek dayOfWeek = beg.dayOfWeek();
-      if (dayOfWeek.equals(DayOfWeek.SATURDAY)) {
-        table.append(row);
-        row = Tensors.empty();
+    {
+      Tensor row = Tensors.empty();
+      while (Scalars.lessThan(beg, end)) {
+        row.append(beg);
+        DayOfWeek dayOfWeek = beg.dayOfWeek();
+        if (dayOfWeek.equals(DayOfWeek.SATURDAY)) {
+          table.append(row);
+          row = Tensors.empty();
+        }
+        beg = beg.plusDays(1);
       }
-      beg = beg.plusDays(1);
+      if (row.length() != 0)
+        table.append(row);
     }
-    if (row.length() != 0)
-      table.append(row);
-    System.out.println(Pretty.of(table.maps(s -> RealScalar.of(((DateTime) s).dayOfMonth()))));
+    Tensor days = table.maps(s -> RealScalar.of(((DateTime) s).dayOfMonth()));
+    System.out.println(Pretty.of(days));
     Export.of(HomeDirectory.Ephemeral.resolve("cal.csv"), table);
+    Export.of(HomeDirectory.Ephemeral.resolve("days.csv"), days);
   }
 }

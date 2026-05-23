@@ -136,12 +136,17 @@ class DictionaryQuery implements ManipulateProvider {
     FieldsEditorParam.GLOBAL.textFieldFont = new Font(Font.MONOSPACED, Font.BOLD, 16);
     // ---
     Path root = HomeDirectory.Database.resolve("freedict");
+    // 
     Dict dictES = Dict.of(root.resolve("freedict-eng-spa-2025.11.23.dictd", "eng-spa", "eng-spa.index"));
     Dict dictSE = Dict.of(root.resolve("freedict-spa-eng-0.3.1.dictd", "spa-eng", "spa-eng.index"));
+//    Dict dictEC = Dict.of(root.resolve("freedict-eng-cat-2025.11.23.dictd", "eng-cat", "eng-cat.index"));
+//    Dict dictCE = Dict.of(root.resolve("freedict-cat-eng-2025.11.23.dictd", "cat-eng", "cat-eng.index"));
     Dict dictDS = Dict.of(root.resolve("freedict-deu-spa-2025.11.23.dictd", "deu-spa", "deu-spa.index"));
     Dict dictSD = Dict.of(root.resolve("freedict-spa-deu-0.1.dictd", "spa-deu", "spa-deu.index"));
     Dict dictFS = Dict.of(root.resolve("freedict-fra-spa-2025.11.23.dictd", "fra-spa", "fra-spa.index"));
     Dict dictSF = Dict.of(root.resolve("freedict-spa-fra-2025.11.23.dictd", "spa-fra", "spa-fra.index"));
-    new DictionaryQuery(dictES, dictSE, dictDS, dictSD, dictFS, dictSF).runStandalone();
+    new DictionaryQuery(dictES, dictSE, 
+//        dictEC, dictCE, 
+        dictDS, dictSD, dictFS, dictSF).runStandalone();
   }
 }
