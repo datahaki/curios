@@ -9,10 +9,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum MissingHeaders {
+enum MissingHeaders implements VoidProvider {
   INSTANCE;
 
   int checked = 0;
@@ -52,9 +53,19 @@ enum MissingHeaders {
     IO.println(path);
   }
 
-  static void main() throws IOException {
+  @Override
+  public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
-    INSTANCE.visit(path);
+    try {
+      INSTANCE.visit(path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     IO.println("checked: " + INSTANCE.checked);
+    return null;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

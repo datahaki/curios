@@ -33,7 +33,7 @@ import javax.swing.WindowConstants;
 import ch.alpine.bridge.awt.LazyMouse;
 import ch.alpine.bridge.awt.LazyMouseListener;
 import ch.alpine.bridge.gfx.GeometricLayer;
-import ch.alpine.curios.es.PhotoImport;
+import ch.alpine.curios.img.PhotoImport;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Array;

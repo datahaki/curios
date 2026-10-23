@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
 
+import ch.alpine.curios.img.PhotoImport;
 import ch.alpine.tensor.Rational;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.ext.HomeDirectory;
@@ -95,7 +96,7 @@ class ImageGalleryDemo {
     String key = map.get(file) + ".jpg";
     System.out.println(key);
     try {
-      final boolean rotate = MetadataDemo.rotation(file);
+      final boolean rotate = PhotoImport.rotation(file);
       System.out.println("rotation = " + rotate);
       final BufferedImage bufferedImage = ImageIO.read(file.toFile());
       {

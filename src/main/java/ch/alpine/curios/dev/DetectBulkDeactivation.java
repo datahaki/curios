@@ -7,10 +7,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Gatherers;
 
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum DetectBulkDeactivation {
+enum DetectBulkDeactivation implements VoidProvider {
   INSTANCE;
 
   int checked = 0;
@@ -34,8 +35,18 @@ enum DetectBulkDeactivation {
     }
   }
 
-  static void main() throws IOException {
+  @Override
+  public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
-    INSTANCE.visit(path);
+    try {
+      INSTANCE.visit(path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return null;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

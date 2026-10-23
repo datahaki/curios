@@ -2,18 +2,26 @@
 package ch.alpine.curios.dev;
 
 enum Dep {
-  JUNIT_ENGINE("org.junit.jupiter", "junit-jupiter-engine", "6.0.3"),
-  JUNIT_PARAMS("org.junit.jupiter", "junit-jupiter-params", "6.0.3"),
-  COMPILER("org.apache.maven.plugins", "maven-compiler-plugin", "3.15.0"),
+  JUNIT_ENGINE("org.junit.jupiter", "junit-jupiter-engine", "6.1.3"),
+  JUNIT_PARAMS("org.junit.jupiter", "junit-jupiter-params", "6.1.3"),
+  COMPILER("org.apache.maven.plugins", "maven-compiler-plugin", "3.16.0"),
   SOURCE("org.apache.maven.plugins", "maven-source-plugin", "3.4.0"),
   JAVADOC("org.apache.maven.plugins", "maven-javadoc-plugin", "3.12.0"),
-  SUREFIRE("org.apache.maven.plugins", "maven-surefire-plugin", "3.5.5"),
-  FAILSAFE("org.apache.maven.plugins", "maven-failsafe-plugin", "3.5.5"),
+  SUREFIRE("org.apache.maven.plugins", "maven-surefire-plugin", "3.6.0"),
+  FAILSAFE("org.apache.maven.plugins", "maven-failsafe-plugin", "3.6.0"),
   GPG("org.apache.maven.plugins", "maven-gpg-plugin", "3.2.8"),
   SONATYPE("org.sonatype.central", "central-publishing-maven-plugin", "0.10.0"),
-  DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.1.4"),
-  FLATLAF("com.formdev", "flatlaf", "3.7.1"),
+  DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.2.0"),
+  FLATLAF("com.formdev", "flatlaf", "3.7.2"),
+  METADATA("com.drewnoakes", "metadata-extractor", "2.22.0"),
+  // ---
+  DJL_API("ai.djl", "api", "0.36.0"),
+  DJL_PYT("ai.djl.pytorch", "pytorch-engine", "0.36.0"),
+  DJL_CPU("ai.djl.pytorch", "pytorch-native-cpu", "2.1.2"),
+  DJL_CUD("ai.djl.pytorch", "pytorch-native-cu121", "2.3.1"),
+  // ---
   PITEST("org.pitest", "pitest-maven", "1.22.1"),
+  // ---
   TENSOR("io.github.datahaki", "tensor", "1.1.0"),
   BRIDGE("io.github.datahaki", "bridge", "0.3.6"),
   SUBARE("io.github.datahaki", "subare", "0.4.4"),

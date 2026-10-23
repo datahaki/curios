@@ -8,10 +8,11 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum DuplicateNames {
+enum DuplicateNames implements VoidProvider {
   INSTANCE;
 
   final Set<String> ignore = new HashSet<>();
@@ -43,8 +44,18 @@ enum DuplicateNames {
     }
   }
 
-  static void main() throws IOException {
+  @Override
+  public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
-    INSTANCE.visit(path);
+    try {
+      INSTANCE.visit(path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return null;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

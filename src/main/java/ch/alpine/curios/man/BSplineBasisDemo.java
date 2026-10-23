@@ -37,6 +37,7 @@ class BSplineBasisDemo implements ManipulateProvider {
       int upper = length - 1;
       Tensor domain = Subdivide.of(0, upper, 20 * upper);
       Show show = new Show(colorDataIndexed);
+      show.setShowLabel("Interval: "+(length-1));
       for (int k_th = 0; k_th < length; ++k_th) {
         Tensor knots = UnitVector.of(length, k_th);
         GeodesicBSplineFunction bSplineFunction = //

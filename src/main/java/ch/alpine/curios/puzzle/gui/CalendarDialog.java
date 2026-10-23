@@ -47,6 +47,6 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
   }
 
   static void main() {
-    new CalendarDialog(CalendarBoards.CHEESY.calendarBoard(), LocalDate.now()).runStandalone();
+    new CalendarDialog(CalendarBoards.CAESAR.calendarBoard(), LocalDate.now()).runStandalone();
   }
 }

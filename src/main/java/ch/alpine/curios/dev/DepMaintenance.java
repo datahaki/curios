@@ -9,9 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 
-enum DepMaintenance {
+enum DepMaintenance implements VoidProvider {
   INSTANCE;
 
   public void visit(Path base) throws IOException {
@@ -49,8 +50,18 @@ enum DepMaintenance {
     }
   }
 
-  static void main() throws IOException {
+  @Override
+  public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
-    INSTANCE.visit(path);
+    try {
+      INSTANCE.visit(path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return null;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

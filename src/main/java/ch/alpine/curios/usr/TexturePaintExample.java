@@ -1,5 +1,5 @@
 // code from google
-package ch.alpine.curios.es;
+package ch.alpine.curios.usr;
 
 import java.awt.Color;
 import java.awt.Graphics;
