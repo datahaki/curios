@@ -13,6 +13,8 @@ enum GpuComputationDemo implements VoidProvider {
   @Override
   public Void runStandalone() {
     System.setProperty("PYTORCH_FLAVOR", "cu121");
+    System.setProperty("ai.djl.pytorch.num_interop_threads", "4");
+    System.setProperty("ai.djl.pytorch.num_threads", "8");
     // Create an NDManager assigned explicitly to your RTX 5060
     try (NDManager manager = NDManager.newBaseManager(Device.gpu())) {
       // Create two matrices directly on the GPU VRAM
