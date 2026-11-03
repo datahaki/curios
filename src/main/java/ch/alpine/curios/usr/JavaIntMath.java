@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.curios.usr;
 
 import java.util.function.IntBinaryOperator;
