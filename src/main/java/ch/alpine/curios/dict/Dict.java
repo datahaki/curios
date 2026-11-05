@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import ch.alpine.tensor.ext.PathName;
+import ch.alpine.tensor.io.MathematicaFormat;
 
 class Dict {
   private static final int HEADER = 200;
@@ -21,11 +23,16 @@ class Dict {
    * @param charset
    * @return
    * @throws IOException */
-  public static Dict of(Path path, Charset charset) throws IOException {
+  public static Dict of(Path root, Charset charset) throws IOException {
+    String name = root.getFileName().toString();
+    Path path = root.resolve(name + ".index");
     PathName pathName = PathName.of(path);
     List<String> list = Files.readAllLines(path);
     Path base = pathName.withExtension("dict");
-    Dict dict = new Dict(Files.readAllBytes(base), charset);
+    if (!Files.exists(base)) {
+      System.err.println("need to extract DZ file first!");
+    }
+    Dict dict = new Dict(name, Files.readAllBytes(base), charset);
     list.forEach(dict::register);
     return dict;
   }
@@ -34,13 +41,14 @@ class Dict {
     return of(path, StandardCharsets.UTF_8);
   }
 
-  // ---
-  final byte[] bytes;
-  final Charset charset;
+  final String name;
+  private final byte[] bytes;
+  private final Charset charset;
   final Map<String, List<OfsLen>> map = new HashMap<>();
-  final List<String> entries = new LinkedList<>();
+  private final List<String> entries = new LinkedList<>();
 
-  Dict(byte[] bytes, Charset charset) {
+  Dict(String name, byte[] bytes, Charset charset) {
+    this.name = name;
     this.bytes = bytes;
     this.charset = charset;
   }
@@ -68,5 +76,14 @@ class Dict {
 
   String extract(OfsLen ofsLen) {
     return new String(bytes, ofsLen.ofs(), ofsLen.len(), charset);
+  }
+
+  public Set<String> keySet() {
+    return map.keySet();
+  }
+
+  @Override
+  public String toString() {
+    return MathematicaFormat.concise(name, map.size());
   }
 }

@@ -76,14 +76,14 @@ class UbongoDesigner implements WindowProvider, RenderInterface {
     @FieldClip(min = "1", max = "12")
     public Integer num = 4;
     @FieldFuse
-    public Boolean solve = false;
+    public transient Boolean solve = false;
     @FieldFuse
-    public Boolean rotCw = false;
+    public transient Boolean rotCw = false;
     @FieldFuse
-    public Boolean reset = false;
+    public transient Boolean reset = false;
     public String string = "UNTITLED";
     @FieldFuse
-    public Boolean print = false;
+    public transient Boolean print = false;
   }
 
   @ReflectionMarker

@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -19,6 +19,7 @@ enum DuplicateNames implements VoidProvider {
   final Set<String> set = new HashSet<>();
 
   private DuplicateNames() {
+    ignore.add("package-info");
     ignore.add("StaticHelper");
     ignore.add("TestHelper");
     ignore.add("StaticHelperTest");
@@ -27,30 +28,24 @@ enum DuplicateNames implements VoidProvider {
     ignore.add("RunProviderTest");
   }
 
-  public void visit(Path base) throws IOException {
-    for (File file : base.toFile().listFiles()) {
-      Path path = file.toPath();
-      if (Files.isDirectory(path)) {
-        visit(path);
-      } else {
-        PathName pathName = PathName.of(file.toPath());
-        if (pathName.hasExtension("java")) {
-          String title = pathName.title();
-          if (!ignore.contains(title) && !set.add(title)) {
-            IO.println(title);
-          }
-        }
+  public void visit(Path path) {
+    PathName pathName = PathName.of(path);
+    if (pathName.hasExtension("java")) {
+      String title = pathName.title();
+      if (!ignore.contains(title) && !set.add(title)) {
+        IO.println(title);
       }
     }
   }
 
   @Override
   public Void runStandalone() {
-    Path path = HomeDirectory.Projects.resolve();
+    Path root = HomeDirectory.Projects.resolve();
     try {
-      INSTANCE.visit(path);
+      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
+          .forEach(this::visit);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new UncheckedIOException(e);
     }
     return null;
   }

@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +27,7 @@ import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.FieldsEditorParam;
 import ch.alpine.bridge.ref.ann.FieldClip;
 import ch.alpine.bridge.ref.ann.FieldFuse;
+import ch.alpine.bridge.ref.ann.FieldSelectionCallback;
 import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.ext.EditDistance;
@@ -35,6 +35,13 @@ import ch.alpine.tensor.ext.HomeDirectory;
 
 @ReflectionMarker
 class DictionaryQuery implements ManipulateProvider {
+  @FieldSelectionCallback("names")
+  public String section = "eng-";
+
+  public List<String> names() {
+    return dictCollection.filters();
+  }
+
   public String search = "";
   public String draft = "";
   @FieldClip(min = "0", max = "100")
@@ -44,15 +51,17 @@ class DictionaryQuery implements ManipulateProvider {
   @FieldSlider(showValue = true)
   public Integer d_max = 2;
   @FieldFuse
-  public Boolean close = false;
+  public transient Boolean close = false;
+  @FieldFuse
+  public transient Boolean info = false;
   // ---
   private final JScrollPane jScrollPane;
   private final JTextPane jTextPane = new JTextPane();
   private final StyledDocument styledDocument = jTextPane.getStyledDocument();
-  private final List<Dict> dicts;
+  private final DictCollection dictCollection;
 
-  public DictionaryQuery(Dict... dict) {
-    this.dicts = List.of(dict);
+  public DictionaryQuery(DictCollection dictCollection) {
+    this.dictCollection = dictCollection;
     jTextPane.setEditable(false);
     jTextPane.setPreferredSize(new Dimension(400, 400));
     jScrollPane = new JScrollPane(jTextPane, //
@@ -71,8 +80,8 @@ class DictionaryQuery implements ManipulateProvider {
     if (close) {
       // int total = 0;
       // Timing timing = Timing.started();
-      for (Dict dict : dicts) {
-        for (String entry : dict.map.keySet()) {
+      for (Dict dict : dictCollection.filter(section).toList()) {
+        for (String entry : dict.keySet()) {
           int dist = EditDistance.of(search, entry);
           // ++total;
           if (dist <= d_max) {
@@ -86,38 +95,56 @@ class DictionaryQuery implements ManipulateProvider {
       }
       // IO.println(timing.seconds() + " " + total);
       close = false;
+    } else //
+    if (info) {
+      String collect = dictCollection.filter("").map(dict -> dict.toString()).collect(Collectors.joining("\n"));
+      try {
+        styledDocument.insertString(styledDocument.getLength(), collect, null);
+      } catch (BadLocationException e) {
+        e.printStackTrace();
+      }
+      info = false;
     } else {
-      List<String> list = new LinkedList<>();
-      dicts.stream().forEach(d -> d.lookup(search).forEach(list::add));
-      dicts.stream().forEach(d -> d.findIn(search).limit(limit).forEach(list::add));
-      Style base = styledDocument.addStyle("normal", null);
-      StyleConstants.setFontFamily(base, font.getFamily());
-      StyleConstants.setFontSize(base, font.getSize());
-      Style bold = styledDocument.addStyle("bold", base);
-      StyleConstants.setBold(bold, true);
-      String string = list.stream().flatMap(String::lines).collect(Collectors.joining("\n"));
-      MatchWrap matchWrap = new MatchWrap() {
-        @Override
-        public void handle(int beg, int end) {
-          try {
-            styledDocument.insertString(styledDocument.getLength(), string.substring(beg, end), base);
-          } catch (BadLocationException e) {
-            e.printStackTrace();
-          }
+      if (dictCollection.filter(section).count() == 0) {
+        try {
+          styledDocument.insertString(0, "empty", null);
+        } catch (Exception e) {
+          e.printStackTrace();
         }
+      } else {
+        // TODO identify by color or so, where the results are from
+        List<String> list = new LinkedList<>();
+        dictCollection.filter(section).forEach(d -> d.lookup(search).forEach(list::add));
+        dictCollection.filter(section).forEach(d -> d.findIn(search).limit(limit).forEach(list::add));
+        Style base = styledDocument.addStyle("normal", null);
+        StyleConstants.setFontFamily(base, font.getFamily());
+        StyleConstants.setFontSize(base, font.getSize());
+        Style bold = styledDocument.addStyle("bold", base);
+        StyleConstants.setBold(bold, true);
+        String string = list.stream().flatMap(String::lines).collect(Collectors.joining("\n"));
+        MatchWrap matchWrap = new MatchWrap() {
+          @Override
+          public void handle(int beg, int end) {
+            try {
+              styledDocument.insertString(styledDocument.getLength(), string.substring(beg, end), base);
+            } catch (BadLocationException e) {
+              e.printStackTrace();
+            }
+          }
 
-        @Override
-        public void handle(Matcher matcher) {
-          try {
-            styledDocument.insertString(styledDocument.getLength(), string.substring(matcher.start(), matcher.end()), bold);
-          } catch (BadLocationException e) {
-            e.printStackTrace();
+          @Override
+          public void handle(Matcher matcher) {
+            try {
+              styledDocument.insertString(styledDocument.getLength(), string.substring(matcher.start(), matcher.end()), bold);
+            } catch (BadLocationException e) {
+              e.printStackTrace();
+            }
           }
-        }
-      };
-      Pattern pattern = Pattern.compile(search);
-      Matcher matcher = pattern.matcher(string);
-      StringMatcher.stream(matcher, matchWrap);
+        };
+        Pattern pattern = Pattern.compile(search);
+        Matcher matcher = pattern.matcher(string);
+        StringMatcher.stream(matcher, matchWrap);
+      }
     }
     jTextPane.setCaretPosition(0);
     JViewport jViewport = jScrollPane.getViewport();
@@ -129,25 +156,13 @@ class DictionaryQuery implements ManipulateProvider {
     return jScrollPane;
   }
 
-  static void main() throws IOException {
+  static void main() {
     if (FileBlock.of(ResourceLocator.of(DictionaryQuery.class).resolve("")))
       return;
     FieldsEditorParam.GLOBAL.textFieldFont_override = true;
     FieldsEditorParam.GLOBAL.textFieldFont = new Font(Font.MONOSPACED, Font.BOLD, 16);
     // ---
     Path root = HomeDirectory.Database.resolve("freedict");
-    //
-    Dict dictES = Dict.of(root.resolve("freedict-eng-spa-2025.11.23.dictd", "eng-spa", "eng-spa.index"));
-    Dict dictSE = Dict.of(root.resolve("freedict-spa-eng-0.3.1.dictd", "spa-eng", "spa-eng.index"));
-    // Dict dictEC = Dict.of(root.resolve("freedict-eng-cat-2025.11.23.dictd", "eng-cat", "eng-cat.index"));
-    // Dict dictCE = Dict.of(root.resolve("freedict-cat-eng-2025.11.23.dictd", "cat-eng", "cat-eng.index"));
-    // Dict dictDS = Dict.of(root.resolve("freedict-deu-spa-2025.11.23.dictd", "deu-spa", "deu-spa.index"));
-    // Dict dictSD = Dict.of(root.resolve("freedict-spa-deu-0.1.dictd", "spa-deu", "spa-deu.index"));
-    Dict dictFS = Dict.of(root.resolve("freedict-fra-spa-2025.11.23.dictd", "fra-spa", "fra-spa.index"));
-    Dict dictSF = Dict.of(root.resolve("freedict-spa-fra-2025.11.23.dictd", "spa-fra", "spa-fra.index"));
-    new DictionaryQuery(dictES, dictSE,
-        // dictEC, dictCE,
-        // dictDS, dictSD,
-        dictFS, dictSF).runStandalone();
+    new DictionaryQuery(DictDiscovery.of(root)).runStandalone();
   }
 }

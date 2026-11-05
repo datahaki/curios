@@ -1,7 +1,6 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,21 +17,15 @@ class MainTestSync {
 
     public JavaIndex(Path root) throws IOException {
       this.root = root;
-      visit(root);
+      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
+          .forEach(this::visit);
     }
 
-    public void visit(Path base) throws IOException {
-      for (File file : base.toFile().listFiles()) {
-        Path path = file.toPath();
-        if (Files.isDirectory(path)) {
-          visit(path);
-        } else {
-          PathName pathName = PathName.of(file.toPath());
-          if (pathName.hasExtension("java")) {
-            pathName = PathName.of(root.relativize(path));
-            set.add(pathName.truncate().path().toString());
-          }
-        }
+    public void visit(Path path) {
+      PathName pathName = PathName.of(path);
+      if (pathName.hasExtension("java")) {
+        pathName = PathName.of(root.relativize(path));
+        set.add(pathName.truncate().path().toString());
       }
     }
   }
@@ -71,7 +64,7 @@ class MainTestSync {
     // IO.println(cls);
     // }
     // });
-    Path path = HomeDirectory.Projects.resolve("surich");
+    Path path = HomeDirectory.Projects.resolve("tensor");
     MainTestSync mainTestSync = new MainTestSync(path);
     // mainTestSync.showMissingTests();
     mainTestSync.showUnassocTests();

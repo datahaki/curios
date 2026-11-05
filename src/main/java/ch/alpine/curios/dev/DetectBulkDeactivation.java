@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Gatherers;
@@ -14,34 +14,29 @@ import ch.alpine.tensor.ext.PathName;
 enum DetectBulkDeactivation implements VoidProvider {
   INSTANCE;
 
-  int checked = 0;
-
-  public void visit(Path base) throws IOException {
-    for (File file : base.toFile().listFiles()) {
-      Path path = file.toPath();
-      if (Files.isDirectory(path)) {
-        visit(path);
-      } else {
-        PathName pathName = PathName.of(file.toPath());
-        if (pathName.hasExtension("java")) {
-          try (var lines = Files.lines(path)) {
-            long count = lines.gather(Gatherers.windowSliding(3)) //
-                .filter(l -> l.stream().map(String::trim).allMatch(s -> s.startsWith("//"))).count();
-            if (10 < count)
-              IO.println(count + " " + pathName.path());
-          }
+  public void visit(Path path) {
+    PathName pathName = PathName.of(path);
+    if (pathName.hasExtension("java"))
+      try {
+        try (var lines = Files.lines(path)) {
+          long count = lines.gather(Gatherers.windowSliding(3)) //
+              .filter(l -> l.stream().map(String::trim).allMatch(s -> s.startsWith("//"))).count();
+          if (10 < count)
+            IO.println(count + " " + pathName.path());
         }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    }
   }
 
   @Override
   public Void runStandalone() {
-    Path path = HomeDirectory.Projects.resolve();
+    Path root = HomeDirectory.Projects.resolve();
     try {
-      INSTANCE.visit(path);
+      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
+          .forEach(this::visit);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new UncheckedIOException(e);
     }
     return null;
   }

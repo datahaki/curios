@@ -23,7 +23,7 @@ class Quiz implements ManipulateProvider {
   private final JTextPane jTextPane = new JTextPane();
   public String answer = "";
   @FieldFuse
-  public Boolean next = false;
+  public transient Boolean next = false;
   private Integer index = null;
 
   public Quiz(Dict dict, List<String> list) {

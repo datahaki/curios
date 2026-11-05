@@ -1,8 +1,8 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
@@ -18,29 +18,25 @@ enum MissingHeaders implements VoidProvider {
 
   int checked = 0;
 
-  public void visit(Path base) throws IOException {
-    for (File file : base.toFile().listFiles()) {
-      Path path = file.toPath();
-      if (Files.isDirectory(path)) {
-        visit(path);
-      } else {
-        PathName pathName = PathName.of(file.toPath());
-        if (pathName.hasExtension("java")) {
-          try (var lines = Files.lines(path)) {
-            Optional<String> optional = lines.findFirst();
-            if (optional.isPresent()) {
-              ++checked;
-              String header = optional.orElseThrow();
-              if (!header.startsWith("/")) {
-                prepend(path);
-              }
-            } else {
-              System.err.println("FILE EMPTY " + path);
+  public void visit(Path path) {
+    PathName pathName = PathName.of(path);
+    if (pathName.hasExtension("java"))
+      try {
+        try (var lines = Files.lines(path)) {
+          Optional<String> optional = lines.findFirst();
+          if (optional.isPresent()) {
+            ++checked;
+            String header = optional.orElseThrow();
+            if (!header.startsWith("/")) {
+              prepend(path);
             }
+          } else {
+            System.err.println("FILE EMPTY " + path);
           }
         }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
-    }
   }
 
   private void prepend(Path path) throws IOException {
@@ -57,11 +53,12 @@ enum MissingHeaders implements VoidProvider {
   public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
     try {
-      INSTANCE.visit(path);
+      Files.find(path, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
+          .forEach(this::visit);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new UncheckedIOException(e);
     }
-    IO.println("checked: " + INSTANCE.checked);
+    IO.println("checked: " + checked);
     return null;
   }
 

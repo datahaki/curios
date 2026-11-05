@@ -3,7 +3,7 @@ package ch.alpine.curios.es;
 
 import java.io.File;
 
-public record FindFile(String name) {
+record FindFile(String name) {
   void recur(File dir) {
     for (File file : dir.listFiles()) {
       if (file.getName().equalsIgnoreCase(name))
