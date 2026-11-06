@@ -1,13 +1,11 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
+import ch.alpine.bridge.io.FileNames;
 import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
@@ -30,23 +28,18 @@ enum DuplicateNames implements VoidProvider {
 
   public void visit(Path path) {
     PathName pathName = PathName.of(path);
-    if (pathName.hasExtension("java")) {
-      String title = pathName.title();
-      if (!ignore.contains(title) && !set.add(title)) {
-        IO.println(title);
-      }
+    String title = pathName.title();
+    if (!ignore.contains(title) && !set.add(title)) {
+      IO.println(title);
     }
   }
 
   @Override
   public Void runStandalone() {
     Path root = HomeDirectory.Projects.resolve();
-    try {
-      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
-          .forEach(this::visit);
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
-    }
+    FileNames.all(root) //
+        .filter(path -> PathName.of(path).hasExtension("java")) //
+        .forEach(this::visit);
     return null;
   }
 

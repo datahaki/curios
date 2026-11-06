@@ -2,13 +2,13 @@
 package ch.alpine.curios.dev;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import ch.alpine.bridge.io.FileNames;
 import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
@@ -51,13 +51,10 @@ enum MissingHeaders implements VoidProvider {
 
   @Override
   public Void runStandalone() {
-    Path path = HomeDirectory.Projects.resolve();
-    try {
-      Files.find(path, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
-          .forEach(this::visit);
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
-    }
+    Path root = HomeDirectory.Projects.resolve();
+    FileNames.all(root) //
+        .filter(path -> PathName.of(path).hasExtension("java")) //
+        .forEach(this::visit);
     IO.println("checked: " + checked);
     return null;
   }

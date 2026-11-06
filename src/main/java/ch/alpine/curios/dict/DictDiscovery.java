@@ -19,7 +19,7 @@ class DictDiscovery {
 
   private DictDiscovery(Path root) {
     try {
-      Files.find(root, 1, (_, bfa) -> bfa.isDirectory()).skip(1).forEach(this::visit);
+      Files.find(root, 1, (p, bfa) -> !p.equals(root) && bfa.isDirectory()).forEach(this::visit);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     }
@@ -37,6 +37,10 @@ class DictDiscovery {
 
   static void main() {
     Path root = HomeDirectory.Database.resolve("freedict");
-    new DictDiscovery(root);
+    List<Dict> list = of(root).filter("").toList();
+    for (Dict dict : list) {
+      IO.println("\n\n" + dict + " -------------");
+      dict.keySet().stream().limit(10).forEach(IO::println);
+    }
   }
 }

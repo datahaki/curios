@@ -1,12 +1,11 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ch.alpine.bridge.io.FileNames;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
@@ -15,9 +14,10 @@ class MainTestSync {
     private final Path root;
     private final Set<String> set = new TreeSet<>();
 
-    public JavaIndex(Path root) throws IOException {
+    public JavaIndex(Path root) {
       this.root = root;
-      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
+      FileNames.all(root) //
+          .filter(path -> PathName.of(path).hasExtension("java")) //
           .forEach(this::visit);
     }
 
@@ -33,7 +33,7 @@ class MainTestSync {
   private final JavaIndex javaIndexMain;
   private final JavaIndex javaIndexTest;
 
-  public MainTestSync(Path base) throws IOException {
+  public MainTestSync(Path base) {
     javaIndexMain = new JavaIndex(base.resolve("src", "main"));
     javaIndexTest = new JavaIndex(base.resolve("src", "test"));
   }
@@ -55,7 +55,7 @@ class MainTestSync {
     }
   }
 
-  static void main() throws IOException {
+  static void main() {
     // String default1 = ClassPaths.getDefault();
     // IO.println(default1);
     // ClassDiscovery.execute(ClassPaths.getDefault(), new ClassVisitor() {

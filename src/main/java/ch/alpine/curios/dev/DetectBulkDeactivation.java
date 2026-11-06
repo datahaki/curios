@@ -1,12 +1,11 @@
 // code by jph
 package ch.alpine.curios.dev;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Gatherers;
 
+import ch.alpine.bridge.io.FileNames;
 import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
@@ -32,12 +31,7 @@ enum DetectBulkDeactivation implements VoidProvider {
   @Override
   public Void runStandalone() {
     Path root = HomeDirectory.Projects.resolve();
-    try {
-      Files.find(root, Integer.MAX_VALUE, (_, bfa) -> !bfa.isDirectory()) //
-          .forEach(this::visit);
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
-    }
+    FileNames.all(root).forEach(this::visit);
     return null;
   }
 
