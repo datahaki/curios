@@ -15,7 +15,7 @@ import ch.alpine.tensor.ext.HomeDirectory;
 enum DepMaintenance implements VoidProvider {
   INSTANCE;
 
-  public void visit(Path base) throws IOException {
+  public static void visit(Path base) throws IOException {
     for (File file : base.toFile().listFiles()) {
       Path path = file.toPath();
       Path pom = path.resolve("pom.xml");
@@ -24,7 +24,7 @@ enum DepMaintenance implements VoidProvider {
     }
   }
 
-  void visit_pom(Path path) throws IOException {
+  static void visit_pom(Path path) throws IOException {
     List<String> list = Files.lines(path).collect(Collectors.toList());
     List<Dep> updated = new LinkedList<>();
     for (Dep dep : Dep.values())
@@ -33,7 +33,7 @@ enum DepMaintenance implements VoidProvider {
             dep.matchArtifactId(list.get(index + 1))) {
           int version_pos = index + 2;
           String versionTag = list.get(version_pos);
-          if (dep.containsVersion(versionTag)) {
+          if (Dep.containsVersion(versionTag)) {
             if (!dep.matchesVersion(versionTag)) {
               String replace = versionTag.replace(versionTag.trim(), dep.tagged_version());
               list.set(version_pos, replace);
@@ -54,7 +54,7 @@ enum DepMaintenance implements VoidProvider {
   public Void runStandalone() {
     Path path = HomeDirectory.Projects.resolve();
     try {
-      INSTANCE.visit(path);
+      visit(path);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

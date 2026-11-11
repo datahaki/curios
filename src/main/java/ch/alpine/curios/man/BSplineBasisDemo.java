@@ -15,9 +15,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.crv.GeodesicBSplineFunction;
 import ch.alpine.sophus.lie.rn.RGroup;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
-import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.alg.UnitVector;
 import ch.alpine.tensor.col.ColorDataIndexed;
 import ch.alpine.tensor.col.ColorDataLists;
@@ -43,8 +41,7 @@ class BSplineBasisDemo implements ManipulateProvider {
         GeodesicBSplineFunction bSplineFunction = //
             GeodesicBSplineFunction.of(RGroup.INSTANCE, _degree, knots);
         Tensor values = domain.maps(bSplineFunction);
-        Tensor tensor = Transpose.of(Tensors.of(domain, values));
-        show.add(ListLinePlot.of(tensor)).setLabel("" + knots);
+        show.add(ListLinePlot.of(domain, values)).setLabel("" + knots);
       }
       list.add(show);
     }

@@ -15,9 +15,7 @@ import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
-import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.alg.UnitVector;
 import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.itp.BSplineFunction;
@@ -44,8 +42,7 @@ public class DeBoorShow implements ManipulateProvider {
         Tensor knots = deBoor.knots();
         String title = length + " " + k_th + ":" + knots.toString().replace(" ", ""); //
         Tensor values = domain.maps(bSplineFunction);
-        Tensor tensor = Transpose.of(Tensors.of(domain, values));
-        Showable showable = show.add(ListLinePlot.of(tensor));
+        Showable showable = show.add(ListLinePlot.of(domain, values));
         showable.setLabel(title);
       }
       list.add(show);

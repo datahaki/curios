@@ -7,6 +7,7 @@ import java.awt.Window;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.WindowConstants;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
@@ -18,7 +19,7 @@ class StyledTextExample implements WindowProvider {
   @Override
   public Window getWindow() {
     JFrame frame = new JFrame("Styled Text with Colors");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.setSize(450, 300);
     JTextPane textPane = new JTextPane();
     textPane.setEditable(false);

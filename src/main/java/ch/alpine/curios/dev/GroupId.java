@@ -16,7 +16,7 @@ enum GroupId {
   private static final String OLD = "<groupId>ch.alpine</groupId>";
   private static final String NEW = "<groupId>io.github.datahaki</groupId>";
 
-  public void visit(Path base) throws IOException {
+  public static void visit(Path base) throws IOException {
     for (File file : base.toFile().listFiles()) {
       Path path = file.toPath();
       Path pom = path.resolve("pom.xml");
@@ -25,7 +25,7 @@ enum GroupId {
     }
   }
 
-  void visit_pom(Path path) throws IOException {
+  static void visit_pom(Path path) throws IOException {
     List<String> list = Files.lines(path).collect(Collectors.toList());
     boolean isDirty = false;
     for (int index = 0; index < list.size(); ++index) {
@@ -44,6 +44,6 @@ enum GroupId {
 
   static void main() throws IOException {
     Path path = HomeDirectory.Projects.resolve();
-    INSTANCE.visit(path);
+    visit(path);
   }
 }

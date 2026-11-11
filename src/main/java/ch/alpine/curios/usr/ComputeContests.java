@@ -7,10 +7,13 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
+import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.itp.LinearInterpolation;
 import ch.alpine.tensor.lie.Symmetrize;
 import ch.alpine.tensor.mat.IdentityMatrix;
+import ch.alpine.tensor.mat.MatrixDotTranspose;
 import ch.alpine.tensor.mat.Tolerance;
+import ch.alpine.tensor.mat.TransposeMatrixDot;
 import ch.alpine.tensor.mat.ev.Eigensystem;
 import ch.alpine.tensor.mat.ev.RealEigensystem;
 import ch.alpine.tensor.mat.ex.MatrixExp;
@@ -32,6 +35,38 @@ import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Chop;
 
 enum ComputeContests {
+  T_M_DOT("T[a].b", "TMD[a,b]") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = NormalDistribution.standard();
+      Tensor a = RandomVariate.of(distribution, n, n);
+      Tensor b = RandomVariate.of(distribution, n, n);
+      s_ser.start();
+      Tensor cs = Transpose.of(a).dot(b);
+      s_ser.stop();
+      s_par.start();
+      Tensor cp = TransposeMatrixDot.of(a, b);
+      s_par.stop();
+      if (!Tolerance.CHOP.isClose(cs, cp))
+        throw new Throw(cs);
+    }
+  },
+  M_DOT_T("a.T[b]", "MDT[a,b]") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = NormalDistribution.standard();
+      Tensor a = RandomVariate.of(distribution, n, n);
+      Tensor b = RandomVariate.of(distribution, n, n);
+      s_ser.start();
+      Tensor cs = a.dot(Transpose.of(b));
+      s_ser.stop();
+      s_par.start();
+      Tensor cp = MatrixDotTranspose.of(a, b);
+      s_par.stop();
+      if (!Tolerance.CHOP.isClose(cs, cp))
+        throw new Throw(cs);
+    }
+  },
   MAT_MAT("serial", "parallel") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {

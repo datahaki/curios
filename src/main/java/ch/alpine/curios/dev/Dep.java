@@ -47,7 +47,7 @@ enum Dep {
     return line.trim().equals(tagged_artifactId);
   }
 
-  public boolean containsVersion(String line) {
+  public static boolean containsVersion(String line) {
     return line.contains("<version>") //
         && line.contains("</version>");
   }

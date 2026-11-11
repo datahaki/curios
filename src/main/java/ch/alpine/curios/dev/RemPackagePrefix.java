@@ -36,7 +36,7 @@ enum RemPackagePrefix implements VoidProvider {
     }
   }
 
-  private void prepend(Path path) throws IOException {
+  private static void prepend(Path path) throws IOException {
     List<String> list = new LinkedList<>();
     try (var lines = Files.lines(path)) {
       for (String line : lines.toList()) {

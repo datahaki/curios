@@ -39,7 +39,7 @@ enum MissingHeaders implements VoidProvider {
       }
   }
 
-  private void prepend(Path path) throws IOException {
+  private static void prepend(Path path) throws IOException {
     List<String> list = new LinkedList<>();
     list.add("// code by jph");
     try (var lines = Files.lines(path)) {

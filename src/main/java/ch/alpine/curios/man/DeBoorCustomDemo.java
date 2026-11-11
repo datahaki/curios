@@ -19,7 +19,6 @@ import ch.alpine.sophus.lie.rn.RGroup;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Subdivide;
-import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.alg.UnitVector;
 import ch.alpine.tensor.col.ColorDataLists;
 import ch.alpine.tensor.ext.Integers;
@@ -47,14 +46,12 @@ public class DeBoorCustomDemo implements ManipulateProvider {
           DeBoor deBoor = DeBoor.of(RGroup.INSTANCE, _knots, UnitVector.of(length, k_th));
           {
             Tensor values = domain.maps(deBoor);
-            Tensor tensor = Transpose.of(Tensors.of(domain, values));
-            show.add(ListLinePlot.of(tensor));
+            show.add(ListLinePlot.of(domain, values));
           }
           {
             Stroke stroke = new BasicStroke(1.25f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 3 }, 0);
             Tensor values = domahi.maps(deBoor);
-            Tensor tensor = Transpose.of(Tensors.of(domahi, values));
-            Showable showable = show.add(ListLinePlot.of(tensor));
+            Showable showable = show.add(ListLinePlot.of(domahi, values));
             showable.setStroke(stroke);
           }
         }
