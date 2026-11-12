@@ -22,8 +22,7 @@ abstract class DensityPlotProvider implements ScalarBinaryOperator, ManipulatePr
   public Container getContainer() {
     Show show = new Show();
     show.setShowLabel(getClass().getSimpleName());
-    show.add(DensityPlot.of( //
-        this, cbb(), cdg));
+    show.add(DensityPlot.of(this, cbb(), cdg));
     return ShowGridComponent.of(show);
   }
 }
