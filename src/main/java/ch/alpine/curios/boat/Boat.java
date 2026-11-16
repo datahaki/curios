@@ -1,6 +1,7 @@
 // code by jph
 package ch.alpine.curios.boat;
 
+import ch.alpine.bridge.lang.Unitless;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
@@ -63,7 +64,7 @@ public record Boat( //
   }
 
   public Scalar ballastDisplacementRatio() {
-    return UnitConvert.SI().to("%").apply(ballast.divide(displacement));
+    return Unitless.PERCENT.unitConvert().apply(ballast.divide(displacement));
   }
 
   public boolean okBallastDisp() {

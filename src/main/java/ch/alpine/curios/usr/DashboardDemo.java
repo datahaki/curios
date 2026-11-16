@@ -1,3 +1,4 @@
+// code by jph
 package ch.alpine.curios.usr;
 
 import java.awt.Color;
@@ -36,12 +37,12 @@ public class DashboardDemo {
       frame.setLayout(new MigLayout("insets 0, gap 0", "[220!][grow]", "[grow]"));
       // --- SIDEBAR PANEL ---
       JPanel sidebar = new JPanel(new MigLayout("wrap, insets 20 15 20 15, gapy 10", "[grow]", "[][][][grow][]"));
-//      sidebar.setBackground(new UIManager.ColorTransformer() {
-//        @Override
-//        public Color deriveColor(Color c) {
-//          return c.darker();
-//        }
-//      }.deriveColor(UIManager.getColor("Panel.background"))); // Slightly darker sidebar
+      // sidebar.setBackground(new UIManager.ColorTransformer() {
+      // @Override
+      // public Color deriveColor(Color c) {
+      // return c.darker();
+      // }
+      // }.deriveColor(UIManager.getColor("Panel.background"))); // Slightly darker sidebar
       JLabel logoLabel = new JLabel("⚡ NexusAdmin");
       logoLabel.setFont(logoLabel.getFont().deriveFont(Font.BOLD, 16f));
       sidebar.add(logoLabel, "gapy 0 20");
