@@ -65,10 +65,10 @@ public record GradientDescent(TensorUnaryOperator gradient, Tensor start, Scalar
     Tensor theta = start;
     Tensor sequence = Tensors.reserve(max_epochs + 1);
     sequence.append(theta);
-    Tensor m = theta.maps(Scalar::zero);
+    Tensor m = theta.maps(Scalar::zero); // not correct strictly !
     Tensor v = theta.maps(Scalar::zero);
-    Scalar beta1_t = RealScalar.ONE;
-    Scalar beta2_t = RealScalar.ONE;
+    Scalar beta1_t = beta1.one();
+    Scalar beta2_t = beta2.one();
     for (int epoch = 1; epoch < max_epochs; ++epoch) {
       Tensor grad = gradient.apply(theta);
       {
