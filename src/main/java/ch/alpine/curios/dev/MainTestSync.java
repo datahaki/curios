@@ -64,7 +64,7 @@ class MainTestSync {
     // IO.println(cls);
     // }
     // });
-    Path path = HomeDirectory.Projects.resolve("tensor");
+    Path path = HomeDirectory.Projects.resolve("surich");
     MainTestSync mainTestSync = new MainTestSync(path);
     // mainTestSync.showMissingTests();
     mainTestSync.showUnassocTests();

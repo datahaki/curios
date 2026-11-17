@@ -16,13 +16,13 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.ArrayQ;
 import ch.alpine.tensor.alg.Dimensions;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.Get;
+import ch.alpine.tensor.io.MathematicaFormat;
 
 enum ExportSolutionTable {
   ;
   static void main() throws IOException {
     String prefix = "cheese";
-    Tensor tensor = Get.of(HomeDirectory.Ephemeral.resolve(prefix + ".mathematica"));
+    Tensor tensor = MathematicaFormat.Get.of(HomeDirectory.Ephemeral.resolve(prefix + ".mathematica"));
     ArrayQ.require(tensor);
     IO.println(Dimensions.of(tensor));
     Path path = HomeDirectory.Ephemeral.resolve(prefix + "5x10.txt");

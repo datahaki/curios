@@ -6,8 +6,7 @@ import java.nio.file.Path;
 
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Array;
-import ch.alpine.tensor.io.Get;
-import ch.alpine.tensor.io.Put;
+import ch.alpine.tensor.io.MathematicaFormat;
 
 class SbfTrack {
   private final Path local;
@@ -16,7 +15,7 @@ class SbfTrack {
   public SbfTrack(SbfType sbfType, int fallback) {
     local = SbfParser.ROOT.resolve(sbfType + ".tensor");
     try {
-      tensor = Get.of(local);
+      tensor = MathematicaFormat.Get.of(local);
     } catch (IOException ioException) {
       tensor = Array.zeros(fallback, 0);
     }
@@ -24,7 +23,7 @@ class SbfTrack {
 
   public void store() {
     try {
-      Put.of(local, tensor);
+      MathematicaFormat.Put.of(local, tensor);
       System.out.println("stored");
     } catch (IOException ioException) {
       ioException.printStackTrace();

@@ -15,7 +15,7 @@ import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Throw;
 import ch.alpine.tensor.alg.Array;
 import ch.alpine.tensor.ext.HomeDirectory;
-import ch.alpine.tensor.io.Put;
+import ch.alpine.tensor.io.MathematicaFormat;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Round;
 
@@ -63,7 +63,7 @@ abstract class KaiserRun {
   }
 
   void store(Path path) throws IOException {
-    Put.of(path, array);
+    MathematicaFormat.Put.of(path, array);
   }
 
   static void main() throws IOException {
