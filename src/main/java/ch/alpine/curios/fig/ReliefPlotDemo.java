@@ -4,7 +4,6 @@ package ch.alpine.curios.fig;
 import java.awt.Container;
 import java.util.List;
 
-import ch.alpine.bridge.fig.Meshgrid;
 import ch.alpine.bridge.fig.PlotOption;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
@@ -12,6 +11,7 @@ import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.fig.plt.ReliefImage;
 import ch.alpine.bridge.fig.plt.ReliefPlot;
 import ch.alpine.bridge.fig.plt.VectorPlot;
+import ch.alpine.bridge.math.Meshgrid;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
