@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import ch.alpine.bridge.fig.Show;
-import ch.alpine.bridge.fig.ShowOption;
+import ch.alpine.bridge.fig.grd.AxisOption;
 import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.fig.plt.StringPlot;
 import ch.alpine.bridge.fig.plt.StringPlot.StringItem;
@@ -39,7 +39,8 @@ record CalendarDialog(CalendarBoard calendarBoard, LocalDate localDate) implemen
     Tensor matrix = UbongoRender.matrix(Dimensions.of(ubongoBoard.mask()), solution);
     Show show = new Show();
     show.setShowLabel(pretty(localDate));
-    show.set(ShowOption.GRID, false);
+    show.showOptions.axisOptionsX.set(AxisOption.GRID, false);
+    show.showOptions.axisOptionsY.set(AxisOption.GRID, false);
     show.add(ImagePlot.of(ImageFormat.of(matrix.maps(ColorDataLists._097.strict())), ImageResize.DEGREE_0));
     List<StringItem> list = calendarBoard.mapping().entrySet().stream().map(e -> StringItem.of(e.getKey(), e.getValue())).toList();
     show.add(StringPlot.of(list));

@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
-import ch.alpine.bridge.fig.ShowOption;
+import ch.alpine.bridge.fig.grd.AxisOption;
 import ch.alpine.bridge.fig.plt.ImagePlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -35,9 +35,10 @@ public class ImageFiltersDemo implements ManipulateProvider {
     image.set(imageFilters.filter(image.get(Tensor.ALL, Tensor.ALL, index), width), //
         Tensor.ALL, Tensor.ALL, index));
     Show show = new Show();
+    show.showOptions.axisOptionsX.set(AxisOption.GRID, false);
+    show.showOptions.axisOptionsY.set(AxisOption.GRID, false);
     show.setShowLabel(Dimensions.of(image).toString());
     show.add(ImagePlot.of(ImageFormat.of(image)));
-    show.set(ShowOption.GRID, false);
     return ShowGridComponent.of(show);
   }
 

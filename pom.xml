@@ -42,11 +42,6 @@
 			<artifactId>surefire-report-parser</artifactId>
 			<version>3.6.1</version>
 		</dependency>
-		<dependency>
-			<groupId>com.miglayout</groupId>
-			<artifactId>miglayout-swing</artifactId>
-			<version>11.5.2</version>
-		</dependency>
 
 		<!-- Core DJL API -->
 		<dependency>
