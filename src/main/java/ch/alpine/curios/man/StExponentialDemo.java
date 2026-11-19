@@ -53,7 +53,7 @@ public class StExponentialDemo implements ManipulateProvider {
         RandomVariate.of(NormalDistribution.of(0, 0.4), randomGenerator, Dimensions.of(p)));
     TangentSpace exponential = stiefelManifold.tangentSpace(p);
     ScalarTensorFunction stf = s -> exponential.exp(v.multiply(s));
-    Clip clip = Clips.translation(scalar).apply(Clips.absolute(4));
+    Clip clip = Clips.operator(scalar::add).apply(Clips.absolute(4));
     Tensor res = Subdivide.increasing(clip, 50).maps(stf);
     // IO.println(Dimensions.of(res));
     Show show = new Show();
