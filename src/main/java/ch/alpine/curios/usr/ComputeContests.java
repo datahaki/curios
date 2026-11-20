@@ -1,12 +1,15 @@
 // code by jph
 package ch.alpine.curios.usr;
 
+import java.util.stream.Stream;
+
 import ch.alpine.tensor.DoubleScalar;
 import ch.alpine.tensor.Parallelize;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
+import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.itp.LinearInterpolation;
 import ch.alpine.tensor.lie.Symmetrize;
@@ -27,6 +30,7 @@ import ch.alpine.tensor.mat.qr.GramSchmidt;
 import ch.alpine.tensor.mat.qr.QRDecomposition;
 import ch.alpine.tensor.mat.re.Inverse;
 import ch.alpine.tensor.mat.re.LinearSolve;
+import ch.alpine.tensor.num.Pi;
 import ch.alpine.tensor.pdf.Distribution;
 import ch.alpine.tensor.pdf.RandomVariate;
 import ch.alpine.tensor.pdf.c.NormalDistribution;
@@ -35,6 +39,19 @@ import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Chop;
 
 enum ComputeContests {
+  PREALLOCATE("dynamic", "prealloc") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      // TODO
+      int size = 10 * n;
+      s_ser.start();
+      Tensor.of(Stream.generate(() -> Pi.VALUE).limit(size));
+      s_ser.stop();
+      s_par.start();
+      Unprotect.of(size, Stream.generate(() -> Pi.VALUE).limit(size));
+      s_par.stop();
+    }
+  },
   T_M_DOT("T[a].b", "TMD[a,b]") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
