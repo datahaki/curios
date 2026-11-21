@@ -9,7 +9,6 @@ import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.Throw;
-import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.alg.Transpose;
 import ch.alpine.tensor.itp.LinearInterpolation;
 import ch.alpine.tensor.lie.Symmetrize;
@@ -48,7 +47,7 @@ enum ComputeContests {
       Tensor.of(Stream.generate(() -> Pi.VALUE).limit(size));
       s_ser.stop();
       s_par.start();
-      Unprotect.of(size, Stream.generate(() -> Pi.VALUE).limit(size));
+      Tensor.of(Stream.generate(() -> Pi.VALUE).limit(size), size);
       s_par.stop();
     }
   },
