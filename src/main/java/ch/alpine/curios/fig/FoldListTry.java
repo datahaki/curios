@@ -4,6 +4,7 @@ package ch.alpine.curios.fig;
 import java.util.Objects;
 
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.api.TensorBinaryOperator;
 import ch.alpine.tensor.api.TensorUnaryOperator;
@@ -36,6 +37,6 @@ enum FoldListTry {
    * @param tensor must not be a {@link Scalar}
    * @return see description above */
   public static Tensor of(TensorBinaryOperator binaryOperator, Tensor tensor) {
-    return Tensor.of(tensor.stream().map(new FoldDigest(binaryOperator)));
+    return Slash.of(tensor, new FoldDigest(binaryOperator));
   }
 }

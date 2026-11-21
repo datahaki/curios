@@ -60,7 +60,7 @@ public class EllipticCurveExplorerDemo implements ManipulateProvider {
     Clip clip = Clips.absolute(10);
     for (int i = 0; i < depth; ++i) {
       // TODO make discovery more efficient by avoiding repeating combos
-      Tensor points = Tensor.of(set.stream());
+      Tensor points = Tensor.of(set.stream(), set.size());
       Tensor matrix = UpperEvaluation.of(points, points, ellipticCurve::combine, s -> s);
       set = Flatten.of(matrix, 1).stream() //
           .distinct().filter(Tensors::nonEmpty).collect(Collectors.toSet());
@@ -68,7 +68,7 @@ public class EllipticCurveExplorerDemo implements ManipulateProvider {
     }
     show.add(ReImPlot.of(ellipticCurve, clip));
     show.add(ReImPlot.of(s -> ellipticCurve.apply(s).negate(), clip));
-    Tensor points = Tensor.of(set.stream());
+    Tensor points = Tensor.of(set.stream(), set.size());
     show.add(ListPlot.of(points));
     show.setCbb(CoordinateBoundingBox.of(clip, Clips.absolute(8)));
     show.setAspectRatioOne();

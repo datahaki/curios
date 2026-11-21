@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.alg.Flatten;
 
@@ -20,7 +21,7 @@ class IbericoWinter {
         r -> r.Get(0), r -> r.extract(1, 3), (r1, r2) -> r1.add(r2), TreeMap::new));
     Tensor total = days //
         ? Tensor.of(navigableMap.entrySet().stream().map(e -> Flatten.of(e.getKey(), e.getValue())))
-        : Tensor.of(tensor.stream().map(r -> r.extract(0, 3)));
+        : Slash.of(tensor, r -> r.extract(0, 3));
     routes = Tensor.of(total.stream().map(r -> r.append(r.Get(1).under(r.Get(2)).multiply(RealScalar.TWO))));
     System.out.println(routes.length() + " routes");
   }

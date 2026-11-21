@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Scalars;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Reverse;
@@ -31,7 +32,7 @@ public enum ImagePerspective {
 
     public Format(Tensor points, long pixels) {
       Tensor mean = Mean.of(points);
-      Tensor of = Tensor.of(points.stream().map(r -> r.subtract(mean)));
+      Tensor of = Slash.of(points, r -> r.subtract(mean));
       values = SingularValueDecomposition.of(of).values();
       box = CoordinateBounds.of(points);
       boolean s1 = Scalars.lessEquals(box.clip(0).length(), box.clip(1).length());
@@ -66,7 +67,7 @@ public enum ImagePerspective {
         Ceiling.intValueExact(RealScalar.of(w).multiply(factor)) + 1, //
         Ceiling.intValueExact(RealScalar.of(h).multiply(factor)) + 1));
     Tensor sft = Tensors.vectorInt(y, x).negate();
-    Tensor pnu = Tensor.of(points.stream().map(sft::add)).multiply(factor);
+    Tensor pnu = Slash.of(points, sft::add).multiply(factor);
     return ImageFormat.of(rectify(resized, pnu, format.w(), format.h()));
   }
 

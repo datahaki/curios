@@ -5,6 +5,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophus.lie.se2.Se2Group;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Flatten;
@@ -33,7 +34,7 @@ class Se2onR2Demo extends DensityPlotProvider {
     Tensor seed = Tensors.of(Tensors.of(x, y));
     for (int count = 0; count < 4; ++count)
       seed = Flatten.of(Outer.of(Se2onR2Demo::action, actions, seed), 1);
-    Tensor tensor = Tensor.of(seed.stream().map(Vector2Norm::of));
+    Tensor tensor = Slash.of(seed, Vector2Norm::of);
     Scalar dist = (Scalar) tensor.stream().reduce(Min::of).get();
     return RealScalar.of(ArgMin.of(tensor) * 0.01).add(dist);
   }

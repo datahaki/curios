@@ -14,6 +14,7 @@ import ch.alpine.sophus.rsm.PoissonDiskSampling;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
+import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
@@ -31,7 +32,7 @@ public class PoissonDiskSamplingDemo implements ManipulateProvider {
     Clip clipx = Clips.positive(wx);
     Clip clipy = Clips.positive(wy);
     List<Tensor> list2 = new PoissonDiskSampling(wx, wy, r, k.number().intValue()).generate();
-    Tensor pnts = Tensor.of(list2.stream());
+    Tensor pnts = Unprotect.using(list2);
     show.add(ListPlot.of(pnts));
     show.setCbb(CoordinateBoundingBox.of(clipx, clipy));
     show.setAspectRatioOne();

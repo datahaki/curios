@@ -20,6 +20,6 @@ public enum PuzzleFree {
         if (string.charAt(index) != ' ')
           row.set(FREE, index);
       return row;
-    }));
+    }), strings.length);
   }
 }

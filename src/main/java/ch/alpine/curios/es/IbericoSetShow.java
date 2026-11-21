@@ -101,7 +101,7 @@ class IbericoSetShow {
       Tensor polygon = Tensor.of(routes.stream() //
           .map(GeoPosition::of) //
           .map(sedarim::sunder) //
-          .map(weights -> LinearBiinvariantMean.INSTANCE.mean(q_xy, weights)));
+          .map(weights -> LinearBiinvariantMean.INSTANCE.mean(q_xy, weights)), routes.length());
       Path2D path2d = geometricLayer.toPath2D(polygon);
       g.draw(path2d);
     }
@@ -112,7 +112,7 @@ class IbericoSetShow {
       Tensor polygon = Tensor.of(routes.stream() //
           .map(GeoPosition::of) //
           .map(sedarim::sunder) //
-          .map(weights -> LinearBiinvariantMean.INSTANCE.mean(q_xy, weights)));
+          .map(weights -> LinearBiinvariantMean.INSTANCE.mean(q_xy, weights)), routes.length());
       Path2D path2d = geometricLayer.toPath2D(polygon);
       g.draw(path2d);
     }

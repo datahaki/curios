@@ -16,6 +16,7 @@ import ch.alpine.sophus.lie.MatrixAlgebra;
 import ch.alpine.sophus.lie.se.SeNGroup;
 import ch.alpine.sophus.lie.sl.SlNGroup;
 import ch.alpine.sophus.lie.so.SoNGroup;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Accumulate;
@@ -54,7 +55,7 @@ class BchConvergenceShow implements ManipulateProvider {
     Tensor Y = matrixAlgebra.toMatrix(y);
     Tensor Z = MatrixLog.of(MatrixExp.of(X).dot(MatrixExp.of(Y)));
     Tensor ref = matrixAlgebra.toVector(Z);
-    return Tensor.of(Accumulate.of(series).stream().map(val -> val.subtract(ref)).map(FrobeniusNorm::of));
+    return Slash.of(Accumulate.of(series), val -> FrobeniusNorm.between(val, ref));
   }
 
   @Override

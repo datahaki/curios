@@ -14,6 +14,7 @@ import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.sophis.fit.RigidMotionFit;
 import ch.alpine.sophus.lie.so2.ArcTan2D;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Array;
@@ -42,7 +43,7 @@ public class RigidMotionFitShow implements ManipulateProvider {
     Distribution distribution = NormalDistribution.standard();
     Tensor random = RandomVariate.of(distribution, randomGenerator, n, 2);
     Tensor mean = Mean.of(random).negate();
-    Tensor shuffl = Tensor.of(random.stream().map(mean::add));
+    Tensor shuffl = Slash.of(random, mean::add);
     final Tensor target = Join.of(Array.zeros(1, 2), shuffl);
     Tensor points = target.copy();
     Tensor param = Subdivide.of(-10, 10, res);
