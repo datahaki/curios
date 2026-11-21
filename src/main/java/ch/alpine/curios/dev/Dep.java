@@ -12,7 +12,7 @@ enum Dep {
   GPG("org.apache.maven.plugins", "maven-gpg-plugin", "3.2.8"),
   SONATYPE("org.sonatype.central", "central-publishing-maven-plugin", "0.10.0"),
   DEPLOY("org.apache.maven.plugins", "maven-deploy-plugin", "3.2.0"),
-  FLATLAF("com.formdev", "flatlaf", "3.7.2"),
+  FLATLAF("com.formdev", "flatlaf", "3.8"),
   METADATA("com.drewnoakes", "metadata-extractor", "2.22.0"),
   // ---
   DJL_API("ai.djl", "api", "0.36.0"),
