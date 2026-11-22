@@ -3,11 +3,11 @@ package ch.alpine.curios.usr;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.stream.IntStream;
 
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.plt.ListLinePlot;
 import ch.alpine.bridge.pro.ShowProvider;
+import ch.alpine.tensor.Slash;
 import ch.alpine.tensor.Tensor;
 import ch.alpine.tensor.Tensors;
 import ch.alpine.tensor.alg.Dimensions;
@@ -34,7 +34,7 @@ class CdgExtract implements ShowProvider {
         show.add(ListLinePlot.of(domain, tensor.get(Tensor.ALL, i))).setLabel(rgb[i]);
       int[] indeces = new int[] { 0, 33, 66, 99, 133, 166, 198 };
       IO.println(tensor.length());
-      Tensor rgba = Tensor.of(IntStream.of(indeces).mapToObj(tensor::get));
+      Tensor rgba = Slash.of(indeces, tensor::get);
       IO.println(rgba);
       Path path = HomeDirectory.Ephemeral.resolve("sunset2.csv");
       Export.of(path, rgba);
