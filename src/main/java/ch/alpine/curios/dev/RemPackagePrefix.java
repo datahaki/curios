@@ -8,11 +8,10 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum RemPackagePrefix implements VoidProvider {
+enum RemPackagePrefix {
   INSTANCE;
 
   int checked = 0;
@@ -52,8 +51,7 @@ enum RemPackagePrefix implements VoidProvider {
     IO.println(path);
   }
 
-  @Override
-  public Void runStandalone() {
+  static void main() {
     Path path = HomeDirectory.Projects.resolve();
     try {
       INSTANCE.visit(path);
@@ -61,10 +59,5 @@ enum RemPackagePrefix implements VoidProvider {
       throw new RuntimeException(e);
     }
     IO.println("checked: " + INSTANCE.checked);
-    return null;
-  }
-
-  static void main() {
-    INSTANCE.runStandalone();
   }
 }

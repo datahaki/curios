@@ -6,11 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ch.alpine.bridge.io.FileNames;
-import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum DuplicateNames implements VoidProvider {
+enum DuplicateNames {
   INSTANCE;
 
   final Set<String> ignore = new HashSet<>();
@@ -34,16 +33,10 @@ enum DuplicateNames implements VoidProvider {
     }
   }
 
-  @Override
-  public Void runStandalone() {
+  static void main() {
     Path root = HomeDirectory.Projects.resolve();
     FileNames.all(root) //
         .filter(path -> PathName.of(path).hasExtension("java")) //
-        .forEach(this::visit);
-    return null;
-  }
-
-  static void main() {
-    INSTANCE.runStandalone();
+        .forEach(INSTANCE::visit);
   }
 }

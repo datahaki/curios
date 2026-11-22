@@ -61,10 +61,6 @@ enum MatlabExportDemo implements VoidProvider {
     // 10 11 12 13 14
   }
 
-  static void main() {
-    INSTANCE.runStandalone();
-  }
-
   @Override
   public Void runStandalone() {
     try {
@@ -77,5 +73,9 @@ enum MatlabExportDemo implements VoidProvider {
       throw new RuntimeException(exception);
     }
     return null;
+  }
+
+  static void main() {
+    INSTANCE.runStandalone();
   }
 }

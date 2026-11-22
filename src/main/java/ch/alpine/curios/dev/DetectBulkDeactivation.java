@@ -6,11 +6,10 @@ import java.nio.file.Path;
 import java.util.stream.Gatherers;
 
 import ch.alpine.bridge.io.FileNames;
-import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
-enum DetectBulkDeactivation implements VoidProvider {
+enum DetectBulkDeactivation {
   INSTANCE;
 
   public void visit(Path path) {
@@ -28,14 +27,8 @@ enum DetectBulkDeactivation implements VoidProvider {
       }
   }
 
-  @Override
-  public Void runStandalone() {
-    Path root = HomeDirectory.Projects.resolve();
-    FileNames.all(root).forEach(this::visit);
-    return null;
-  }
-
   static void main() {
-    INSTANCE.runStandalone();
+    Path root = HomeDirectory.Projects.resolve();
+    FileNames.all(root).forEach(INSTANCE::visit);
   }
 }

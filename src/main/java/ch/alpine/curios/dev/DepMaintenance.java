@@ -9,12 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 
-enum DepMaintenance implements VoidProvider {
-  INSTANCE;
-
+enum DepMaintenance {
+  ;
   public static void visit(Path base) throws IOException {
     for (File file : base.toFile().listFiles()) {
       Path path = file.toPath();
@@ -50,18 +48,12 @@ enum DepMaintenance implements VoidProvider {
     }
   }
 
-  @Override
-  public Void runStandalone() {
+  static void main() {
     Path path = HomeDirectory.Projects.resolve();
     try {
       visit(path);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return null;
-  }
-
-  static void main() {
-    INSTANCE.runStandalone();
   }
 }

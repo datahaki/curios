@@ -9,12 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 import ch.alpine.bridge.io.FileNames;
-import ch.alpine.bridge.pro.VoidProvider;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
 // TODO exclude from auto testing!
-enum MissingHeaders implements VoidProvider {
+enum MissingHeaders {
   INSTANCE;
 
   int checked = 0;
@@ -50,17 +49,11 @@ enum MissingHeaders implements VoidProvider {
     IO.println(path);
   }
 
-  @Override
-  public Void runStandalone() {
+  static void main() {
     Path root = HomeDirectory.Projects.resolve();
     FileNames.all(root) //
         .filter(path -> PathName.of(path).hasExtension("java")) //
-        .forEach(this::visit);
-    IO.println("checked: " + checked);
-    return null;
-  }
-
-  static void main() {
-    INSTANCE.runStandalone();
+        .forEach(INSTANCE::visit);
+    IO.println("checked: " + INSTANCE.checked);
   }
 }

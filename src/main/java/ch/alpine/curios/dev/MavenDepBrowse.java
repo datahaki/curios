@@ -4,13 +4,9 @@ package ch.alpine.curios.dev;
 import java.awt.Desktop;
 import java.net.URI;
 
-import ch.alpine.bridge.pro.VoidProvider;
-
-enum MavenDepBrowse implements VoidProvider {
-  INSTANCE;
-
-  @Override
-  public Void runStandalone() {
+enum MavenDepBrowse {
+  ;
+  static void main() {
     for (Dep dep : Dep.values())
       if (!dep.groupId().startsWith("io.github.datahaki")) {
         String url = dep.website();
@@ -21,10 +17,5 @@ enum MavenDepBrowse implements VoidProvider {
             throw new RuntimeException(e);
           }
       }
-    return null;
-  }
-
-  static void main() {
-    INSTANCE.runStandalone();
   }
 }
