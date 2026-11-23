@@ -21,8 +21,6 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import ch.alpine.bridge.io.FileBlock;
-import ch.alpine.bridge.io.ResourceLocator;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.FieldsEditorParam;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -157,8 +155,6 @@ class DictionaryQuery implements ManipulateProvider {
   }
 
   static void main() {
-    if (FileBlock.of(ResourceLocator.of(DictionaryQuery.class).resolve("")))
-      return;
     FieldsEditorParam.GLOBAL.textFieldFont_override = true;
     FieldsEditorParam.GLOBAL.textFieldFont = new Font(Font.MONOSPACED, Font.BOLD, 16);
     // ---
