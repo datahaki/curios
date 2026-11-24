@@ -18,6 +18,7 @@ import ch.alpine.bridge.ref.ann.FieldSlider;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
+import ch.alpine.tensor.col.ColorDataIndexed;
 import ch.alpine.tensor.col.ColorDataLists;
 
 @ReflectionMarker
@@ -25,10 +26,10 @@ class PalettePreview implements ManipulateProvider {
   private static final int LENGTH = 16;
   // ---
   public ColorDataLists cdl = ColorDataLists._097;
-  @FieldSlider
+  @FieldSlider(showValue = true)
   @FieldClip(min = "0", max = "1")
   public Scalar s = RealScalar.ONE;
-  @FieldSlider
+  @FieldSlider(showValue = true)
   @FieldClip(min = "0", max = "1")
   public Scalar v = RealScalar.ONE;
   private final List<JLabel> jLabels = new ArrayList<>();
@@ -47,8 +48,9 @@ class PalettePreview implements ManipulateProvider {
   @Override
   public Container getContainer() {
     HuePalette huePalette = HuePalette.of(cdl.cyclic());
+    ColorDataIndexed cdi = huePalette.create(s, v);
     for (int count = 0; count < LENGTH; ++count) {
-      Color color = huePalette.getColor(count, s.number().doubleValue(), v.number().doubleValue(), 1);
+      Color color = cdi.getColor(count);
       HueFromColor hue = HueFromColor.of(color);
       jLabels.get(count).setText(hue.toFriendlyString() + " " + Math.round(hue.hue() * 360));
       jLabels.get(count).setBackground(color);
