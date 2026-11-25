@@ -6,6 +6,7 @@ import java.awt.Container;
 import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Showable;
+import ch.alpine.bridge.fig.grd.AxisMaps;
 import ch.alpine.bridge.fig.plt.ListLinePlot;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldClip;
@@ -27,7 +28,6 @@ import ch.alpine.tensor.mat.ex.MatrixLog;
 import ch.alpine.tensor.nrm.FrobeniusNorm;
 import ch.alpine.tensor.sca.Chop;
 import ch.alpine.tensor.sca.N;
-import ch.alpine.tensor.sca.exp.Log10;
 
 @ReflectionMarker
 class BchConvergenceShow implements ManipulateProvider {
@@ -39,7 +39,7 @@ class BchConvergenceShow implements ManipulateProvider {
 
   Showable add(String name, MatrixAlgebra matrixAlgebra) {
     Tensor tensor = err(matrixAlgebra);
-    Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor.maps(Log10.FUNCTION));
+    Showable showable = ListLinePlot.of(Range.of(0, tensor.length()), tensor);
     showable.setLabel(name);
     return showable;
   }
@@ -65,6 +65,7 @@ class BchConvergenceShow implements ManipulateProvider {
     show.add(add("se2", MatrixAlgebra.of(new SeNGroup(2))));
     show.add(add("so3", MatrixAlgebra.of(new SoNGroup(3))));
     show.add(add("sl2", MatrixAlgebra.of(new SlNGroup(2))));
+    show.showOptions.axisOptionsY.axisMap = AxisMaps.LOG10;
     return ShowGridComponent.of(show);
   }
 

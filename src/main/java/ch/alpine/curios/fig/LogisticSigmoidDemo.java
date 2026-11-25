@@ -12,7 +12,6 @@ import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 import ch.alpine.tensor.sca.Ramp;
 import ch.alpine.tensor.sca.UnitStep;
-import ch.alpine.tensor.sca.exp.DLogisticSigmoid;
 import ch.alpine.tensor.sca.exp.LogisticSigmoid;
 
 @ReflectionMarker
@@ -23,8 +22,7 @@ class LogisticSigmoidDemo implements ManipulateProvider {
     {
       Clip clip = Clips.absolute(3);
       show1.add(Plot.of(LogisticSigmoid.FUNCTION, clip)).setLabel("Function");
-      show1.add(Plot.of(DLogisticSigmoid.FUNCTION, clip)).setLabel("Derivative");
-      show1.add(Plot.of(DLogisticSigmoid.NESTED, clip)).setLabel("Nested");
+      show1.add(Plot.of(LogisticSigmoid.DERIVATIVE, clip)).setLabel("Derivative");
     }
     Show show2 = new Show();
     {
