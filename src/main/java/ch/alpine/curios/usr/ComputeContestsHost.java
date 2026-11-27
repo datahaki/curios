@@ -7,7 +7,7 @@ import ch.alpine.bridge.fig.Show;
 import ch.alpine.bridge.fig.ShowGridComponent;
 import ch.alpine.bridge.fig.Showable;
 import ch.alpine.bridge.fig.plt.ListLinePlot;
-import ch.alpine.bridge.math.Unitless;
+import ch.alpine.bridge.math.SI;
 import ch.alpine.bridge.pro.ManipulateProvider;
 import ch.alpine.bridge.ref.ann.FieldSelectionArray;
 import ch.alpine.bridge.ref.ann.ReflectionMarker;
@@ -52,8 +52,8 @@ class ComputeContestsHost implements ManipulateProvider {
     s1.setLabel(computeContests.label1);
     s2.setLabel(computeContests.label2);
     {
-      Tensor rat1 = Unitless.PERCENT.unitConvert().apply(t1.divide(t2)).maps(Round._2);
-      Tensor rat2 = Unitless.PERCENT.unitConvert().apply(t2.divide(t1)).maps(Round._2);
+      Tensor rat1 = SI.PERCENT.unitConvert(t1.divide(t2)).maps(Round._2);
+      Tensor rat2 = SI.PERCENT.unitConvert(t2.divide(t1)).maps(Round._2);
       show.setShowLabel(computeContests.toString() + " " + rat1 + " " + rat2);
     }
     return ShowGridComponent.of(show);
