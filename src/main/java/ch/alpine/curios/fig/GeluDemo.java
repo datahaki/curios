@@ -15,7 +15,7 @@ class GeluDemo implements ShowProvider {
     Show show = new Show();
     Clip clip = Clips.absolute(2);
     show.add(Plot.of(Gelu.FUNCTION, clip)).setLabel("Gelu");
-    show.add(Plot.of(Gelu::dx, clip)).setLabel("DxGelu");
+    show.add(Plot.of(Gelu.DERIVATIVE, clip)).setLabel("DxGelu");
     show.add(Plot.of(Ramp.FUNCTION, clip)).setLabel("Ramp");
     show.setAspectRatioOne();
     return show;

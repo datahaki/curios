@@ -1,10 +1,13 @@
 // code by jph
 package ch.alpine.curios.dev;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.TreeSet;
 
+import ch.alpine.bridge.cgr.JavaTypeEstimator;
+import ch.alpine.bridge.cgr.JavaTypeEstimator.DeclaredType;
 import ch.alpine.bridge.io.FileNames;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
@@ -42,8 +45,17 @@ class MainTestSync {
 
   void showMissingTests() {
     for (String rel : javaIndexMain.set) {
-      if (!javaIndexTest.set.contains(rel + "Test"))
-        IO.println(rel);
+      if (!javaIndexTest.set.contains(rel + "Test")) {
+        Path rel2 = Path.of(rel + ".java");
+        Path relativize = javaIndexMain.root.resolve(rel2);
+        boolean exists = Files.exists(relativize);
+        if (exists) {
+          DeclaredType declaredType = JavaTypeEstimator.estimateType(relativize);
+          if (!declaredType.isInterface() && !declaredType.isAnnotation()) {
+            IO.println(rel);
+          }
+        }
+      }
     }
   }
 
@@ -66,7 +78,7 @@ class MainTestSync {
     // IO.println(cls);
     // }
     // });
-    Path path = HomeDirectory.Projects.resolve("tensor");
+    Path path = HomeDirectory.Projects.resolve("subare");
     MainTestSync mainTestSync = new MainTestSync(path);
     mainTestSync.showMissingTests();
     IO.println("---");
