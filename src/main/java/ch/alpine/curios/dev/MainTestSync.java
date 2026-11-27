@@ -9,6 +9,7 @@ import ch.alpine.bridge.io.FileNames;
 import ch.alpine.tensor.ext.HomeDirectory;
 import ch.alpine.tensor.ext.PathName;
 
+// TODO ignore interfaces! use class discovery?
 class MainTestSync {
   static class JavaIndex {
     private final Path root;
@@ -23,7 +24,8 @@ class MainTestSync {
 
     public void visit(Path path) {
       PathName pathName = PathName.of(path);
-      if (pathName.hasExtension("java")) {
+      boolean ignore = pathName.title().equals("package-info");
+      if (pathName.hasExtension("java") && !ignore) {
         pathName = PathName.of(root.relativize(path));
         set.add(pathName.truncate().path().toString());
       }
@@ -64,9 +66,10 @@ class MainTestSync {
     // IO.println(cls);
     // }
     // });
-    Path path = HomeDirectory.Projects.resolve("surich");
+    Path path = HomeDirectory.Projects.resolve("tensor");
     MainTestSync mainTestSync = new MainTestSync(path);
-    // mainTestSync.showMissingTests();
+    mainTestSync.showMissingTests();
+    IO.println("---");
     mainTestSync.showUnassocTests();
   }
 }

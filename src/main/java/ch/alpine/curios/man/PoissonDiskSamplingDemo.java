@@ -2,6 +2,8 @@
 package ch.alpine.curios.man;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 import javax.swing.JComponent;
 
@@ -14,27 +16,30 @@ import ch.alpine.sophus.rsm.PoissonDiskSampling;
 import ch.alpine.tensor.RealScalar;
 import ch.alpine.tensor.Scalar;
 import ch.alpine.tensor.Tensor;
-import ch.alpine.tensor.Unprotect;
 import ch.alpine.tensor.opt.nd.CoordinateBoundingBox;
+import ch.alpine.tensor.qty.Quantity;
 import ch.alpine.tensor.sca.Clip;
 import ch.alpine.tensor.sca.Clips;
 
 @ReflectionMarker
 public class PoissonDiskSamplingDemo implements ManipulateProvider {
-  public Scalar wx = RealScalar.of(10);
-  public Scalar wy = RealScalar.of(10);
-  public Scalar r = RealScalar.of(0.1);
-  public Scalar k = RealScalar.of(30);
+  public Clip wx = Clips.positive(Quantity.of(10, "m"));
+  public Clip wy = Clips.positive(Quantity.of(5, "m"));
+  public Scalar r = Quantity.of(0.5, "m");
+  public Scalar k = RealScalar.of(10);
 
   @Override
   public JComponent getContainer() {
     Show show = new Show();
-    Clip clipx = Clips.positive(wx);
-    Clip clipy = Clips.positive(wy);
-    List<Tensor> list2 = new PoissonDiskSampling(wx, wy, r, k.number().intValue()).generate();
-    Tensor pnts = Unprotect.using(list2);
-    show.add(ListPlot.of(pnts));
-    show.setCbb(CoordinateBoundingBox.of(clipx, clipy));
+    RandomGenerator randomGenerator = ThreadLocalRandom.current();
+    CoordinateBoundingBox cbb = CoordinateBoundingBox.of(wx, wy);
+    try {
+      Tensor points = new PoissonDiskSampling(cbb, r, k.number().intValue()).generate(randomGenerator);
+      show.add(ListPlot.of(points));
+    } catch (Exception exception) {
+      show.setShowLabel(exception.getMessage());
+    }
+    show.setCbb(cbb);
     show.setAspectRatioOne();
     return ShowGridComponent.of(List.of(show));
   }
