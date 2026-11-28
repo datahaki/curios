@@ -36,6 +36,7 @@ import ch.alpine.tensor.pdf.c.NormalDistribution;
 import ch.alpine.tensor.pdf.c.UniformDistribution;
 import ch.alpine.tensor.qty.Timing;
 import ch.alpine.tensor.sca.Chop;
+import ch.alpine.tensor.sca.Clips;
 
 enum ComputeContests {
   PREALLOCATE("dynamic", "prealloc") {
@@ -54,7 +55,7 @@ enum ComputeContests {
   T_M_DOT("T[a].b", "TMD[a,b]") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       Tensor b = RandomVariate.of(distribution, n, n);
       s_ser.start();
@@ -70,7 +71,7 @@ enum ComputeContests {
   M_DOT_T("a.T[b]", "MDT[a,b]") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       Tensor b = RandomVariate.of(distribution, n, n);
       s_ser.start();
@@ -86,7 +87,7 @@ enum ComputeContests {
   MAT_MAT("serial", "parallel") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       Tensor b = RandomVariate.of(distribution, n, n);
       s_ser.start();
@@ -95,14 +96,14 @@ enum ComputeContests {
       s_par.start();
       Tensor cp = Parallelize.dot(a, b);
       s_par.stop();
-      if (!Tolerance.CHOP.isClose(cs, cp))
+      if (!Chop._08.isClose(cs, cp))
         throw new Throw(cs);
     }
   },
   MAT_VEC("serial", "parallel") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       Tensor b = RandomVariate.of(distribution, n);
       s_ser.start();
@@ -111,14 +112,46 @@ enum ComputeContests {
       s_par.start();
       Tensor cp = Parallelize.dot(a, b);
       s_par.stop();
-      if (!Tolerance.CHOP.isClose(cs, cp))
+      if (!Chop._08.isClose(cs, cp))
         throw new Throw(cs);
+    }
+  },
+  VEC_MAT("serial", "parallel") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
+      Tensor a = RandomVariate.of(distribution, n);
+      Tensor b = RandomVariate.of(distribution, n, n);
+      s_ser.start();
+      Tensor cs = a.dot(b);
+      s_ser.stop();
+      s_par.start();
+      Tensor cp = Parallelize.dot(a, b);
+      s_par.stop();
+      if (!Chop._08.isClose(cs, cp))
+        throw new Throw(cs);
+    }
+  },
+  VEC_VEC("serial", "parallel") {
+    @Override
+    void runTrials(int n, Timing s_ser, Timing s_par) {
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
+      Tensor a = RandomVariate.of(distribution, n);
+      Tensor b = RandomVariate.of(distribution, n);
+      s_ser.start();
+      Tensor cs = a.dot(b);
+      s_ser.stop();
+      s_par.start();
+      Tensor cp = Parallelize.dot(a, b);
+      s_par.stop();
+      if (!Chop._08.isClose(cs, cp))
+        throw new Throw(cs, cp);
     }
   },
   SLV_INV("LinearSolve", "Inverse") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       Tensor b = RandomVariate.of(distribution, n, n);
       s_ser.start();
@@ -134,7 +167,7 @@ enum ComputeContests {
   QR_GS("qr", "gs") {
     @Override
     void runTrials(int n, Timing s_ser, Timing s_par) {
-      Distribution distribution = NormalDistribution.standard();
+      Distribution distribution = UniformDistribution.of(Clips.absoluteOne());
       Tensor a = RandomVariate.of(distribution, n, n);
       s_ser.start();
       QRDecomposition.of(a);
